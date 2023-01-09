@@ -4,12 +4,29 @@
     --lightgreen: #a6bb8d;
     --lightgreen2: #ecf0e6;
     --yellow: #eae7b1;
+    --white: #fff;
     /* main colors */
     --primary-color: var(--green);
+    --secondary-color: var(--lightgreen);
     /* ui colors */
-    --bg-color: var(--lightgreen2);
+    --bg-color: var(--white);
+    --bg-on-color: var(--lightgreen2);
     --button-color: var(--green);
     --button-dark-color: var(--darkgreen);
+    --button-hover-color: var(--lightgreen);
+    --button-dark-hover-color: var(--green);
+    --tag-color: var(--lightgreen2);
+    /* box shadow */
+    --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    /* border-radius */
+    --border-radius-sm: 3px;
+    --border-radius-md: 5px;
+    --border-radius-lg: 7px;
+    /* line-height */
+    --lh-initial: 13;
+    --line-height-sm: calc((var(--lh-initial) + 2) / var(--lh-initial));
+    --line-height-md: calc((var(--lh-initial) + 4) / var(--lh-initial));
+    --line-height-lg: calc((var(--lh-initial) + 8) / var(--lh-initial));
     /* font size */
     --font-head1-size: 45px;
     --font-head2-size: 25px;
@@ -25,6 +42,33 @@ html {
     height: 100%;
     font-size: 13px;
 }
+body {
+    height: 100%;
+    font-size: var(--font-body-size);
+}
+#root {
+    height: 100%;
+}
+/* logo */
 .logo {
     font-family: "Viga", sans-serif;
+}
+/* input */
+input {
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: var(--green);
+    cursor: pointer;
+}
+/* button */
+button {
+    border-radius: 3px;
+    border: none;
+    padding: 10px;
+    background-color: var(--button-color);
+    color: var(--white);
+}
+button:hover {
+    background-color: var(--button-hover-color);
+    cursor: pointer;
 }
