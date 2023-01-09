@@ -62,9 +62,9 @@ input {
 }
 /* button */
 button {
-    border-radius: 3px;
+    border-radius: 10px;
     border: none;
-    padding: 10px;
+    padding: 8px 10px;
     background-color: var(--button-color);
     color: var(--white);
 }
