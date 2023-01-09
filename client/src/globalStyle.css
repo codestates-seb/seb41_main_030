@@ -1,0 +1,30 @@
+:root {
+    --green: #3f724d;
+    --darkgreen: #2c483f;
+    --lightgreen: #a6bb8d;
+    --lightgreen2: #ecf0e6;
+    --yellow: #eae7b1;
+    /* main colors */
+    --primary-color: var(--green);
+    /* ui colors */
+    --bg-color: var(--lightgreen2);
+    --button-color: var(--green);
+    --button-dark-color: var(--darkgreen);
+    /* font size */
+    --font-head1-size: 45px;
+    --font-head2-size: 25px;
+    --font-title-size: 22.2px;
+    --font-body-size: 12px;
+    /* font weight */
+    --font-normal: 400;
+    --font-medium: 600;
+    --font-bold: 700;
+}
+/* layout */
+html {
+    height: 100%;
+    font-size: 13px;
+}
+.logo {
+    font-family: "Viga", sans-serif;
+}
