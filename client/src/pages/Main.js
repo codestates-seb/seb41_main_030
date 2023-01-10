@@ -10,11 +10,13 @@ const Container = styled.div`
 
 const Intro = styled.div`
     width: 100%;
-    height: 390px;
+    /* height: 390px; */
+    height: 410px;
     background-color: var(--primary-color);
 
     .text {
-        padding-top: 145px;
+        /* padding-top: 145px; */
+        padding-top: 190px;
         padding-left: 90px;
         color: var(--white);
 
