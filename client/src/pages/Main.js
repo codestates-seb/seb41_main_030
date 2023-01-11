@@ -162,8 +162,11 @@ const CarouselContainer = styled.div`
     /* margin: 0 90px; */
 `;
 
-const Main = () => {
+const Main = ({ setIsFooter }) => {
     const previewCount = Array(4).fill("0");
+    useEffect(() => {
+        setIsFooter(true);
+    });
 
     return (
         <>
