@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Pagination, Navigation } from "swiper";
+import { Navigation } from "swiper";
 import Preview from "./Preview";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -29,6 +29,12 @@ const Container = styled.div`
         width: 100%;
         height: 100%;
     }
+
+    /* .swiper-container {
+        width: 100%;
+        height: 400px;
+        padding: 0 50px;
+    } */
 
     .swiper-slide {
         /* text-align: center; */
@@ -67,6 +73,7 @@ const Container = styled.div`
         background-repeat: no-repeat;
         background-size: 100% auto;
         background-position: center;
+        /* left: -30px; */
     }
 
     .swiper-button-next {
@@ -76,7 +83,27 @@ const Container = styled.div`
         background-repeat: no-repeat;
         background-size: 100% auto;
         background-position: center;
+        /* right: -30px; */
     }
+
+    /* .swiper-prev,
+    .swiper-next {
+        /* width: 60px;
+        height: 60px; */
+
+    /* position: absolute; */
+
+    /* transform: translateY(-50%); */
+    /*    z-index: 9;
+    } */
+
+    /* .swiper-prev {
+        left: -30px;
+    }
+
+    .swiper-next {
+        right: -30px;
+    } */
 
     .swiper-button-next::after,
     .swiper-button-prev::after {
@@ -85,7 +112,12 @@ const Container = styled.div`
     }
 
     .swiper-container {
-        width: 100px;
+        position: relative;
+        width: 70%;
+        margin: 0 auto;
+        padding-left: 50px;
+        padding-right: 50px;
+        /* width: 100px; */
     }
 
     /* .swiper-pagination {
@@ -120,18 +152,21 @@ export default function Carousel() {
                         320: {
                             width: 320,
                             slidesPerView: 1,
+                            spaceBetween: 30,
                         },
                         // when window width is >= 768px
-                        750: {
-                            width: 750,
+                        600: {
+                            width: 600,
                             slidesPerView: 2,
+                            spaceBetween: 30,
                         },
-                        1300: {
-                            width: 1300,
+                        1200: {
+                            width: 1200,
                             slidesPerView: 4,
+                            spaceBetween: 10,
                         },
                     }}
-                    spaceBetween={-30}
+                    // spaceBetween={-30}
                     slidesPerGroup={4}
                     loop={true}
                     loopFillGroupWithBlank={true}
