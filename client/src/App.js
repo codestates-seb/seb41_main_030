@@ -4,10 +4,10 @@ import { useState } from "react";
 // components
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import Main from "./pages/Main";
 
 // pages
 import Boards from "./pages/Boards";
+import Main from "./pages/Main";
 
 function App() {
     // footer 유무 조작
