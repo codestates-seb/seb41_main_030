@@ -50,15 +50,15 @@ const Post = styled.div`
     }
 `;
 
-const Preview = () => {
+const Preview = ({ tag, title, content, writer }) => {
     return (
         <Post>
-            <div className="tag">태그</div>
-            <div className="title">게시글 제목</div>
-            <div className="content">비오는 날이면 .... 기분이 울적해지고 아무것도 하고 싶지 않아서 너무 고민이예요. 이런날은 어떻게 해야할까요? </div>
+            <div className="tag">{tag}</div>
+            <div className="title">{title}</div>
+            <div className="content">{content.slice(0, 63)}... </div>
             <div className="writerContainer">
                 <span className="img"></span>
-                <span className="writer">김코딩 님</span>
+                <span className="writer">{writer} 님</span>
             </div>
             <button>보러가기</button>
         </Post>

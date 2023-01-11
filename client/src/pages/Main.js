@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import Preview from "../components/Preview";
 import "../globalStyle.css";
+import Carousel from "../components/Carousel";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Container = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Viga&display=swap");
@@ -155,6 +158,10 @@ const Shortcut = styled.div`
     }
 `;
 
+const CarouselContainer = styled.div`
+    /* margin: 0 90px; */
+`;
+
 const Main = () => {
     const previewCount = Array(4).fill("0");
 
@@ -169,11 +176,9 @@ const Main = () => {
                 </Intro>
                 <PreviewContainer>
                     <p className="text">오늘의 TOP 게시글</p>
-                    <div className="posts">
-                        {previewCount.map((data, index) => {
-                            return <Preview key={index} />;
-                        })}
-                    </div>
+                    <CarouselContainer>
+                        <Carousel />
+                    </CarouselContainer>
                 </PreviewContainer>
                 <Shortcut>
                     <p className="text">당신을 위한 멘탈 케어</p>
