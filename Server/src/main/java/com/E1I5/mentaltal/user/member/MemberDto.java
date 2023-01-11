@@ -43,7 +43,7 @@ public class MemberDto {
         private long member_id;
         private String nick_name;
         private String email;
-        private String password;
-        private Boolean image;
+        // 작성한 게시물 목록
+        // 작성한 댓글 목록
     }
 }
