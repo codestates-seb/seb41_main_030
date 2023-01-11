@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import java.math.BigInteger;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_id; // BigInteger?
+    private long member_id; // BigInteger?
 
     @Column(nullable = false, updatable = false, unique = true)
     private String nick_name;
