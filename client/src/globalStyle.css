@@ -71,4 +71,5 @@ button {
 button:hover {
     background-color: var(--button-hover-color);
     cursor: pointer;
+    transition: 0.5s;
 }
