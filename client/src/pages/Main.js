@@ -9,6 +9,7 @@ const Container = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Viga&display=swap");
     display: flex;
     flex-direction: column;
+    margin-bottom: 60px;
 `;
 
 const Intro = styled.div`
