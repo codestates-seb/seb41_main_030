@@ -32,7 +32,7 @@ const NavModal = ({ test }) => {
     return (
         <NavModalWrapper>
             <li>
-                <Link to="/boards">커뮤니티</Link>
+                <Link to="/community">커뮤니티</Link>
             </li>
             <li>
                 <Link to="/counselors">전문가</Link>
