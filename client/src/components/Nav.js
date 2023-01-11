@@ -6,14 +6,11 @@ import NavModal from "./NavModal";
 const NavWrapper = styled.nav`
     height: 65px;
     padding: 10px 30px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     background-color: white;
     box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
-
     position: fixed;
     top: 0;
     left: 0;
@@ -31,15 +28,12 @@ const NavContainer = styled.ul`
     display: flex;
     align-items: center;
     gap: 20px;
-
     font-size: 17px;
     font-weight: 600;
     color: var(--darkgreen);
-
     button {
         font-size: 16px;
     }
-
     @media screen and (max-width: 600px) {
         display: none;
     }
@@ -49,13 +43,11 @@ const NavContainer = styled.ul`
 const NavMedia = styled.div`
     display: none;
     position: relative;
-
     i {
         cursor: pointer;
         font-size: 25px;
         color: var(--green);
     }
-
     @media screen and (max-width: 600px) {
         display: block;
     }
@@ -85,7 +77,7 @@ const Nav = () => {
 
             <NavContainer>
                 <li>
-                    <Link to="/boards">커뮤니티</Link>
+                    <Link to="/community">커뮤니티</Link>
                 </li>
                 <li>
                     <Link to="/counselors">전문가</Link>

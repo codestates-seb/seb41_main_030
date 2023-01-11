@@ -4,11 +4,17 @@ import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Main from "./pages/Main";
 
+// pages
+import Boards from "./pages/Boards";
+
 function App() {
     return (
         <div>
             <Nav />
-            <Main />
+            <Routes>
+                <Route path="/community" element={<Boards />} />
+                <Route path="/" element={<Main />} />
+            </Routes>
         </div>
     );
 }

@@ -4,7 +4,6 @@ import styled from "styled-components";
 const FooterWrapper = styled.footer`
     width: 100%;
     height: 300px;
-    margin-top: 70px;
     padding: 35px 30px;
 
     display: grid;
@@ -91,7 +90,7 @@ const FooterMiddle = styled.ul`
 `;
 
 const FooterRight = styled.ul`
-    margin: 190px auto;
+    margin: 190px auto 0;
     font-size: 40px;
 
     @media screen and (max-width: 800px) {
