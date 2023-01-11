@@ -4,6 +4,7 @@ import "../globalStyle.css";
 import Carousel from "../components/Carousel";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import IntroImg from "../icons/main-leaf.svg";
 
 const Container = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Viga&display=swap");
@@ -17,6 +18,13 @@ const Intro = styled.div`
     /* height: 390px; */
     height: 410px;
     background-color: var(--primary-color);
+    display: flex;
+
+    background-image: url(${IntroImg});
+    background-repeat: no-repeat;
+    /* background-position: right; */
+    background-position: 85% -10%;
+    background-size: 500px 500px;
 
     .text {
         /* padding-top: 145px; */
