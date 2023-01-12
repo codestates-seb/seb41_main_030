@@ -4,7 +4,7 @@ import "../globalStyle.css";
 const Post = styled.div`
     background-color: var(--lightgreen2);
     width: 276px;
-    height: 268px;
+    height: 290px;
     border-radius: 10px;
     padding: 25px;
     display: flex;
@@ -21,7 +21,7 @@ const Post = styled.div`
     }
 
     .title {
-        padding-top: 10px;
+        padding-top: 15px;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
     }
@@ -44,6 +44,12 @@ const Post = styled.div`
         } */
         .writer {
             font-size: var(--font-body-size);
+            color: var(--darkgreen);
+            font-weight: var(--font-bold);
+        }
+        .writerTxt {
+            font-size: var(--font-body-size);
+            color: var(--darkgreen);
         }
     }
 `;
@@ -56,7 +62,8 @@ const Preview = ({ tag, title, content, writer }) => {
             <div className="content">{content.slice(0, 63)}... </div>
             <div className="writerContainer">
                 <span className="img"></span>
-                <span className="writer">{writer} 님</span>
+                <span className="writer">{writer} </span>
+                <span className="writerTxt">님</span>
             </div>
             <button>보러가기</button>
         </Post>
