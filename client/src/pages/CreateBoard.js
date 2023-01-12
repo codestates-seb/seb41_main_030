@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect } from "react";
-import CreateBoardHeader from "../components/boards/CreateBoardHeader";
+import CreateBoardHeader from "../components/boards/CreateBoardHeade";
 import CreateBoardMain from "../components/boards/CreateBoardMain";
 
 const CreateBoardsWrapper = styled.div`
@@ -15,10 +15,12 @@ const CreateBoard = ({ setIsFooter }) => {
     });
 
     return (
-        <CreateBoardsWrapper>
-            <CreateBoardHeader></CreateBoardHeader>
-            <CreateBoardMain></CreateBoardMain>
-        </CreateBoardsWrapper>
+        <>
+            <CreateBoardsWrapper>
+                <CreateBoardHeader></CreateBoardHeader>
+                <CreateBoardMain></CreateBoardMain>
+            </CreateBoardsWrapper>
+        </>
     );
 };
 
