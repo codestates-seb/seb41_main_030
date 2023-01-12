@@ -15,7 +15,7 @@ const NavWrapper = styled.nav`
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 10;
 `;
 
 const NavTitle = styled.div`
@@ -70,7 +70,9 @@ const Nav = () => {
     return (
         <NavWrapper>
             <NavTitle>
-                <Link to="/">MENTALTAL</Link>
+                <Link to="/">
+                    <span className="logo">MENTALTAL</span>
+                </Link>
                 {/* 삭제할 예정 */}
                 <button onClick={handleTest}>0</button>
             </NavTitle>
