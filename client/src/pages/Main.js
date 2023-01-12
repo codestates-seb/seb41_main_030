@@ -16,19 +16,19 @@ const Container = styled.div`
 const Intro = styled.div`
     width: 100%;
     /* height: 390px; */
-    height: 410px;
+    height: 440px;
     background-color: var(--primary-color);
     display: flex;
 
     background-image: url(${IntroImg});
     background-repeat: no-repeat;
     /* background-position: right; */
-    background-position: 85% -10%;
-    background-size: 500px 500px;
+    background-position: 85% -620%;
+    background-size: 450px 450px;
 
     .text {
         /* padding-top: 145px; */
-        padding-top: 190px;
+        padding-top: 200px;
         padding-left: 90px;
         color: var(--white);
 
