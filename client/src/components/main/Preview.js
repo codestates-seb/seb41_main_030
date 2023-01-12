@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import "../globalStyle.css";
+import "../../globalStyle.css";
 
 const Post = styled.div`
     background-color: var(--lightgreen2);

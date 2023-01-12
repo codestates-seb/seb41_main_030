@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import "../globalStyle.css";
-import leftArrow from "../icons/main-page-arrow-left.svg";
-import rightArrow from "../icons/main-page-arrow-right.svg";
+import "../../globalStyle.css";
+import leftArrow from "../../icons/main-page-arrow-left.svg";
+import rightArrow from "../../icons/main-page-arrow-right.svg";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 

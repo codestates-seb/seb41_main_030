@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import "../globalStyle.css";
-import Carousel from "../components/Carousel";
+import Carousel from "../components/main/Carousel";
 import { useEffect } from "react";
 import IntroImg from "../icons/main-leaf.svg";
 
