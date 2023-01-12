@@ -8,6 +8,9 @@ import Footer from "./components/Footer";
 // pages
 import Boards from "./pages/Boards";
 import Main from "./pages/Main";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPw from "./pages/ForgotPw";
 
 function App() {
     // footer 유무 조작
@@ -18,6 +21,9 @@ function App() {
             <Routes>
                 <Route path="/community" element={<Boards />} />
                 <Route path="/" element={<Main setIsFooter={setIsFooter} />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/forgotPw" element={<ForgotPw />} />
             </Routes>
             {isFooter ? <Footer /> : null}
         </div>
