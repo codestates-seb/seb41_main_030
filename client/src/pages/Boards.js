@@ -12,7 +12,6 @@ const Boards = () => {
         <BoardsWrapper>
             <BoardsHeader />
             <BoardsMain />
-            <Footer />
         </BoardsWrapper>
     );
 };
