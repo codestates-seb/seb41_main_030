@@ -107,7 +107,7 @@ const ForgotPw = () => {
     return (
         <>
             <ForgotPwContainer>
-                <ForgotPwFormBox onSubmit={handleSubmit(onSubmit)}>
+                <ForgotPwFormBox onSubmit={handleSubmit()}>
                     <InputBox>
                         <InputText> 이메일</InputText>
                         <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
