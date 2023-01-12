@@ -37,12 +37,9 @@ const Container = styled.div`
     } */
 
     .swiper-slide {
-        /* text-align: center; */
         font-size: 18px;
-        /* background: var(--yellow); */
         /* height: 150px; */
         /* height: 320px; */
-        /* bottom: 10px; */
 
         /* Center slide text vertically */
         display: -webkit-box;
@@ -86,25 +83,6 @@ const Container = styled.div`
         /* right: -30px; */
     }
 
-    /* .swiper-prev,
-    .swiper-next {
-        /* width: 60px;
-        height: 60px; */
-
-    /* position: absolute; */
-
-    /* transform: translateY(-50%); */
-    /*    z-index: 9;
-    } */
-
-    /* .swiper-prev {
-        left: -30px;
-    }
-
-    .swiper-next {
-        right: -30px;
-    } */
-
     .swiper-button-next::after,
     .swiper-button-prev::after {
         display: none;
@@ -117,7 +95,6 @@ const Container = styled.div`
         margin: 0 auto;
         padding-left: 50px;
         padding-right: 50px;
-        /* width: 100px; */
     }
 
     /* .swiper-pagination {
@@ -138,7 +115,6 @@ export default function Carousel() {
     useEffect(() => {
         axios.get(`${url}/boards`).then((res) => {
             setData(res.data.slice(0, 12));
-            // console.log(data);
         });
     }, []);
 

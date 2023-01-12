@@ -21,7 +21,6 @@ const Post = styled.div`
     }
 
     .title {
-        /* font-size: 16px; */
         padding-top: 10px;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
@@ -29,7 +28,6 @@ const Post = styled.div`
 
     .content {
         padding-top: 15px;
-        /* font-size: var(--font-body-size); */
         font-size: 13px;
         height: 120px;
         line-height: 20px;
