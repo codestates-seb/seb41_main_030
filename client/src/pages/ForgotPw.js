@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+//import axios from "axios";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -93,16 +93,16 @@ const ForgotPw = () => {
             message: "이메일 형식에 맞게 입력해주세요."
         }
     });
-    const onSubmit = async (data) => {
-        try {
-            await axios.post(`http://localhost:3000/login`, data).then((data) => {
-                navigate("/");
-                console.log(data);
-            });
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    // const onSubmit = async (data) => {
+    //     try {
+    //         await axios.post(`http://localhost:3000/login`, data).then((data) => {
+    //             navigate("/");
+    //             console.log(data);
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     return (
         <>
