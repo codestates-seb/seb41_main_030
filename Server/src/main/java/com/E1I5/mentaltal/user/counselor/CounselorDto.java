@@ -1,17 +1,21 @@
 package com.E1I5.mentaltal.user.counselor;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-@NoArgsConstructor
+@Setter
+//@NoArgsConstructor
+@AllArgsConstructor
 public class CounselorDto {
     public static class Post {
         @NotBlank(message = "이름을 입력하세요.")
-        private String user_name;
+        private String userName;
 
         @NotBlank(message = "이메일을 입력하세요.")
         @Email
@@ -31,10 +35,10 @@ public class CounselorDto {
     }
 
     public static class Patch {
-        private long counselor_id;
+        private long counselorId;
 
         @NotBlank(message = "이름을 입력하세요.")
-        private String user_name;
+        private String userName;
 
         @NotBlank(message = "이메일을 입력하세요.")
         @Email
@@ -52,14 +56,14 @@ public class CounselorDto {
         @NotBlank(message = "상담센터를 입력하세요.")
         private String center;
 
-        public void setCounselor_id(long counselor_id) {
-            this.counselor_id = counselor_id;
+        public void setCounselorId(long counselorId) {
+            this.counselorId = counselorId;
         }
     }
 
     public static class Response {
-        private long counselor_id;
-        private String user_name;
+        private long counselorId;
+        private String userName;
         private String email;
         // 답변 개수
     }

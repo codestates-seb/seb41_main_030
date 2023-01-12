@@ -2,11 +2,9 @@ package com.E1I5.mentaltal.user.member;
 
 import com.E1I5.mentaltal.exception.BusinessLogicException;
 import com.E1I5.mentaltal.exception.ExceptionCode;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,30 +12,24 @@ import java.util.Optional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private final MemberMapper mapper;
-    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository, MemberMapper mapper, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.mapper = mapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail()); // DB에 존재하는 이메일인지 확인
-
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
+        Member savedMember = memberRepository.save(member);
 
         return memberRepository.save(member);
     }
 
     // Todo : 확인 필요
     public Member updateMember(Member member) {
-        Member findMember = verifiedMember(member.getMember_id());
+        Member findMember = verifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getNick_name())
-                .ifPresent(findMember::setNick_name);
+        Optional.ofNullable(member.getNickName())
+                .ifPresent(findMember::setNickName);
         Optional.ofNullable(member.getImage())
                 .ifPresent(findMember::setImage);
         Optional.ofNullable(member.getEmail())
@@ -48,30 +40,32 @@ public class MemberService {
         return memberRepository.save(findMember);
     }
 
-    public Member findMember(long member_id) {
-        return verifiedMember(member_id);
+    public Member findMember(long memberId) {
+        return verifiedMember(memberId);
     }
 
-    public List<MemberDto.Response> findMembers() {
-        List<Member> members = memberRepository.findAll();
-        List<MemberDto.Response> memberResponseList = new ArrayList<>();
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
+//        List<Member> members = memberRepository.findAll();
+//        List<MemberDto.Response> memberResponseList = new ArrayList<>();
+//        return memberResponseList;
 
-        for (Member member : members) {
-            MemberDto.Response memberResponseDto = mapper.memberResponseDto(member);
-            memberResponseList.add(memberResponseDto);
-        }
+//        for (Member member : members) {
+////            MemberDto.Response memberResponseDto = mapper.memberResponseDto(member);
+//            memberResponseList.add(memberResponseDto);
+//        }
 
-        return memberResponseList;
+
     }
 
     // Todo : 확인 필요
-    public void deleteMember(long member_id) {
-        Member findMember = verifiedMember(member_id);
+    public void deleteMember(long memberId) {
+        Member findMember = verifiedMember(memberId);
         memberRepository.delete(findMember);
     }
 
-    private Member verifiedMember(long member_id) {
-        Optional<Member> optionalMember = memberRepository.findById(member_id);
+    private Member verifiedMember(long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         return optionalMember.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));

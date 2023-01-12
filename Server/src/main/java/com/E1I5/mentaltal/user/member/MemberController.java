@@ -10,9 +10,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
-@Validated
 @RestController
 @RequestMapping("/members")
+@Validated
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
@@ -25,17 +25,21 @@ public class MemberController {
     // 회원 정보 등록
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
-        Member member = memberService.createMember(mapper.memberPostDto(requestBody));
+        Member member = mapper.memberPostDto(requestBody);
+        MemberDto.Response response = mapper.memberResponseDto(memberService.createMember(member));
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.memberResponseDto(member)), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+//        Member createdMember = memberService.createMember(member);
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(mapper.memberResponseDto(createdMember)), HttpStatus.CREATED);
     }
 
     // 회원 정보 수정
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(
-            @PathVariable("member-id") @Positive long member_id, @Valid @RequestBody MemberDto.Patch requestBody) {
-        requestBody.setMember_id(member_id);
+            @PathVariable("member-id") @Positive long memberId, @Valid @RequestBody MemberDto.Patch requestBody) {
+        requestBody.setMemberId(memberId);
 
         Member member = memberService.updateMember(mapper.memberPatchDto(requestBody));
 
@@ -45,8 +49,8 @@ public class MemberController {
 
     // 특정 회원 목록 조회
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") @Positive long member_id) {
-        Member member = memberService.findMember(member_id);
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
+        Member member = memberService.findMember(memberId);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.memberResponseDto(member)), HttpStatus.OK);
@@ -55,9 +59,11 @@ public class MemberController {
     // 전체 회원 목록 조회
     @GetMapping
     public ResponseEntity getMembers() {
-        List<MemberDto.Response> members = memberService.findMembers();
-
-        return new ResponseEntity(members, HttpStatus.OK);
+        List<Member> members = memberService.findMembers();
+        return new ResponseEntity<>(mapper.membersResponseDtos(members), HttpStatus.OK);
+//        List<MemberDto.Response> members = memberService.findMembers();
+//
+//        return new ResponseEntity(members, HttpStatus.OK);
     }
 
     // 회원 정보 삭제
