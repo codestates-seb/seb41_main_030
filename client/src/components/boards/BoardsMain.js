@@ -21,7 +21,7 @@ const BoardsList = styled.ul`
 const BoardsCard = styled.li`
     background-color: white;
     border-radius: 10px;
-    max-width: 900px;
+    width: 100%;
     height: 200px;
     padding: 30px;
 
@@ -127,7 +127,7 @@ const BoardsMain = () => {
             <BoardsList>
                 {list &&
                     list.map((post) => (
-                        <BoardsCard key={post.BoardId}>
+                        <BoardsCard key={post.id}>
                             <BoardsTitle>{post.title}</BoardsTitle>
                             <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
                             <BoardsContent>{post.content}</BoardsContent>
