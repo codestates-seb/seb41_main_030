@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import "../globalStyle.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -145,7 +145,7 @@ const Signup = () => {
 
     const navigate = useNavigate();
 
-    const NAME_REGEX = /(?=.*[a-z0-가-힣])[a-z0-9가-힣]{2,}/;
+    const NAME_REGEX = /(?=.*[a-z0-9가-힣]).{2,}/;
     const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
     const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{4,}/;
 
@@ -153,7 +153,7 @@ const Signup = () => {
         required: { value: true, message: "닉네임을 입력해주세요." },
         pattern: {
             value: NAME_REGEX,
-            message: "닉네임이 옳바르지 않습니다."
+            message: "두글자이상 입력해주세요."
         }
     });
 
@@ -172,22 +172,22 @@ const Signup = () => {
             message: "비밀번호를 입력해주세요."
         }
     });
-    const onSubmit = async (data) => {
-        try {
-            await axios.post(`http://localhost:3000/signup`, data).then((data) => {
-                navigate("/");
-                console.log(data);
-            });
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    // const onSubmit = async (data) => {
+    //     try {
+    //         await axios.post(`http://localhost:3000/signup`, data).then((data) => {
+    //             navigate("/");
+    //             console.log(data);
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     return (
         <>
             <SignupContainer>
                 <MainText>일반 회원가입</MainText>
-                <SignupFormBox onSubmit={handleSubmit(onSubmit)}>
+                <SignupFormBox onSubmit={handleSubmit()}>
                     <InputBox>
                         <InputText> 이메일</InputText>
                         <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />

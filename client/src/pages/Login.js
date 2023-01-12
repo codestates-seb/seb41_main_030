@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import "../globalStyle.css";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -167,21 +167,21 @@ const Login = () => {
         }
     });
 
-    const onSubmit = async (data) => {
-        try {
-            await axios.post(`http://localhost:3000/login`, data).then((data) => {
-                navigate("/");
-                console.log(data);
-            });
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    // const onSubmit = async (data) => {
+    //     try {
+    //         await axios.post(`http://localhost:3000/login`, data).then((data) => {
+    //             navigate("/");
+    //             console.log(data);
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
 
     return (
         <>
             <LoginContainer>
-                <LoginFormBox onSubmit={handleSubmit(onSubmit)}>
+                <LoginFormBox onSubmit={handleSubmit()}>
                     <InputBox>
                         <InputText> 이메일</InputText>
                         <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
