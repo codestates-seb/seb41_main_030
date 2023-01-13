@@ -3,6 +3,8 @@ package com.E1I5.mentaltal.user.member;
 import com.E1I5.mentaltal.exception.BusinessLogicException;
 import com.E1I5.mentaltal.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
+    // 회원 정보 등록
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail()); // DB에 존재하는 이메일인지 확인
         Member savedMember = memberRepository.save(member);
@@ -24,47 +27,45 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    // Todo : 확인 필요
+    // 회원 정보 수정
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public Member updateMember(Member member) {
-        Member findMember = verifiedMember(member.getMemberId());
+        Member findMember = findVerifiedMember(member.getMemberId());
 
+        // 추후에 Custom BeanUtils 사용
         Optional.ofNullable(member.getNickName())
                 .ifPresent(findMember::setNickName);
-        Optional.ofNullable(member.getImage())
-                .ifPresent(findMember::setImage);
         Optional.ofNullable(member.getEmail())
                 .ifPresent(findMember::setEmail);
         Optional.ofNullable(member.getPassword())
                 .ifPresent(findMember::setPassword);
+        Optional.ofNullable(member.getImage())
+                .ifPresent(findMember::setImage);
 
         return memberRepository.save(findMember);
     }
 
+    // 특정 회원 목록 조회
+    @Transactional(readOnly = true)
     public Member findMember(long memberId) {
-        return verifiedMember(memberId);
+        return findVerifiedMember(memberId);
     }
 
-    public List<Member> findMembers() {
+    // 전체 회원 목록 조회
+    @Transactional(readOnly = true)
+    public List<Member> findMembers() { // page, size
         return memberRepository.findAll();
-//        List<Member> members = memberRepository.findAll();
-//        List<MemberDto.Response> memberResponseList = new ArrayList<>();
-//        return memberResponseList;
-
-//        for (Member member : members) {
-////            MemberDto.Response memberResponseDto = mapper.memberResponseDto(member);
-//            memberResponseList.add(memberResponseDto);
-//        }
-
-
     }
 
-    // Todo : 확인 필요
+    // 회원 정보 삭제
     public void deleteMember(long memberId) {
-        Member findMember = verifiedMember(memberId);
+        Member findMember = findVerifiedMember(memberId);
+
         memberRepository.delete(findMember);
     }
 
-    private Member verifiedMember(long memberId) {
+    @Transactional(readOnly = true)
+    public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
         return optionalMember.orElseThrow(() ->

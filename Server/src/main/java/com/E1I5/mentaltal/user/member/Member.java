@@ -17,21 +17,14 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long memberId;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String nickName;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
     private Boolean image;
-
-//    public Member(String nickName, String email, String password, Boolean image) { // , Boolean image
-//        this.nickName = nickName;
-//        this.email = email;
-//        this.password = password;
-//        this.image = image;
-//    }
 }

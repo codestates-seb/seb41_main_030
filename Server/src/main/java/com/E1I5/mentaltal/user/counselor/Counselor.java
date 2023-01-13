@@ -17,10 +17,10 @@ public class Counselor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long counselorId;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private String userName;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -36,14 +36,4 @@ public class Counselor {
     private String center;
 
     private Boolean image;
-
-//    public Counselor(String userName, String email, String password, String education, String career, String center, Boolean image) {
-//        this.userName = userName;
-//        this.email = email;
-//        this.password = password;
-//        this.education = education;
-//        this.career = career;
-//        this.center = center;
-//        this.image = image;
-//    }
 }

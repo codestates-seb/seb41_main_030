@@ -3,31 +3,35 @@ package com.E1I5.mentaltal.user.counselor;
 import com.E1I5.mentaltal.exception.BusinessLogicException;
 import com.E1I5.mentaltal.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
+@Transactional
 public class CounselorService {
     private final CounselorRepository counselorRepository;
 
-    public CounselorService(CounselorRepository counselorRepository) { // CounselorMapper mapper, PasswordEncoder passwordEncoder
+    public CounselorService(CounselorRepository counselorRepository) {
         this.counselorRepository = counselorRepository;
     }
 
+    // 상담사 정보 등록
     public Counselor createCounselor(Counselor counselor) {
         verifyExistsEmail(counselor.getEmail()); // DB에 존재하는 이메일인지 확인
 
         return counselorRepository.save(counselor);
     }
 
-    // Todo : 확인 필요
+    // 상담사 정보 수정
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public Counselor updateCounselor(Counselor counselor) {
-        Counselor findCounselor = verifiedCounselor(counselor.getCounselorId());
+        Counselor findCounselor = findVerifiedCounselor(counselor.getCounselorId());
 
+        // 추후에 Custom BeanUtils 사용
         Optional.ofNullable(counselor.getUserName())
                 .ifPresent(findCounselor::setUserName);
         Optional.ofNullable(counselor.getEmail())
@@ -44,31 +48,27 @@ public class CounselorService {
         return counselorRepository.save(findCounselor);
     }
 
+    // 특정 상담사 목록 조회
+    @Transactional(readOnly = true)
     public Counselor findCounselor(long counselorId) {
-        return verifiedCounselor(counselorId);
+        return findVerifiedCounselor(counselorId);
     }
 
-    public List<Counselor> findCounselors() { // CounselorDto.Response
+    // 전체 상담사 목록 조회
+    @Transactional(readOnly = true)
+    public List<Counselor> findCounselors() { // page, size
         return counselorRepository.findAll();
-//        List<Counselor> counselors = counselorRepository.findAll();
-//        List<CounselorDto.Response> counselorResponseList = new ArrayList<>();
-//        return counselorResponseList;
-
-//        for (Counselor counselor : counselors) {
-//            CounselorDto.Response counselorResponseDto = mapper.counselorResponseDto(counselor);
-//            counselorResponseList.add(counselorResponseDto);
-//        }
-
-
     }
 
-    // Todo : 확인 필요
+    // 상담사 정보 삭제
     public void deleteCounselor(long counselorId) {
-        Counselor findCounselor = verifiedCounselor(counselorId);
-        counselorRepository.delete(findCounselor);
+        Counselor counselor = findVerifiedCounselor(counselorId);
+
+        counselorRepository.delete(counselor);
     }
 
-    private Counselor verifiedCounselor(long counselorId) {
+    @Transactional(readOnly = true)
+    public Counselor findVerifiedCounselor(long counselorId) {
         Optional<Counselor> optionalCounselor = counselorRepository.findById(counselorId);
 
         return optionalCounselor.orElseThrow(() ->

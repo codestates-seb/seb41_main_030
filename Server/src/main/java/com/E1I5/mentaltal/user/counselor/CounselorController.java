@@ -25,16 +25,17 @@ public class CounselorController {
     // 상담사 정보 등록
     @PostMapping
     public ResponseEntity postCounselor(@Valid @RequestBody CounselorDto.Post requestBody) {
-        Counselor counselor = counselorService.createCounselor(mapper.counselorPostDto(requestBody));
+        Counselor counselor = mapper.counselorPostDto(requestBody);
+        CounselorDto.Response response = mapper.counselorResponseDto(counselorService.createCounselor(counselor));
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.counselorResponseDto(counselor)), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
 
     // 상담사 정보 수정
     @PatchMapping("/{counselor-id}")
     public ResponseEntity patchCounselor(
-            @PathVariable("counselor-id") long counselorId, @Valid @RequestBody CounselorDto.Patch requestBody) {
+            @PathVariable("counselor-id") @Positive long counselorId, @Valid @RequestBody CounselorDto.Patch requestBody) {
         requestBody.setCounselorId(counselorId);
 
         Counselor counselor = counselorService.updateCounselor(mapper.counselorPatchDto(requestBody));
@@ -45,7 +46,7 @@ public class CounselorController {
 
     // 특정 상담사 목록 조회
     @GetMapping("/{counselor-id}")
-    public ResponseEntity getMember(@PathVariable("counselor-id") @Positive long counselorId) {
+    public ResponseEntity getCounselor(@PathVariable("counselor-id") @Positive long counselorId) {
         Counselor counselor = counselorService.findCounselor(counselorId);
 
         return new ResponseEntity<>(
@@ -54,18 +55,15 @@ public class CounselorController {
 
     // 전체 상담사 목록 조회
     @GetMapping
-    public ResponseEntity getMembers() {
+    public ResponseEntity getCounselors() { // page, size
         List<Counselor> counselors = counselorService.findCounselors();
 
         return new ResponseEntity<>(mapper.counselorsResponseDtos(counselors), HttpStatus.OK);
-//        List<CounselorDto.Response> counselors = counselorService.findCounselors();
-//
-//        return new ResponseEntity<>(counselors, HttpStatus.OK);
     }
 
     // 상담사 정보 삭제
     @DeleteMapping("/{counselor-id}")
-    public ResponseEntity deleteMember(@PathVariable("counselor-id") @Positive long counselorId) {
+    public ResponseEntity deleteCounselor(@PathVariable("counselor-id") @Positive long counselorId) {
         counselorService.deleteCounselor(counselorId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

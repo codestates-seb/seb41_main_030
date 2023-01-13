@@ -29,10 +29,6 @@ public class MemberController {
         MemberDto.Response response = mapper.memberResponseDto(memberService.createMember(member));
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
-//        Member createdMember = memberService.createMember(member);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(mapper.memberResponseDto(createdMember)), HttpStatus.CREATED);
     }
 
     // 회원 정보 수정
@@ -58,12 +54,10 @@ public class MemberController {
 
     // 전체 회원 목록 조회
     @GetMapping
-    public ResponseEntity getMembers() {
+    public ResponseEntity getMembers() { // page, size
         List<Member> members = memberService.findMembers();
+
         return new ResponseEntity<>(mapper.membersResponseDtos(members), HttpStatus.OK);
-//        List<MemberDto.Response> members = memberService.findMembers();
-//
-//        return new ResponseEntity(members, HttpStatus.OK);
     }
 
     // 회원 정보 삭제

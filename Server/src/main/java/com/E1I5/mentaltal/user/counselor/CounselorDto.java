@@ -2,17 +2,15 @@ package com.E1I5.mentaltal.user.counselor;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Getter
 @Setter
-//@NoArgsConstructor
-@AllArgsConstructor
 public class CounselorDto {
+    @Getter
+    @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "이름을 입력하세요.")
         private String userName;
@@ -32,8 +30,12 @@ public class CounselorDto {
 
         @NotBlank(message = "상담센터를 입력하세요.")
         private String center;
+
+        private Boolean image;
     }
 
+    @Getter
+    @AllArgsConstructor
     public static class Patch {
         private long counselorId;
 
@@ -56,11 +58,15 @@ public class CounselorDto {
         @NotBlank(message = "상담센터를 입력하세요.")
         private String center;
 
+        private Boolean image;
+
         public void setCounselorId(long counselorId) {
             this.counselorId = counselorId;
         }
     }
 
+    @Getter
+    @AllArgsConstructor
     public static class Response {
         private long counselorId;
         private String userName;
