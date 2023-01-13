@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-01-12T13:14:01+0900",
+    date = "2023-01-13T09:52:03+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -23,6 +23,7 @@ public class BoardMapperImpl implements BoardMapper {
         }
 
         long boardId = 0L;
+        long memberId = 0L;
         String title = null;
         String content = null;
         int score = 0;
@@ -32,13 +33,14 @@ public class BoardMapperImpl implements BoardMapper {
         if ( board.getBoardId() != null ) {
             boardId = board.getBoardId();
         }
+        memberId = board.getMemberId();
         title = board.getTitle();
         content = board.getContent();
         score = board.getScore();
         createdAt = board.getCreatedAt();
         modifiedAt = board.getModifiedAt();
 
-        BoardResponseDto boardResponseDto = new BoardResponseDto( boardId, title, content, score, createdAt, modifiedAt );
+        BoardResponseDto boardResponseDto = new BoardResponseDto( boardId, memberId, title, content, score, createdAt, modifiedAt );
 
         return boardResponseDto;
     }

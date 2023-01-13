@@ -51,9 +51,9 @@ public class BoardService {
     }
 
     // 게시물 상세조회
-    public Board findBoard(long boardId) {
+    public Board findBoard(long boardId, long memberId) {
         Board findBoard = findVerifiedBoard(boardId); // db에서 boardid조회
-//        findBoard.setMemberId(memberId);
+        findBoard.setMemberId(memberId);
 
         return findBoard;
     }

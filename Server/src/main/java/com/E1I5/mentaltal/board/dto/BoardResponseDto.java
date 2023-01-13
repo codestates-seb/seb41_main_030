@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BoardResponseDto {
     private long boardId;
-    //    private long memberId;
+    private long memberId;
     private String title;
     private String content;
     private int score;

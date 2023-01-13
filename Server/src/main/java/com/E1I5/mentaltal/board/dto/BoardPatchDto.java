@@ -8,7 +8,7 @@ import lombok.Setter;
 public class BoardPatchDto {
     private long boardId;
 
-//    private long memberId;
+    private long memberId;
 
     private String title;
 

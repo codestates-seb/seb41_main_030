@@ -16,7 +16,7 @@ public interface BoardMapper {
     default Board boardPostDtoToBoard(BoardPostDto boardPostDto) {
         Board board = new Board();
 
-//        board.setMemberId(boardPostDto.getMemberId());
+        board.setMemberId(boardPostDto.getMemberId());
         board.setTitle(boardPostDto.getTitle());
         board.setContent(boardPostDto.getContent());
 //        board.setTags(boardPostDto.getTags());
@@ -27,7 +27,7 @@ public interface BoardMapper {
     default Board boardPatchDtoToBoard(BoardPatchDto boardPatchDto) {
         Board board = new Board();
         board.setBoardId(boardPatchDto.getBoardId());
-//        board.setMemberId(boardPatchDto.getMemberId());
+        board.setMemberId(boardPatchDto.getMemberId());
         board.setTitle(boardPatchDto.getTitle());
         board.setContent(boardPatchDto.getContent());
 //        board.setTags(boardPatchDto.getTags());
@@ -48,7 +48,7 @@ public interface BoardMapper {
         BoardGetResponseDto boardGetResponseDto = new BoardGetResponseDto();
 
         boardGetResponseDto.setBoardId(board.getBoardId());
-//        boardGetResponseDto.setMemberId(board.getMemberId());
+        boardGetResponseDto.setMemberId(board.getMemberId());
         boardGetResponseDto.setTitle(board.getTitle());
         boardGetResponseDto.setContent(board.getContent());
         boardGetResponseDto.setScore(board.getScore());

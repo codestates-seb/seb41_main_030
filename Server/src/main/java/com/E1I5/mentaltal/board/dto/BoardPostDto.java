@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BoardPostDto {
-    //    private long memberId;
+    private long memberId;
 
     private String title;
     // TO DO 유효성 검증 로직 필요 공백만 입력시
