@@ -28,10 +28,13 @@ dependencies {
 
 	implementation 'org.mapstruct:mapstruct:1.5.3.Final' // mapstruct 의존 라이브러리
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final' // mapstruct
-
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+	implementation 'org.springframework.boot:spring-boot-starter-security' //spring security
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5' //jwt
+	testImplementation 'org.springframework.security:spring-security-test'//jwt 추가
+	implementation 'com.google.code.gson:gson:2.10' //gson
 }
 
 tasks.named('test') {
