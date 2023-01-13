@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
+import { link } from "@uiw/react-md-editor";
 
-// * styled components
+// styled components
 const BoardsMainWrapper = styled.main`
     background-color: var(--lightgreen2);
     width: 100%;
@@ -18,7 +20,7 @@ const BoardsList = styled.ul`
     gap: 40px;
 `;
 
-const BoardsCard = styled.li`
+const BoardsCardLink = styled(Link)`
     background-color: white;
     border-radius: 10px;
     width: 100%;
@@ -102,7 +104,7 @@ const PagingWrapper = styled.div`
     }
 `;
 
-// * component
+// component
 const BoardsMain = () => {
     const url = `http://localhost:3001`;
 
@@ -127,15 +129,17 @@ const BoardsMain = () => {
             <BoardsList>
                 {list &&
                     list.map((post) => (
-                        <BoardsCard key={post.id}>
-                            <BoardsTitle>{post.title}</BoardsTitle>
-                            <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
-                            <BoardsContent>{post.content}</BoardsContent>
-                            <BoardsInfo>
-                                <div>{post.createdAt}</div>
-                                <div>{post.BoardWriterId}</div>
-                            </BoardsInfo>
-                        </BoardsCard>
+                        <li key={post.id}>
+                            <BoardsCardLink to={`/boards/${post.id}`}>
+                                <BoardsTitle>{post.title}</BoardsTitle>
+                                <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
+                                <BoardsContent>{post.content}</BoardsContent>
+                                <BoardsInfo>
+                                    <div>{post.createdAt}</div>
+                                    <div>{post.BoardWriterId}</div>
+                                </BoardsInfo>
+                            </BoardsCardLink>
+                        </li>
                     ))}
             </BoardsList>
 
