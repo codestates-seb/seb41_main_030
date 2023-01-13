@@ -141,14 +141,14 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
     };
 
     //
-    // const deleteComment = () => {
-    //     axios
-    //         .delete(`http://localhost:3001/comments/1`)
-    //         .then((res) => {
-    //             // window.location.reload();
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
+    const deleteComment = () => {
+        axios
+            .delete(`http://localhost:3001/comments/${id}`)
+            .then((res) => {
+                window.location.reload();
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <>
@@ -165,7 +165,9 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
 
                                 <div className="answerEditBtns">
                                     <button type="button">편집</button>
-                                    <button type="button">삭제</button>
+                                    <button type="button" onClick={deleteComment}>
+                                        삭제
+                                    </button>
                                 </div>
                             </BoardDetailAnswerHeader>
 

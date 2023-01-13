@@ -46,7 +46,7 @@ const BoardDetail = ({ setIsFooter }) => {
     return (
         <BoardDetailWrapper>
             <BoardDetailQuestion id={id} board={board} setBoard={setBoard}></BoardDetailQuestion>
-            <BoardDetailAnswer answer={answer} setAnswer={setAnswer} answerError={answerError}></BoardDetailAnswer>
+            <BoardDetailAnswer id={id} answer={answer} setAnswer={setAnswer} answerError={answerError}></BoardDetailAnswer>
         </BoardDetailWrapper>
     );
 };

@@ -419,13 +419,21 @@
       "content": "jdlfkjaljfkdlf\n",
       "commentWriterId": "답글 작성자",
       "createdAt": "2023 / 01 / 06",
-      "id": 2
+      "id": 2,
+      "commentId": 2
     },
     {
-      "content": "lkdjlajdjkaljfkdsfla\n",
+      "content": "나ㅓ링마ㅓ리ㅓㅁ낭ㄹ\n",
+      "id": 3,
+      "commentId": 3,
       "commentWriterId": "답글 작성자",
-      "createdAt": "2023 / 01 / 06",
-      "id": 3
+      "createdAt": "2023 / 01 / 06"
+    },
+    {
+      "content": "DSJFLAKSLFJAKSLJFAS",
+      "id": 4,
+      "commentWriterId": "답글 작성자",
+      "createdAt": "2023 / 01 / 06"
     }
   ]
 }
