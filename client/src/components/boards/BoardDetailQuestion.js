@@ -11,6 +11,23 @@ const BoardDetailQuestionWrapper = styled.div`
     border-radius: 20px;
 `;
 
+const BoardDetailQuestionTags = styled.div`
+    display: flex;
+    gap: 10px;
+
+    .test {
+        width: fit-content;
+        padding: 8px 15px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        background-color: var(--lightgreen2);
+        color: var(--darkgreen);
+
+        font-size: 14px;
+        font-weight: 500;
+    }
+`;
+
 const BoardDetailQuestionHeader = styled.div`
     .boardDetailQuestionHeaderTitle {
         font-size: 35px;
@@ -60,33 +77,40 @@ const BoardDetailQuestionHeaderEditBtns = styled.div`
     button {
         padding: 5px;
         background-color: white;
-        color: var(--darkgreen);
+        color: var(--green);
 
         font-size: 17px;
         font-weight: 500;
     }
 
     button:hover {
-        font-weight: 700;
-        background-color: rgba(166, 187, 141, 0.4);
-        border-radius: 25px;
+        font-weight: 900;
     }
 `;
 
 const BoardDetailQuestionMain = styled.div`
     width: 100%;
-    margin: 30px 0;
+    margin: 35px 0;
 
     line-height: 20px;
     white-space: pre-wrap;
+    color: var(--darkgreen);
 `;
-const BoardDetailQuestionBtns = styled.div``;
 
+// component
 const BoardDetailQuestion = ({ board, setBoard }) => {
     return (
         <BoardDetailQuestionWrapper>
             {board && (
                 <>
+                    <BoardDetailQuestionTags>
+                        {board.tag.map((tag, idx) => (
+                            <div key={idx} className="test">
+                                {tag}
+                            </div>
+                        ))}
+                    </BoardDetailQuestionTags>
+
                     <BoardDetailQuestionHeader>
                         <div className="boardDetailQuestionHeaderTitle">{board.title}</div>
                         <BoardDetailQuestionHeaderInfo>
@@ -104,11 +128,6 @@ const BoardDetailQuestion = ({ board, setBoard }) => {
                     </BoardDetailQuestionHeader>
 
                     <BoardDetailQuestionMain>{board.content}</BoardDetailQuestionMain>
-
-                    <BoardDetailQuestionBtns>
-                        <div className="tags"></div>
-                        <button>질문 작성하기</button>
-                    </BoardDetailQuestionBtns>
                 </>
             )}
         </BoardDetailQuestionWrapper>
