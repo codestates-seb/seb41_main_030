@@ -151,7 +151,10 @@ const BoardsMain = () => {
                     pageRangeDisplayed={5}
                     prevPageText={"‹"}
                     nextPageText={"›"}
-                    onChange={(current) => setCurrent(current)}
+                    onChange={(current) => {
+                        window.scrollTo(0, 0);
+                        setCurrent(current);
+                    }}
                     hideFirstLastPages={true}
                 />
             </PagingWrapper>
