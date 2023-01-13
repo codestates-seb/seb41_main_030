@@ -70,8 +70,8 @@ const Nav = () => {
     return (
         <NavWrapper>
             <NavTitle>
-                <Link to="/">
-                    <span className="logo">MENTALTAL</span>
+                <Link to="/" className="logo">
+                    MENTALTAL
                 </Link>
                 {/* 삭제할 예정 */}
                 <button onClick={handleTest}>0</button>
@@ -104,7 +104,7 @@ const Nav = () => {
                         </li>
                         <li>
                             <button>
-                                <Link to="/sign">회원가입</Link>
+                                <Link to="/signup">회원가입</Link>
                             </button>
                         </li>
                     </>

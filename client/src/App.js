@@ -6,19 +6,28 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
 // pages
-import Boards from "./pages/Boards";
 import Main from "./pages/Main";
+import Boards from "./pages/Boards";
+import CreateBoard from "./pages/CreateBoard";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPw from "./pages/ForgotPw";
 import MyPage from "./pages/MyPage";
 
 function App() {
     // footer 유무 조작
     const [isFooter, setIsFooter] = useState(true);
+
     return (
         <div>
             <Nav />
             <Routes>
-                <Route path="/community" element={<Boards />} />
                 <Route path="/" element={<Main setIsFooter={setIsFooter} />} />
+                <Route path="/community" element={<Boards />} />
+                <Route path="/write" element={<CreateBoard setIsFooter={setIsFooter} />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/forgotPw" element={<ForgotPw />} />
                 <Route path="/mypage" element={<MyPage setIsFooter={setIsFooter} />} />
             </Routes>
             {isFooter ? <Footer /> : null}
