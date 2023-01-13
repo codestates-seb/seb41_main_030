@@ -7,6 +7,13 @@ import BoardDetailQuestion from "../components/boards/BoardDetailQuestion";
 // styled components
 const BoardDetailWrapper = styled.div`
     margin-top: 65px;
+    padding: 40px;
+
+    background-color: var(--lightgreen2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const BoardDetail = ({ setIsFooter }) => {

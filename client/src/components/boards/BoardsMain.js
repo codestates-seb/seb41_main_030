@@ -130,7 +130,7 @@ const BoardsMain = () => {
                 {list &&
                     list.map((post) => (
                         <li key={post.id}>
-                            <BoardsCardLink to={`/boards/${post.id}`}>
+                            <BoardsCardLink to={`/community/${post.id}`}>
                                 <BoardsTitle>{post.title}</BoardsTitle>
                                 <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
                                 <BoardsContent>{post.content}</BoardsContent>
@@ -152,8 +152,8 @@ const BoardsMain = () => {
                     prevPageText={"‹"}
                     nextPageText={"›"}
                     onChange={(current) => {
-                        window.scrollTo(0, 0);
                         setCurrent(current);
+                        window.scrollTo(0, 0);
                     }}
                     hideFirstLastPages={true}
                 />
