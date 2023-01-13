@@ -1,6 +1,7 @@
 package com.E1I5.mentaltal.comment.entity;
 
 
+import com.E1I5.mentaltal.board.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "COMMENTS")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +32,16 @@ public class Comment {
     @Column
     private int score;
 
-    private long boardId;
+    private long bid;
 
     private long memberId;
+
+    //question:answer = 1:n
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="board_id") // 외래키 컬럼명 즉, board 클래스의 @id가 붙은 필드명
+    private Board board;
+
+
+
 
 }

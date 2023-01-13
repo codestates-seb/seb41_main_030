@@ -18,7 +18,7 @@ public interface CommentMapper {
         Comment comment = new Comment();
 
         comment.setMemberId(commentPostDto.getMemberId());
-        comment.setBoardId(commentPostDto.getBoardId());
+        comment.setBid(commentPostDto.getBoardId());
         comment.setContent(commentPostDto.getContent());
 
         return comment;
@@ -32,8 +32,8 @@ public interface CommentMapper {
         CommentResponseDto.CommentResponseDtoBuilder commentResponseDto = CommentResponseDto.builder();
 
         commentResponseDto.commentId(comment.getCommentId());
-//        commentResponseDto.boardId
-//        commentResponseDto.memberId
+//        commentResponseDto.boardId(comment.getBoard().getBoardId());
+//        commentResponseDto.
         commentResponseDto.content(comment.getContent());
         commentResponseDto.createdAt(comment.getCreatedAt());
         commentResponseDto.modifiedAt(comment.getModifiedAt());

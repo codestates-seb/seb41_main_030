@@ -31,7 +31,7 @@ public class CommentService {
     public Comment createComment(Comment comment) {
 
         // TO DO 회원 아이디가 db에 있는지 검증해야 함
-        Board board = boardService.findVerifiedBoard(comment.getBoardId());
+        Board board = boardService.findVerifiedBoard(comment.getBid());
         // 게시글이 존재하는지 검증
         comment.setCreatedAt(LocalDateTime.now());
 
