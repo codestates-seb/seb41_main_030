@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 // pages
 import Boards from "./pages/Boards";
 import Main from "./pages/Main";
+import MyPage from "./pages/MyPage";
 
 function App() {
     // footer 유무 조작
@@ -18,6 +19,7 @@ function App() {
             <Routes>
                 <Route path="/community" element={<Boards />} />
                 <Route path="/" element={<Main setIsFooter={setIsFooter} />} />
+                <Route path="/mypage" element={<MyPage setIsFooter={setIsFooter} />} />
             </Routes>
             {isFooter ? <Footer /> : null}
         </div>
