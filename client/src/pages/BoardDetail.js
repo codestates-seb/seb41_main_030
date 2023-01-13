@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import BoardDetailQuestion from "../components/boards/BoardDetailQuestion";
+import BoardDetailAnswer from "../components/boards/BoardDetailAnswer";
 
 // styled components
 const BoardDetailWrapper = styled.div`
@@ -19,7 +20,10 @@ const BoardDetailWrapper = styled.div`
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
     const [board, setBoard] = useState(null);
+    const [answer, setAnswer] = useState(null);
+    const [answerError, setAnswerError] = useState(true);
 
+    // ! 서버 열리면 이후 수정 예정
     useEffect(() => {
         setIsFooter(true);
 
@@ -27,11 +31,22 @@ const BoardDetail = ({ setIsFooter }) => {
             .get(`http://localhost:3001/boards/${id}`)
             .then((res) => setBoard(res.data))
             .catch((err) => console.log(err));
-    }, [`http://localhost:3001/boards/${id}`]);
+
+        axios
+            .get(`http://localhost:3001/comments/${id}`)
+            .then((res) => {
+                setAnswer(res.data);
+                setAnswerError(false);
+            })
+            .catch((err) => {
+                setAnswerError(true);
+            });
+    }, []);
 
     return (
         <BoardDetailWrapper>
-            <BoardDetailQuestion board={board} setBoard={setBoard}></BoardDetailQuestion>
+            <BoardDetailQuestion id={id} board={board} setBoard={setBoard}></BoardDetailQuestion>
+            <BoardDetailAnswer answer={answer} setAnswer={setAnswer} answerError={answerError}></BoardDetailAnswer>
         </BoardDetailWrapper>
     );
 };

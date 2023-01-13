@@ -1,4 +1,6 @@
+import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 // styled components
 const BoardDetailQuestionWrapper = styled.div`
@@ -44,8 +46,8 @@ const BoardDetailQuestionHeaderInfo = styled.div`
     gap: 10px;
 
     .questionProfile {
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         background-color: var(--green);
     }
@@ -91,14 +93,24 @@ const BoardDetailQuestionHeaderEditBtns = styled.div`
 const BoardDetailQuestionMain = styled.div`
     width: 100%;
     margin: 35px 0;
-
-    line-height: 20px;
-    white-space: pre-wrap;
     color: var(--darkgreen);
+    font-size: 16px;
+
+    div {
+        line-height: 20px;
+        white-space: pre-wrap;
+    }
 `;
 
 // component
-const BoardDetailQuestion = ({ board, setBoard }) => {
+const BoardDetailQuestion = ({ id, board, setBoard }) => {
+    const navigate = useNavigate();
+
+    // ! 질문 삭제 -> 서버 열리면 코드 수정 예정
+    const deleteQuestion = () => {
+        axios.delete(`http://localhost:3001/boards/${id}`).then((res) => navigate("/community"));
+    };
+
     return (
         <BoardDetailQuestionWrapper>
             {board && (
@@ -123,11 +135,15 @@ const BoardDetailQuestion = ({ board, setBoard }) => {
 
                         <BoardDetailQuestionHeaderEditBtns>
                             <button type="button">편집</button>
-                            <button type="button">삭제</button>
+                            <button type="button" onClick={deleteQuestion}>
+                                삭제
+                            </button>
                         </BoardDetailQuestionHeaderEditBtns>
                     </BoardDetailQuestionHeader>
 
-                    <BoardDetailQuestionMain>{board.content}</BoardDetailQuestionMain>
+                    <BoardDetailQuestionMain>
+                        <div> {board.content}</div>
+                    </BoardDetailQuestionMain>
                 </>
             )}
         </BoardDetailQuestionWrapper>
