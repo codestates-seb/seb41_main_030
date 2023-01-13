@@ -1,11 +1,10 @@
 import styled from "styled-components";
-
-const PostsContainer = styled.div``;
+import UserPost from "./UserPost";
 
 const MyPagePosts = () => {
     return (
         <>
-            <PostsContainer></PostsContainer>
+            <UserPost title="병원 방문이나 상담을 받아야 할까요?" />
         </>
     );
 };

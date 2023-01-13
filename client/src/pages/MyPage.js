@@ -8,7 +8,7 @@ const MyPageContainer = styled.div`
     display: flex;
     flex-direction: column;
 
-    padding: 0 100px;
+    padding: 0 130px;
 `;
 
 const MyPageHeader = styled.div`
@@ -47,6 +47,7 @@ const MyPageHeader = styled.div`
 `;
 
 const MyPageTab = styled.div`
+    margin-bottom: 20px;
     .tabContainer {
         display: flex;
     }
