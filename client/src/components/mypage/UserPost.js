@@ -39,9 +39,9 @@ const PostsContainer = styled.div`
         height: 280px;
     } */
 
-    @media screen and (max-width: 651px) {
-        height: 270px;
-    }
+    /* @media screen and (max-width: 651px) {
+        height: 255px;
+    } */
 
     /* @media screen and (max-width: 604px) {
         height: 270px;
@@ -58,12 +58,34 @@ const Post = styled.div`
         font-size: 22px;
         font-weight: var(--font-bold);
         line-height: 27px;
+        @media screen and (max-width: 619px) {
+            font-size: 20px;
+        }
     }
     .postContent {
         color: var(--darkgreen);
         font-size: 14px;
         padding-top: 15px;
         line-height: 20px;
+        height: 55px;
+
+        @media screen and (max-width: 1087px) {
+            height: 77px;
+        }
+        @media screen and (max-width: 842px) {
+            height: 99px;
+        }
+        @media screen and (max-width: 724px) {
+            height: 110px;
+        }
+
+        /* @media screen and (max-width: 669px) {
+            height: 123px;
+        } */
+        @media screen and (max-width: 619px) {
+            font-size: 13px;
+            height: 120px;
+        }
 
         @media screen and (max-width: 576px) {
             display: none;
@@ -79,7 +101,10 @@ const Post = styled.div`
         }
 
         @media screen and (max-width: 576px) {
-            padding-top: 35px;
+            padding-top: 53px;
+        }
+        @media screen and (max-width: 546px) {
+            padding-top: 33px;
         }
 
         @media screen and (max-width: 503px) {
