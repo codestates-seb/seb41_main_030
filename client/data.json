@@ -9,7 +9,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 2,
@@ -20,7 +21,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 2
         },
         {
             "id": 3,
@@ -31,7 +33,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 3
         },
         {
             "id": 4,
@@ -42,7 +45,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 5,
@@ -53,7 +57,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 6,
@@ -64,7 +69,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 7,
@@ -75,7 +81,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 8,
@@ -86,7 +93,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 9,
@@ -97,7 +105,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 10,
@@ -108,7 +117,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 11,
@@ -119,7 +129,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 12,
@@ -130,7 +141,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 13,
@@ -141,7 +153,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 14,
@@ -152,7 +165,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 15,
@@ -163,7 +177,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 16,
@@ -174,7 +189,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 17,
@@ -185,7 +201,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 18,
@@ -196,7 +213,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 19,
@@ -207,7 +225,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 20,
@@ -218,7 +237,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 21,
@@ -229,7 +249,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 22,
@@ -240,7 +261,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 23,
@@ -251,7 +273,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 24,
@@ -262,7 +285,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 25,
@@ -273,7 +297,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 26,
@@ -284,7 +309,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "id": 27,
@@ -295,7 +321,8 @@
             "tag": ["학업", "스트레스", "감정기복"],
             "createdAt": "2023 / 01 / 06",
             "recommend": 0,
-            "commentId": 1
+            "commentId": 1,
+            "memberId": 1
         },
         {
             "title": "람니라ㅓ미라ㅓㅣㅁ나러ㅣㅁㄴ러ㅏㅣㄴ머ㅣ러니ㅏㄹ",
@@ -303,7 +330,8 @@
             "tag": ["일반", "대인관계", "금전"],
             "BoardWriterId": "작성자",
             "createdAt": "2023 / 01 / 06",
-            "id": 28
+            "id": 28,
+            "memberId": 3
         },
         {
             "title": "sdfasdfasdfasfdasgasgasdf",
@@ -311,7 +339,28 @@
             "tag": ["일반", "금전", "기타"],
             "BoardWriterId": "작성자",
             "createdAt": "2023 / 01 / 06",
-            "id": 29
+            "id": 29,
+            "memberId": 3
+        }
+    ],
+    "members": [
+        {
+            "memberId": 1,
+            "email": "kimcoding@gmail.com",
+            "name": "김코딩",
+            "image": "testImg"
+        },
+        {
+            "memberId": 2,
+            "email": "parkhacker@gmail.com",
+            "name": "박해커",
+            "image": "testImg"
+        },
+        {
+            "memberId": 3,
+            "email": "testUser@gmail.com",
+            "name": "작성자",
+            "image": "testImg"
         }
     ]
 }
