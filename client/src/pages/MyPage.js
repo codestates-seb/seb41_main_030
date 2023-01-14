@@ -9,6 +9,10 @@ const MyPageContainer = styled.div`
     flex-direction: column;
 
     padding: 0 130px;
+
+    @media screen and (max-width: 611px) {
+        padding: 0 100px;
+    }
 `;
 
 const MyPageHeader = styled.div`
@@ -16,6 +20,10 @@ const MyPageHeader = styled.div`
     padding-top: 150px;
     padding-left: 20px;
     margin-bottom: 90px;
+
+    @media screen and (max-width: 611px) {
+        flex-direction: column;
+    }
     .imgContainer {
         border-radius: 50%;
         background: var(--green);
@@ -27,6 +35,9 @@ const MyPageHeader = styled.div`
         display: flex;
         flex-direction: column;
         justify-content: center;
+        @media screen and (max-width: 611px) {
+            margin-top: 30px;
+        }
 
         .userName {
             color: var(--darkgreen);
@@ -50,6 +61,9 @@ const MyPageTab = styled.div`
     margin-bottom: 20px;
     .tabContainer {
         display: flex;
+        @media screen and (max-width: 611px) {
+            flex-direction: column;
+        }
     }
 
     .tabButton,
@@ -59,6 +73,25 @@ const MyPageTab = styled.div`
         margin-right: 10px;
         font-size: 20px;
         font-weight: var(--font-bold);
+
+        @media screen and (max-width: 693px) {
+            font-size: 19px;
+        }
+        @media screen and (max-width: 678px) {
+            font-size: 18px;
+        }
+        @media screen and (max-width: 660px) {
+            font-size: 17px;
+        }
+        @media screen and (max-width: 643px) {
+            font-size: 16px;
+        }
+        @media screen and (max-width: 627px) {
+            font-size: 15px;
+        }
+        @media screen and (max-width: 611px) {
+            font-size: 19px;
+        }
     }
 
     .tabButton {

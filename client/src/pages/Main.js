@@ -21,6 +21,10 @@ const Intro = styled.div`
     background-position: 85% -620%;
     background-size: 450px 450px;
 
+    @media screen and (max-width: 851px) {
+        background-image: none;
+    }
+
     .text {
         padding-top: 200px;
         padding-left: 90px;
@@ -70,6 +74,10 @@ const Shortcut = styled.div`
         display: flex;
         justify-content: space-between;
         margin-bottom: 80px;
+
+        @media screen and (max-width: 863px) {
+            flex-direction: column;
+        }
 
         .title {
             font-size: 27px;
@@ -126,6 +134,11 @@ const Shortcut = styled.div`
             margin-left: 10px;
             display: flex;
             flex-direction: column;
+
+            @media screen and (max-width: 863px) {
+                margin-left: 0px;
+                margin-top: 20px;
+            }
             .block_community {
                 background-color: #798777;
                 height: 300px;
@@ -133,6 +146,10 @@ const Shortcut = styled.div`
                 padding: 40px;
                 padding-top: 53px;
                 color: var(--white);
+
+                .title {
+                    line-height: 30px;
+                }
 
                 :hover {
                     background-color: var(--green);
@@ -158,6 +175,13 @@ const Shortcut = styled.div`
                 }
             }
         }
+    }
+
+    .description {
+        line-height: 24px;
+        /* @media screen and (max-width: 685px) {
+            display: none;
+        } */
     }
 `;
 

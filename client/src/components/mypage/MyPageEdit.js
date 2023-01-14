@@ -22,6 +22,27 @@ const EditContainer = styled.div`
         }
         ::placeholder {
             opacity: 0.5;
+            @media screen and (max-width: 1121px) {
+                font-size: 18px;
+            }
+            @media screen and (max-width: 1027px) {
+                font-size: 16px;
+            }
+            @media screen and (max-width: 921px) {
+                font-size: 14.6px;
+            }
+        }
+        @media screen and (max-width: 1218px) {
+            width: 400px;
+        }
+        @media screen and (max-width: 1121px) {
+            width: 350px;
+        }
+        @media screen and (max-width: 1027px) {
+            width: 300px;
+        }
+        @media screen and (max-width: 921px) {
+            width: 270px;
         }
     }
 `;
@@ -30,6 +51,14 @@ const TopBlock = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 130px;
+
+    @media screen and (max-width: 862px) {
+        flex-direction: column;
+        .nickname {
+            margin-bottom: 130px;
+        }
+    }
+
     .nickname,
     .editPassword {
         display: flex;
@@ -55,6 +84,13 @@ const TopBlock = styled.div`
 const BottomBlock = styled.div`
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 862px) {
+        flex-direction: column;
+        .email {
+            margin-bottom: 130px;
+        }
+    }
 
     .email,
     .passwordConfirm {
