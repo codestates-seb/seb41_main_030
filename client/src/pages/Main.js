@@ -95,6 +95,12 @@ const Shortcut = styled.div`
             @media screen and (max-width: 522px) {
                 font-size: 16px;
             }
+            @media screen and (max-width: 512px) {
+                font-size: 15px;
+            }
+            @media screen and (max-width: 509px) {
+                display: none;
+            }
         }
 
         .blockLeft {
@@ -127,6 +133,9 @@ const Shortcut = styled.div`
                 padding-top: 53px;
                 margin-top: 20px;
                 color: var(--white);
+                @media screen and (max-width: 863px) {
+                    height: 166px;
+                }
 
                 :hover {
                     background-color: var(--green);
@@ -155,8 +164,8 @@ const Shortcut = styled.div`
                 padding-top: 53px;
                 color: var(--white);
 
-                .title {
-                    line-height: 30px;
+                @media screen and (max-width: 863px) {
+                    height: 166px;
                 }
 
                 :hover {
