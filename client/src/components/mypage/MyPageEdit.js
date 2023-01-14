@@ -8,6 +8,10 @@ const EditContainer = styled.div`
     font-weight: var(--font-bold);
     padding: 100px 0px 80px 38px;
 
+    @media screen and (max-width: 862px) {
+        padding-left: 0px;
+    }
+
     input {
         margin-top: 30px;
         width: 450px;
@@ -28,8 +32,11 @@ const EditContainer = styled.div`
             @media screen and (max-width: 1027px) {
                 font-size: 16px;
             }
-            @media screen and (max-width: 921px) {
-                font-size: 14.6px;
+            @media screen and (max-width: 862px) {
+                font-size: 20px;
+            }
+            @media screen and (max-width: 531px) {
+                font-size: 16px;
             }
         }
         @media screen and (max-width: 1218px) {
@@ -43,6 +50,9 @@ const EditContainer = styled.div`
         }
         @media screen and (max-width: 921px) {
             width: 270px;
+        }
+        @media screen and (max-width: 862px) {
+            width: 100%;
         }
     }
 `;
@@ -96,6 +106,35 @@ const BottomBlock = styled.div`
     .passwordConfirm {
         display: flex;
         flex-direction: column;
+
+        &.passwordConfirm {
+            input::placeholder {
+                @media screen and (max-width: 921px) {
+                    font-size: 14.6px;
+                }
+                @media screen and (max-width: 862px) {
+                    font-size: 20px;
+                }
+                @media screen and (max-width: 676px) {
+                    font-size: 18px;
+                }
+                @media screen and (max-width: 642px) {
+                    font-size: 16px;
+                }
+                @media screen and (max-width: 549px) {
+                    font-size: 15px;
+                }
+                @media screen and (max-width: 531px) {
+                    font-size: 14.4px;
+                }
+                @media screen and (max-width: 521px) {
+                    font-size: 14px;
+                }
+                @media screen and (max-width: 511px) {
+                    font-size: 13.2px;
+                }
+            }
+        }
     }
 
     .emailErrorMessage,
