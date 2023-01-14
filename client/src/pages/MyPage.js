@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import MyPagePosts from "../components/mypage/MyPagePosts";
 import MyPageAnswer from "../components/mypage/MyPageAnswer";
 import MyPageEdit from "../components/mypage/MyPageEdit";
+import axios from "axios";
 
 const MyPageContainer = styled.div`
     display: flex;
@@ -118,10 +119,18 @@ const MyPageBody = styled.div``;
 
 const MyPage = ({ setIsFooter }) => {
     const [userData, setUserData] = useState(undefined);
+    const url = `http://localhost:3001`;
+
+    useEffect(() => {
+        axios.get(`${url}/members`).then((res) => {
+            // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
+            setUserData(res.data[0]);
+        });
+    }, []);
 
     useEffect(() => {
         setIsFooter(false);
-        setUserData();
+        // setUserData();
     }, []);
 
     const [openTab, setOpenTab] = useState([
@@ -152,8 +161,8 @@ const MyPage = ({ setIsFooter }) => {
                 <MyPageHeader>
                     <div className="imgContainer"></div>
                     <div className="textContainer">
-                        <p className="userName">김코딩 님</p>
-                        <p className="email">kimcoding@gmail.com</p>
+                        <p className="userName">{userData && userData.name} 님</p>
+                        <p className="email">{userData && userData.email}</p>
                         <p className="leaveText">회원 탈퇴</p>
                     </div>
                 </MyPageHeader>
@@ -168,7 +177,7 @@ const MyPage = ({ setIsFooter }) => {
                         })}
                     </div>
                 </MyPageTab>
-                <MyPageBody>{checked === 0 ? <MyPagePosts /> : checked === 1 ? <MyPageAnswer /> : <MyPageEdit />}</MyPageBody>
+                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer /> : <MyPageEdit />}</MyPageBody>
             </MyPageContainer>
         </>
     );

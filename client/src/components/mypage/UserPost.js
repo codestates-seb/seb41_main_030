@@ -73,19 +73,16 @@ const Post = styled.div`
     }
 `;
 
-const UserPost = ({ title }) => {
+const UserPost = ({ title, content, createdAt, answerCount }) => {
     return (
         <>
             <PostsContainer>
                 <Post>
                     <p className="postTitle">{title}</p>
-                    <p className="postContent">
-                        안녕하세요, 저는 19살 수험생입니다. 최근 수험과 관련한 스트레스가 심해서 정신과를 방문해야하나 생각하다가도 원래 수험 생활이 이렇게 힘든건데 유난인 건지 생각되어 미루고 수험
-                        생활이 이렇게 힘든건데 유난인 건지 생각되어 미루고 ...
-                    </p>
+                    <p className="postContent">{content} ...</p>
                     <div className="postInfo">
-                        <span className="postCreatedAt">2023 / 01 / 06</span>
-                        <span className="answerCount">답변 수 2</span>
+                        <span className="postCreatedAt">{createdAt}</span>
+                        {answerCount ? <span className="answerCount">답변 수 2</span> : null}
                     </div>
                 </Post>
             </PostsContainer>
