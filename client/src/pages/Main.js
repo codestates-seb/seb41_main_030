@@ -82,11 +82,19 @@ const Shortcut = styled.div`
         .title {
             font-size: 27px;
             font-weight: var(--font-bold);
+
+            @media screen and (max-width: 522px) {
+                font-size: 24px;
+            }
         }
 
         .description {
             font-size: 18px;
             margin-top: 10px;
+            line-height: 24px;
+            @media screen and (max-width: 522px) {
+                font-size: 16px;
+            }
         }
 
         .blockLeft {
@@ -175,13 +183,6 @@ const Shortcut = styled.div`
                 }
             }
         }
-    }
-
-    .description {
-        line-height: 24px;
-        /* @media screen and (max-width: 685px) {
-            display: none;
-        } */
     }
 `;
 
