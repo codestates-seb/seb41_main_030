@@ -109,6 +109,10 @@ const Shortcut = styled.div`
             display: flex;
             flex-direction: column;
 
+            @media screen and (max-width: 863px) {
+                margin-right: 0px;
+            }
+
             .block_counsel {
                 background-color: var(--yellow);
                 height: 166px;
