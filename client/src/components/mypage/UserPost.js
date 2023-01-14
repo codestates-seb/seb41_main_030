@@ -2,35 +2,50 @@ import styled from "styled-components";
 
 const PostsContainer = styled.div`
     width: 100%;
-    height: 170px;
+    height: 190px;
     border-radius: 10px;
     background-color: #f1efe4;
     margin-top: 20px;
     padding: 40px;
 
-    @media screen and (max-width: 1637px) {
-        height: 187px;
-    }
+    /* @media screen and (max-width: 1637px) {
+        height: 197px;
+    } */
 
-    @media screen and (max-width: 989px) {
+    @media screen and (max-width: 1087px) {
+        height: 212px;
+    }
+    /* @media screen and (max-width: 989px) {
         height: 210px;
+    } */
+
+    @media screen and (max-width: 842px) {
+        height: 232px;
     }
 
-    @media screen and (max-width: 777px) {
+    /* @media screen and (max-width: 777px) {
         height: 232px;
+    } */
+
+    @media screen and (max-width: 724px) {
+        height: 250px;
     }
 
     @media screen and (max-width: 669px) {
         height: 252px;
     }
 
-    @media screen and (max-width: 658px) {
+    /* @media screen and (max-width: 658px) {
         height: 280px;
-    }
+    } */
 
-    @media screen and (max-width: 604px) {
+    @media screen and (max-width: 651px) {
         height: 270px;
     }
+
+    /* @media screen and (max-width: 604px) {
+        height: 270px;
+    } */
 
     @media screen and (max-width: 576px) {
         height: 160px;
