@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const EditContainer = styled.div`
     width: 100%;
@@ -183,6 +184,8 @@ const MyPageEdit = () => {
         watch,
     } = useForm();
 
+    const navigate = useNavigate();
+
     return (
         <>
             <EditContainer>
@@ -261,7 +264,9 @@ const MyPageEdit = () => {
                         </div>
                     </BottomBlock>
                     <ButtonContainer>
-                        <button className="back">뒤로 가기</button>
+                        <button className="back" onClick={() => navigate(-1)}>
+                            뒤로 가기
+                        </button>
                         <button className="edit" type="submit">
                             회원정보 수정
                         </button>
