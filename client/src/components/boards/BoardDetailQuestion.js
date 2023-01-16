@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 // styled components
-const BoardDetailQuestionWrapper = styled.div`
+const BDQuestionWrapper = styled.div`
     padding: 40px;
     width: 80%;
     max-width: 1300px;
@@ -18,12 +18,12 @@ const BoardDetailQuestionWrapper = styled.div`
     }
 `;
 
-const BoardDetailQuestionTags = styled.div`
+const BDQuestionTagsWrapper = styled.div`
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
 
-    .boardDetailTags {
+    .questionTags {
         width: fit-content;
         padding: 8px 15px;
         border-radius: 20px;
@@ -38,7 +38,7 @@ const BoardDetailQuestionTags = styled.div`
         flex-wrap: wrap;
         gap: 2px;
 
-        .boardDetailTags {
+        .questionTags {
             padding: 5px 7px;
             font-size: 11px;
             margin-bottom: 2px;
@@ -55,8 +55,8 @@ const BoardDetailQuestionTags = styled.div`
     }
 `;
 
-const BoardDetailQuestionHeader = styled.div`
-    .boardDetailQuestionHeaderTitle {
+const BDQuestionHeader = styled.div`
+    .questionHeaderTitle {
         font-size: 35px;
         font-weight: 700;
         color: var(--darkgreen);
@@ -64,14 +64,14 @@ const BoardDetailQuestionHeader = styled.div`
     }
 
     @media screen and (max-width: 768px) {
-        .boardDetailQuestionHeaderTitle {
+        .questionHeaderTitle {
             font-size: 23px;
             margin-bottom: 25px;
         }
     }
 `;
 
-const BoardDetailQuestionHeaderInfo = styled.div`
+const BDQuestionHeaderInfo = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -122,7 +122,7 @@ const BoardDetailQuestionHeaderInfo = styled.div`
     }
 `;
 
-const BoardDetailQuestionHeaderEditBtns = styled.div`
+const BDQuestionHeaderEditBtn = styled.div`
     padding: 0 0 8px;
     display: flex;
     justify-content: flex-end;
@@ -149,7 +149,7 @@ const BoardDetailQuestionHeaderEditBtns = styled.div`
     }
 `;
 
-const BoardDetailQuestionMain = styled.div`
+const BDQuestionMain = styled.div`
     width: 100%;
     margin: 35px 0;
     color: var(--darkgreen);
@@ -180,41 +180,41 @@ const BoardDetailQuestion = ({ id, board, setBoard }) => {
     };
 
     return (
-        <BoardDetailQuestionWrapper>
+        <BDQuestionWrapper>
             {board && (
                 <>
-                    <BoardDetailQuestionTags>
+                    <BDQuestionTagsWrapper>
                         {board.tag.map((tag, idx) => (
-                            <div key={idx} className="boardDetailTags">
+                            <div key={idx} className="questionTags">
                                 {tag}
                             </div>
                         ))}
-                    </BoardDetailQuestionTags>
+                    </BDQuestionTagsWrapper>
 
-                    <BoardDetailQuestionHeader>
-                        <div className="boardDetailQuestionHeaderTitle">{board.title}</div>
-                        <BoardDetailQuestionHeaderInfo>
+                    <BDQuestionHeader>
+                        <div className="questionHeaderTitle">{board.title}</div>
+                        <BDQuestionHeaderInfo>
                             <div className="questionProfile"></div>
                             <div className="questionWriteInfo">
                                 <div className="questionWriter">{board.BoardWriterId}</div>
                                 <div className="questionCreateAt">{board.createdAt}</div>
                             </div>
-                        </BoardDetailQuestionHeaderInfo>
+                        </BDQuestionHeaderInfo>
 
-                        <BoardDetailQuestionHeaderEditBtns>
+                        <BDQuestionHeaderEditBtn>
                             <button type="button">편집</button>
                             <button type="button" onClick={deleteQuestion}>
                                 삭제
                             </button>
-                        </BoardDetailQuestionHeaderEditBtns>
-                    </BoardDetailQuestionHeader>
+                        </BDQuestionHeaderEditBtn>
+                    </BDQuestionHeader>
 
-                    <BoardDetailQuestionMain>
+                    <BDQuestionMain>
                         <div>{board.content}</div>
-                    </BoardDetailQuestionMain>
+                    </BDQuestionMain>
                 </>
             )}
-        </BoardDetailQuestionWrapper>
+        </BDQuestionWrapper>
     );
 };
 
