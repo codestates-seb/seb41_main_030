@@ -4,6 +4,8 @@ import com.e1i5.mentaltal.board.entity.Board;
 import com.e1i5.mentaltal.board.respository.BoardRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
+import com.e1i5.mentaltal.user.member.Member;
+import com.e1i5.mentaltal.user.member.MemberService;
 import com.e1i5.mentaltal.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,8 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+    private final MemberService memberService;
+
     private final CustomBeanUtils<Board> beanUtils;
     // 제네릭 전용 클래스라서 <> 안에 어떤 엔티티의 service 클래스에 적용할 건지 써줘야 함
 
@@ -27,10 +31,9 @@ public class BoardService {
     // 게시물 생성
     public Board createBoard(Board board) {
         verifyStrLength(board); // 게시글 길이 검증
-
-        // TO DO 멤버아이디가 db에 존재하는지 검증하는 로직 필요
-
+        Member member = memberService.findMember(board.getMid()); // 회원 검증
         board.setCreatedAt(LocalDateTime.now());
+        board.addMember(member);
 
         return boardRepository.save(board);
     }
@@ -40,9 +43,12 @@ public class BoardService {
         Board findBoard = findVerifiedBoard(board.getBoardId()); // db에 게시글이 있는지 검증
         Board verifiedBoard = findVerifiedBoard(boardId);
 
+        if (verifiedBoard.getMember().getMemberId() != board.getMid()) {
+            throw new BusinessLogicException(ExceptionCode.FORBIDDEN);
+        }
+
         Board updatedBoard = beanUtils.copyNonNullProperties(board, findBoard);
         //beanUtils 클래스 내의 copyNonNullProperties 메서드 사용하여 안에  (수정하고자 하는 정보, 넣을 메서드명)
-
         verifyStrLength(updatedBoard);
         updatedBoard.setModifiedAt(LocalDateTime.now());
 
@@ -51,9 +57,8 @@ public class BoardService {
     }
 
     // 게시물 상세조회
-    public Board findBoard(long boardId, long memberId) {
+    public Board findBoard(long boardId) {
         Board findBoard = findVerifiedBoard(boardId); // db에서 boardid조회
-        findBoard.setMemberId(memberId);
 
         return findBoard;
     }
@@ -70,7 +75,7 @@ public class BoardService {
     }
 
     // 게시믈 삭제
-    public void deleteBoard(long boardId) {
+    public void deleteBoard(long boardId, Board board) {
         Board verifiedBoard = findVerifiedBoard(boardId);
 
         boardRepository.delete(verifiedBoard);

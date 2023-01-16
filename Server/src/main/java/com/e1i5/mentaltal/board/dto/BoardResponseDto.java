@@ -17,6 +17,9 @@ public class BoardResponseDto {
     private int score;
     //    private String tags;
 //    private int view;
+    private long commentCount;
+
+    private String nickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
