@@ -7,6 +7,8 @@ import com.e1i5.mentaltal.comment.entity.Comment;
 import com.e1i5.mentaltal.comment.repository.CommentRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
+import com.e1i5.mentaltal.user.member.Member;
+import com.e1i5.mentaltal.user.member.MemberService;
 import com.e1i5.mentaltal.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,16 +26,19 @@ public class CommentService {
 
     private final BoardService boardService;
 
+    private final MemberService memberService;
+
     private final CustomBeanUtils<Comment> beanUtils;
 
 
     // 답변 등록
     public Comment createComment(Comment comment) {
-
-        // TO DO 회원 아이디가 db에 있는지 검증해야 함
+        Member member = memberService.findMember(comment.getMid());
         Board board = boardService.findVerifiedBoard(comment.getBid());
-        // 게시글이 존재하는지 검증
         comment.setCreatedAt(LocalDateTime.now());
+        comment.addMember(member);
+        comment.addBoard(board);
+        board.plusCommentCount();
 
         return commentRepository.save(comment);
 
