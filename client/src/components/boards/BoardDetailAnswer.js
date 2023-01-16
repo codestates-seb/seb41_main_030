@@ -95,7 +95,7 @@ const BoardDetailAnswerTextareaWrapper = styled.form`
 
     textarea {
         resize: none;
-        width: 90%;
+        width: 93%;
         max-width: 1300px;
         height: 80px;
         padding: 10px;
