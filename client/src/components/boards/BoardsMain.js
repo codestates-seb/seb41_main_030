@@ -20,12 +20,11 @@ const BoardsList = styled.ul`
     gap: 40px;
 
     @media screen and (max-width: 768px) {
-        padding: 40px;
         display: flex;
         flex-direction: column;
     }
 
-    @media screen and (max-width: 920px) and (min-width: 769px) {
+    @media screen and (max-width: 920px) {
         padding: 40px;
     }
 
@@ -97,6 +96,10 @@ const BoardsContent = styled.div`
 const BoardsInfo = styled.div`
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 319px) {
+        font-size: 14px;
+    }
 `;
 
 const PagingWrapper = styled.div`
