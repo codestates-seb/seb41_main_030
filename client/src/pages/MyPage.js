@@ -177,7 +177,7 @@ const MyPage = ({ setIsFooter }) => {
                         })}
                     </div>
                 </MyPageTab>
-                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer /> : <MyPageEdit />}</MyPageBody>
+                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit />}</MyPageBody>
             </MyPageContainer>
         </>
     );

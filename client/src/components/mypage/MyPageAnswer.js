@@ -1,9 +1,29 @@
 import UserPost from "./UserPost";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const MyPageAnswer = () => {
+const MyPageAnswer = ({ userData }) => {
+    const [answerListData, setAnswerListData] = useState(undefined);
+    const url = `http://localhost:3001`;
+    let memberId = undefined;
+    if (userData) {
+        memberId = userData.memberId;
+    }
+
+    useEffect(() => {
+        axios.get(`${url}/comments`).then((res) => {
+            setAnswerListData(res.data);
+        });
+    }, []);
+
+    const userAnswerData = answerListData && answerListData.filter((answerData) => answerData.memberId === memberId);
+
     return (
         <>
-            <UserPost title="작성한 답변 글" content="답변 내용 예시" createdAt="2023 / 01 / 13" answerCount={false} />
+            {answerListData &&
+                userAnswerData.map((answer, index) => {
+                    return <UserPost key={index} title={answer.title} content={answer.content} createdAt={answer.createdAt} answerCount={false} />;
+                })}
         </>
     );
 };
