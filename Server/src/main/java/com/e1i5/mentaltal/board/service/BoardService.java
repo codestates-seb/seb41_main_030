@@ -76,6 +76,7 @@ public class BoardService {
 
     // 게시믈 삭제
     public void deleteBoard(long boardId, Board board) {
+//        Member findMember = memberService.findMember(board.getMid());
         Board verifiedBoard = findVerifiedBoard(boardId);
 
         boardRepository.delete(verifiedBoard);

@@ -18,6 +18,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
+    @Transient
     private Long mid;
 
     @Column(nullable = false, length = 256)
