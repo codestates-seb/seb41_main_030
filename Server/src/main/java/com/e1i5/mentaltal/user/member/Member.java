@@ -1,11 +1,15 @@
 package com.e1i5.mentaltal.user.member;
 
+import com.e1i5.mentaltal.board.entity.Board;
+import com.e1i5.mentaltal.comment.entity.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +31,17 @@ public class Member {
     private String password;
 
     private Boolean image;
+
+    @OneToMany(mappedBy = "member")
+    private List<Board> boards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Comment> comments = new ArrayList<>();
+
+//    public void setBoard (Board board) {
+//        boards.add(board);
+//        if (board.getMember() != this) {
+//            board.setMember(this);
+//        }
+//    }
 }
