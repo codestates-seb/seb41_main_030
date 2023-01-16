@@ -112,6 +112,13 @@ const CreateBoardTagsWrapper = styled.div`
         background-color: var(--green);
         color: white;
     }
+
+    @media screen and (max-width: 630px) {
+        button {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+    }
 `;
 
 const CreateBoardSubmitBtnWrapper = styled.div`
@@ -134,6 +141,17 @@ const CreateBoardSubmitBtnWrapper = styled.div`
         border-radius: 50%;
         padding: 2px 3px;
         margin-left: 5px;
+    }
+
+    @media screen and (max-width: 630px) {
+        button {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        i {
+            margin-left: 2px;
+        }
     }
 `;
 
