@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Pagination from "react-js-pagination";
-import { link } from "@uiw/react-md-editor";
 
 // styled components
 const BoardsMainWrapper = styled.main`
