@@ -18,6 +18,16 @@ const BoardsList = styled.ul`
     grid-template-columns: 1fr 1fr;
     place-items: center;
     gap: 40px;
+
+    @media screen and (max-width: 768px) {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media screen and (min-width: 1921px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 `;
 
 const BoardsCardLink = styled(Link)`
@@ -36,6 +46,11 @@ const BoardsTitle = styled.div`
     font-size: 20px;
     color: var(--darkgreen);
     font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 `;
 
 const BoardsTagWrapper = styled.ul`
