@@ -11,6 +11,11 @@ const BoardDetailAnswerWrapper = styled.div`
     background-color: white;
     box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 20px;
+    }
 `;
 
 const BoardDetailAnswerHeader = styled.div`
@@ -22,6 +27,11 @@ const BoardDetailAnswerHeader = styled.div`
     padding-bottom: 15px;
     border-bottom: 1px solid var(--green);
 
+    .answerHeaderContainer {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
     .answerProfile {
         width: 40px;
         height: 40px;
@@ -30,7 +40,6 @@ const BoardDetailAnswerHeader = styled.div`
     }
 
     .answerWriteInfo {
-        width: 80%;
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -61,19 +70,53 @@ const BoardDetailAnswerHeader = styled.div`
             font-weight: 900;
         }
     }
+
+    @media screen and (max-width: 304px) {
+        flex-direction: column;
+        align-items: baseline;
+    }
+
+    @media screen and (max-width: 768px) {
+        .answerProfile {
+            width: 30px;
+            height: 30px;
+        }
+
+        .answerWriteInfo {
+            & :nth-child(1) {
+                font-size: 14px;
+            }
+
+            & :nth-child(2) {
+                font-size: 12px;
+            }
+        }
+
+        .answerEditBtns {
+            button {
+                font-size: 12px;
+            }
+        }
+    }
 `;
 
 const BoardDetailAnswerMain = styled.div`
-    width: 100%;
-
-    margin-top: 25px;
-
+    margin: 35px 0;
     color: var(--darkgreen);
     font-size: 16px;
 
-    div {
+    .answerMainText {
         line-height: 20px;
         white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    @media screen and (max-width: 768px) {
+        margin: 20px 0 0;
+
+        div {
+            font-size: 14px;
+        }
     }
 `;
 
@@ -118,6 +161,26 @@ const BoardDetailAnswerTextareaWrapper = styled.form`
         font-size: 14px;
         margin: 10px 0 0 5px;
     }
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 20px;
+
+        .boardDetailAnswerTextareaContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        textarea {
+            width: 100%;
+        }
+
+        button {
+            width: fit-content;
+            padding: 5px 6px;
+        }
+    }
 `;
 
 // ! 나중에 서버 연결시 데이터 받아서 랜더링되도록 수정할 것
@@ -157,10 +220,12 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
                     {answer && (
                         <>
                             <BoardDetailAnswerHeader>
-                                <div className="answerProfile"></div>
-                                <div className="answerWriteInfo">
-                                    <div className="answerWriter">{answer.commentWriterId}</div>
-                                    <div className="answerCreateAt">{answer.createdAt}</div>
+                                <div className="answerHeaderContainer">
+                                    <div className="answerProfile"></div>
+                                    <div className="answerWriteInfo">
+                                        <div className="answerWriter">{answer.commentWriterId}</div>
+                                        <div className="answerCreateAt">{answer.createdAt}</div>
+                                    </div>
                                 </div>
 
                                 <div className="answerEditBtns">
@@ -172,7 +237,7 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
                             </BoardDetailAnswerHeader>
 
                             <BoardDetailAnswerMain>
-                                <div> {answer.content}</div>
+                                <div className="answerMainText">{answer.content}</div>
                             </BoardDetailAnswerMain>
                         </>
                     )}

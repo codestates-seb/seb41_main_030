@@ -11,22 +11,47 @@ const BoardDetailQuestionWrapper = styled.div`
     background-color: white;
     box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 20px;
+    }
 `;
 
 const BoardDetailQuestionTags = styled.div`
     display: flex;
     gap: 10px;
+    margin-bottom: 25px;
 
-    .test {
+    .boardDetailTags {
         width: fit-content;
         padding: 8px 15px;
-        margin-bottom: 20px;
         border-radius: 20px;
         background-color: var(--lightgreen2);
         color: var(--darkgreen);
 
         font-size: 14px;
         font-weight: 500;
+    }
+
+    @media screen and (max-width: 597px) {
+        flex-wrap: wrap;
+        gap: 2px;
+
+        .boardDetailTags {
+            padding: 5px 7px;
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+    }
+
+    @media screen and (min-width: 598px) and (max-width: 935px) {
+        gap: 5px;
+
+        .boardDetailTags {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
     }
 `;
 
@@ -36,6 +61,13 @@ const BoardDetailQuestionHeader = styled.div`
         font-weight: 700;
         color: var(--darkgreen);
         margin-bottom: 40px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .boardDetailQuestionHeaderTitle {
+            font-size: 23px;
+            margin-bottom: 25px;
+        }
     }
 `;
 
@@ -68,6 +100,26 @@ const BoardDetailQuestionHeaderInfo = styled.div`
             font-size: 15px;
         }
     }
+
+    @media screen and (max-width: 768px) {
+        .questionProfile {
+            width: 30px;
+            height: 30px;
+        }
+
+        .questionWriteInfo {
+            gap: 5px;
+
+            & :nth-child(1) {
+                font-size: 14px;
+            }
+
+            & :nth-child(2) {
+                color: var(--green);
+                font-size: 12px;
+            }
+        }
+    }
 `;
 
 const BoardDetailQuestionHeaderEditBtns = styled.div`
@@ -81,12 +133,19 @@ const BoardDetailQuestionHeaderEditBtns = styled.div`
         background-color: white;
         color: var(--green);
 
-        font-size: 17px;
+        font-size: 16px;
         font-weight: 500;
     }
 
     button:hover {
         font-weight: 900;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 0 0 2px;
+        button {
+            font-size: 12px;
+        }
     }
 `;
 
@@ -99,6 +158,15 @@ const BoardDetailQuestionMain = styled.div`
     div {
         line-height: 20px;
         white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    @media screen and (max-width: 768px) {
+        margin: 20px 0 0;
+
+        div {
+            font-size: 14px;
+        }
     }
 `;
 
@@ -117,7 +185,7 @@ const BoardDetailQuestion = ({ id, board, setBoard }) => {
                 <>
                     <BoardDetailQuestionTags>
                         {board.tag.map((tag, idx) => (
-                            <div key={idx} className="test">
+                            <div key={idx} className="boardDetailTags">
                                 {tag}
                             </div>
                         ))}
@@ -142,7 +210,7 @@ const BoardDetailQuestion = ({ id, board, setBoard }) => {
                     </BoardDetailQuestionHeader>
 
                     <BoardDetailQuestionMain>
-                        <div> {board.content}</div>
+                        <div>{board.content}</div>
                     </BoardDetailQuestionMain>
                 </>
             )}
