@@ -25,6 +25,10 @@ const BoardsList = styled.ul`
         flex-direction: column;
     }
 
+    @media screen and (max-width: 920px) and (min-width: 769px) {
+        padding: 40px;
+    }
+
     @media screen and (min-width: 1921px) {
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -46,6 +50,7 @@ const BoardsTitle = styled.div`
     font-size: 20px;
     color: var(--darkgreen);
     font-weight: 700;
+    height: 19px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -65,6 +70,17 @@ const BoardsTag = styled.li`
     border-radius: 15px;
     padding: 5px 8px;
     width: fit-content;
+
+    @media screen and (max-width: 319px) {
+        padding: 5px;
+        width: 50px;
+        height: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
 `;
 
 const BoardsContent = styled.div`
