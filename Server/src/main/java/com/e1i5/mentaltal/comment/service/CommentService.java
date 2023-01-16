@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -64,7 +65,12 @@ public class CommentService {
         return findComment;
     }
 
-    // 답변 전체 조회
+    // 답변 전체조회
+    public List<Comment> findAllComment() {
+        return commentRepository.findAll();
+    }
+
+    // 답변 페이지네이션
     public Page<Comment> findComments(int page, int size) {
         return commentRepository.findAll(PageRequest.of(page, size, Sort.by("commentId").descending()));
     }
@@ -72,8 +78,10 @@ public class CommentService {
     // 답변 삭제
     public void deleteComment (long commentId) {
         Comment findComment = findVerifiedComment(commentId);
-        // 게시글에 딸린 답변을 삭제해야 하니까,
-        // 게시글 id를 받아와서, 그 게시글의 답변 개수를 내린다 ?
+        Board board = boardService.findVerifiedBoard(findComment.getBoard().getBoardId());
+        board.minusCommentCount();
+        // 게시글에 달린 답변을 삭제해야 하는 거니까,
+        // 게시글 id를 받아와서, 그 게시글의 답변 개수를 내린다.
         commentRepository.delete(findComment);
 
     }

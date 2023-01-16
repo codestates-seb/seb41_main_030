@@ -35,8 +35,10 @@ public class Comment {
     @Column
     private int score;
 
+    @Transient
     private long bid;
 
+    @Transient
     private long mid;
 
     //question:answer = 1:n
