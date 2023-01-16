@@ -16,7 +16,6 @@ const BoardsList = styled.ul`
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    place-items: center;
     gap: 40px;
 
     @media screen and (max-width: 768px) {
@@ -37,7 +36,7 @@ const BoardsCardLink = styled(Link)`
     background-color: white;
     border-radius: 10px;
     width: 100%;
-    height: 200px;
+    height: 210px;
     padding: 30px;
 
     display: flex;
@@ -59,6 +58,7 @@ const BoardsTitle = styled.div`
 
 const BoardsTagWrapper = styled.ul`
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
 `;
 
@@ -71,14 +71,7 @@ const BoardsTag = styled.li`
     width: fit-content;
 
     @media screen and (max-width: 319px) {
-        padding: 5px;
-        width: 50px;
-        height: 18px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
+        padding: 3px;
     }
 `;
 
