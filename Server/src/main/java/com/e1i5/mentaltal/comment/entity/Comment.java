@@ -65,4 +65,5 @@ public class Comment {
         this.board = board;
         this.board.getComments().add(this);
     }
+
 }
