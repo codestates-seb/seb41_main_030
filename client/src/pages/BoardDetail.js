@@ -1,7 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { useSetRecoilState } from "recoil";
+import { boardState, answerState } from "../states";
 import BoardDetailQuestion from "../components/boards/BoardDetailQuestion";
 import BoardDetailAnswer from "../components/boards/BoardDetailAnswer";
 
@@ -19,9 +21,8 @@ const BoardDetailWrapper = styled.div`
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
-    const [board, setBoard] = useState(null);
-    const [answer, setAnswer] = useState(null);
-    const [answerError, setAnswerError] = useState(true);
+    const setBoard = useSetRecoilState(boardState);
+    const setAnswer = useSetRecoilState(answerState);
 
     // ! 서버 열리면 이후 수정 예정
     useEffect(() => {
@@ -36,17 +37,16 @@ const BoardDetail = ({ setIsFooter }) => {
             .get(`http://localhost:3001/comments/${id}`)
             .then((res) => {
                 setAnswer(res.data);
-                setAnswerError(false);
             })
             .catch((err) => {
-                setAnswerError(true);
+                console.log(err);
             });
     }, []);
 
     return (
         <BoardDetailWrapper>
-            <BoardDetailQuestion id={id} board={board} setBoard={setBoard}></BoardDetailQuestion>
-            <BoardDetailAnswer id={id} answer={answer} setAnswer={setAnswer} answerError={answerError}></BoardDetailAnswer>
+            <BoardDetailQuestion></BoardDetailQuestion>
+            <BoardDetailAnswer></BoardDetailAnswer>
         </BoardDetailWrapper>
     );
 };

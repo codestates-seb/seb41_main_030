@@ -1,6 +1,8 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { boardState } from "../../states/";
 
 // styled components
 const BDQuestionWrapper = styled.div`
@@ -171,12 +173,13 @@ const BDQuestionMain = styled.div`
 `;
 
 // component
-const BoardDetailQuestion = ({ id, board, setBoard }) => {
+const BoardDetailQuestion = () => {
+    const board = useRecoilValue(boardState);
     const navigate = useNavigate();
 
     // ! 질문 삭제 -> 서버 열리면 코드 수정 예정
     const deleteQuestion = () => {
-        axios.delete(`http://localhost:3001/boards/${id}`).then((res) => navigate("/community"));
+        axios.delete(`http://localhost:3001/boards/${board.id}`).then((res) => navigate("/community"));
     };
 
     return (

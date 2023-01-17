@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { answerState, boardState } from "../../states";
 
 const BDAnswerWrapper = styled.div`
     margin-top: 40px;
@@ -200,11 +202,13 @@ const BDAnswerTextareaContainer = styled.div`
 `;
 
 // ! 나중에 서버 연결시 데이터 받아서 랜더링되도록 수정할 것
-const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
+const BoardDetailAnswer = () => {
     const url = `http://localhost:3001`;
     const [isEdit, setIsEdit] = useState(false);
+    const [answer, setAnswer] = useRecoilState(answerState);
+    const board = useRecoilValue(boardState);
 
-    // * 답글 등록
+    // ** 답글 등록
     // 답글 등록 form
     const {
         register,
@@ -218,12 +222,13 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
             .post(`${url}/comments`, data)
             .then((res) => {
                 window.location.reload();
+                setAnswer(data);
             })
             .catch((err) => console.log(err));
     };
 
-    // * 답글 수정
-    // 답글 등록 form
+    // ** 답글 수정
+    // 답글 수정 form
     const {
         register: register2,
         handleSubmit: handleSubmit2,
@@ -238,18 +243,20 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
     // 답글 수정 요청 함수
     const editComment = (data) => {
         axios
-            .patch(`http://localhost:3001/comments/${id}`, data)
+            .patch(`http://localhost:3001/comments/${answer.id}`, data)
             .then((res) => {
                 window.location.reload();
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
-    // * 답글 삭제
+    // ** 답글 삭제
     // 답글 삭제 요청 함수
     const deleteComment = () => {
         axios
-            .delete(`http://localhost:3001/comments/${id}`)
+            .delete(`http://localhost:3001/comments/${answer.id}`)
             .then((res) => {
                 window.location.reload();
             })
@@ -258,7 +265,7 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
 
     return (
         <>
-            {answerError ? null : (
+            {answer && (
                 <BDAnswerWrapper>
                     {answer && (
                         <div>
@@ -292,7 +299,7 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
                                 {isEdit ? (
                                     <BDAnswerMainEditForm
                                         onSubmit={handleSubmit2((data) => {
-                                            data.id = Number(id);
+                                            data.id = Number(board.id);
                                             data.commentWriterId = "답글 작성자";
                                             data.createdAt = "2023 / 01 / 06";
                                             editComment(data);
@@ -323,7 +330,7 @@ const BoardDetailAnswer = ({ id, answer, setAnswer, answerError }) => {
 
             <BDAnswerMainForm
                 onSubmit={handleSubmit((data) => {
-                    data.id = Number(id);
+                    data.id = Number(board.id);
                     data.commentWriterId = "답글 작성자";
                     data.createdAt = "2023 / 01 / 06";
                     postComment(data);

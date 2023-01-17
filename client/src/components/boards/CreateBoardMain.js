@@ -1,8 +1,8 @@
 import styled from "styled-components";
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 // styled components
 const CreateBoardMainWrapper = styled.div`
