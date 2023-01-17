@@ -82,6 +82,7 @@ public interface BoardMapper {
         boardGetResponseDto.setCreatedAt(board.getCreatedAt());
         boardGetResponseDto.setModifiedAt(board.getModifiedAt());
         boardGetResponseDto.setCommentCount(board.getCommentCount());
+        boardGetResponseDto.setNickName(board.getMember().getNickName());
         boardGetResponseDto.setComment(
                 boardToCommentResponseDtos(comments)
         );

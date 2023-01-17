@@ -29,6 +29,7 @@ public interface CommentMapper {
             return null;
         }
 
+
         CommentResponseDto.CommentResponseDtoBuilder commentResponseDto = CommentResponseDto.builder();
 
         commentResponseDto.commentId(comment.getCommentId());
@@ -38,6 +39,7 @@ public interface CommentMapper {
         commentResponseDto.createdAt(comment.getCreatedAt());
         commentResponseDto.modifiedAt(comment.getModifiedAt());
         commentResponseDto.score(comment.getScore());
+        commentResponseDto.nickName(comment.getMember().getNickName());
 
         return commentResponseDto.build();
 
