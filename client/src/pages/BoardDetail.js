@@ -39,7 +39,7 @@ const BoardDetail = ({ setIsFooter }) => {
                 setAnswer(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
             });
     }, []);
 

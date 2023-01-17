@@ -1,7 +1,7 @@
 import axios from "axios";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useNavigate, Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { boardState } from "../../states/";
 
 // styled components
@@ -174,12 +174,15 @@ const BDQuestionMain = styled.div`
 
 // component
 const BoardDetailQuestion = () => {
-    const board = useRecoilValue(boardState);
+    const [board, setBoard] = useRecoilState(boardState);
     const navigate = useNavigate();
 
     // ! 질문 삭제 -> 서버 열리면 코드 수정 예정
     const deleteQuestion = () => {
-        axios.delete(`http://localhost:3001/boards/${board.id}`).then((res) => navigate("/community"));
+        axios.delete(`http://localhost:3001/boards/${board.id}`).then((res) => {
+            navigate("/community");
+            setBoard(null);
+        });
     };
 
     return (
@@ -205,7 +208,10 @@ const BoardDetailQuestion = () => {
                         </BDQuestionHeaderInfo>
 
                         <BDQuestionHeaderEditBtn>
-                            <button type="button">편집</button>
+                            <Link to="/community/edit">
+                                <button type="button">편집</button>
+                            </Link>
+
                             <button type="button" onClick={deleteQuestion}>
                                 삭제
                             </button>

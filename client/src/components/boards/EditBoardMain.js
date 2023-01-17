@@ -3,6 +3,9 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { boardState } from "../../states";
+import { useEffect } from "react";
 
 // styled components
 const CreateBoardMainWrapper = styled.div`
@@ -156,7 +159,8 @@ const CreateBoardSubmitBtnWrapper = styled.div`
 `;
 
 // component
-const CreateBoardMain = () => {
+const EditBoardMain = () => {
+    const [board, setBoard] = useRecoilState(boardState);
     const {
         register,
         handleSubmit,
@@ -166,8 +170,9 @@ const CreateBoardMain = () => {
     const navigate = useNavigate();
 
     // 태그
+    const initialTag = board.tag;
     const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
-    const [tags, setTags] = useState(["일반"]);
+    const [tags, setTags] = useState([...initialTag]);
 
     // 태그 버튼 이벤트 핸들러
     const handleTags = (e) => {
@@ -175,6 +180,7 @@ const CreateBoardMain = () => {
 
         if (tags.includes(str)) {
             const result = tags.filter((el) => el !== `${str}`);
+            console.log(tags);
             return setTags(result);
         }
 
@@ -183,12 +189,13 @@ const CreateBoardMain = () => {
         }
     };
 
-    // 게시글 등록 요청 함수
-    const postBoard = (data) => {
+    // 게시글 수정 요청 함수
+    const patchBoard = (data) => {
         axios
-            .post(`${url}/boards`, data)
+            .patch(`${url}/boards/${board.id}`, data)
             .then((res) => {
                 navigate("/community");
+                setBoard(data);
             })
             .catch((err) => console.log(err));
     };
@@ -200,7 +207,7 @@ const CreateBoardMain = () => {
                     data.tag = [...tags];
                     data.BoardWriterId = "작성자";
                     data.createdAt = "2023 / 01 / 06";
-                    postBoard(data);
+                    patchBoard(data);
                 })}
             >
                 <CreateBoardMainContainer>
@@ -209,6 +216,7 @@ const CreateBoardMain = () => {
                         id="createBoardInputTile"
                         placeholder="최소 10자 이상 작성해주세요."
                         className={errors.title && "createBoardErrorInput"}
+                        defaultValue={board.title}
                         {...register("title", {
                             required: "Required",
                             minLength: {
@@ -222,7 +230,13 @@ const CreateBoardMain = () => {
 
                 <CreateBoardMainContainer>
                     <label htmlFor="createBoardInputContent">고민 내용을 편하게 털어놓으세요.</label>
-                    <textarea id="createBoardInputContent" placeholder="고민을 적어주세요." className={errors.content && "createBoardErrorTextarea"} {...register("content", { required: true })} />
+                    <textarea
+                        id="createBoardInputContent"
+                        placeholder="고민을 적어주세요."
+                        className={errors.content && "createBoardErrorTextarea"}
+                        defaultValue={board.content}
+                        {...register("content", { required: true })}
+                    />
                     {errors.content && <div className="createBoardErrorMessage">고민을 적어주세요!</div>}
                 </CreateBoardMainContainer>
 
@@ -241,7 +255,7 @@ const CreateBoardMain = () => {
 
                 <CreateBoardSubmitBtnWrapper>
                     <button type="submit">
-                        고민 등록하기 <i className="fa-solid fa-chevron-right"></i>
+                        고민 수정하기 <i className="fa-solid fa-chevron-right"></i>
                     </button>
                 </CreateBoardSubmitBtnWrapper>
             </form>
@@ -249,4 +263,4 @@ const CreateBoardMain = () => {
     );
 };
 
-export default CreateBoardMain;
+export default EditBoardMain;
