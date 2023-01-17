@@ -1,8 +1,8 @@
 package com.e1i5.mentaltal.auth.userdetails;
 
 import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
-import com.e1i5.mentaltal.member.Member;
-import com.e1i5.mentaltal.member.MemberRepository;
+import com.e1i5.mentaltal.user.member.MemberRepository;
+import com.e1i5.mentaltal.user.member.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

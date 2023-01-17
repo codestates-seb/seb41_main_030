@@ -2,7 +2,7 @@ package com.e1i5.mentaltal.auth.filter;
 
 import com.e1i5.mentaltal.auth.dto.LoginDto;
 import com.e1i5.mentaltal.auth.jwt.JwtTokenizer;
-import com.e1i5.mentaltal.member.Member;
+import com.e1i5.mentaltal.user.member.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
