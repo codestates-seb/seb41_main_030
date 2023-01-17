@@ -18,7 +18,7 @@ const CreateBoard = ({ setIsFooter }) => {
         <>
             <CreateBoardsWrapper>
                 <CreateBoardHeader></CreateBoardHeader>
-                <CreateBoardMain value="고민 등록하기"></CreateBoardMain>
+                <CreateBoardMain></CreateBoardMain>
             </CreateBoardsWrapper>
         </>
     );
