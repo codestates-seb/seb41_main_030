@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
-// * styled components
+// styled components
 const BoardsMainWrapper = styled.main`
     background-color: var(--lightgreen2);
     width: 100%;
@@ -14,15 +15,27 @@ const BoardsList = styled.ul`
 
     display: grid;
     grid-template-columns: 1fr 1fr;
-    place-items: center;
     gap: 40px;
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 920px) {
+        padding: 40px;
+    }
+
+    @media screen and (min-width: 1921px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 `;
 
-const BoardsCard = styled.li`
+const BoardsCardLink = styled(Link)`
     background-color: white;
     border-radius: 10px;
     width: 100%;
-    height: 200px;
+    height: 210px;
     padding: 30px;
 
     display: flex;
@@ -34,10 +47,17 @@ const BoardsTitle = styled.div`
     font-size: 20px;
     color: var(--darkgreen);
     font-weight: 700;
+    height: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 `;
 
 const BoardsTagWrapper = styled.ul`
     display: flex;
+    flex-wrap: wrap;
     gap: 5px;
 `;
 
@@ -48,6 +68,10 @@ const BoardsTag = styled.li`
     border-radius: 15px;
     padding: 5px 8px;
     width: fit-content;
+
+    @media screen and (max-width: 319px) {
+        padding: 3px;
+    }
 `;
 
 const BoardsContent = styled.div`
@@ -64,6 +88,10 @@ const BoardsContent = styled.div`
 const BoardsInfo = styled.div`
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 319px) {
+        font-size: 14px;
+    }
 `;
 
 const PagingWrapper = styled.div`
@@ -102,7 +130,7 @@ const PagingWrapper = styled.div`
     }
 `;
 
-// * component
+// component
 const BoardsMain = () => {
     const url = `http://localhost:3001`;
 
@@ -127,15 +155,17 @@ const BoardsMain = () => {
             <BoardsList>
                 {list &&
                     list.map((post) => (
-                        <BoardsCard key={post.id}>
-                            <BoardsTitle>{post.title}</BoardsTitle>
-                            <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
-                            <BoardsContent>{post.content}</BoardsContent>
-                            <BoardsInfo>
-                                <div>{post.createdAt}</div>
-                                <div>{post.BoardWriterId}</div>
-                            </BoardsInfo>
-                        </BoardsCard>
+                        <li key={post.id}>
+                            <BoardsCardLink to={`/community/${post.id}`}>
+                                <BoardsTitle>{post.title}</BoardsTitle>
+                                <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
+                                <BoardsContent>{post.content}</BoardsContent>
+                                <BoardsInfo>
+                                    <div>{post.createdAt}</div>
+                                    <div>{post.BoardWriterId}</div>
+                                </BoardsInfo>
+                            </BoardsCardLink>
+                        </li>
                     ))}
             </BoardsList>
 
@@ -147,7 +177,10 @@ const BoardsMain = () => {
                     pageRangeDisplayed={5}
                     prevPageText={"‹"}
                     nextPageText={"›"}
-                    onChange={(current) => setCurrent(current)}
+                    onChange={(current) => {
+                        setCurrent(current);
+                        window.scrollTo(0, 0);
+                    }}
                     hideFirstLastPages={true}
                 />
             </PagingWrapper>

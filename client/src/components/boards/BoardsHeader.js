@@ -9,6 +9,19 @@ const BoardsHeaderWrapper = styled.header`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    @media screen and (max-width: 920px) {
+        padding: 40px;
+        height: 250px;
+    }
 `;
 
 const BoardsHeaderTitle = styled.div`
@@ -26,6 +39,24 @@ const BoardsHeaderTitle = styled.div`
 
     & :not(:nth-child(1)) {
         font-size: 16px;
+    }
+
+    @media screen and (max-width: 387px) {
+        gap: 5px;
+
+        & :nth-child(1) {
+            width: 120px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        & :nth-child(1) {
+            font-size: 33px;
+        }
+
+        & :not(:nth-child(1)) {
+            font-size: 14px;
+        }
     }
 `;
 
@@ -46,6 +77,23 @@ const BoardsLink = styled(Link)`
         border-radius: 50%;
         padding: 2px 3px;
         margin-left: 5px;
+    }
+
+    @media screen and (max-width: 768px) {
+        button {
+            font-size: 14px;
+            width: 100%;
+        }
+
+        i {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 769px) and (max-width: 920px) {
+        button {
+            width: 240px;
+        }
     }
 `;
 

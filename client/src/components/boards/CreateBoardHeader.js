@@ -32,10 +32,10 @@ const BoardHeaderTitle = styled.div`
     }
 
     @media screen and (max-width: 630px) {
-        height: 100px;
+        height: 60px;
 
         & :nth-child(1) {
-            font-size: 25px;
+            font-size: 22px;
             margin-bottom: 15px;
         }
 
