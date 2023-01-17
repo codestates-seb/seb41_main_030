@@ -73,3 +73,22 @@ button:hover {
     cursor: pointer;
     transition: 0.5s;
 }
+
+/* board style */
+.boardTextarea1 {
+    outline: 1px solid var(--green);
+}
+.boardTextarea1:hover {
+    outline: 1px solid var(--lightgreen);
+}
+.boardErrorMessage {
+    color: red;
+    font-size: 14px;
+    margin: 10px 0 0 5px;
+}
+.boardErrorTextarea1 {
+    outline: 1px solid red;
+}
+.boardErrorTextarea1:hover {
+    outline: 1px solid red;
+}

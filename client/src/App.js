@@ -12,6 +12,8 @@ import CreateBoard from "./pages/CreateBoard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPw from "./pages/ForgotPw";
+import BoardDetail from "./pages/BoardDetail";
+import EditBoard from "./pages/EditBoard";
 
 function App() {
     // footer 유무 조작
@@ -22,7 +24,9 @@ function App() {
             <Nav />
             <Routes>
                 <Route path="/" element={<Main setIsFooter={setIsFooter} />} />
-                <Route path="/community" element={<Boards />} />
+                <Route path="/community" element={<Boards setIsFooter={setIsFooter} />} />
+                <Route path="/community/:id" element={<BoardDetail setIsFooter={setIsFooter} />} />
+                <Route path="community/edit" element={<EditBoard setIsFooter={setIsFooter} />} />
                 <Route path="/write" element={<CreateBoard setIsFooter={setIsFooter} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />

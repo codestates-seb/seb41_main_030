@@ -22,6 +22,10 @@ const NavTitle = styled.div`
     font-size: 28px;
     font-weight: 900;
     color: var(--green);
+
+    @media screen and (max-width: 600px) {
+        font-size: 20px;
+    }
 `;
 
 const NavContainer = styled.ul`
@@ -31,9 +35,11 @@ const NavContainer = styled.ul`
     font-size: 17px;
     font-weight: 600;
     color: var(--darkgreen);
+
     button {
         font-size: 16px;
     }
+
     @media screen and (max-width: 600px) {
         display: none;
     }
