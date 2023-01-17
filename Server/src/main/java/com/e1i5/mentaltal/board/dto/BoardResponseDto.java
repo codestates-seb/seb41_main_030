@@ -14,13 +14,12 @@ public class BoardResponseDto {
     private long memberId;
     private String title;
     private String content;
-    private int score;
-    //    private String tags;
-//    private int view;
+//    private String tags;
+    private int viewCount;  // 조회수
+    private int voteCount;  // 공감수
     private long commentCount;
 
     private String nickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
 }

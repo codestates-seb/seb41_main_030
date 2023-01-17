@@ -1,9 +1,7 @@
 package com.e1i5.mentaltal.board.controller;
 
-import com.e1i5.mentaltal.board.dto.BoardDeleteDto;
 import com.e1i5.mentaltal.board.dto.BoardPatchDto;
 import com.e1i5.mentaltal.board.dto.BoardPostDto;
-import com.e1i5.mentaltal.board.dto.BoardResponseDto;
 import com.e1i5.mentaltal.board.entity.Board;
 import com.e1i5.mentaltal.board.mapper.BoardMapper;
 import com.e1i5.mentaltal.board.service.BoardService;
@@ -65,8 +63,8 @@ public class BoardController {
     }
 
     //게시물 전체조회
-    @GetMapping("/all")
-    public ResponseEntity allBoards () {
+    @GetMapping("/all") // ~/boards or ~/boards/all ? --> ~/boards 400error
+    public ResponseEntity getAllBoards () {
         return ResponseEntity.ok(mapper.boardToBoardResponses(boardService.findAllBoards()));
 
     }
@@ -86,28 +84,20 @@ public class BoardController {
     }
 
     // 게시물 삭제
-    @DeleteMapping("{board-id}")
-    public ResponseEntity deleteBoard(@PathVariable("board-id") @Positive long boardId,
-                                      @RequestBody BoardDeleteDto boardDeleteDto) {
-
-        Board board = mapper.boardDeleteDtoToBoard(boardDeleteDto);
-        boardService.deleteBoard(boardId, board);
+    @DeleteMapping("/{board-id}")
+    public ResponseEntity deleteBoard(@PathVariable("board-id") @Positive long boardId) {
+        boardService.deleteBoard(boardId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    // 추천기능
-    @PostMapping("/{board-id}/up")
-    public ResponseEntity upVoteBoard(@PathVariable("board-id") long boardId) {
+    // 공감 (좋아요)
+    @PostMapping("/{board-id}/up")  // ~/boards/{id} or ~/boards/{id}/up ?
+    public ResponseEntity setCheckVote(@PathVariable("board-id") long boardId, @Positive @RequestParam long memberId) {
+        boardService.setCheckVote(boardId, memberId);
 
-        // TO DO
-        // 1. 회원만 추천할 수 있어야 한다.
-        // 2. 이미 추천한 사람일 경우 다시 추천 불가 > vote테이블에 이력이 있으면 > 예외 던지기
-
-        Board votedBoardUp = boardService.upVote(boardId);
-        BoardResponseDto response = mapper.boardToBoardResponseDto(votedBoardUp);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity(
+                new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
     }
 
 }

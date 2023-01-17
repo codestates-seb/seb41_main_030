@@ -14,11 +14,11 @@ public class BoardGetResponseDto {
     private long memberId;
     private String title;
     private String content;
-    private int score;
+    private int viewCount;  // 조회수
+    private int voteCount;  // 공감수
     private long commentCount;
     private List<CommentResponseDto> comment;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private String nickName;
-
 }

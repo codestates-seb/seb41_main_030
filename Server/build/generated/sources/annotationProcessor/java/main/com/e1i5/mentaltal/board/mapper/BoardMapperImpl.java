@@ -1,6 +1,5 @@
 package com.e1i5.mentaltal.board.mapper;
 
-import com.e1i5.mentaltal.board.dto.BoardDeleteDto;
 import com.e1i5.mentaltal.board.dto.BoardResponseDto;
 import com.e1i5.mentaltal.board.entity.Board;
 import java.util.ArrayList;
@@ -10,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-01-17T04:25:06+0900",
-    comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
+    date = "2023-01-17T22:52:14+0900",
+    comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 11.0.16 (Azul Systems, Inc.)"
 )
 @Component
 public class BoardMapperImpl implements BoardMapper {
@@ -28,16 +27,5 @@ public class BoardMapperImpl implements BoardMapper {
         }
 
         return list;
-    }
-
-    @Override
-    public Board boardDeleteDtoToBoard(BoardDeleteDto boardDeleteDto) {
-        if ( boardDeleteDto == null ) {
-            return null;
-        }
-
-        Board board = new Board();
-
-        return board;
     }
 }

@@ -48,8 +48,10 @@ public interface BoardMapper {
         long boardId = board.getBoardId();
         String title = board.getTitle();
         String content = board.getContent();
-        int score = board.getScore();
+        int viewCount = board.getViewCount();   // 조회수
+        int voteCount = board.getVoteCount();   // 공감수
         long commentCount = board.getCommentCount();
+        // 닉네임?
         LocalDateTime createdAt = board.getCreatedAt();
         LocalDateTime modifiedAt = board.getModifiedAt();
 
@@ -59,7 +61,8 @@ public interface BoardMapper {
 
         String nickName = board.getMember().getNickName();
 
-        BoardResponseDto boardResponseDto = new BoardResponseDto(boardId, memberId, title, content, score, commentCount, nickName, createdAt, modifiedAt);
+        BoardResponseDto boardResponseDto =
+                new BoardResponseDto(boardId, memberId, title, content, viewCount, voteCount, commentCount, nickName, createdAt, modifiedAt);
 
         return boardResponseDto;
     }
@@ -78,7 +81,8 @@ public interface BoardMapper {
         boardGetResponseDto.setMemberId(board.getMember().getMemberId());
         boardGetResponseDto.setTitle(board.getTitle());
         boardGetResponseDto.setContent(board.getContent());
-        boardGetResponseDto.setScore(board.getScore());
+        boardGetResponseDto.setViewCount(board.getViewCount()); // 조회수
+        boardGetResponseDto.setVoteCount(board.getVoteCount()); // 공감수
         boardGetResponseDto.setCreatedAt(board.getCreatedAt());
         boardGetResponseDto.setModifiedAt(board.getModifiedAt());
         boardGetResponseDto.setCommentCount(board.getCommentCount());
@@ -123,6 +127,4 @@ public interface BoardMapper {
         return list;
 
     }
-
-    Board boardDeleteDtoToBoard(BoardDeleteDto boardDeleteDto);
 }
