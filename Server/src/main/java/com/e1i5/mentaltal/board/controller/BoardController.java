@@ -1,5 +1,6 @@
 package com.e1i5.mentaltal.board.controller;
 
+import com.e1i5.mentaltal.board.dto.BoardDeleteDto;
 import com.e1i5.mentaltal.board.dto.BoardPatchDto;
 import com.e1i5.mentaltal.board.dto.BoardPostDto;
 import com.e1i5.mentaltal.board.dto.BoardResponseDto;
@@ -29,7 +30,6 @@ public class BoardController {
     private final BoardService boardService;
 
     // 질문 등록
-    // 응답으로 전달해줄 때, modifiedAt은 필요 없나 ? 없다면 응답으로 제공 하지 않아도 될까 ?
     @PostMapping
     public ResponseEntity postBoard(@Valid @RequestBody BoardPostDto boardPostDto) {
         Board board = mapper.boardPostDtoToBoard(boardPostDto);
@@ -54,11 +54,10 @@ public class BoardController {
 
     // 게시물 상세조회
     @GetMapping("/{board-id}")
-    public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId,
-                                   @RequestParam long memberId) {
+    public ResponseEntity getBoard(@PathVariable("board-id") @Positive long boardId ) {
         // TODO Member 엔티티 매핑 이후 @RequestParam 으로 mid(memberId)를 받아오는 코드가 추가되어야 합니다
 
-        Board board = boardService.findBoard(boardId, memberId);
+        Board board = boardService.findBoard(boardId);
 
 
         return new ResponseEntity(
@@ -88,10 +87,11 @@ public class BoardController {
 
     // 게시물 삭제
     @DeleteMapping("{board-id}")
-    public ResponseEntity deleteBoard(@PathVariable("board-id") @Positive long boardId) {
+    public ResponseEntity deleteBoard(@PathVariable("board-id") @Positive long boardId,
+                                      @RequestBody BoardDeleteDto boardDeleteDto) {
 
-//        Board board = mapper.boardDeleteDtoToBoard(boardDeleteDto);
-        boardService.deleteBoard(boardId);
+        Board board = mapper.boardDeleteDtoToBoard(boardDeleteDto);
+        boardService.deleteBoard(boardId, board);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

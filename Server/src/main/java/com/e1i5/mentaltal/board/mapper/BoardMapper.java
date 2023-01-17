@@ -1,25 +1,28 @@
 package com.e1i5.mentaltal.board.mapper;
 
-import com.e1i5.mentaltal.board.dto.BoardGetResponseDto;
-import com.e1i5.mentaltal.board.dto.BoardPatchDto;
-import com.e1i5.mentaltal.board.dto.BoardPostDto;
-import com.e1i5.mentaltal.board.dto.BoardResponseDto;
+import com.e1i5.mentaltal.board.dto.*;
 import com.e1i5.mentaltal.board.entity.Board;
+import com.e1i5.mentaltal.comment.dto.CommentResponseDto;
+import com.e1i5.mentaltal.comment.entity.Comment;
+import com.e1i5.mentaltal.user.member.Member;
 import org.mapstruct.Mapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
     default Board boardPostDtoToBoard(BoardPostDto boardPostDto) {
         Board board = new Board();
+        Member member = new Member();
 
-        board.setMemberId(boardPostDto.getMemberId());
+        board.setMid(boardPostDto.getMemberId());
         board.setTitle(boardPostDto.getTitle());
         board.setContent(boardPostDto.getContent());
 //        board.setTags(boardPostDto.getTags());
+        member.setMemberId(boardPostDto.getMemberId());
 
         return board;
     }
@@ -27,7 +30,7 @@ public interface BoardMapper {
     default Board boardPatchDtoToBoard(BoardPatchDto boardPatchDto) {
         Board board = new Board();
         board.setBoardId(boardPatchDto.getBoardId());
-        board.setMemberId(boardPatchDto.getMemberId());
+        board.setMid(boardPatchDto.getMemberId());
         board.setTitle(boardPatchDto.getTitle());
         board.setContent(boardPatchDto.getContent());
 //        board.setTags(boardPatchDto.getTags());
@@ -36,7 +39,30 @@ public interface BoardMapper {
         return board;
     }
 
-    BoardResponseDto boardToBoardResponseDto(Board board);
+    default BoardResponseDto boardToBoardResponseDto(Board board) {
+        if ( board == null) {
+            return null;
+        }
+        long memberId = 0L;
+
+        long boardId = board.getBoardId();
+        String title = board.getTitle();
+        String content = board.getContent();
+        int score = board.getScore();
+        long commentCount = board.getCommentCount();
+        LocalDateTime createdAt = board.getCreatedAt();
+        LocalDateTime modifiedAt = board.getModifiedAt();
+
+        if ( board.getMid() != null) {
+            memberId = board.getMid();
+        }
+
+        String nickName = board.getMember().getNickName();
+
+        BoardResponseDto boardResponseDto = new BoardResponseDto(boardId, memberId, title, content, score, commentCount, nickName, createdAt, modifiedAt);
+
+        return boardResponseDto;
+    }
 
     List<BoardResponseDto> boardToBoardResponses(List<Board> boards);
 
@@ -44,20 +70,42 @@ public interface BoardMapper {
 
 
     default BoardGetResponseDto boardToBoardGetResponseDto(Board board) {
+        List<Comment> comments = board.getComments();
 
         BoardGetResponseDto boardGetResponseDto = new BoardGetResponseDto();
 
         boardGetResponseDto.setBoardId(board.getBoardId());
-        boardGetResponseDto.setMemberId(board.getMemberId());
+        boardGetResponseDto.setMemberId(board.getMember().getMemberId());
         boardGetResponseDto.setTitle(board.getTitle());
         boardGetResponseDto.setContent(board.getContent());
         boardGetResponseDto.setScore(board.getScore());
         boardGetResponseDto.setCreatedAt(board.getCreatedAt());
         boardGetResponseDto.setModifiedAt(board.getModifiedAt());
-        // 답변 개수
+        boardGetResponseDto.setCommentCount(board.getCommentCount());
+        boardGetResponseDto.setComment(
+                boardToCommentResponseDtos(comments)
+        );
         // tag
 
         return boardGetResponseDto;
+    }
+
+    default List<CommentResponseDto> boardToCommentResponseDtos(List<Comment> comments) {
+
+        return comments
+                .stream()
+                .map(comment -> CommentResponseDto
+                        .builder()
+                        .commentId(comment.getCommentId())
+                        .content(comment.getContent())
+                        .createdAt(comment.getCreatedAt())
+                        .modifiedAt(comment.getModifiedAt())
+                        .score(comment.getScore())
+                        .boardId(comment.getBoard().getBoardId())
+                        .memberId(comment.getMember().getMemberId())
+                        .nickName(comment.getMember().getNickName())
+                        .build()
+                ).collect(Collectors.toList());
     }
 
     default List<BoardResponseDto> boardsToBoardsResponseDto(List<Board> boards) {
@@ -67,12 +115,13 @@ public interface BoardMapper {
 
         List<BoardResponseDto> list = new ArrayList<BoardResponseDto>(boards.size());
         for ( Board board : boards ) {
-//           board.setMemberId(board.getMember().getMemberId()); // 수정 필요
+            board.setMid(board.getMember().getMemberId());
+            board.setNickName(board.getMember().getNickName());
             list.add(boardToBoardResponseDto(board));
         }
         return list;
 
     }
 
-
+    Board boardDeleteDtoToBoard(BoardDeleteDto boardDeleteDto);
 }

@@ -24,5 +24,7 @@ public class CommentResponseDto {
 
     private long memberId;
 
+    private String nickName;
+
 //    private long counselorId;
 }

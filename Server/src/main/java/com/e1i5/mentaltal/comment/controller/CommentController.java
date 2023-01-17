@@ -59,7 +59,7 @@ public class CommentController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
 
     }
-    // 답변 전체조회
+    // 답변 페이지네이션
     @GetMapping
     public ResponseEntity getComments(@Positive @RequestParam int page,
                                       @Positive @RequestParam int size) {
@@ -70,6 +70,14 @@ public class CommentController {
                 new MultiResponseDto<>(mapper.commentToCommentResponseDtos(comments), pageComments),
                 HttpStatus.OK);
     }
+
+    // 답변 전체조회
+    @GetMapping("/all")
+    public ResponseEntity allComment() {
+        return ResponseEntity.ok(mapper.commentToCommentResponses(commentService.findAllComment()));
+
+    }
+
 
     // 답변 삭제
     @DeleteMapping("/{comment-id}")

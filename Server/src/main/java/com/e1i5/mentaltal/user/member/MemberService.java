@@ -1,7 +1,10 @@
 package com.e1i5.mentaltal.user.member;
 
+import com.e1i5.mentaltal.board.respository.BoardRepository;
+import com.e1i5.mentaltal.comment.repository.CommentRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,13 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
+@RequiredArgsConstructor
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
+    private final BoardRepository boardRepository;
+
+    private final CommentRepository commentRepository;
 
     // 회원 정보 등록
     public Member createMember(Member member) {
@@ -78,5 +82,17 @@ public class MemberService {
         if (member.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Long getBoardCount(Long memberId) {
+        Long boardCount = boardRepository.countBoardByMember_MemberId(memberId);
+        return boardCount;
+    }
+
+    @Transactional(readOnly = true)
+    public Long getCommentCount(Long memberId) {
+        Long commentCount = commentRepository.countCommentByMember_MemberId(memberId);
+        return commentCount;
     }
 }

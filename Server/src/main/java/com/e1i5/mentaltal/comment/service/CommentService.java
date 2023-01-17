@@ -7,6 +7,8 @@ import com.e1i5.mentaltal.comment.entity.Comment;
 import com.e1i5.mentaltal.comment.repository.CommentRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
+import com.e1i5.mentaltal.user.member.Member;
+import com.e1i5.mentaltal.user.member.MemberService;
 import com.e1i5.mentaltal.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -24,16 +27,19 @@ public class CommentService {
 
     private final BoardService boardService;
 
+    private final MemberService memberService;
+
     private final CustomBeanUtils<Comment> beanUtils;
 
 
     // 답변 등록
     public Comment createComment(Comment comment) {
-
-        // TO DO 회원 아이디가 db에 있는지 검증해야 함
+        Member member = memberService.findMember(comment.getMid());
         Board board = boardService.findVerifiedBoard(comment.getBid());
-        // 게시글이 존재하는지 검증
         comment.setCreatedAt(LocalDateTime.now());
+        comment.addMember(member);
+        comment.addBoard(board);
+        board.plusCommentCount();
 
         return commentRepository.save(comment);
 
@@ -59,7 +65,12 @@ public class CommentService {
         return findComment;
     }
 
-    // 답변 전체 조회
+    // 답변 전체조회
+    public List<Comment> findAllComment() {
+        return commentRepository.findAll();
+    }
+
+    // 답변 페이지네이션
     public Page<Comment> findComments(int page, int size) {
         return commentRepository.findAll(PageRequest.of(page, size, Sort.by("commentId").descending()));
     }
@@ -67,8 +78,10 @@ public class CommentService {
     // 답변 삭제
     public void deleteComment (long commentId) {
         Comment findComment = findVerifiedComment(commentId);
-        // 게시글에 딸린 답변을 삭제해야 하니까,
-        // 게시글 id를 받아와서, 그 게시글의 답변 개수를 내린다 ?
+        Board board = boardService.findVerifiedBoard(findComment.getBoard().getBoardId());
+        board.minusCommentCount();
+        // 게시글에 달린 답변을 삭제해야 하는 거니까,
+        // 게시글 id를 받아와서, 그 게시글의 답변 개수를 내린다.
         commentRepository.delete(findComment);
 
     }
