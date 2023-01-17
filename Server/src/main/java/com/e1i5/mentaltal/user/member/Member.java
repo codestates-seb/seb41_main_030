@@ -43,5 +43,7 @@ public class Member {
 //        if (board.getMember() != this) {
 //            board.setMember(this);
 //        }
-//    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 }
