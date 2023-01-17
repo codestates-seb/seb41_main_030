@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const EditContainer = styled.div`
     width: 100%;
@@ -164,7 +165,7 @@ const ButtonContainer = styled.div`
         height: 55px;
         font-size: 17px;
         font-weight: var(--font-bold);
-        &.back {
+        &.clear {
             background-color: #f1efe4;
             color: var(--darkgreen);
             margin-right: 20px;
@@ -183,8 +184,19 @@ const MyPageEdit = () => {
         formState: { errors },
         watch,
     } = useForm();
+    const [inputNameValue, setInputNameValue] = useState("");
+    const [inputPWValue, setInputPWValue] = useState("");
+    const [inputEmailValue, setInputEmailValue] = useState("");
+    const [inputPWCheckValue, setInputPWCheckValue] = useState("");
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+
+    const handleClear = () => {
+        setInputNameValue("");
+        setInputPWValue("");
+        setInputEmailValue("");
+        setInputPWCheckValue("");
+    };
 
     return (
         <>
@@ -196,6 +208,8 @@ const MyPageEdit = () => {
                             <input
                                 placeholder="김코딩"
                                 className={errors.name && "nameInputError"}
+                                value={inputNameValue}
+                                onKeyUp={(event) => setInputNameValue(event.value)}
                                 {...register("name", {
                                     required: { value: true, message: "닉네임을 입력해주세요." },
                                     minLength: {
@@ -216,6 +230,8 @@ const MyPageEdit = () => {
                                 placeholder="새로운 비밀번호를 입력해주세요."
                                 autoComplete="new-password"
                                 type="password"
+                                value={inputPWValue}
+                                onKeyUp={(event) => setInputPWValue(event.value)}
                                 className={errors.password && "passwordInputError"}
                                 {...register("password", {
                                     required: { value: true, message: "비밀번호를 입력해주세요." },
@@ -234,6 +250,8 @@ const MyPageEdit = () => {
                             <input
                                 placeholder="mentaltal2023@gmail.com"
                                 autoComplete="off"
+                                value={inputEmailValue}
+                                onKeyUp={(event) => setInputEmailValue(event.value)}
                                 className={errors.email && "emailInputError"}
                                 {...register("email", {
                                     required: { value: true, message: "이메일을 입력해주세요." },
@@ -250,6 +268,8 @@ const MyPageEdit = () => {
                             <input
                                 placeholder="새로운 비밀번호를 다시 한 번 입력해주세요."
                                 type="password"
+                                value={inputPWCheckValue}
+                                onKeyUp={(event) => setInputPWCheckValue(event.value)}
                                 className={errors.passwordConfirmation && "pwConfirmInputError"}
                                 {...register("passwordConfirmation", {
                                     required: { value: true, message: "비밀번호를 다시 한 번 입력해주세요." },
@@ -264,8 +284,8 @@ const MyPageEdit = () => {
                         </div>
                     </BottomBlock>
                     <ButtonContainer>
-                        <button className="back" onClick={() => navigate(-1)}>
-                            뒤로 가기
+                        <button className="clear" onClick={handleClear}>
+                            취소
                         </button>
                         <button className="edit" type="submit">
                             회원정보 수정
