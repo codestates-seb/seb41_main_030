@@ -62,20 +62,6 @@ public class Board {
         this.member.getBoards().add(this);
     }
 
-    @ElementCollection
-    public List<Long> checkVote = new ArrayList<>(); // 공감 처리 (+)
-
-    @ElementCollection
-    public List<Long> uncheckVote = new ArrayList<>(); // 공감 취소 (-)
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
-    }
-
     public void plusCommentCount() {
         commentCount++;
     }
@@ -83,7 +69,4 @@ public class Board {
     public void minusCommentCount () {
         commentCount--;
     }
-
-
-
 }

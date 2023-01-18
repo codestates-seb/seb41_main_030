@@ -1,13 +1,14 @@
 package com.e1i5.mentaltal.board.service;
 
 import com.e1i5.mentaltal.board.entity.Board;
+import com.e1i5.mentaltal.board.entity.BoardVote;
 import com.e1i5.mentaltal.board.respository.BoardRepository;
+import com.e1i5.mentaltal.board.respository.BoardVoteRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
 import com.e1i5.mentaltal.user.member.Member;
 import com.e1i5.mentaltal.user.member.MemberService;
 import com.e1i5.mentaltal.utils.CustomBeanUtils;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +25,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberService memberService;
     private final CustomBeanUtils<Board> beanUtils; // 제네릭 전용 클래스라서 <> 안에 어떤 엔티티의 service 클래스에 적용할 건지 써줘야 함
-
+    private final BoardVoteRepository boardVoteRepository;
 
     // 게시물 생성
     public Board createBoard(Board board) {
@@ -86,42 +87,37 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    // 공감수 (좋아요)
-    public int getVoteCount(long boardId) {
-        Board board = findVerifiedBoard(boardId);
-//        board.setVoteCount(board.getVoteCount() + 1);
-        return board.getVoteCount();
-    }
-
     /**
-     * 공감 버튼 클릭 시, 공감을 클릭한 이력이 있다면 공감 취소
-     * 이력이 없다면 공감 처리
-     * 로그인한 사용자만 공감 가능, 중복 불가
+     * 공감 (좋아요)
+     * TODO 로그인한 회원만 공감 가능 --> 비회원 공감 버튼 클릭 시 "로그인이 필요합니다."
      * @param boardId
      * @param memberId
+     * @param voteCheck
      * @return
      */
-    public void setCheckVote(long boardId, long memberId) {
-        memberService.findMember(memberId);
+    public Board boardVote(long boardId, long memberId, boolean voteCheck) {
+        Member member = memberService.findMember(memberId);
 
         Board board = findVerifiedBoard(boardId);
-        VoteStatus voteStatus = getMemberVoteStatus(board, memberId);
-        int voteCount = board.getVoteCount();
+        Optional<BoardVote> findVote = boardVoteRepository.findByBoardAndMember(board, member); // 해당 회원이 게시물을 작성했는지 아닌지 확인
 
-        // Todo 로그인 하지 않은 사용자 -> 에러 메시지 "로그인 후 이용할 수 있습니다." or 로그인창
-
-        if (voteStatus == VoteStatus.NONE) { // 공감 이력이 없는 경우, 공감 처리
-            board.checkVote.add(memberId);
-            voteCount++;
-        } else {    // 공감 취소
-            board.uncheckVote.remove(memberId);
-            voteCount--;
+        if(findVote.isPresent()) {
+            if (findVote.get().isVoteCheck() == voteCheck) {
+                board.setVoteCount(board.getVoteCount() + (voteCheck ? -1 : 1));    // vote가 true이면 -1, false이면 1 --> true는 공감이 눌러져 있는 상태이므로 0으로 만들어줌
+                boardVoteRepository.delete(findVote.get());  // 공감을 클릭한 이력을 삭제
+                return board;
+            }
+//            // 게시물의 공감과 voteCheck이 다른 경우 == up이 눌러져 있는데 down을 누르겠다고 요청한 경우 (혹은 그 반대)
+//            board.setVoteCount(board.getVoteCount() + (voteCheck ? 2 : -2));    // 게시물(ture) --> 1에서 -1로 만들어야 하므로 -2
+//            findVote.get().setVoteCheck(voteCheck);
+//            return board;
         }
-
-        board.setVoteCount(voteCount);
+        // 공감을 클릭하지 않은 경우 (findVote 존재 x)
+        board.setVoteCount(board.getVoteCount() + (voteCheck ? 1 : -1));    // 공감을 클릭하면 +1, 한 번 더 클릭하면 -1 (공감 취소)
+        BoardVote boardVote = new BoardVote(voteCheck, board, member);
+        boardVoteRepository.save(boardVote);
+        return board;
     }
-
-
 
     // db에 게시물이 있는지 검증. 없으면 예외
     public Board findVerifiedBoard (long boardId) {
@@ -140,30 +136,6 @@ public class BoardService {
     private void calculateStrLength(String str) {
         if (str.length() < 10) {
             throw new BusinessLogicException(ExceptionCode.POST_UNDER_TEN);
-        }
-    }
-
-    private VoteStatus getMemberVoteStatus(Board board, long memberId) {
-        if (board.getCheckVote().contains(memberId)) {  // 공감 이력이 있는 경우, 공감 취소
-            return VoteStatus.NONE;
-        }else {     // 공감 이력이 없는 경우, 공감 처리
-            return VoteStatus.CHECK;
-        }
-    }
-
-    public enum VoteStatus{
-        NONE(1, "none"),
-        CHECK(2, "check");
-
-        @Getter
-        private int status;
-
-        @Getter
-        private String message;
-
-        VoteStatus(int status, String message) {
-            this.status = status;
-            this.message = message;
         }
     }
 }

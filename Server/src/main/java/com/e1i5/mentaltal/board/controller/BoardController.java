@@ -90,14 +90,4 @@ public class BoardController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
-    // 공감 (좋아요)
-    @PostMapping("/{board-id}/up")  // ~/boards/{id} or ~/boards/{id}/up ?
-    public ResponseEntity setCheckVote(@PathVariable("board-id") long boardId, @Positive @RequestParam long memberId) {
-        boardService.setCheckVote(boardId, memberId);
-
-        return new ResponseEntity(
-                new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
-    }
-
 }
