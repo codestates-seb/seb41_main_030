@@ -37,6 +37,9 @@ const NavModal = ({ test }) => {
             <li>
                 <Link to="/counselors">전문가</Link>
             </li>
+            <li>
+                <Link to="/counselingcenter">전문기관</Link>
+            </li>
             {test ? (
                 <>
                     <li>

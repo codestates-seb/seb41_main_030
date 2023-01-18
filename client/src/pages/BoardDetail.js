@@ -27,6 +27,7 @@ const BoardDetail = ({ setIsFooter }) => {
     // ! 서버 열리면 이후 수정 예정
     useEffect(() => {
         setIsFooter(true);
+        window.scrollTo(0, 0);
 
         axios
             .get(`http://localhost:3001/boards/${id}`)

@@ -40,7 +40,7 @@ const NavContainer = styled.ul`
         font-size: 16px;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
         display: none;
     }
 `;
@@ -54,7 +54,7 @@ const NavMedia = styled.div`
         font-size: 25px;
         color: var(--green);
     }
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
         display: block;
     }
 `;
@@ -89,6 +89,9 @@ const Nav = () => {
                 </li>
                 <li>
                     <Link to="/counselors">전문가</Link>
+                </li>
+                <li>
+                    <Link to="/counselingcenter">전문기관</Link>
                 </li>
                 {test ? (
                     <>
