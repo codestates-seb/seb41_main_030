@@ -33,9 +33,9 @@ public class MemberDto {
         @NotBlank(message = "닉네임을 입력하세요.")
         private String nickName;
 
-        @NotBlank(message = "이메일을 입력하세요.")
-        @Email
-        private String email;
+//        @NotBlank(message = "이메일을 입력하세요.")
+//        @Email
+//        private String email;
 
         @NotBlank(message = "비밀번호를 입력하세요.")
         private String password;
