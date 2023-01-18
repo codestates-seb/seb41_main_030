@@ -38,7 +38,8 @@ public interface CommentMapper {
         commentResponseDto.content(comment.getContent());
         commentResponseDto.createdAt(comment.getCreatedAt());
         commentResponseDto.modifiedAt(comment.getModifiedAt());
-        commentResponseDto.score(comment.getScore());
+        commentResponseDto.viewCount(comment.getViewCount());   // 조회수
+        commentResponseDto.voteCount(comment.getVoteCount());   // 공감수
         commentResponseDto.nickName(comment.getMember().getNickName());
 
         return commentResponseDto.build();

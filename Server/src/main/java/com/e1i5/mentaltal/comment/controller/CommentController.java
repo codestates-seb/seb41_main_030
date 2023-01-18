@@ -1,6 +1,5 @@
 package com.e1i5.mentaltal.comment.controller;
 
-
 import com.e1i5.mentaltal.comment.dto.CommentPatchDto;
 import com.e1i5.mentaltal.comment.dto.CommentPostDto;
 import com.e1i5.mentaltal.comment.entity.Comment;
@@ -88,4 +87,12 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    // 공감 (좋아요)
+    @PostMapping("/{comment-id}/up")  // ~/boards/{id} or ~/boards/{id}/up ?
+    public ResponseEntity setCheckVote(@PathVariable("comment-id") long commentId, @Positive @RequestParam long memberId) {
+        commentService.setCheckVote(commentId, memberId);
+
+        return new ResponseEntity(
+                new SingleResponseDto<>(commentService.getVoteCount(commentId)), HttpStatus.OK);
+    }
 }

@@ -1,6 +1,5 @@
 package com.e1i5.mentaltal.comment.service;
 
-
 import com.e1i5.mentaltal.board.entity.Board;
 import com.e1i5.mentaltal.board.service.BoardService;
 import com.e1i5.mentaltal.comment.entity.Comment;
@@ -10,6 +9,7 @@ import com.e1i5.mentaltal.exception.ExceptionCode;
 import com.e1i5.mentaltal.user.member.Member;
 import com.e1i5.mentaltal.user.member.MemberService;
 import com.e1i5.mentaltal.utils.CustomBeanUtils;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -96,4 +96,67 @@ public class CommentService {
         return findComment;
     }
 
+    // 조회수
+    public void updateCommentViewCount(Comment comment, int viewCount) {
+        comment.setViewCount(viewCount + 1);
+        commentRepository.save(comment);
+    }
+
+    // 공감수 (좋아요)
+    public int getVoteCount(long commentId) {
+        Comment comment = findVerifiedComment(commentId);
+//        comment.setVoteCount(comment.getVoteCount() + 1);
+        return comment.getVoteCount();
+    }
+
+    /**
+     * 공감 버튼 클릭 시, 공감을 클릭한 이력이 있다면 공감 취소
+     * 이력이 없다면 공감 처리
+     * 로그인한 사용자만 공감 가능, 중복 불가
+     * @param commentId
+     * @param memberId
+     */
+    public void setCheckVote(long commentId, long memberId) {
+        memberService.findMember(memberId);
+
+        Comment comment = findVerifiedComment(commentId);
+        VoteStatus voteStatus = getMemberVoteStatus(comment, memberId);
+        int voteCount = comment.getVoteCount();
+
+        // Todo 로그인 하지 않은 사용자 -> 에러 메시지 "로그인 후 이용할 수 있습니다." or 로그인창
+
+        if (voteStatus == VoteStatus.NONE) { // 공감 이력이 없는 경우, 공감 처리
+            comment.checkVote.add(memberId);
+            voteCount++;
+        } else {    // 공감 취소
+            comment.uncheckVote.remove(memberId);
+            voteCount--;
+        }
+
+        comment.setVoteCount(voteCount);
+    }
+
+    private VoteStatus getMemberVoteStatus(Comment comment, long memberId) {
+        if (comment.getCheckVote().contains(memberId)) {  // 공감 이력이 있는 경우, 공감 취소
+            return CommentService.VoteStatus.NONE;
+        }else {     // 공감 이력이 없는 경우, 공감 처리
+            return CommentService.VoteStatus.CHECK;
+        }
+    }
+
+    public enum VoteStatus{
+        NONE(1, "none"),
+        CHECK(2, "check");
+
+        @Getter
+        private int status;
+
+        @Getter
+        private String message;
+
+        VoteStatus(int status, String message) {
+            this.status = status;
+            this.message = message;
+        }
+    }
 }

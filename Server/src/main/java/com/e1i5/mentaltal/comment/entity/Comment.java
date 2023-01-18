@@ -10,6 +10,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.catalina.security.SecurityUtil.remove;
 
@@ -32,8 +34,11 @@ public class Comment {
     @Column
     private LocalDateTime modifiedAt;
 
-    @Column
-    private int score;
+    @Column(nullable = false) // columnDefinition = "integer default 0"
+    private int viewCount = 0;  // 조회수
+
+    @Column(nullable = false)
+    private int voteCount = 0;  // 공감수 (좋아요)
 
     @Transient
     private long bid;
@@ -66,4 +71,17 @@ public class Comment {
         this.board.getComments().add(this);
     }
 
+    @ElementCollection
+    public List<Long> checkVote = new ArrayList<>(); // 공감 처리 (+)
+
+    @ElementCollection
+    public List<Long> uncheckVote = new ArrayList<>(); // 공감 취소 (-)
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
 }
