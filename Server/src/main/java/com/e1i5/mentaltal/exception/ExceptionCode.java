@@ -8,7 +8,6 @@ public enum ExceptionCode {
     MEMBER_EXISTS(409, "Member exists"),
     BOARD_NOT_FOUND(404, "Question not found"),
     COMMENT_NOT_FOUND(404, "Answer not found"),
-
     POST_UNDER_TEN(406, "Enter at least 10 characters");
     //TAG_NOT_FOUND(404, "Tag not found");
 

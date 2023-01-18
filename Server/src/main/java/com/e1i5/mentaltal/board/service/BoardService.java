@@ -147,12 +147,13 @@ public class BoardService {
         if (board.getCheckVote().contains(memberId)) {  // 공감 이력이 있는 경우, 공감 취소
             return VoteStatus.NONE;
         }else {     // 공감 이력이 없는 경우, 공감 처리
-            return VoteStatus.NONE;
+            return VoteStatus.CHECK;
         }
     }
 
     public enum VoteStatus{
-        NONE(1, "none");
+        NONE(1, "none"),
+        CHECK(2, "check");
 
         @Getter
         private int status;
