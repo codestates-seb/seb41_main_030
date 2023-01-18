@@ -3,6 +3,128 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 
+const MyPageEdit = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        watch,
+    } = useForm();
+    const [inputNameValue, setInputNameValue] = useState("");
+    const [inputPWValue, setInputPWValue] = useState("");
+    const [inputEmailValue, setInputEmailValue] = useState("");
+    const [inputPWCheckValue, setInputPWCheckValue] = useState("");
+
+    // const navigate = useNavigate();
+
+    const handleClear = () => {
+        setInputNameValue("");
+        setInputPWValue("");
+        setInputEmailValue("");
+        setInputPWCheckValue("");
+    };
+
+    return (
+        <>
+            <EditContainer>
+                <form onSubmit={handleSubmit()}>
+                    <TopBlock>
+                        <div className="nickname">
+                            <label>닉네임</label>
+                            <input
+                                placeholder="김코딩"
+                                className={errors.name && "nameInputError"}
+                                value={inputNameValue}
+                                onKeyUp={(event) => setInputNameValue(event.value)}
+                                {...register("name", {
+                                    required: { value: true, message: "닉네임을 입력해주세요." },
+                                    minLength: {
+                                        value: 2,
+                                        message: "두 글자 이상 입력해주세요.",
+                                    },
+                                    maxLength: {
+                                        value: 10,
+                                        message: "10 글자 이하로 입력해주세요.",
+                                    },
+                                })}
+                            />
+                            {errors.name && <div className="nameErrorMessage">{errors.name.message}</div>}
+                        </div>
+                        <div className="editPassword">
+                            <label>비밀번호 변경</label>
+                            <input
+                                placeholder="새로운 비밀번호를 입력해주세요."
+                                autoComplete="new-password"
+                                type="password"
+                                value={inputPWValue}
+                                onKeyUp={(event) => setInputPWValue(event.value)}
+                                className={errors.password && "passwordInputError"}
+                                {...register("password", {
+                                    required: { value: true, message: "비밀번호를 입력해주세요." },
+                                    minLength: {
+                                        value: 8,
+                                        message: "8자리 이상 비밀번호를 입력해주세요.",
+                                    },
+                                })}
+                            />
+                            {errors.password && <div className="passwordErrorMessage">{errors.password.message}</div>}
+                        </div>
+                    </TopBlock>
+                    <BottomBlock>
+                        <div className="email">
+                            <label>이메일</label>
+                            <input
+                                placeholder="mentaltal2023@gmail.com"
+                                autoComplete="off"
+                                value={inputEmailValue}
+                                onKeyUp={(event) => setInputEmailValue(event.value)}
+                                className={errors.email && "emailInputError"}
+                                {...register("email", {
+                                    required: { value: true, message: "이메일을 입력해주세요." },
+                                    pattern: {
+                                        value: /\S+@\S+\.\S+/,
+                                        message: "올바른 이메일 형식을 입력해주세요.",
+                                    },
+                                })}
+                            />
+                            {errors.email && <div className="emailErrorMessage">{errors.email.message}</div>}
+                        </div>
+                        <div className="passwordConfirm">
+                            <label>비밀번호 재입력</label>
+                            <input
+                                placeholder="새로운 비밀번호를 다시 한 번 입력해주세요."
+                                type="password"
+                                value={inputPWCheckValue}
+                                onKeyUp={(event) => setInputPWCheckValue(event.value)}
+                                className={errors.passwordConfirmation && "pwConfirmInputError"}
+                                {...register("passwordConfirmation", {
+                                    required: { value: true, message: "비밀번호를 다시 한 번 입력해주세요." },
+                                    validate: (value) => {
+                                        if (watch("password") !== value) {
+                                            return "비밀번호가 일치하지 않습니다.";
+                                        }
+                                    },
+                                })}
+                            />
+                            {errors.passwordConfirmation && <div className="pwConfirmErrorMessage">{errors.passwordConfirmation.message}</div>}
+                        </div>
+                    </BottomBlock>
+                    <ButtonContainer>
+                        <button className="clear" onClick={handleClear}>
+                            취소
+                        </button>
+                        <button className="edit" type="submit">
+                            회원정보 수정
+                        </button>
+                    </ButtonContainer>
+                </form>
+            </EditContainer>
+        </>
+    );
+};
+
+export default MyPageEdit;
+
 const EditContainer = styled.div`
     width: 100%;
     font-size: 24px;
@@ -176,125 +298,3 @@ const ButtonContainer = styled.div`
         }
     }
 `;
-
-const MyPageEdit = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        watch,
-    } = useForm();
-    const [inputNameValue, setInputNameValue] = useState("");
-    const [inputPWValue, setInputPWValue] = useState("");
-    const [inputEmailValue, setInputEmailValue] = useState("");
-    const [inputPWCheckValue, setInputPWCheckValue] = useState("");
-
-    // const navigate = useNavigate();
-
-    const handleClear = () => {
-        setInputNameValue("");
-        setInputPWValue("");
-        setInputEmailValue("");
-        setInputPWCheckValue("");
-    };
-
-    return (
-        <>
-            <EditContainer>
-                <form onSubmit={handleSubmit()}>
-                    <TopBlock>
-                        <div className="nickname">
-                            <label>닉네임</label>
-                            <input
-                                placeholder="김코딩"
-                                className={errors.name && "nameInputError"}
-                                value={inputNameValue}
-                                onKeyUp={(event) => setInputNameValue(event.value)}
-                                {...register("name", {
-                                    required: { value: true, message: "닉네임을 입력해주세요." },
-                                    minLength: {
-                                        value: 2,
-                                        message: "두 글자 이상 입력해주세요.",
-                                    },
-                                    maxLength: {
-                                        value: 10,
-                                        message: "10 글자 이하로 입력해주세요.",
-                                    },
-                                })}
-                            />
-                            {errors.name && <div className="nameErrorMessage">{errors.name.message}</div>}
-                        </div>
-                        <div className="editPassword">
-                            <label>비밀번호 변경</label>
-                            <input
-                                placeholder="새로운 비밀번호를 입력해주세요."
-                                autoComplete="new-password"
-                                type="password"
-                                value={inputPWValue}
-                                onKeyUp={(event) => setInputPWValue(event.value)}
-                                className={errors.password && "passwordInputError"}
-                                {...register("password", {
-                                    required: { value: true, message: "비밀번호를 입력해주세요." },
-                                    minLength: {
-                                        value: 8,
-                                        message: "8자리 이상 비밀번호를 입력해주세요.",
-                                    },
-                                })}
-                            />
-                            {errors.password && <div className="passwordErrorMessage">{errors.password.message}</div>}
-                        </div>
-                    </TopBlock>
-                    <BottomBlock>
-                        <div className="email">
-                            <label>이메일</label>
-                            <input
-                                placeholder="mentaltal2023@gmail.com"
-                                autoComplete="off"
-                                value={inputEmailValue}
-                                onKeyUp={(event) => setInputEmailValue(event.value)}
-                                className={errors.email && "emailInputError"}
-                                {...register("email", {
-                                    required: { value: true, message: "이메일을 입력해주세요." },
-                                    pattern: {
-                                        value: /\S+@\S+\.\S+/,
-                                        message: "올바른 이메일 형식을 입력해주세요.",
-                                    },
-                                })}
-                            />
-                            {errors.email && <div className="emailErrorMessage">{errors.email.message}</div>}
-                        </div>
-                        <div className="passwordConfirm">
-                            <label>비밀번호 재입력</label>
-                            <input
-                                placeholder="새로운 비밀번호를 다시 한 번 입력해주세요."
-                                type="password"
-                                value={inputPWCheckValue}
-                                onKeyUp={(event) => setInputPWCheckValue(event.value)}
-                                className={errors.passwordConfirmation && "pwConfirmInputError"}
-                                {...register("passwordConfirmation", {
-                                    required: { value: true, message: "비밀번호를 다시 한 번 입력해주세요." },
-                                    validate: (value) => {
-                                        if (watch("password") !== value) {
-                                            return "비밀번호가 일치하지 않습니다.";
-                                        }
-                                    },
-                                })}
-                            />
-                            {errors.passwordConfirmation && <div className="pwConfirmErrorMessage">{errors.passwordConfirmation.message}</div>}
-                        </div>
-                    </BottomBlock>
-                    <ButtonContainer>
-                        <button className="clear" onClick={handleClear}>
-                            취소
-                        </button>
-                        <button className="edit" type="submit">
-                            회원정보 수정
-                        </button>
-                    </ButtonContainer>
-                </form>
-            </EditContainer>
-        </>
-    );
-};
-
-export default MyPageEdit;

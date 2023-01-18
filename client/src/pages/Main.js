@@ -4,6 +4,58 @@ import Carousel from "../components/main/Carousel";
 import { useEffect } from "react";
 import IntroImg from "../icons/main-leaf.svg";
 
+const Main = ({ setIsFooter }) => {
+    useEffect(() => {
+        setIsFooter(true);
+    });
+
+    return (
+        <>
+            <Container>
+                <Intro>
+                    <div className="text">
+                        <p className="description">심리적인 괴로움, 감정을 탈탈 털어놓으세요.</p>
+                        <p className="logo">MENTALTAL</p>
+                    </div>
+                </Intro>
+                <PreviewContainer>
+                    <p className="text">오늘의 TOP 게시글</p>
+                    <CarouselContainer>
+                        <Carousel />
+                    </CarouselContainer>
+                </PreviewContainer>
+                <Shortcut>
+                    <p className="text">당신을 위한 멘탈 케어</p>
+                    <div className="blockContainer">
+                        <div className="blockLeft">
+                            <div className="block_counsel">
+                                <p className="title">전문 상담</p>
+                                <p className="description">전문가나 상담 기관의 도움이 필요하신가요?</p>
+                            </div>
+                            <div className="block_write">
+                                <p className="title">고민 털어놓기</p>
+                                <p className="description">MENTALTAL에 고민을 털어놓으세요</p>
+                            </div>
+                        </div>
+                        <div className="blockRight">
+                            <div className="block_community">
+                                <p className="title">MENTALTAL 커뮤니티</p>
+                                <p className="description">비슷한 고민을 가진 사람들과 이야기해보세요</p>
+                            </div>
+                            <div className="block_postit">
+                                <p className="title">마음도장</p>
+                                <p className="description">코멘트를 남겨 마음도장을 찍어보세요</p>
+                            </div>
+                        </div>
+                    </div>
+                </Shortcut>
+            </Container>
+        </>
+    );
+};
+
+export default Main;
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -200,55 +252,3 @@ const Shortcut = styled.div`
 `;
 
 const CarouselContainer = styled.div``;
-
-const Main = ({ setIsFooter }) => {
-    useEffect(() => {
-        setIsFooter(true);
-    });
-
-    return (
-        <>
-            <Container>
-                <Intro>
-                    <div className="text">
-                        <p className="description">심리적인 괴로움, 감정을 탈탈 털어놓으세요.</p>
-                        <p className="logo">MENTALTAL</p>
-                    </div>
-                </Intro>
-                <PreviewContainer>
-                    <p className="text">오늘의 TOP 게시글</p>
-                    <CarouselContainer>
-                        <Carousel />
-                    </CarouselContainer>
-                </PreviewContainer>
-                <Shortcut>
-                    <p className="text">당신을 위한 멘탈 케어</p>
-                    <div className="blockContainer">
-                        <div className="blockLeft">
-                            <div className="block_counsel">
-                                <p className="title">전문 상담</p>
-                                <p className="description">전문가나 상담 기관의 도움이 필요하신가요?</p>
-                            </div>
-                            <div className="block_write">
-                                <p className="title">고민 털어놓기</p>
-                                <p className="description">MENTALTAL에 고민을 털어놓으세요</p>
-                            </div>
-                        </div>
-                        <div className="blockRight">
-                            <div className="block_community">
-                                <p className="title">MENTALTAL 커뮤니티</p>
-                                <p className="description">비슷한 고민을 가진 사람들과 이야기해보세요</p>
-                            </div>
-                            <div className="block_postit">
-                                <p className="title">마음도장</p>
-                                <p className="description">코멘트를 남겨 마음도장을 찍어보세요</p>
-                            </div>
-                        </div>
-                    </div>
-                </Shortcut>
-            </Container>
-        </>
-    );
-};
-
-export default Main;

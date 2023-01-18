@@ -5,6 +5,74 @@ import MyPageAnswer from "../components/mypage/MyPageAnswer";
 import MyPageEdit from "../components/mypage/MyPageEdit";
 import axios from "axios";
 
+const MyPage = ({ setIsFooter }) => {
+    const [userData, setUserData] = useState(undefined);
+    const url = `http://localhost:3001`;
+
+    useEffect(() => {
+        axios.get(`${url}/members`).then((res) => {
+            // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
+            setUserData(res.data[0]);
+        });
+    }, []);
+
+    useEffect(() => {
+        setIsFooter(false);
+        // setUserData();
+    }, []);
+
+    const [openTab, setOpenTab] = useState([
+        {
+            id: 0,
+            name: "작성한 글",
+            url: "memberId/boards",
+        },
+        {
+            id: 1,
+            name: "작성한 답변",
+            url: "memberId/answers",
+        },
+        {
+            id: 2,
+            name: "개인정보 수정",
+            url: "members/edit",
+        },
+    ]);
+    const [checked, setChecked] = useState(0);
+    function tabHandle(index) {
+        setChecked(index);
+    }
+
+    return (
+        <>
+            <MyPageContainer>
+                <MyPageHeader>
+                    <div className="imgContainer"></div>
+                    <div className="textContainer">
+                        <p className="userName">{userData && userData.name} 님</p>
+                        <p className="email">{userData && userData.email}</p>
+                        <p className="leaveText">회원 탈퇴</p>
+                    </div>
+                </MyPageHeader>
+                <MyPageTab>
+                    <div className="tabContainer">
+                        {openTab.map((el, index) => {
+                            return (
+                                <button key={index} className={checked === index ? "tabButton tabChecked" : "tabButton"} onClick={() => tabHandle(index)}>
+                                    {el.name}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </MyPageTab>
+                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit />}</MyPageBody>
+            </MyPageContainer>
+        </>
+    );
+};
+
+export default MyPage;
+
 const MyPageContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -118,71 +186,3 @@ const MyPageTab = styled.div`
 const MyPageBody = styled.div`
     margin-bottom: 50px;
 `;
-
-const MyPage = ({ setIsFooter }) => {
-    const [userData, setUserData] = useState(undefined);
-    const url = `http://localhost:3001`;
-
-    useEffect(() => {
-        axios.get(`${url}/members`).then((res) => {
-            // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
-            setUserData(res.data[0]);
-        });
-    }, []);
-
-    useEffect(() => {
-        setIsFooter(false);
-        // setUserData();
-    }, []);
-
-    const [openTab, setOpenTab] = useState([
-        {
-            id: 0,
-            name: "작성한 글",
-            url: "memberId/boards",
-        },
-        {
-            id: 1,
-            name: "작성한 답변",
-            url: "memberId/answers",
-        },
-        {
-            id: 2,
-            name: "개인정보 수정",
-            url: "members/edit",
-        },
-    ]);
-    const [checked, setChecked] = useState(0);
-    function tabHandle(index) {
-        setChecked(index);
-    }
-
-    return (
-        <>
-            <MyPageContainer>
-                <MyPageHeader>
-                    <div className="imgContainer"></div>
-                    <div className="textContainer">
-                        <p className="userName">{userData && userData.name} 님</p>
-                        <p className="email">{userData && userData.email}</p>
-                        <p className="leaveText">회원 탈퇴</p>
-                    </div>
-                </MyPageHeader>
-                <MyPageTab>
-                    <div className="tabContainer">
-                        {openTab.map((el, index) => {
-                            return (
-                                <button key={index} className={checked === index ? "tabButton tabChecked" : "tabButton"} onClick={() => tabHandle(index)}>
-                                    {el.name}
-                                </button>
-                            );
-                        })}
-                    </div>
-                </MyPageTab>
-                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit />}</MyPageBody>
-            </MyPageContainer>
-        </>
-    );
-};
-
-export default MyPage;

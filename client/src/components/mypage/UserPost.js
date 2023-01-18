@@ -1,5 +1,24 @@
 import styled from "styled-components";
 
+const UserPost = ({ title, content, createdAt, answerCount }) => {
+    return (
+        <>
+            <PostsContainer>
+                <Post>
+                    <p className="postTitle">{title}</p>
+                    <p className="postContent">{content} ...</p>
+                    <div className="postInfo">
+                        <span className="postCreatedAt">{createdAt}</span>
+                        {answerCount ? <span className="answerCount">답변 수 2</span> : null}
+                    </div>
+                </Post>
+            </PostsContainer>
+        </>
+    );
+};
+
+export default UserPost;
+
 const PostsContainer = styled.div`
     width: 100%;
     height: 190px;
@@ -113,22 +132,3 @@ const Post = styled.div`
         }
     }
 `;
-
-const UserPost = ({ title, content, createdAt, answerCount }) => {
-    return (
-        <>
-            <PostsContainer>
-                <Post>
-                    <p className="postTitle">{title}</p>
-                    <p className="postContent">{content} ...</p>
-                    <div className="postInfo">
-                        <span className="postCreatedAt">{createdAt}</span>
-                        {answerCount ? <span className="answerCount">답변 수 2</span> : null}
-                    </div>
-                </Post>
-            </PostsContainer>
-        </>
-    );
-};
-
-export default UserPost;
