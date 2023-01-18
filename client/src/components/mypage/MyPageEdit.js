@@ -8,7 +8,7 @@ const EditContainer = styled.div`
     font-size: 24px;
     color: var(--darkgreen);
     font-weight: var(--font-bold);
-    padding: 100px 0px 80px 38px;
+    padding: 100px 0px 30px 38px;
 
     @media screen and (max-width: 862px) {
         padding-left: 0px;

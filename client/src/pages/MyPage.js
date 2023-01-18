@@ -115,7 +115,9 @@ const MyPageTab = styled.div`
     }
 `;
 
-const MyPageBody = styled.div``;
+const MyPageBody = styled.div`
+    margin-bottom: 50px;
+`;
 
 const MyPage = ({ setIsFooter }) => {
     const [userData, setUserData] = useState(undefined);
