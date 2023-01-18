@@ -49,7 +49,7 @@ public class MemberController {
         Member member = memberService.findMember(memberId);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.memberResponseDto(member)), HttpStatus.OK);
+                new SingleResponseDto<>(mapper.memberToMemberGetResponseDto(member)), HttpStatus.OK);
     }
 
     // 전체 회원 목록 조회
