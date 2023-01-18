@@ -16,6 +16,60 @@ import Preview from "./Preview";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+export default function Carousel() {
+    const url = `http://localhost:3001`;
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios.get(`${url}/boards`).then((res) => {
+            setData(res.data.slice(0, 12));
+        });
+    }, []);
+
+    return (
+        <>
+            <Container>
+                <Swiper
+                    // slidesPerView={4}
+                    breakpoints={{
+                        // when window width is >= 640px
+                        320: {
+                            width: 320,
+                            slidesPerView: 1,
+                            spaceBetween: 30,
+                        },
+                        // when window width is >= 768px
+                        600: {
+                            width: 600,
+                            slidesPerView: 2,
+                            spaceBetween: 30,
+                        },
+                        1200: {
+                            width: 1200,
+                            slidesPerView: 4,
+                            spaceBetween: 10,
+                        },
+                    }}
+                    // spaceBetween={-30}
+                    slidesPerGroup={4}
+                    loop={true}
+                    loopFillGroupWithBlank={true}
+                    navigation={true}
+                    modules={[Navigation]}
+                    className="mySwiper"
+                >
+                    {data &&
+                        data.map((post) => (
+                            <SwiperSlide key={post.BoardId + 1}>
+                                <Preview key={post.BoardId} tag={post.tag[0]} title={post.title} content={post.content} writer={post.BoardWriterId} />
+                            </SwiperSlide>
+                        ))}
+                </Swiper>
+            </Container>
+        </>
+    );
+}
+
 const Container = styled.div`
     body {
         background: #eee;
@@ -107,57 +161,3 @@ const Container = styled.div`
         margin: 0 10px !important;
     } */
 `;
-
-export default function Carousel() {
-    const url = `http://localhost:3001`;
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        axios.get(`${url}/boards`).then((res) => {
-            setData(res.data.slice(0, 12));
-        });
-    }, []);
-
-    return (
-        <>
-            <Container>
-                <Swiper
-                    // slidesPerView={4}
-                    breakpoints={{
-                        // when window width is >= 640px
-                        320: {
-                            width: 320,
-                            slidesPerView: 1,
-                            spaceBetween: 30,
-                        },
-                        // when window width is >= 768px
-                        600: {
-                            width: 600,
-                            slidesPerView: 2,
-                            spaceBetween: 30,
-                        },
-                        1200: {
-                            width: 1200,
-                            slidesPerView: 4,
-                            spaceBetween: 10,
-                        },
-                    }}
-                    // spaceBetween={-30}
-                    slidesPerGroup={4}
-                    loop={true}
-                    loopFillGroupWithBlank={true}
-                    navigation={true}
-                    modules={[Navigation]}
-                    className="mySwiper"
-                >
-                    {data &&
-                        data.map((post) => (
-                            <SwiperSlide key={post.BoardId + 1}>
-                                <Preview key={post.BoardId} tag={post.tag[0]} title={post.title} content={post.content} writer={post.BoardWriterId} />
-                            </SwiperSlide>
-                        ))}
-                </Swiper>
-            </Container>
-        </>
-    );
-}
