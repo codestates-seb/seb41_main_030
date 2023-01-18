@@ -103,8 +103,9 @@ const Post = styled.div`
         @media screen and (max-width: 576px) {
             padding-top: 53px;
         }
-        @media screen and (max-width: 546px) {
-            padding-top: 33px;
+
+        @media screen and (max-width: 535px) {
+            padding-top: 25px;
         }
 
         @media screen and (max-width: 503px) {
