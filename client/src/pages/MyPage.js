@@ -10,15 +10,11 @@ const MyPage = ({ setIsFooter }) => {
     const url = `http://localhost:3001`;
 
     useEffect(() => {
+        setIsFooter(false);
         axios.get(`${url}/members`).then((res) => {
             // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
             setUserData(res.data[0]);
         });
-    }, []);
-
-    useEffect(() => {
-        setIsFooter(false);
-        // setUserData();
     }, []);
 
     const [openTab, setOpenTab] = useState([

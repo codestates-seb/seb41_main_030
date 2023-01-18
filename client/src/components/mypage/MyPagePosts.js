@@ -13,7 +13,6 @@ const MyPagePosts = ({ userData }) => {
     }
 
     useEffect(() => {
-        // axios.get(`${url}/boards?_page=${current}&_limit=10`)
         axios
             .get(`${url}/boards`)
             .then((res) => {
