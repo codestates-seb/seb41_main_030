@@ -15,6 +15,7 @@ import ForgotPw from "./pages/ForgotPw";
 import BoardDetail from "./pages/BoardDetail";
 import EditBoard from "./pages/EditBoard";
 import CounselingCenter from "./pages/CounselingCenter";
+import MyPage from "./pages/MyPage";
 
 function App() {
     // footer 유무 조작
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgotPw" element={<ForgotPw />} />
                 <Route path="/counselingcenter" element={<CounselingCenter setIsFooter={setIsFooter} />} />
+                <Route path="/mypage" element={<MyPage setIsFooter={setIsFooter} />} />
             </Routes>
             {isFooter ? <Footer /> : null}
         </div>

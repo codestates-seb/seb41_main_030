@@ -1,5 +1,22 @@
 import styled from "styled-components";
-import "../../globalStyle.css";
+
+const Preview = ({ tag, title, content, writer }) => {
+    return (
+        <Post>
+            <div className="tag">{tag}</div>
+            <div className="title">{title}</div>
+            <div className="content">{content.slice(0, 63)}... </div>
+            <div className="writerContainer">
+                <span className="img"></span>
+                <span className="writer">{writer} </span>
+                <span className="writerTxt">님</span>
+            </div>
+            <button>보러가기</button>
+        </Post>
+    );
+};
+
+export default Preview;
 
 const Post = styled.div`
     background-color: var(--lightgreen2);
@@ -53,21 +70,3 @@ const Post = styled.div`
         }
     }
 `;
-
-const Preview = ({ tag, title, content, writer }) => {
-    return (
-        <Post>
-            <div className="tag">{tag}</div>
-            <div className="title">{title}</div>
-            <div className="content">{content.slice(0, 63)}... </div>
-            <div className="writerContainer">
-                <span className="img"></span>
-                <span className="writer">{writer} </span>
-                <span className="writerTxt">님</span>
-            </div>
-            <button>보러가기</button>
-        </Post>
-    );
-};
-
-export default Preview;

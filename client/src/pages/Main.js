@@ -4,165 +4,6 @@ import Carousel from "../components/main/Carousel";
 import { useEffect } from "react";
 import IntroImg from "../icons/main-leaf.svg";
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 60px;
-`;
-
-const Intro = styled.div`
-    width: 100%;
-    height: 440px;
-    background-color: var(--primary-color);
-    display: flex;
-
-    background-image: url(${IntroImg});
-    background-repeat: no-repeat;
-    background-position: 85% -620%;
-    background-size: 450px 450px;
-
-    .text {
-        padding-top: 200px;
-        padding-left: 90px;
-        color: var(--white);
-
-        .description {
-            font-size: 20px;
-        }
-
-        .logo {
-            font-size: 55px;
-            padding-top: 10px;
-            font-weight: var(--font-bold);
-        }
-    }
-`;
-
-const PreviewContainer = styled.div`
-    padding: 0 90px;
-    padding-top: 90px;
-
-    .text {
-        font-size: 20px;
-        font-weight: var(--font-bold);
-        color: var(--darkgreen);
-        padding-bottom: 25px;
-    }
-
-    .posts {
-        display: flex;
-        justify-content: space-between;
-    }
-`;
-
-const Shortcut = styled.div`
-    padding: 0 90px;
-    padding-top: 90px;
-
-    .text {
-        font-size: 20px;
-        font-weight: var(--font-bold);
-        color: var(--darkgreen);
-        padding-bottom: 25px;
-    }
-
-    .blockContainer {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 80px;
-
-        .title {
-            font-size: 27px;
-            font-weight: var(--font-bold);
-        }
-
-        .description {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .blockLeft {
-            flex-grow: 1;
-            margin-right: 10px;
-            display: flex;
-            flex-direction: column;
-
-            .block_counsel {
-                background-color: var(--yellow);
-                height: 166px;
-                border-radius: 20px;
-                padding: 40px;
-                padding-top: 53px;
-                color: var(--darkgreen);
-
-                :hover {
-                    background-color: var(--green);
-                    transition: 0.8s;
-                    color: var(--white);
-                    cursor: pointer;
-                }
-            }
-
-            .block_write {
-                background-color: #a2b29f;
-                height: 300px;
-                border-radius: 20px;
-                padding: 40px;
-                padding-top: 53px;
-                margin-top: 20px;
-                color: var(--white);
-
-                :hover {
-                    background-color: var(--green);
-                    transition: 1s;
-                    color: var(--white);
-                    cursor: pointer;
-                }
-            }
-        }
-
-        .blockRight {
-            flex-grow: 1;
-            margin-left: 10px;
-            display: flex;
-            flex-direction: column;
-            .block_community {
-                background-color: #798777;
-                height: 300px;
-                border-radius: 20px;
-                padding: 40px;
-                padding-top: 53px;
-                color: var(--white);
-
-                :hover {
-                    background-color: var(--green);
-                    transition: 1s;
-                    color: var(--white);
-                    cursor: pointer;
-                }
-            }
-            .block_postit {
-                background-color: #bdd2b6;
-                height: 166px;
-                border-radius: 20px;
-                padding: 40px;
-                padding-top: 53px;
-                margin-top: 20px;
-                color: var(--darkgreen);
-
-                :hover {
-                    background-color: var(--green);
-                    transition: 0.8s;
-                    color: var(--white);
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-`;
-
-const CarouselContainer = styled.div``;
-
 const Main = ({ setIsFooter }) => {
     useEffect(() => {
         setIsFooter(true);
@@ -214,3 +55,200 @@ const Main = ({ setIsFooter }) => {
 };
 
 export default Main;
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+`;
+
+const Intro = styled.div`
+    width: 100%;
+    height: 440px;
+    background-color: var(--primary-color);
+    display: flex;
+
+    background-image: url(${IntroImg});
+    background-repeat: no-repeat;
+    background-position: 85% -620%;
+    background-size: 450px 450px;
+
+    @media screen and (max-width: 851px) {
+        background-image: none;
+    }
+
+    .text {
+        padding-top: 200px;
+        padding-left: 90px;
+        color: var(--white);
+
+        .description {
+            font-size: 20px;
+        }
+
+        .logo {
+            font-size: 55px;
+            padding-top: 10px;
+            font-weight: var(--font-bold);
+        }
+    }
+`;
+
+const PreviewContainer = styled.div`
+    padding: 0 90px;
+    padding-top: 90px;
+
+    .text {
+        font-size: 20px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 25px;
+    }
+
+    .posts {
+        display: flex;
+        justify-content: space-between;
+    }
+`;
+
+const Shortcut = styled.div`
+    padding: 0 90px;
+    padding-top: 90px;
+
+    .text {
+        font-size: 20px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 25px;
+    }
+
+    .blockContainer {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 80px;
+
+        @media screen and (max-width: 863px) {
+            flex-direction: column;
+        }
+
+        .title {
+            font-size: 27px;
+            font-weight: var(--font-bold);
+
+            @media screen and (max-width: 522px) {
+                font-size: 24px;
+            }
+        }
+
+        .description {
+            font-size: 18px;
+            margin-top: 10px;
+            line-height: 24px;
+            @media screen and (max-width: 522px) {
+                font-size: 16px;
+            }
+            @media screen and (max-width: 512px) {
+                font-size: 15px;
+            }
+            @media screen and (max-width: 509px) {
+                display: none;
+            }
+        }
+
+        .blockLeft {
+            flex-grow: 1;
+            margin-right: 10px;
+            display: flex;
+            flex-direction: column;
+
+            @media screen and (max-width: 863px) {
+                margin-right: 0px;
+            }
+
+            .block_counsel {
+                background-color: var(--yellow);
+                height: 166px;
+                border-radius: 20px;
+                padding: 40px;
+                padding-top: 53px;
+                color: var(--darkgreen);
+
+                :hover {
+                    background-color: var(--green);
+                    transition: 0.8s;
+                    color: var(--white);
+                    cursor: pointer;
+                }
+            }
+
+            .block_write {
+                background-color: #a2b29f;
+                height: 300px;
+                border-radius: 20px;
+                padding: 40px;
+                padding-top: 53px;
+                margin-top: 20px;
+                color: var(--white);
+                @media screen and (max-width: 863px) {
+                    height: 166px;
+                }
+
+                :hover {
+                    background-color: var(--green);
+                    transition: 1s;
+                    color: var(--white);
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .blockRight {
+            flex-grow: 1;
+            margin-left: 10px;
+            display: flex;
+            flex-direction: column;
+
+            @media screen and (max-width: 863px) {
+                margin-left: 0px;
+                margin-top: 20px;
+            }
+            .block_community {
+                background-color: #798777;
+                height: 300px;
+                border-radius: 20px;
+                padding: 40px;
+                padding-top: 53px;
+                color: var(--white);
+
+                @media screen and (max-width: 863px) {
+                    height: 166px;
+                }
+
+                :hover {
+                    background-color: var(--green);
+                    transition: 1s;
+                    color: var(--white);
+                    cursor: pointer;
+                }
+            }
+            .block_postit {
+                background-color: #bdd2b6;
+                height: 166px;
+                border-radius: 20px;
+                padding: 40px;
+                padding-top: 53px;
+                margin-top: 20px;
+                color: var(--darkgreen);
+
+                :hover {
+                    background-color: var(--green);
+                    transition: 0.8s;
+                    color: var(--white);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+`;
+
+const CarouselContainer = styled.div``;
