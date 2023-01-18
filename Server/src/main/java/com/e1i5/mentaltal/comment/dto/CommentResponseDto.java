@@ -18,7 +18,9 @@ public class CommentResponseDto {
 
     private LocalDateTime modifiedAt;
 
-    private int score;
+    private int viewCount;  // 조회수
+
+    private int voteCount;  // 공감수
 
     private long boardId;
 
