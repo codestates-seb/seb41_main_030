@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long memberId;
+    private Long memberId;
 
     @Column(nullable = false, unique = true)
     private String nickName;
@@ -38,11 +39,11 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
-//    public void setBoard (Board board) {
-//        boards.add(board);
-//        if (board.getMember() != this) {
-//            board.setMember(this);
-//        }
+    @Transient
+    private Long boardCount;
+
+    @Transient
+    private Long answerCount;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();

@@ -52,7 +52,11 @@ public class MemberService {
     // 특정 회원 목록 조회
     @Transactional(readOnly = true)
     public Member findMember(long memberId) {
-        return findVerifiedMember(memberId);
+        Member findMember = findVerifiedMember(memberId);
+        findMember.setBoardCount(getBoardCount(memberId));
+        findMember.setAnswerCount(getCommentCount(memberId));
+
+        return findMember;
     }
 
     // 전체 회원 목록 조회
@@ -95,4 +99,5 @@ public class MemberService {
         Long commentCount = commentRepository.countCommentByMember_MemberId(memberId);
         return commentCount;
     }
+
 }
