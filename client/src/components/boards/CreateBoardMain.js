@@ -4,6 +4,100 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+const CreateBoardMain = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+    const url = `http://localhost:3001`;
+    const navigate = useNavigate();
+
+    // 태그
+    const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
+    const [tags, setTags] = useState(["일반"]);
+
+    // 태그 버튼 이벤트 핸들러
+    const handleTags = (e) => {
+        const str = e.target.value;
+
+        if (tags.includes(str)) {
+            const result = tags.filter((el) => el !== `${str}`);
+            return setTags(result);
+        }
+
+        if (!tags.includes(str)) {
+            return setTags([...tags, str]);
+        }
+    };
+
+    // 게시글 등록 요청 함수
+    const postBoard = (data) => {
+        axios
+            .post(`${url}/boards`, data)
+            .then((res) => {
+                navigate("/community");
+            })
+            .catch((err) => console.log(err));
+    };
+
+    return (
+        <CreateBoardMainWrapper>
+            <form
+                onSubmit={handleSubmit((data) => {
+                    data.tag = [...tags];
+                    data.BoardWriterId = "작성자";
+                    data.createdAt = "2023 / 01 / 06";
+                    data.recommend = 0;
+                    postBoard(data);
+                })}
+            >
+                <CreateBoardMainContainer>
+                    <label htmlFor="createBoardInputTile">고민을 한줄로 요약해 알려주세요.</label>
+                    <input
+                        id="createBoardInputTile"
+                        placeholder="최소 10자 이상 작성해주세요."
+                        className={errors.title && "createBoardErrorInput"}
+                        {...register("title", {
+                            required: "Required",
+                            minLength: {
+                                value: 10,
+                                message: "최소 10자 이상 작성해주세요.",
+                            },
+                        })}
+                    />
+                    {errors.title && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요!</div>}
+                </CreateBoardMainContainer>
+
+                <CreateBoardMainContainer>
+                    <label htmlFor="createBoardInputContent">고민 내용을 편하게 털어놓으세요.</label>
+                    <textarea id="createBoardInputContent" placeholder="고민을 적어주세요." className={errors.content && "createBoardErrorTextarea"} {...register("content", { required: true })} />
+                    {errors.content && <div className="createBoardErrorMessage">고민을 적어주세요!</div>}
+                </CreateBoardMainContainer>
+
+                <CreateBoardTagsWrapper>
+                    <label htmlFor="createBoardTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
+                    <ul>
+                        {tagData.map((tag, idx) => (
+                            <li key={idx}>
+                                <button type="button" value={tag} onClick={handleTags} className={tags.includes(tag) ? "tagBtnActive" : null}>
+                                    {tag}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </CreateBoardTagsWrapper>
+
+                <CreateBoardSubmitBtnWrapper>
+                    <button type="submit">
+                        고민 등록하기 <i className="fa-solid fa-chevron-right"></i>
+                    </button>
+                </CreateBoardSubmitBtnWrapper>
+            </form>
+        </CreateBoardMainWrapper>
+    );
+};
+
 // styled components
 const CreateBoardMainWrapper = styled.div`
     padding: 60px 100px;
@@ -154,99 +248,5 @@ const CreateBoardSubmitBtnWrapper = styled.div`
         }
     }
 `;
-
-// component
-const CreateBoardMain = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-    const url = `http://localhost:3001`;
-    const navigate = useNavigate();
-
-    // 태그
-    const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
-    const [tags, setTags] = useState(["일반"]);
-
-    // 태그 버튼 이벤트 핸들러
-    const handleTags = (e) => {
-        const str = e.target.value;
-
-        if (tags.includes(str)) {
-            const result = tags.filter((el) => el !== `${str}`);
-            return setTags(result);
-        }
-
-        if (!tags.includes(str)) {
-            return setTags([...tags, str]);
-        }
-    };
-
-    // 게시글 등록 요청 함수
-    const postBoard = (data) => {
-        axios
-            .post(`${url}/boards`, data)
-            .then((res) => {
-                navigate("/community");
-            })
-            .catch((err) => console.log(err));
-    };
-
-    return (
-        <CreateBoardMainWrapper>
-            <form
-                onSubmit={handleSubmit((data) => {
-                    data.tag = [...tags];
-                    data.BoardWriterId = "작성자";
-                    data.createdAt = "2023 / 01 / 06";
-                    postBoard(data);
-                })}
-            >
-                <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputTile">고민을 한줄로 요약해 알려주세요.</label>
-                    <input
-                        id="createBoardInputTile"
-                        placeholder="최소 10자 이상 작성해주세요."
-                        className={errors.title && "createBoardErrorInput"}
-                        {...register("title", {
-                            required: "Required",
-                            minLength: {
-                                value: 10,
-                                message: "최소 10자 이상 작성해주세요.",
-                            },
-                        })}
-                    />
-                    {errors.title && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요!</div>}
-                </CreateBoardMainContainer>
-
-                <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputContent">고민 내용을 편하게 털어놓으세요.</label>
-                    <textarea id="createBoardInputContent" placeholder="고민을 적어주세요." className={errors.content && "createBoardErrorTextarea"} {...register("content", { required: true })} />
-                    {errors.content && <div className="createBoardErrorMessage">고민을 적어주세요!</div>}
-                </CreateBoardMainContainer>
-
-                <CreateBoardTagsWrapper>
-                    <label htmlFor="createBoardTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
-                    <ul>
-                        {tagData.map((tag, idx) => (
-                            <li key={idx}>
-                                <button type="button" value={tag} onClick={handleTags} className={tags.includes(tag) ? "tagBtnActive" : null}>
-                                    {tag}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </CreateBoardTagsWrapper>
-
-                <CreateBoardSubmitBtnWrapper>
-                    <button type="submit">
-                        고민 등록하기 <i className="fa-solid fa-chevron-right"></i>
-                    </button>
-                </CreateBoardSubmitBtnWrapper>
-            </form>
-        </CreateBoardMainWrapper>
-    );
-};
 
 export default CreateBoardMain;
