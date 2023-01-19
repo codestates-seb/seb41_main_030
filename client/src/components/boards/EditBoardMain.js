@@ -11,8 +11,8 @@ import { useEffect } from "react";
 const EditBoardMain = () => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const navigate = useNavigate();
-
     const [board, setBoard] = useRecoilState(boardState);
+
     const {
         register,
         handleSubmit,
@@ -52,7 +52,7 @@ const EditBoardMain = () => {
     };
 
     return (
-        <CreateBoardMainWrapper>
+        <EBMainWrapper>
             <form
                 onSubmit={handleSubmit((data) => {
                     // ! 백에서 태그 기능이 구현되면 살려놓을 것
@@ -62,10 +62,10 @@ const EditBoardMain = () => {
                     patchBoard(data);
                 })}
             >
-                <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputTile">고민을 한줄로 요약해 알려주세요.</label>
+                <EBMainTitle>
+                    <label htmlFor="EBInputTile">고민을 한줄로 요약해 알려주세요.</label>
                     <input
-                        id="createBoardInputTile"
+                        id="EBInputTile"
                         placeholder="최소 10자 이상 작성해주세요."
                         className={errors.title && "createBoardErrorInput"}
                         defaultValue={board.title}
@@ -78,21 +78,21 @@ const EditBoardMain = () => {
                         })}
                     />
                     {errors.title && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요!</div>}
-                </CreateBoardMainContainer>
+                </EBMainTitle>
 
-                <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputContent">고민 내용을 편하게 털어놓으세요.</label>
+                <EBMainText>
+                    <label htmlFor="EBInputContent">고민 내용을 편하게 털어놓으세요.</label>
                     <textarea
-                        id="createBoardInputContent"
+                        id="EBInputContent"
                         placeholder="고민을 적어주세요."
                         className={errors.content && "createBoardErrorTextarea"}
                         defaultValue={board.content}
                         {...register("content", { required: true })}
                     />
                     {errors.content && <div className="createBoardErrorMessage">고민을 적어주세요!</div>}
-                </CreateBoardMainContainer>
+                </EBMainText>
 
-                {/* <CreateBoardTagsWrapper>
+                {/* <CBTags>
                     <label htmlFor="createBoardTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
                     <ul>
                         {tagData.map((tag, idx) => (
@@ -103,20 +103,20 @@ const EditBoardMain = () => {
                             </li>
                         ))}
                     </ul>
-                </CreateBoardTagsWrapper> */}
+                </CBTags> */}
 
-                <CreateBoardSubmitBtnWrapper>
+                <EBSubmitBtn>
                     <button type="submit">
                         고민 수정하기 <i className="fa-solid fa-chevron-right"></i>
                     </button>
-                </CreateBoardSubmitBtnWrapper>
+                </EBSubmitBtn>
             </form>
-        </CreateBoardMainWrapper>
+        </EBMainWrapper>
     );
 };
 
 // styled components
-const CreateBoardMainWrapper = styled.div`
+const EBMainWrapper = styled.div`
     padding: 60px 100px;
 
     label {
@@ -124,17 +124,6 @@ const CreateBoardMainWrapper = styled.div`
         font-weight: 600;
         font-size: 20px;
         margin-bottom: 5px;
-    }
-
-    input {
-        padding: 10px;
-        font-size: 16px;
-        border-bottom: 2px solid var(--green);
-        cursor: text;
-    }
-
-    input:focus {
-        border-bottom: 2px solid var(--lightgreen);
     }
 
     .createBoardErrorInput,
@@ -153,7 +142,34 @@ const CreateBoardMainWrapper = styled.div`
     }
 `;
 
-const CreateBoardMainContainer = styled.div`
+// ------------- title wrapper ------------- //
+const EBMainTitle = styled.div`
+    margin: 0 auto 60px;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    input {
+        padding: 10px;
+        font-size: 16px;
+        border-bottom: 2px solid var(--green);
+        cursor: text;
+    }
+
+    input:focus {
+        border-bottom: 2px solid var(--lightgreen);
+    }
+
+    @media screen and (max-width: 630px) {
+        label {
+            font-size: 20px;
+        }
+    }
+`;
+
+// ------------- main textarea wrapper ------------- //
+const EBMainText = styled.div`
     margin: 0 auto 60px;
     max-width: 1500px;
 
@@ -189,10 +205,10 @@ const CreateBoardMainContainer = styled.div`
     }
 `;
 
-const CreateBoardTagsWrapper = styled.div`
+// ------------- tag wrapper ------------- //
+const EBTags = styled.div`
     margin: 0 auto 60px;
     max-width: 1500px;
-
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -201,7 +217,6 @@ const CreateBoardTagsWrapper = styled.div`
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
-
         padding: 15px;
         border: none;
         border-radius: 20px;
@@ -214,7 +229,6 @@ const CreateBoardTagsWrapper = styled.div`
         border-radius: 20px;
         background-color: var(--lightgreen2);
         color: var(--darkgreen);
-
         font-size: 14px;
         font-weight: 500;
     }
@@ -232,7 +246,8 @@ const CreateBoardTagsWrapper = styled.div`
     }
 `;
 
-const CreateBoardSubmitBtnWrapper = styled.div`
+// ------------- 제출 wrapper ------------- //
+const EBSubmitBtn = styled.div`
     margin: 0 auto;
     max-width: 1500px;
 

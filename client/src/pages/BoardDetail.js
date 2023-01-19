@@ -7,18 +7,6 @@ import { boardState, answerState } from "../states";
 import BoardDetailQuestion from "../components/boards/BoardDetailQuestion";
 import BoardDetailAnswer from "../components/boards/BoardDetailAnswer";
 
-// styled components
-const BoardDetailWrapper = styled.div`
-    margin-top: 65px;
-    padding: 40px;
-
-    background-color: var(--lightgreen2);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`;
-
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
@@ -46,5 +34,17 @@ const BoardDetail = ({ setIsFooter }) => {
         </BoardDetailWrapper>
     );
 };
+
+// styled components
+const BoardDetailWrapper = styled.div`
+    margin-top: 65px;
+    padding: 40px;
+
+    background-color: var(--lightgreen2);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
 
 export default BoardDetail;

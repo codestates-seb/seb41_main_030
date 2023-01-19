@@ -43,7 +43,7 @@ const CreateBoardMain = () => {
     };
 
     return (
-        <CreateBoardMainWrapper>
+        <CBMainWrapper>
             <form
                 onSubmit={handleSubmit((data) => {
                     // ! 백에서 태그 기능이 구현되면 살려놓을 것
@@ -52,10 +52,10 @@ const CreateBoardMain = () => {
                     postBoard(data);
                 })}
             >
-                <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputTile">고민을 한줄로 요약하여 알려주세요.</label>
+                <CBMainTitle>
+                    <label htmlFor="CBInputTile">고민을 한줄로 요약하여 알려주세요.</label>
                     <input
-                        id="createBoardInputTile"
+                        id="CBInputTile"
                         placeholder="고민을 요약하여 작성해주세요."
                         className={errors.title && "createBoardErrorInput"}
                         {...register("title", {
@@ -67,12 +67,12 @@ const CreateBoardMain = () => {
                         })}
                     />
                     {errors.title && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요!</div>}
-                </CreateBoardMainContainer>
+                </CBMainTitle>
 
-                <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputContent">고민 내용을 편하게 털어놓으세요.</label>
+                <CBMainText>
+                    <label htmlFor="CBInputContent">고민 내용을 편하게 털어놓으세요.</label>
                     <textarea
-                        id="createBoardInputContent"
+                        id="CBInputContent"
                         placeholder="고민을 적어주세요."
                         className={errors.content && "createBoardErrorTextarea"}
                         {...register("content", {
@@ -83,10 +83,10 @@ const CreateBoardMain = () => {
                         })}
                     />
                     {errors.content && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요.</div>}
-                </CreateBoardMainContainer>
+                </CBMainText>
 
-                {/* <CreateBoardTagsWrapper>
-                    <label htmlFor="createBoardTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
+                {/* <CBTags>
+                    <label htmlFor="CBTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
                     <ul>
                         {tagData.map((tag, idx) => (
                             <li key={idx}>
@@ -96,20 +96,20 @@ const CreateBoardMain = () => {
                             </li>
                         ))}
                     </ul>
-                </CreateBoardTagsWrapper> */}
+                </CBTags> */}
 
-                <CreateBoardSubmitBtnWrapper>
+                <CBSubmitBtn>
                     <button type="submit">
                         고민 등록하기 <i className="fa-solid fa-chevron-right"></i>
                     </button>
-                </CreateBoardSubmitBtnWrapper>
+                </CBSubmitBtn>
             </form>
-        </CreateBoardMainWrapper>
+        </CBMainWrapper>
     );
 };
 
 // styled components
-const CreateBoardMainWrapper = styled.div`
+const CBMainWrapper = styled.div`
     padding: 60px 100px;
 
     label {
@@ -117,17 +117,6 @@ const CreateBoardMainWrapper = styled.div`
         font-weight: 600;
         font-size: 20px;
         margin-bottom: 5px;
-    }
-
-    input {
-        padding: 10px;
-        font-size: 16px;
-        border-bottom: 2px solid var(--green);
-        cursor: text;
-    }
-
-    input:focus {
-        border-bottom: 2px solid var(--lightgreen);
     }
 
     .createBoardErrorInput,
@@ -146,7 +135,34 @@ const CreateBoardMainWrapper = styled.div`
     }
 `;
 
-const CreateBoardMainContainer = styled.div`
+// ------------- title wrapper ------------- //
+const CBMainTitle = styled.div`
+    margin: 0 auto 60px;
+    max-width: 1500px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    input {
+        padding: 10px;
+        font-size: 16px;
+        border-bottom: 2px solid var(--green);
+        cursor: text;
+    }
+
+    input:focus {
+        border-bottom: 2px solid var(--lightgreen);
+    }
+
+    @media screen and (max-width: 630px) {
+        label {
+            font-size: 20px;
+        }
+    }
+`;
+
+// ------------- main textarea wrapper ------------- //
+const CBMainText = styled.div`
     margin: 0 auto 60px;
     max-width: 1500px;
 
@@ -182,10 +198,10 @@ const CreateBoardMainContainer = styled.div`
     }
 `;
 
-const CreateBoardTagsWrapper = styled.div`
+// ------------- tag wrapper ------------- //
+const CBTags = styled.div`
     margin: 0 auto 60px;
     max-width: 1500px;
-
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -194,7 +210,6 @@ const CreateBoardTagsWrapper = styled.div`
         display: flex;
         flex-wrap: wrap;
         gap: 5px;
-
         padding: 15px;
         border: none;
         border-radius: 20px;
@@ -207,7 +222,6 @@ const CreateBoardTagsWrapper = styled.div`
         border-radius: 20px;
         background-color: var(--lightgreen2);
         color: var(--darkgreen);
-
         font-size: 14px;
         font-weight: 500;
     }
@@ -225,7 +239,8 @@ const CreateBoardTagsWrapper = styled.div`
     }
 `;
 
-const CreateBoardSubmitBtnWrapper = styled.div`
+// ------------- 제출 wrapper ------------- //
+const CBSubmitBtn = styled.div`
     margin: 0 auto;
     max-width: 1500px;
 
