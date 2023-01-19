@@ -101,16 +101,12 @@ public class BoardService {
         Board board = findVerifiedBoard(boardId);
         Optional<BoardVote> findVote = boardVoteRepository.findByBoardAndMember(board, member); // 해당 회원이 게시물을 작성했는지 아닌지 확인
 
-        if(findVote.isPresent()) {
+        if (findVote.isPresent()) {
             if (findVote.get().isVoteCheck() == voteCheck) {
                 board.setVoteCount(board.getVoteCount() + (voteCheck ? -1 : 1));    // vote가 true이면 -1, false이면 1 --> true는 공감이 눌러져 있는 상태이므로 0으로 만들어줌
                 boardVoteRepository.delete(findVote.get());  // 공감을 클릭한 이력을 삭제
                 return board;
             }
-//            // 게시물의 공감과 voteCheck이 다른 경우 == up이 눌러져 있는데 down을 누르겠다고 요청한 경우 (혹은 그 반대)
-//            board.setVoteCount(board.getVoteCount() + (voteCheck ? 2 : -2));    // 게시물(ture) --> 1에서 -1로 만들어야 하므로 -2
-//            findVote.get().setVoteCheck(voteCheck);
-//            return board;
         }
         // 공감을 클릭하지 않은 경우 (findVote 존재 x)
         board.setVoteCount(board.getVoteCount() + (voteCheck ? 1 : -1));    // 공감을 클릭하면 +1, 한 번 더 클릭하면 -1 (공감 취소)
