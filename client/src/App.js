@@ -16,6 +16,7 @@ import BoardDetail from "./pages/BoardDetail";
 import EditBoard from "./pages/EditBoard";
 import CounselingCenter from "./pages/CounselingCenter";
 import MyPage from "./pages/MyPage";
+import Intro from "./pages/Intro";
 
 function App() {
     // footer 유무 조작
@@ -26,6 +27,7 @@ function App() {
             <Nav />
             <Routes>
                 <Route path="/" element={<Main setIsFooter={setIsFooter} />} />
+                <Route path="/intro" element={<Intro setIsFooter={setIsFooter} />} />
                 <Route path="/community" element={<Boards setIsFooter={setIsFooter} />} />
                 <Route path="/community/:id" element={<BoardDetail setIsFooter={setIsFooter} />} />
                 <Route path="community/edit" element={<EditBoard setIsFooter={setIsFooter} />} />
