@@ -1,13 +1,26 @@
 import styled from "styled-components";
+import { TypeAnimation } from "react-type-animation";
 
 const IntroMain = () => {
+    const introMessage = [
+        `가만히 있어도 불안해요.`,
+        1000,
+        `이직한 회사에서 적응이 힘들어요.`,
+        1000,
+        `집중력이 떨어져서 고민이에요.`,
+        1000,
+        `과거의 상처를 잊지 못하겠어요.`,
+        1000,
+        `잘하고 있는지 확신이 들지 않아요.`,
+        1000,
+    ];
+
     return (
         <>
             <NavSize />
             <IntroMainContainer>
                 <TypingContainer>
-                    <span className="typed-text">가만히 있어도 불안해요.</span>
-                    <span className="cursor blink">&nbsp;|</span>
+                    <TypeAnimation sequence={introMessage} wrapper="div" speed={0} repeat={Infinity} cursor={true} />
                 </TypingContainer>
                 <div className="subTitle">이런 고민, 이곳에 탈탈 털어놓으세요.</div>
                 <div className="logo">MENTALTAL</div>
