@@ -3,7 +3,9 @@ package com.e1i5.mentaltal.comment.service;
 import com.e1i5.mentaltal.board.entity.Board;
 import com.e1i5.mentaltal.board.service.BoardService;
 import com.e1i5.mentaltal.comment.entity.Comment;
+import com.e1i5.mentaltal.comment.entity.CommentVote;
 import com.e1i5.mentaltal.comment.repository.CommentRepository;
+import com.e1i5.mentaltal.comment.repository.CommentVoteRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
 import com.e1i5.mentaltal.user.member.Member;
@@ -24,11 +26,9 @@ import java.util.Optional;
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;
-
     private final BoardService boardService;
-
     private final MemberService memberService;
-
+    private final CommentVoteRepository commentVoteRepository;
     private final CustomBeanUtils<Comment> beanUtils;
 
 
@@ -102,61 +102,31 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    // 공감수 (좋아요)
-    public int getVoteCount(long commentId) {
-        Comment comment = findVerifiedComment(commentId);
-//        comment.setVoteCount(comment.getVoteCount() + 1);
-        return comment.getVoteCount();
-    }
-
     /**
-     * 공감 버튼 클릭 시, 공감을 클릭한 이력이 있다면 공감 취소
-     * 이력이 없다면 공감 처리
-     * 로그인한 사용자만 공감 가능, 중복 불가
+     * 공감수 (좋아요)
+     * TODO 로그인한 회원만 공감 가능 --> 비회원 공감 버튼 클릭 시 "로그인이 필요합니다."
      * @param commentId
      * @param memberId
+     * @param voteCheck
+     * @return
      */
-    public void setCheckVote(long commentId, long memberId) {
-        memberService.findMember(memberId);
+    public Comment commentVote(long commentId, long memberId, boolean voteCheck) {
+        Member member = memberService.findMember(memberId);
 
         Comment comment = findVerifiedComment(commentId);
-        VoteStatus voteStatus = getMemberVoteStatus(comment, memberId);
-        int voteCount = comment.getVoteCount();
+        Optional<CommentVote> findVote = commentVoteRepository.findByCommentAndMember(comment, member);
 
-        // Todo 로그인 하지 않은 사용자 -> 에러 메시지 "로그인 후 이용할 수 있습니다." or 로그인창
-
-        if (voteStatus == VoteStatus.NONE) { // 공감 이력이 없는 경우, 공감 처리
-            comment.checkVote.add(memberId);
-            voteCount++;
-        } else {    // 공감 취소
-            comment.uncheckVote.remove(memberId);
-            voteCount--;
+        if (findVote.isPresent()) {
+            if (findVote.get().isVoteCheck() == voteCheck) {
+                comment.setVoteCount(comment.getVoteCount() + (voteCheck ? -1 : 1));    // vote가 true이면 -1, false이면 1 --> true는 공감이 눌러져 있는 상태이므로 0으로 만들어줌
+                commentVoteRepository.delete(findVote.get());   // 공감을 클릭한 이력을 삭제
+                return comment;
+            }
         }
-
-        comment.setVoteCount(voteCount);
-    }
-
-    private VoteStatus getMemberVoteStatus(Comment comment, long memberId) {
-        if (comment.getCheckVote().contains(memberId)) {  // 공감 이력이 있는 경우, 공감 취소
-            return CommentService.VoteStatus.NONE;
-        }else {     // 공감 이력이 없는 경우, 공감 처리
-            return CommentService.VoteStatus.CHECK;
-        }
-    }
-
-    public enum VoteStatus{
-        NONE(1, "none"),
-        CHECK(2, "check");
-
-        @Getter
-        private int status;
-
-        @Getter
-        private String message;
-
-        VoteStatus(int status, String message) {
-            this.status = status;
-            this.message = message;
-        }
+        // 공감을 클릭하지 않은 경우 (findVote 존재 x)
+        comment.setVoteCount(comment.getVoteCount() + (voteCheck ? 1 : -1));    // 공감을 클릭하면 +1, 한 번 더 클릭하면 -1 (공감 취소)
+        CommentVote commentVote = new CommentVote(voteCheck, comment, member);
+        commentVoteRepository.save(commentVote);
+        return comment;
     }
 }
