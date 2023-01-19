@@ -101,9 +101,12 @@ public class BoardService {
         Board board = findVerifiedBoard(boardId);
         Optional<BoardVote> findVote = boardVoteRepository.findByBoardAndMember(board, member); // 해당 회원이 게시물을 작성했는지 아닌지 확인
 
+        // 공감을 클릭한 이력이 있는 경우
         if (findVote.isPresent()) {
             if (findVote.get().isVoteCheck() == voteCheck) {
-                board.setVoteCount(board.getVoteCount() + (voteCheck ? -1 : 1));    // vote가 true이면 -1, false이면 1 --> true는 공감이 눌러져 있는 상태이므로 0으로 만들어줌
+                // vote가 true이면 -1, false이면 1 --> true(1)는 공감이 눌러져 있는 상태이므로 0으로 만들어줌 == 공감 취소
+                // fasle(0)는 공감을 누르지 않은 상태이므로 1로 만들어줌 == 공감 처리
+                board.setVoteCount(board.getVoteCount() + (voteCheck ? -1 : 1));
                 boardVoteRepository.delete(findVote.get());  // 공감을 클릭한 이력을 삭제
                 return board;
             }

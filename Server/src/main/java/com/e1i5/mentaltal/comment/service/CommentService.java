@@ -1,6 +1,7 @@
 package com.e1i5.mentaltal.comment.service;
 
 import com.e1i5.mentaltal.board.entity.Board;
+import com.e1i5.mentaltal.board.entity.BoardVote;
 import com.e1i5.mentaltal.board.service.BoardService;
 import com.e1i5.mentaltal.comment.entity.Comment;
 import com.e1i5.mentaltal.comment.entity.CommentVote;
@@ -116,17 +117,17 @@ public class CommentService {
         Comment comment = findVerifiedComment(commentId);
         Optional<CommentVote> findVote = commentVoteRepository.findByCommentAndMember(comment, member);
 
-        if (findVote.isPresent()) {
-            if (findVote.get().isVoteCheck() == voteCheck) {
-                comment.setVoteCount(comment.getVoteCount() + (voteCheck ? -1 : 1));    // vote가 true이면 -1, false이면 1 --> true는 공감이 눌러져 있는 상태이므로 0으로 만들어줌
-                commentVoteRepository.delete(findVote.get());   // 공감을 클릭한 이력을 삭제
-                return comment;
-            }
-        }
         // 공감을 클릭하지 않은 경우 (findVote 존재 x)
-        comment.setVoteCount(comment.getVoteCount() + (voteCheck ? 1 : -1));    // 공감을 클릭하면 +1, 한 번 더 클릭하면 -1 (공감 취소)
-        CommentVote commentVote = new CommentVote(voteCheck, comment, member);
-        commentVoteRepository.save(commentVote);
+        if (!findVote.isPresent()) {
+            comment.setVoteCount(comment.getVoteCount() + (voteCheck ? 1 : -1));    // 공감을 클릭하면 +1, 한 번 더 클릭하면 -1 (공감 취소)
+            commentVoteRepository.save(new CommentVote(voteCheck, comment, member));
+            return comment;
+        }
+        // 공감을 클릭한 이력이 있는 경우
+        // vote가 true이면 -1, false이면 1 --> true(1)는 공감이 눌러져 있는 상태이므로 0으로 만들어줌 == 공감 취소
+        // fasle(0)는 공감을 누르지 않은 상태이므로 1로 만들어줌 == 공감 처리
+        comment.setVoteCount(comment.getVoteCount() + (voteCheck ? -1 : 1));
+        commentVoteRepository.delete(findVote.get()); // 공감을 클릭한 이력을 삭제
         return comment;
     }
 }
