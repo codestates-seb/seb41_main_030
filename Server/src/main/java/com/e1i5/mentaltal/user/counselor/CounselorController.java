@@ -1,6 +1,6 @@
 package com.e1i5.mentaltal.user.counselor;
 
-import com.e1i5.mentaltal.response.SingleResponseDto;
+import com.e1i5.mentaltal.dto.SingleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
