@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { dateCalculation } from "./dateCalculation";
 
+// ! 전문가 회원 구현되면  전문가만 따로 표시하도록 수정
 const BoardDetailAnswerMain = ({ answer }) => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const [isEdit, setIsEdit] = useState(false);
@@ -237,7 +238,7 @@ const BDAMainEditForm = styled.form`
 
         textarea {
             width: 100%;
-            height: 80px;
+            height: 200px;
             resize: none;
 
             border: none;
