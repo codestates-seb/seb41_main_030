@@ -21,6 +21,7 @@ const BoardDetailWrapper = styled.div`
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const setBoard = useSetRecoilState(boardState);
     const setAnswer = useSetRecoilState(answerState);
 
@@ -30,18 +31,12 @@ const BoardDetail = ({ setIsFooter }) => {
         window.scrollTo(0, 0);
 
         axios
-            .get(`http://localhost:3001/boards/${id}`)
-            .then((res) => setBoard(res.data))
-            .catch((err) => console.log(err));
-
-        axios
-            .get(`http://localhost:3001/comments/${id}`)
+            .get(`${url}/boards/${id}`)
             .then((res) => {
-                setAnswer(res.data);
+                setBoard(res.data.data);
+                setAnswer(res.data.data.comment);
             })
-            .catch((err) => {
-                // console.log(err);
-            });
+            .catch((err) => console.log(err));
     }, []);
 
     return (

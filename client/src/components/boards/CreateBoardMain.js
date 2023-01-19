@@ -5,31 +5,32 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const CreateBoardMain = () => {
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const url = `http://localhost:3001`;
     const navigate = useNavigate();
 
-    // 태그
-    const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
-    const [tags, setTags] = useState(["일반"]);
+    // ! 백에서 태그 기능이 구현되면 살려놓을 것
+    // // 태그
+    // const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
+    // const [tags, setTags] = useState(["일반"]);
 
-    // 태그 버튼 이벤트 핸들러
-    const handleTags = (e) => {
-        const str = e.target.value;
+    // // 태그 버튼 이벤트 핸들러
+    // const handleTags = (e) => {
+    //     const str = e.target.value;
 
-        if (tags.includes(str)) {
-            const result = tags.filter((el) => el !== `${str}`);
-            return setTags(result);
-        }
+    //     if (tags.includes(str)) {
+    //         const result = tags.filter((el) => el !== `${str}`);
+    //         return setTags(result);
+    //     }
 
-        if (!tags.includes(str)) {
-            return setTags([...tags, str]);
-        }
-    };
+    //     if (!tags.includes(str)) {
+    //         return setTags([...tags, str]);
+    //     }
+    // };
 
     // 게시글 등록 요청 함수
     const postBoard = (data) => {
@@ -45,18 +46,17 @@ const CreateBoardMain = () => {
         <CreateBoardMainWrapper>
             <form
                 onSubmit={handleSubmit((data) => {
-                    data.tag = [...tags];
-                    data.BoardWriterId = "작성자";
-                    data.createdAt = "2023 / 01 / 06";
-                    data.recommend = 0;
+                    // ! 백에서 태그 기능이 구현되면 살려놓을 것
+                    // data.tag = [...tags];
+                    data.memberId = 1;
                     postBoard(data);
                 })}
             >
                 <CreateBoardMainContainer>
-                    <label htmlFor="createBoardInputTile">고민을 한줄로 요약해 알려주세요.</label>
+                    <label htmlFor="createBoardInputTile">고민을 한줄로 요약하여 알려주세요.</label>
                     <input
                         id="createBoardInputTile"
-                        placeholder="최소 10자 이상 작성해주세요."
+                        placeholder="고민을 요약하여 작성해주세요."
                         className={errors.title && "createBoardErrorInput"}
                         {...register("title", {
                             required: "Required",
@@ -71,11 +71,21 @@ const CreateBoardMain = () => {
 
                 <CreateBoardMainContainer>
                     <label htmlFor="createBoardInputContent">고민 내용을 편하게 털어놓으세요.</label>
-                    <textarea id="createBoardInputContent" placeholder="고민을 적어주세요." className={errors.content && "createBoardErrorTextarea"} {...register("content", { required: true })} />
-                    {errors.content && <div className="createBoardErrorMessage">고민을 적어주세요!</div>}
+                    <textarea
+                        id="createBoardInputContent"
+                        placeholder="고민을 적어주세요."
+                        className={errors.content && "createBoardErrorTextarea"}
+                        {...register("content", {
+                            required: "Required",
+                            minLength: {
+                                value: 10,
+                            },
+                        })}
+                    />
+                    {errors.content && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요.</div>}
                 </CreateBoardMainContainer>
 
-                <CreateBoardTagsWrapper>
+                {/* <CreateBoardTagsWrapper>
                     <label htmlFor="createBoardTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
                     <ul>
                         {tagData.map((tag, idx) => (
@@ -86,7 +96,7 @@ const CreateBoardMain = () => {
                             </li>
                         ))}
                     </ul>
-                </CreateBoardTagsWrapper>
+                </CreateBoardTagsWrapper> */}
 
                 <CreateBoardSubmitBtnWrapper>
                     <button type="submit">

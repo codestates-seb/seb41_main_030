@@ -3,43 +3,48 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { boardState } from "../../states/";
+import { dateCalculation } from "./dateCalculation";
 
 // component
 const BoardDetailQuestion = () => {
-    const [board, setBoard] = useRecoilState(boardState);
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const navigate = useNavigate();
+    const [board, setBoard] = useRecoilState(boardState);
 
-    // ! 질문 삭제 -> 서버 열리면 코드 수정 예정
+    // 질문 삭제
     const deleteQuestion = () => {
-        axios.delete(`http://localhost:3001/boards/${board.id}`).then((res) => {
+        axios.delete(`${url}/boards/${board.id}`).then((res) => {
             navigate("/community");
             setBoard(null);
         });
     };
 
     return (
-        <BDQuestionWrapper>
+        <BDQWrapper>
             {board && (
                 <>
-                    <BDQuestionTagsWrapper>
+                    {/* <BDQTagsWrapper>
                         {board.tag.map((tag, idx) => (
                             <div key={idx} className="questionTags">
                                 {tag}
                             </div>
                         ))}
-                    </BDQuestionTagsWrapper>
+                    </BDQTagsWrapper> */}
 
-                    <BDQuestionHeader>
-                        <div className="questionHeaderTitle">{board.title}</div>
-                        <BDQuestionHeaderInfo>
-                            <div className="questionProfile"></div>
-                            <div className="questionWriteInfo">
-                                <div className="questionWriter">{board.BoardWriterId}</div>
-                                <div className="questionCreateAt">{board.createdAt}</div>
-                            </div>
-                        </BDQuestionHeaderInfo>
+                    <BDQHeader>
+                        <BDQTitle>{board.title}</BDQTitle>
+                        <BDQInfo>
+                            <BDQInfoProfile></BDQInfoProfile>
+                            <BDQInfoWriterInfo>
+                                <div className="BDQInfoWriterInfoName">{board.nickName}</div>
+                                <div className="BDQInfoWriterInfoTime">
+                                    <i className="fa-regular fa-clock"></i>
+                                    <div>{dateCalculation(new Date(board.createdAt))}</div>
+                                </div>
+                            </BDQInfoWriterInfo>
+                        </BDQInfo>
 
-                        <BDQuestionHeaderEditBtn>
+                        <BDQEditBtn>
                             <Link to="/community/edit">
                                 <button type="button">편집</button>
                             </Link>
@@ -47,20 +52,25 @@ const BoardDetailQuestion = () => {
                             <button type="button" onClick={deleteQuestion}>
                                 삭제
                             </button>
-                        </BDQuestionHeaderEditBtn>
-                    </BDQuestionHeader>
+                        </BDQEditBtn>
+                    </BDQHeader>
 
-                    <BDQuestionMain>
+                    <BDQMain>
                         <div>{board.content}</div>
-                    </BDQuestionMain>
+                    </BDQMain>
+
+                    <BDQResponseInfo>
+                        <div>{board.voteCount}명 공감</div>
+                        <div>댓글 {board.commentCount}개</div>
+                    </BDQResponseInfo>
                 </>
             )}
-        </BDQuestionWrapper>
+        </BDQWrapper>
     );
 };
 
 // styled components
-const BDQuestionWrapper = styled.div`
+const BDQWrapper = styled.div`
     padding: 40px;
     width: 80%;
     max-width: 1300px;
@@ -75,7 +85,8 @@ const BDQuestionWrapper = styled.div`
     }
 `;
 
-const BDQuestionTagsWrapper = styled.div`
+// ------------- tag ------------- //
+const BDQTagsWrapper = styled.div`
     display: flex;
     gap: 10px;
     margin-bottom: 25px;
@@ -112,81 +123,84 @@ const BDQuestionTagsWrapper = styled.div`
     }
 `;
 
-const BDQuestionHeader = styled.div`
-    .questionHeaderTitle {
-        font-size: 35px;
-        font-weight: 700;
-        color: var(--darkgreen);
-        margin-bottom: 40px;
-    }
+// ------------- header  ------------- //
+const BDQHeader = styled.div``;
+
+const BDQTitle = styled.div`
+    font-size: 35px;
+    font-weight: 700;
+    color: var(--darkgreen);
+    margin-bottom: 40px;
 
     @media screen and (max-width: 768px) {
-        .questionHeaderTitle {
-            font-size: 23px;
-            margin-bottom: 25px;
-        }
+        font-size: 23px;
+        margin-bottom: 25px;
     }
 `;
 
-const BDQuestionHeaderInfo = styled.div`
+const BDQInfo = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
+`;
 
-    .questionProfile {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: var(--green);
+const BDQInfoProfile = styled.div`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--green);
+
+    @media screen and (max-width: 768px) {
+        width: 30px;
+        height: 30px;
+    }
+`;
+
+const BDQInfoWriterInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .BDQInfoWriterInfoName {
+        color: var(--darkgreen);
+        font-size: 20px;
+        font-weight: 700;
     }
 
-    .questionWriteInfo {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+    .BDQInfoWriterInfoTime {
+        color: var(--green);
+        font-size: 15px;
 
-        & :nth-child(1) {
-            color: var(--darkgreen);
-            font-size: 20px;
-            font-weight: 700;
-        }
+        display: flex;
+        gap: 5px;
 
         & :nth-child(2) {
-            color: var(--green);
-            font-size: 15px;
+            margin-top: 1px;
         }
     }
 
     @media screen and (max-width: 768px) {
-        .questionProfile {
-            width: 30px;
-            height: 30px;
+        gap: 5px;
+
+        .BDQInfoWriterInfoName {
+            font-size: 14px;
         }
 
-        .questionWriteInfo {
-            gap: 5px;
-
-            & :nth-child(1) {
-                font-size: 14px;
-            }
-
-            & :nth-child(2) {
-                color: var(--green);
-                font-size: 12px;
-            }
+        .BDQInfoWriterInfoTime {
+            font-size: 12px;
         }
     }
 `;
 
-const BDQuestionHeaderEditBtn = styled.div`
-    padding: 0 0 8px;
+const BDQEditBtn = styled.div`
+    padding: 5px 0px 15px;
     display: flex;
     justify-content: flex-end;
     border-bottom: 1px solid var(--green);
 
     button {
-        padding: 5px;
+        padding: 0 5px;
         background-color: white;
         color: var(--green);
 
@@ -206,9 +220,10 @@ const BDQuestionHeaderEditBtn = styled.div`
     }
 `;
 
-const BDQuestionMain = styled.div`
+// ------------- main  ------------- //
+const BDQMain = styled.div`
     width: 100%;
-    margin: 35px 0;
+    margin: 30px 0;
     color: var(--darkgreen);
     font-size: 16px;
 
@@ -219,12 +234,25 @@ const BDQuestionMain = styled.div`
     }
 
     @media screen and (max-width: 768px) {
-        margin: 20px 0 0;
+        margin: 20px 0;
 
         div {
             font-size: 14px;
         }
     }
+`;
+
+// ------------- ResponseInfo  ------------- //
+const BDQResponseInfo = styled.div`
+    border-top: 1px solid var(--darkgreen);
+    padding: 15px 0 0;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--darkgreen);
+    font-size: 14px;
 `;
 
 export default BoardDetailQuestion;

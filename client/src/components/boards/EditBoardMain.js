@@ -9,34 +9,36 @@ import { useEffect } from "react";
 
 // component
 const EditBoardMain = () => {
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
+    const navigate = useNavigate();
+
     const [board, setBoard] = useRecoilState(boardState);
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const url = `http://localhost:3001`;
-    const navigate = useNavigate();
 
-    // 태그
-    const initialTag = board.tag;
-    const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
-    const [tags, setTags] = useState([...initialTag]);
+    // ! 백에서 태그 기능이 구현되면 살려놓을 것
+    // // 태그
+    // const initialTag = board.tag;
+    // const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
+    // const [tags, setTags] = useState([...initialTag]);
 
-    // 태그 버튼 이벤트 핸들러
-    const handleTags = (e) => {
-        const str = e.target.value;
+    // // 태그 버튼 이벤트 핸들러
+    // const handleTags = (e) => {
+    //     const str = e.target.value;
 
-        if (tags.includes(str)) {
-            const result = tags.filter((el) => el !== `${str}`);
-            console.log(tags);
-            return setTags(result);
-        }
+    //     if (tags.includes(str)) {
+    //         const result = tags.filter((el) => el !== `${str}`);
+    //         console.log(tags);
+    //         return setTags(result);
+    //     }
 
-        if (!tags.includes(str)) {
-            return setTags([...tags, str]);
-        }
-    };
+    //     if (!tags.includes(str)) {
+    //         return setTags([...tags, str]);
+    //     }
+    // };
 
     // 게시글 수정 요청 함수
     const patchBoard = (data) => {
@@ -53,7 +55,8 @@ const EditBoardMain = () => {
         <CreateBoardMainWrapper>
             <form
                 onSubmit={handleSubmit((data) => {
-                    data.tag = [...tags];
+                    // ! 백에서 태그 기능이 구현되면 살려놓을 것
+                    // data.tag = [...tags];
                     data.BoardWriterId = "작성자";
                     data.createdAt = "2023 / 01 / 06";
                     patchBoard(data);
@@ -89,7 +92,7 @@ const EditBoardMain = () => {
                     {errors.content && <div className="createBoardErrorMessage">고민을 적어주세요!</div>}
                 </CreateBoardMainContainer>
 
-                <CreateBoardTagsWrapper>
+                {/* <CreateBoardTagsWrapper>
                     <label htmlFor="createBoardTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
                     <ul>
                         {tagData.map((tag, idx) => (
@@ -100,7 +103,7 @@ const EditBoardMain = () => {
                             </li>
                         ))}
                     </ul>
-                </CreateBoardTagsWrapper>
+                </CreateBoardTagsWrapper> */}
 
                 <CreateBoardSubmitBtnWrapper>
                     <button type="submit">
