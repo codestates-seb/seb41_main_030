@@ -81,10 +81,29 @@ public class BoardService {
         boardRepository.delete(verifiedBoard);
     }
 
+//    // 게시물 삭제 시 작성자가 아닌 경우 (혹은 작성자가 아니면 DELETE 버튼이 나타나지 않게 처리?)
+//    public void deleteBoard(long boardId, long memberId) {
+////        Member findMember = memberService.findMember(board.getMid());
+//        Board board = findVerifiedBoard(boardId);
+//
+//        if (board.getMember().getMemberId() == memberService.findMember(memberId).getMemberId()) {
+//            boardVoteRepository.deleteAllByBoard(board);
+//            boardRepository.delete(board);
+//        }
+//        throw new BusinessLogicException(ExceptionCode.BOARD_WRITER_NOT_MATCH);
+//    }
+
     // 조회수
     public void updateBoardViewCount(Board board, int viewCount) {
         board.setViewCount(viewCount + 1);
         boardRepository.save(board);
+    }
+
+    // 공감수 (좋아요)
+    public long getVoteCount(long boardId) {
+        Board board = findVerifiedBoard(boardId);
+//        board.setVoteCount(board.getVoteCount() + 1);
+        return board.getVoteCount();
     }
 
     /**

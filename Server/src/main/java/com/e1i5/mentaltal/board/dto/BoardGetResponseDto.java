@@ -14,8 +14,8 @@ public class BoardGetResponseDto {
     private long memberId;
     private String title;
     private String content;
-    private int viewCount;  // 조회수
-    private int voteCount;  // 공감수
+    private long viewCount;  // 조회수
+    private long voteCount;  // 공감수
     private long commentCount;
     private List<CommentResponseDto> comment;
     private LocalDateTime createdAt;
