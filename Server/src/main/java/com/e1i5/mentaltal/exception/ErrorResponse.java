@@ -8,7 +8,7 @@ import javax.validation.ConstraintViolation;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Getter
 public class ErrorResponse {
     private int status;
     private String message;
