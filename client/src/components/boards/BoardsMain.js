@@ -4,6 +4,63 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
+const BoardsMain = () => {
+    const url = `http://localhost:3001`;
+
+    // 페이지 관련 상태
+    const [list, setList] = useState([]);
+    const [current, setCurrent] = useState(1);
+    const [total, setTotal] = useState(0);
+
+    // api 요청
+    useEffect(() => {
+        // ! 일단 임시 구현으로 요청 두번 보내서 요청1) 전체 데이터 받아서 갯수 구함, 요청2) 페이지 네이션 데이터 받음
+        axios.get(`${url}/boards`).then((res) => {
+            setTotal(res.data.length);
+        });
+        axios.get(`${url}/boards?_page=${current}&_limit=10`).then((res) => {
+            setList(res.data);
+        });
+    }, [current]);
+
+    return (
+        <BoardsMainWrapper>
+            <BoardsList>
+                {list &&
+                    list.map((post) => (
+                        <li key={post.id}>
+                            <BoardsCardLink to={`/community/${post.id}`}>
+                                <BoardsTitle>{post.title}</BoardsTitle>
+                                <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
+                                <BoardsContent>{post.content}</BoardsContent>
+                                <BoardsInfo>
+                                    {post.recommend === 0 ? <div>♡ 공감해주세요</div> : <div>♡ {post.recommend}명이 공감</div>}
+                                    <div>{post.BoardWriterId}</div>
+                                </BoardsInfo>
+                            </BoardsCardLink>
+                        </li>
+                    ))}
+            </BoardsList>
+
+            <PagingWrapper>
+                <Pagination
+                    activePage={current}
+                    itemsCountPerPage={10}
+                    totalItemsCount={total}
+                    pageRangeDisplayed={5}
+                    prevPageText={"‹"}
+                    nextPageText={"›"}
+                    onChange={(current) => {
+                        setCurrent(current);
+                        window.scrollTo(0, 0);
+                    }}
+                    hideFirstLastPages={true}
+                />
+            </PagingWrapper>
+        </BoardsMainWrapper>
+    );
+};
+
 // styled components
 const BoardsMainWrapper = styled.main`
     background-color: var(--lightgreen2);
@@ -89,6 +146,9 @@ const BoardsInfo = styled.div`
     display: flex;
     justify-content: space-between;
 
+    font-size: 14px;
+    color: var(--darkgreen);
+
     @media screen and (max-width: 319px) {
         font-size: 14px;
     }
@@ -129,63 +189,5 @@ const PagingWrapper = styled.div`
         color: white;
     }
 `;
-
-// component
-const BoardsMain = () => {
-    const url = `http://localhost:3001`;
-
-    // 페이지 관련 상태
-    const [list, setList] = useState([]);
-    const [current, setCurrent] = useState(1);
-    const [total, setTotal] = useState(0);
-
-    // api 요청
-    useEffect(() => {
-        // ! 일단 임시 구현으로 요청 두번 보내서 요청1) 전체 데이터 받아서 갯수 구함, 요청2) 페이지 네이션 데이터 받음
-        axios.get(`${url}/boards`).then((res) => {
-            setTotal(res.data.length);
-        });
-        axios.get(`${url}/boards?_page=${current}&_limit=10`).then((res) => {
-            setList(res.data);
-        });
-    }, [current]);
-
-    return (
-        <BoardsMainWrapper>
-            <BoardsList>
-                {list &&
-                    list.map((post) => (
-                        <li key={post.id}>
-                            <BoardsCardLink to={`/community/${post.id}`}>
-                                <BoardsTitle>{post.title}</BoardsTitle>
-                                <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
-                                <BoardsContent>{post.content}</BoardsContent>
-                                <BoardsInfo>
-                                    <div>{post.createdAt}</div>
-                                    <div>{post.BoardWriterId}</div>
-                                </BoardsInfo>
-                            </BoardsCardLink>
-                        </li>
-                    ))}
-            </BoardsList>
-
-            <PagingWrapper>
-                <Pagination
-                    activePage={current}
-                    itemsCountPerPage={10}
-                    totalItemsCount={total}
-                    pageRangeDisplayed={5}
-                    prevPageText={"‹"}
-                    nextPageText={"›"}
-                    onChange={(current) => {
-                        setCurrent(current);
-                        window.scrollTo(0, 0);
-                    }}
-                    hideFirstLastPages={true}
-                />
-            </PagingWrapper>
-        </BoardsMainWrapper>
-    );
-};
 
 export default BoardsMain;

@@ -4,6 +4,61 @@ import { useNavigate, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { boardState } from "../../states/";
 
+// component
+const BoardDetailQuestion = () => {
+    const [board, setBoard] = useRecoilState(boardState);
+    const navigate = useNavigate();
+
+    // ! 질문 삭제 -> 서버 열리면 코드 수정 예정
+    const deleteQuestion = () => {
+        axios.delete(`http://localhost:3001/boards/${board.id}`).then((res) => {
+            navigate("/community");
+            setBoard(null);
+        });
+    };
+
+    return (
+        <BDQuestionWrapper>
+            {board && (
+                <>
+                    <BDQuestionTagsWrapper>
+                        {board.tag.map((tag, idx) => (
+                            <div key={idx} className="questionTags">
+                                {tag}
+                            </div>
+                        ))}
+                    </BDQuestionTagsWrapper>
+
+                    <BDQuestionHeader>
+                        <div className="questionHeaderTitle">{board.title}</div>
+                        <BDQuestionHeaderInfo>
+                            <div className="questionProfile"></div>
+                            <div className="questionWriteInfo">
+                                <div className="questionWriter">{board.BoardWriterId}</div>
+                                <div className="questionCreateAt">{board.createdAt}</div>
+                            </div>
+                        </BDQuestionHeaderInfo>
+
+                        <BDQuestionHeaderEditBtn>
+                            <Link to="/community/edit">
+                                <button type="button">편집</button>
+                            </Link>
+
+                            <button type="button" onClick={deleteQuestion}>
+                                삭제
+                            </button>
+                        </BDQuestionHeaderEditBtn>
+                    </BDQuestionHeader>
+
+                    <BDQuestionMain>
+                        <div>{board.content}</div>
+                    </BDQuestionMain>
+                </>
+            )}
+        </BDQuestionWrapper>
+    );
+};
+
 // styled components
 const BDQuestionWrapper = styled.div`
     padding: 40px;
@@ -171,60 +226,5 @@ const BDQuestionMain = styled.div`
         }
     }
 `;
-
-// component
-const BoardDetailQuestion = () => {
-    const [board, setBoard] = useRecoilState(boardState);
-    const navigate = useNavigate();
-
-    // ! 질문 삭제 -> 서버 열리면 코드 수정 예정
-    const deleteQuestion = () => {
-        axios.delete(`http://localhost:3001/boards/${board.id}`).then((res) => {
-            navigate("/community");
-            setBoard(null);
-        });
-    };
-
-    return (
-        <BDQuestionWrapper>
-            {board && (
-                <>
-                    <BDQuestionTagsWrapper>
-                        {board.tag.map((tag, idx) => (
-                            <div key={idx} className="questionTags">
-                                {tag}
-                            </div>
-                        ))}
-                    </BDQuestionTagsWrapper>
-
-                    <BDQuestionHeader>
-                        <div className="questionHeaderTitle">{board.title}</div>
-                        <BDQuestionHeaderInfo>
-                            <div className="questionProfile"></div>
-                            <div className="questionWriteInfo">
-                                <div className="questionWriter">{board.BoardWriterId}</div>
-                                <div className="questionCreateAt">{board.createdAt}</div>
-                            </div>
-                        </BDQuestionHeaderInfo>
-
-                        <BDQuestionHeaderEditBtn>
-                            <Link to="/community/edit">
-                                <button type="button">편집</button>
-                            </Link>
-
-                            <button type="button" onClick={deleteQuestion}>
-                                삭제
-                            </button>
-                        </BDQuestionHeaderEditBtn>
-                    </BDQuestionHeader>
-
-                    <BDQuestionMain>
-                        <div>{board.content}</div>
-                    </BDQuestionMain>
-                </>
-            )}
-        </BDQuestionWrapper>
-    );
-};
 
 export default BoardDetailQuestion;

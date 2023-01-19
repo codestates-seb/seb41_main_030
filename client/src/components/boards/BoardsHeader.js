@@ -1,6 +1,25 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+const BoardsHeader = () => {
+    return (
+        <BoardsHeaderWrapper>
+            <BoardsHeaderTitle>
+                <div className="logo">MENTALTAL 커뮤니티</div>
+                <div>마음껏 고민을 털어놓을 수 있는 공간입니다.</div>
+                <div>나와 비슷한 고민을 가진 사람들과 마음속 이야기를 나누어 보세요.</div>
+            </BoardsHeaderTitle>
+
+            <BoardsLink to="/write">
+                <button>
+                    고민 작성하기 <i className="fa-solid fa-chevron-right"></i>
+                </button>
+            </BoardsLink>
+        </BoardsHeaderWrapper>
+    );
+};
+
+// styled components
 const BoardsHeaderWrapper = styled.header`
     width: 100%;
     height: 300px;
@@ -96,23 +115,5 @@ const BoardsLink = styled(Link)`
         }
     }
 `;
-
-const BoardsHeader = () => {
-    return (
-        <BoardsHeaderWrapper>
-            <BoardsHeaderTitle>
-                <div className="logo">MENTALTAL 커뮤니티</div>
-                <div>마음껏 고민을 털어놓을 수 있는 공간입니다.</div>
-                <div>나와 비슷한 고민을 가진 사람들과 마음속 이야기를 나누어 보세요.</div>
-            </BoardsHeaderTitle>
-
-            <BoardsLink to="/write">
-                <button>
-                    고민 작성하기 <i className="fa-solid fa-chevron-right"></i>
-                </button>
-            </BoardsLink>
-        </BoardsHeaderWrapper>
-    );
-};
 
 export default BoardsHeader;

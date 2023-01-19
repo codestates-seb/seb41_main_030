@@ -5,6 +5,160 @@ import { useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { answerState, boardState } from "../../states";
 
+// ! 나중에 서버 연결시 데이터 받아서 랜더링되도록 수정할 것
+const BoardDetailAnswer = () => {
+    const url = `http://localhost:3001`;
+    const [isEdit, setIsEdit] = useState(false);
+    const [answer, setAnswer] = useRecoilState(answerState);
+    const board = useRecoilValue(boardState);
+
+    // ** 답글 등록
+    // 답글 등록 form
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    // 답글 등록 요청 함수
+    const postComment = (data) => {
+        axios
+            .post(`${url}/comments`, data)
+            .then((res) => {
+                window.location.reload();
+                setAnswer(data);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    // ** 답글 수정
+    // 답글 수정 form
+    const {
+        register: register2,
+        handleSubmit: handleSubmit2,
+        formState: { errors: errors2 },
+    } = useForm();
+
+    // 답글 수정 버튼 핸들러
+    const editBtnHandle = () => {
+        setIsEdit(!isEdit);
+    };
+
+    // 답글 수정 요청 함수
+    const editComment = (data) => {
+        axios
+            .patch(`http://localhost:3001/comments/${answer.id}`, data)
+            .then((res) => {
+                window.location.reload();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    // ** 답글 삭제
+    // 답글 삭제 요청 함수
+    const deleteComment = () => {
+        axios
+            .delete(`http://localhost:3001/comments/${answer.id}`)
+            .then((res) => {
+                window.location.reload();
+            })
+            .catch((err) => console.log(err));
+    };
+
+    return (
+        <>
+            {answer && (
+                <BDAnswerWrapper>
+                    {answer && (
+                        <div>
+                            <BDAnswerHeaderWrapper>
+                                <BDAnswerHeaderContainer>
+                                    <BDAnswerHeaderProfile></BDAnswerHeaderProfile>
+                                    <BDAnswerHeaderWriterInfo>
+                                        <div>{answer.commentWriterId}</div>
+                                        <div>{answer.createdAt}</div>
+                                    </BDAnswerHeaderWriterInfo>
+                                </BDAnswerHeaderContainer>
+
+                                <BDAnswerEditBtn>
+                                    {isEdit ? (
+                                        <button type="button" onClick={editBtnHandle}>
+                                            편집 취소
+                                        </button>
+                                    ) : (
+                                        <button type="button" onClick={editBtnHandle}>
+                                            편집
+                                        </button>
+                                    )}
+
+                                    <button type="button" onClick={deleteComment}>
+                                        삭제
+                                    </button>
+                                </BDAnswerEditBtn>
+                            </BDAnswerHeaderWrapper>
+
+                            <BDAnswerMain>
+                                {isEdit ? (
+                                    <BDAnswerMainEditForm
+                                        onSubmit={handleSubmit2((data) => {
+                                            data.id = Number(board.id);
+                                            data.commentWriterId = "답글 작성자";
+                                            data.createdAt = "2023 / 01 / 06";
+                                            editComment(data);
+                                        })}
+                                    >
+                                        <div>
+                                            <textarea
+                                                className={errors2.content ? "boardErrorTextarea1" : "boardTextarea1"}
+                                                {...register2("content", {
+                                                    required: true,
+                                                    minLength: 5,
+                                                })}
+                                                defaultValue={answer.content}
+                                            />
+                                            {errors2.content && <div className="boardErrorMessage">최소 5자 이상 작성해주세요.</div>}
+                                        </div>
+
+                                        <button type="submit">편집 완료</button>
+                                    </BDAnswerMainEditForm>
+                                ) : (
+                                    <div className="answerMainText">{answer.content}</div>
+                                )}
+                            </BDAnswerMain>
+                        </div>
+                    )}
+                </BDAnswerWrapper>
+            )}
+
+            <BDAnswerMainForm
+                onSubmit={handleSubmit((data) => {
+                    data.id = Number(board.id);
+                    data.commentWriterId = "답글 작성자";
+                    data.createdAt = "2023 / 01 / 06";
+                    postComment(data);
+                })}
+            >
+                <BDAnswerTextareaContainer>
+                    <textarea
+                        placeholder="작성자에게 따듯한 응원과 격려를 보내주세요."
+                        className={errors.content ? "boardErrorTextarea1" : "boardTextarea1"}
+                        {...register("content", {
+                            required: true,
+                            minLength: 5,
+                        })}
+                    />
+                    <button type="submit">답글 등록</button>
+                </BDAnswerTextareaContainer>
+
+                {errors.content && <div className="boardErrorMessage">최소 5자 이상 작성해주세요.</div>}
+            </BDAnswerMainForm>
+        </>
+    );
+};
+
+// styled components
 const BDAnswerWrapper = styled.div`
     margin-top: 40px;
     padding: 40px;
@@ -200,158 +354,5 @@ const BDAnswerTextareaContainer = styled.div`
         }
     }
 `;
-
-// ! 나중에 서버 연결시 데이터 받아서 랜더링되도록 수정할 것
-const BoardDetailAnswer = () => {
-    const url = `http://localhost:3001`;
-    const [isEdit, setIsEdit] = useState(false);
-    const [answer, setAnswer] = useRecoilState(answerState);
-    const board = useRecoilValue(boardState);
-
-    // ** 답글 등록
-    // 답글 등록 form
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-
-    // 답글 등록 요청 함수
-    const postComment = (data) => {
-        axios
-            .post(`${url}/comments`, data)
-            .then((res) => {
-                window.location.reload();
-                setAnswer(data);
-            })
-            .catch((err) => console.log(err));
-    };
-
-    // ** 답글 수정
-    // 답글 수정 form
-    const {
-        register: register2,
-        handleSubmit: handleSubmit2,
-        formState: { errors: errors2 },
-    } = useForm();
-
-    // 답글 수정 버튼 핸들러
-    const editBtnHandle = () => {
-        setIsEdit(!isEdit);
-    };
-
-    // 답글 수정 요청 함수
-    const editComment = (data) => {
-        axios
-            .patch(`http://localhost:3001/comments/${answer.id}`, data)
-            .then((res) => {
-                window.location.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
-    // ** 답글 삭제
-    // 답글 삭제 요청 함수
-    const deleteComment = () => {
-        axios
-            .delete(`http://localhost:3001/comments/${answer.id}`)
-            .then((res) => {
-                window.location.reload();
-            })
-            .catch((err) => console.log(err));
-    };
-
-    return (
-        <>
-            {answer && (
-                <BDAnswerWrapper>
-                    {answer && (
-                        <div>
-                            <BDAnswerHeaderWrapper>
-                                <BDAnswerHeaderContainer>
-                                    <BDAnswerHeaderProfile></BDAnswerHeaderProfile>
-                                    <BDAnswerHeaderWriterInfo>
-                                        <div>{answer.commentWriterId}</div>
-                                        <div>{answer.createdAt}</div>
-                                    </BDAnswerHeaderWriterInfo>
-                                </BDAnswerHeaderContainer>
-
-                                <BDAnswerEditBtn>
-                                    {isEdit ? (
-                                        <button type="button" onClick={editBtnHandle}>
-                                            편집 취소
-                                        </button>
-                                    ) : (
-                                        <button type="button" onClick={editBtnHandle}>
-                                            편집
-                                        </button>
-                                    )}
-
-                                    <button type="button" onClick={deleteComment}>
-                                        삭제
-                                    </button>
-                                </BDAnswerEditBtn>
-                            </BDAnswerHeaderWrapper>
-
-                            <BDAnswerMain>
-                                {isEdit ? (
-                                    <BDAnswerMainEditForm
-                                        onSubmit={handleSubmit2((data) => {
-                                            data.id = Number(board.id);
-                                            data.commentWriterId = "답글 작성자";
-                                            data.createdAt = "2023 / 01 / 06";
-                                            editComment(data);
-                                        })}
-                                    >
-                                        <div>
-                                            <textarea
-                                                className={errors2.content ? "boardErrorTextarea1" : "boardTextarea1"}
-                                                {...register2("content", {
-                                                    required: true,
-                                                    minLength: 5,
-                                                })}
-                                                defaultValue={answer.content}
-                                            />
-                                            {errors2.content && <div className="boardErrorMessage">최소 5자 이상 작성해주세요.</div>}
-                                        </div>
-
-                                        <button type="submit">편집 완료</button>
-                                    </BDAnswerMainEditForm>
-                                ) : (
-                                    <div className="answerMainText">{answer.content}</div>
-                                )}
-                            </BDAnswerMain>
-                        </div>
-                    )}
-                </BDAnswerWrapper>
-            )}
-
-            <BDAnswerMainForm
-                onSubmit={handleSubmit((data) => {
-                    data.id = Number(board.id);
-                    data.commentWriterId = "답글 작성자";
-                    data.createdAt = "2023 / 01 / 06";
-                    postComment(data);
-                })}
-            >
-                <BDAnswerTextareaContainer>
-                    <textarea
-                        placeholder="작성자에게 따듯한 응원과 격려를 보내주세요."
-                        className={errors.content ? "boardErrorTextarea1" : "boardTextarea1"}
-                        {...register("content", {
-                            required: true,
-                            minLength: 5,
-                        })}
-                    />
-                    <button type="submit">답글 등록</button>
-                </BDAnswerTextareaContainer>
-
-                {errors.content && <div className="boardErrorMessage">최소 5자 이상 작성해주세요.</div>}
-            </BDAnswerMainForm>
-        </>
-    );
-};
 
 export default BoardDetailAnswer;
