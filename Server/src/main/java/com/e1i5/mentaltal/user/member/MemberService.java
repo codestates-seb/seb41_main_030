@@ -1,10 +1,12 @@
 package com.e1i5.mentaltal.user.member;
 
+import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
 import com.e1i5.mentaltal.board.respository.BoardRepository;
 import com.e1i5.mentaltal.comment.repository.CommentRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,11 +24,18 @@ public class MemberService {
     private final BoardRepository boardRepository;
 
     private final CommentRepository commentRepository;
+    private final CustomAuthorityUtils authorityUtils;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원 정보 등록
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail()); // DB에 존재하는 이메일인지 확인
-        Member savedMember = memberRepository.save(member);
+
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword); //password 암호화
+
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles); //db에 user role 저장
 
         return memberRepository.save(member);
     }
@@ -39,8 +48,8 @@ public class MemberService {
         // 추후에 Custom BeanUtils 사용
         Optional.ofNullable(member.getNickName())
                 .ifPresent(findMember::setNickName);
-        Optional.ofNullable(member.getEmail())
-                .ifPresent(findMember::setEmail);
+//        Optional.ofNullable(member.getEmail())
+//                .ifPresent(findMember::setEmail);  //이메일은 아이디라 수정 불가
         Optional.ofNullable(member.getPassword())
                 .ifPresent(findMember::setPassword);
         Optional.ofNullable(member.getImage())

@@ -17,7 +17,6 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException {
-        // Todo : 로그인실패시 동작구현
         log.error("# Authentication failed: {}", exception.getMessage());
 
         sendErrorResponse(response);
