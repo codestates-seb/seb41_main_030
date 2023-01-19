@@ -55,9 +55,8 @@ const LeftContent = styled.div`
         padding: 30px 0;
     }
     .description {
-        font-size: 20px;
+        font-size: 21px;
         line-height: 35px;
-        padding-top: 10px;
     }
     .buttonContainer {
         padding-top: 30px;
