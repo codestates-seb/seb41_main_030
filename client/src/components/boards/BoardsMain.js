@@ -5,21 +5,18 @@ import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
 const BoardsMain = () => {
-    const url = `http://localhost:3001`;
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
 
     // 페이지 관련 상태
     const [list, setList] = useState([]);
     const [current, setCurrent] = useState(1);
     const [total, setTotal] = useState(0);
 
-    // api 요청
+    // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        // ! 일단 임시 구현으로 요청 두번 보내서 요청1) 전체 데이터 받아서 갯수 구함, 요청2) 페이지 네이션 데이터 받음
-        axios.get(`${url}/boards`).then((res) => {
-            setTotal(res.data.length);
-        });
-        axios.get(`${url}/boards?_page=${current}&_limit=10`).then((res) => {
-            setList(res.data);
+        axios.get(`${url}/boards?page=${current}&size=10`).then((res) => {
+            setList(res.data.data);
+            setTotal(res.data.pageInfo.totalElements);
         });
     }, [current]);
 
@@ -28,14 +25,14 @@ const BoardsMain = () => {
             <BoardsList>
                 {list &&
                     list.map((post) => (
-                        <li key={post.id}>
-                            <BoardsCardLink to={`/community/${post.id}`}>
+                        <li key={post.boardId}>
+                            <BoardsCardLink to={`/community/${post.boardId}`}>
                                 <BoardsTitle>{post.title}</BoardsTitle>
-                                <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
+                                {post.tag ? <BoardsTagWrapper>{post.tag && post.tag.map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper> : null}
                                 <BoardsContent>{post.content}</BoardsContent>
                                 <BoardsInfo>
-                                    {post.recommend === 0 ? <div>♡ 공감해주세요</div> : <div>♡ {post.recommend}명이 공감</div>}
-                                    <div>{post.BoardWriterId}</div>
+                                    {post.voteCount === 0 ? <div>♡ 공감해주세요</div> : <div>♡ {post.voteCount}명이 공감</div>}
+                                    <div>{post.nickName}</div>
                                 </BoardsInfo>
                             </BoardsCardLink>
                         </li>
