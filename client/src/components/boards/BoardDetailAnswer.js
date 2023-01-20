@@ -30,7 +30,7 @@ const BoardDetailAnswer = () => {
 
     return (
         <>
-            <BDAWrapper>{answers && answers.map((answer, idx) => <BoardDetailAnswerMain answer={answer} key={idx} />)}</BDAWrapper>
+            {board.commentCount === 0 ? null : <BDAWrapper>{answers && answers.map((answer, idx) => <BoardDetailAnswerMain answer={answer} key={idx} />)}</BDAWrapper>}
 
             <BDAMainForm
                 onSubmit={handleSubmit((data) => {
