@@ -52,7 +52,7 @@ const LeftContent = styled.div`
     border: 1px solid lightgrey;
     flex-grow: 1;
     flex-basis: 0;
-    /* margin: 10px; */
+    margin-top: 50px;
 `;
 
 const RightContent = styled.div`
@@ -64,11 +64,16 @@ const RightContent = styled.div`
     flex-direction: column;
     justify-content: center;
     padding-left: 100px;
+    margin-top: 50px;
 
     .title {
         font-size: 45px;
         .logoDescription {
             font-weight: var(--font-bold);
+        }
+        @media screen and (max-height: 602px) {
+            font-size: 35px;
+            margin-top: 80px;
         }
     }
 
@@ -76,10 +81,18 @@ const RightContent = styled.div`
         font-size: 22px;
         line-height: 35px;
         padding-top: 17px;
+
+        @media screen and (max-height: 602px) {
+            font-size: 18px;
+            line-height: 30px;
+        }
     }
 
     .board {
         margin-top: 50px;
+        @media screen and (max-height: 602px) {
+            margin-top: 0;
+        }
     }
 `;
 
@@ -98,4 +111,12 @@ const BoardIconContainer = styled.div`
     font-weight: var(--font-bold);
 
     margin-bottom: 10px;
+
+    @media screen and (max-height: 602px) {
+        background-size: 60px 60px;
+        font-size: 18px;
+        padding-left: 80px;
+        margin-bottom: 0;
+        height: 80px;
+    }
 `;
