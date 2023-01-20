@@ -13,7 +13,7 @@ const BoardDetailQuestion = () => {
 
     // 질문 삭제
     const deleteQuestion = () => {
-        axios.delete(`${url}/boards/${board.id}`).then((res) => {
+        axios.delete(`${url}/boards/${board.boardId}`).then((res) => {
             navigate("/community");
             setBoard(null);
         });
