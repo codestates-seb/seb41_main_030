@@ -3,12 +3,6 @@ import { useEffect } from "react";
 import CreateBoardHeader from "../components/boards/CreateBoardHeader";
 import EditBoardMain from "../components/boards/EditBoardMain";
 
-const EditBoardWrapper = styled.div`
-    margin-top: 65px;
-    background-color: white;
-    height: 600px;
-`;
-
 const EditBoard = ({ setIsFooter }) => {
     useEffect(() => {
         setIsFooter(false);
@@ -23,5 +17,11 @@ const EditBoard = ({ setIsFooter }) => {
         </>
     );
 };
+
+const EditBoardWrapper = styled.div`
+    margin-top: 65px;
+    background-color: white;
+    height: 600px;
+`;
 
 export default EditBoard;
