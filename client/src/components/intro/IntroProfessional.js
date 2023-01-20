@@ -1,20 +1,32 @@
 import styled from "styled-components";
+import useScrollFadeIn from "./useScrollFadeIn";
 
 const IntroProfessional = () => {
+    const animatedItem = {
+        0: useScrollFadeIn("down", 1, 0),
+        1: useScrollFadeIn("down", 1, 1),
+        2: useScrollFadeIn("down", 1, 2),
+        3: useScrollFadeIn("down", 1, 3),
+    };
+
     return (
         <>
             <IntroProContainer>
                 <LeftContent>
-                    <div className="title">상담 전문가</div>
-                    <div className="subTitle">상담 전문가와 일반 회원 구분 관리</div>
-                    <div className="description">
+                    <div className="title" {...animatedItem[0]}>
+                        상담 전문가
+                    </div>
+                    <div className="subTitle" {...animatedItem[1]}>
+                        상담 전문가와 일반 회원 구분 관리
+                    </div>
+                    <div className="description" {...animatedItem[2]}>
                         상담 전문가 추천 페이지를 둘러보세요.
                         <br />
                         고민글을 작성하고 추천수가 높아지면
                         <br />
                         상담 전문가 회원의 답변도 받을 수 있습니다.
                     </div>
-                    <div className="buttonContainer">
+                    <div className="buttonContainer" {...animatedItem[3]}>
                         <button className="professionalBtn">상담사 보기</button>
                         <button className="writeBtn">고민글 작성하기</button>
                     </div>

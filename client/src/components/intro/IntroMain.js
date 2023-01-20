@@ -16,26 +16,33 @@ const IntroMain = () => {
         1000,
     ];
 
-    const animatedItem = useScrollFadeIn("down", 1, 0);
-    const animatedItem2s = useScrollFadeIn("down", 2, 1);
-    const animatedItem3s = useScrollFadeIn("down", 3, 2);
-    const animatedItem4s = useScrollFadeIn("down", 4, 3);
+    const animatedItem = {
+        0: useScrollFadeIn("down", 1, 0),
+        1: useScrollFadeIn("down", 2, 1),
+        2: useScrollFadeIn("down", 3, 2),
+        3: useScrollFadeIn("down", 4, 3),
+    };
+
+    // const animatedItem = useScrollFadeIn("down", 1, 0);
+    // const animatedItem2s = useScrollFadeIn("down", 2, 1);
+    // const animatedItem3s = useScrollFadeIn("down", 3, 2);
+    // const animatedItem4s = useScrollFadeIn("down", 4, 3);
 
     return (
         <>
             <NavSize />
             <IntroMainContainer>
                 <IntroMainContent>
-                    <TypingContainer {...animatedItem}>
+                    <TypingContainer {...animatedItem[0]}>
                         <TypeAnimation sequence={introMessage} wrapper="div" speed={0} repeat={Infinity} cursor={true} />
                     </TypingContainer>
-                    <div className="subTitle" {...animatedItem2s}>
+                    <div className="subTitle" {...animatedItem[1]}>
                         이런 고민, 이곳에 탈탈 털어놓으세요.
                     </div>
-                    <div className="logo" {...animatedItem3s}>
+                    <div className="logo" {...animatedItem[2]}>
                         MENTALTAL
                     </div>
-                    <div className="button" {...animatedItem4s}>
+                    <div className="button" {...animatedItem[3]}>
                         MENTALTAL 둘러보기
                     </div>
                 </IntroMainContent>

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import boardIcon from "../../icons/intro-bubble.svg";
 import writeIcon from "../../icons/intro-write.svg";
 import tagIcon from "../../icons/intro-tag.svg";
+import useScrollFadeIn from "./useScrollFadeIn";
 
 const IntroBoard = () => {
     const introArray = [
@@ -11,21 +12,27 @@ const IntroBoard = () => {
         { key: 3, iconURL: tagIcon, text: "고민글 주제 태그 기능" },
     ];
 
+    const animatedItem = {
+        0: useScrollFadeIn("down", 1, 0),
+        1: useScrollFadeIn("down", 1, 1),
+        2: useScrollFadeIn("down", 1, 2),
+    };
+
     return (
         <>
             <IntroBoardContainer>
                 <LeftContent></LeftContent>
                 <RightContent>
-                    <div className="title">
+                    <div className="title" {...animatedItem[0]}>
                         <span className="logo">MENTALTAL</span>
                         <span className="logoDescription">&nbsp;커뮤니티</span>
                     </div>
-                    <div className="description">
+                    <div className="description" {...animatedItem[1]}>
                         나와 비슷한 고민을 가진 사람들과
                         <br />
                         이야기를 나누어 보세요.
                     </div>
-                    <div className="board">
+                    <div className="board" {...animatedItem[2]}>
                         {introArray.map((element) => (
                             <BoardIconContainer key={element.key} icon={element.iconURL}>
                                 <span>{element.text}</span>
