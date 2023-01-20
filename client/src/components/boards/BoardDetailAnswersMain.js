@@ -24,7 +24,7 @@ const BoardDetailAnswerMain = ({ answer }) => {
     // 답글 수정 요청 함수
     const editComment = (data) => {
         axios
-            .patch(`${url}/comments/${answer.commentId}`, data)
+            .patch(`/comments/${answer.commentId}`, data)
             .then((res) => {
                 window.location.reload();
             })
@@ -73,8 +73,7 @@ const BoardDetailAnswerMain = ({ answer }) => {
                     {isEdit ? (
                         <BDAMainEditForm
                             onSubmit={handleSubmit2((data) => {
-                                // ! 로그인 구현시 commentId 수정
-                                data.commentId = 1;
+                                data.commentId = answer.commentId;
                                 editComment(data);
                             })}
                         >

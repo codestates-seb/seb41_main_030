@@ -33,11 +33,14 @@ const CreateBoardMain = () => {
     // };
 
     // 게시글 등록 요청 함수
-    const postBoard = (data) => {
+    const postBoard = async (data) => {
+        console.log(data);
+
         axios
-            .post(`${url}/boards`, data)
+            .post(`/boards`, data)
             .then((res) => {
                 navigate("/community");
+                console.log(res);
             })
             .catch((err) => console.log(err));
     };

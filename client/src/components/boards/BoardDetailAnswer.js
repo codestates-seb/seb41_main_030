@@ -21,7 +21,7 @@ const BoardDetailAnswer = () => {
     // 답글 등록 요청 함수
     const postComment = (data) => {
         axios
-            .post(`${url}/comments`, data)
+            .post(`/comments`, data)
             .then((res) => {
                 window.location.reload();
             })
@@ -34,7 +34,7 @@ const BoardDetailAnswer = () => {
 
             <BDAMainForm
                 onSubmit={handleSubmit((data) => {
-                    // ! 로그인 구현시 commentId 수정
+                    // ! 로그인 구현시 memberId 수정
                     data.memberId = 1;
                     data.boardId = Number(board.boardId);
                     postComment(data);
@@ -131,25 +131,25 @@ const BDMainTextareaWrapper = styled.div`
     }
 `;
 
-const BDMainTextareaContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
+// const BDMainTextareaContainer = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+//     gap: 5px;
 
-    /* @media screen and (max-width: 768px) {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+//     @media screen and (max-width: 768px) {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: flex-end;
 
-        textarea {
-            width: 100%;
-        }
+//         textarea {
+//             width: 100%;
+//         }
 
-        button {
-            width: fit-content;
-            padding: 5px 6px;
-        }
-    } */
-`;
+//         button {
+//             width: fit-content;
+//             padding: 5px 6px;
+//         }
+//     }
+// `;
 
 export default BoardDetailAnswer;

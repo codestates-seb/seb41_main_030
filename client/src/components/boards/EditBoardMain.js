@@ -43,7 +43,7 @@ const EditBoardMain = () => {
     // 게시글 수정 요청 함수
     const patchBoard = (data) => {
         axios
-            .patch(`${url}/boards/${board.id}`, data)
+            .patch(`/boards/${board.boardId}/`, data)
             .then((res) => {
                 navigate("/community");
                 setBoard(data);
@@ -56,9 +56,10 @@ const EditBoardMain = () => {
             <form
                 onSubmit={handleSubmit((data) => {
                     // ! 백에서 태그 기능이 구현되면 살려놓을 것
+                    // ! memberId 받아올 수 있으면 바꾸기
                     // data.tag = [...tags];
-                    data.BoardWriterId = "작성자";
-                    data.createdAt = "2023 / 01 / 06";
+                    data.memberId = 1;
+                    data.boardId = board.boardId;
                     patchBoard(data);
                 })}
             >
