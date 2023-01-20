@@ -85,4 +85,14 @@ public class CommentController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    // 공감 기능
+    @PostMapping("/{comment-id}/votes") // {comment-id}/votes?memberId={member-id}&voteCheck=true
+    public ResponseEntity commentVote(
+            @PathVariable("comment-id") long commentId, @Positive @RequestParam long memberId, @RequestParam boolean voteCheck) {
+        commentService.commentVote(commentId, memberId, voteCheck);
+
+        return new ResponseEntity(
+                new SingleResponseDto<>(commentService.getVoteCount(commentId)), HttpStatus.OK);
+    }
 }

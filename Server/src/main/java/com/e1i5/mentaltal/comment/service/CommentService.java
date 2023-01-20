@@ -103,6 +103,12 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    // 공감
+    public long getVoteCount(long commentId) {
+        Comment comment = findVerifiedComment(commentId);
+        return comment.getVoteCount();
+    }
+
     /**
      * 공감수 (좋아요)
      * TODO 로그인한 회원만 공감 가능 --> 비회원 공감 버튼 클릭 시 "로그인이 필요합니다."
