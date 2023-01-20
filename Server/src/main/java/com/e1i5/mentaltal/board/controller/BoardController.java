@@ -7,10 +7,12 @@ import com.e1i5.mentaltal.board.mapper.BoardMapper;
 import com.e1i5.mentaltal.board.service.BoardService;
 import com.e1i5.mentaltal.dto.MultiResponseDto;
 import com.e1i5.mentaltal.dto.SingleResponseDto;
+import com.e1i5.mentaltal.user.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -91,13 +93,32 @@ public class BoardController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    // 공감 (좋아요)
-    @PostMapping("/{board-id}/up")  // ~/boards/{id} or ~/boards/{id}/up ?
-    public ResponseEntity setCheckVote(@PathVariable("board-id") long boardId, @Positive @RequestParam long memberId) {
-        boardService.setCheckVote(boardId, memberId);
+    // 공감 기능
+    /**
+     * todo 500 error ---> 200ok 해결 완료
+     * data: 0일 때 true --> data: 1 (공감 처리)
+     * data: 1일 때 true --> data: 0 (공감 취소)
+     * @param boardId
+     * @param memberId
+     * @param voteCheck
+     * @return
+     */
+    @PostMapping("/{board-id}/votes")  // {board-id}/votes?memberId={member-id}&voteCheck=true
+    public ResponseEntity boardVote(
+            @PathVariable("board-id") long boardId, @Positive @RequestParam long memberId, @RequestParam boolean voteCheck) {
+        boardService.boardVote(boardId, memberId, voteCheck);
 
         return new ResponseEntity(
                 new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
     }
 
+    // todo 500 error
+//    @PostMapping("/{board-id}/votes")  // /{board-id}/votes?voteCheck=true
+//    public ResponseEntity setVoteCheck(
+//            @PathVariable("board-id") long boardId, @RequestParam boolean voteCheck, @AuthenticationPrincipal Member member){
+//        Board board = boardService.boardVote(boardId, member.getMemberId(), voteCheck);
+//
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(mapper.boardToBoardResponseDto(board)), HttpStatus.OK); // boardToBoardResponseDto OR boardToBoardGetResponseDto ?
+//    }
 }

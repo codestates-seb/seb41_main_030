@@ -35,10 +35,10 @@ public class Comment {
     private LocalDateTime modifiedAt;
 
     @Column(nullable = false) // columnDefinition = "integer default 0"
-    private int viewCount = 0;  // 조회수
+    private long viewCount = 0;  // 조회수
 
     @Column(nullable = false)
-    private int voteCount = 0;  // 공감수 (좋아요)
+    private long voteCount = 0;  // 공감수 (좋아요)
 
     @Transient
     private long bid;
@@ -69,19 +69,5 @@ public class Comment {
         }
         this.board = board;
         this.board.getComments().add(this);
-    }
-
-    @ElementCollection
-    public List<Long> checkVote = new ArrayList<>(); // 공감 처리 (+)
-
-    @ElementCollection
-    public List<Long> uncheckVote = new ArrayList<>(); // 공감 취소 (-)
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
     }
 }

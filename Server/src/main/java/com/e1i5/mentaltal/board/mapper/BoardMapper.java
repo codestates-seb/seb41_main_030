@@ -48,8 +48,8 @@ public interface BoardMapper {
         long boardId = board.getBoardId();
         String title = board.getTitle();
         String content = board.getContent();
-        int viewCount = board.getViewCount();   // 조회수
-        int voteCount = board.getVoteCount();   // 공감수
+        long viewCount = board.getViewCount();   // 조회수
+        long voteCount = board.getVoteCount();   // 공감수
         long commentCount = board.getCommentCount();
         // 닉네임?
         LocalDateTime createdAt = board.getCreatedAt();

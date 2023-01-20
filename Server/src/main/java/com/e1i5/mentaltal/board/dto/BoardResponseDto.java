@@ -17,8 +17,8 @@ public class BoardResponseDto {
     private String title;
     private String content;
 //    private String tags;
-    private int viewCount;  // 조회수
-    private int voteCount;  // 공감수
+    private long viewCount;  // 조회수
+    private long voteCount;  // 공감수
     private long commentCount;
 
     private String nickName;

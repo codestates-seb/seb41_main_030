@@ -1,6 +1,5 @@
 package com.e1i5.mentaltal.user.member;
 
-
 import com.e1i5.mentaltal.dto.SingleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -24,7 +24,6 @@ import java.util.List;
 @RequestMapping("/comments")
 public class CommentController {
     private final CommentService commentService;
-
     private final CommentMapper mapper;
 
 
@@ -58,6 +57,7 @@ public class CommentController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(comment)), HttpStatus.OK);
 
     }
+
     // 답변 페이지네이션
     @GetMapping
     public ResponseEntity getComments(@Positive @RequestParam int page,
@@ -77,7 +77,6 @@ public class CommentController {
 
     }
 
-
     // 답변 삭제
     @DeleteMapping("/{comment-id}")
     public ResponseEntity deleteComment(@PathVariable("comment-id") @Positive long commentId) {
@@ -87,10 +86,11 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // 공감 (좋아요)
-    @PostMapping("/{comment-id}/up")  // ~/boards/{id} or ~/boards/{id}/up ?
-    public ResponseEntity setCheckVote(@PathVariable("comment-id") long commentId, @Positive @RequestParam long memberId) {
-        commentService.setCheckVote(commentId, memberId);
+    // 공감 기능
+    @PostMapping("/{comment-id}/votes") // {comment-id}/votes?memberId={member-id}&voteCheck=true
+    public ResponseEntity commentVote(
+            @PathVariable("comment-id") long commentId, @Positive @RequestParam long memberId, @RequestParam boolean voteCheck) {
+        commentService.commentVote(commentId, memberId, voteCheck);
 
         return new ResponseEntity(
                 new SingleResponseDto<>(commentService.getVoteCount(commentId)), HttpStatus.OK);
