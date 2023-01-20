@@ -11,17 +11,12 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @AllArgsConstructor
-public class BoardResponseDto {
+public class BoardMyPageResponseDto {
     private long boardId;
     private long memberId;
     private String title;
     private String content;
-//    private String tags;
-    private long viewCount;  // 조회수
-    private long voteCount;  // 공감수
     private long commentCount;
-
-    private String nickName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

@@ -1,6 +1,8 @@
 package com.e1i5.mentaltal.auth.userdetails;
 
 import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
+import com.e1i5.mentaltal.exception.BusinessLogicException;
+import com.e1i5.mentaltal.exception.ExceptionCode;
 import com.e1i5.mentaltal.user.member.MemberRepository;
 import com.e1i5.mentaltal.user.member.Member;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,7 +15,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Component
-public class MemberDetailsService implements UserDetailsService {
+public class MemberDetailsService implements UserDetailsService { //데이터베이스에서 조회한 인증 정보를 기반으로 인증을 처리
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils customAuthorityUtils;
 
@@ -25,8 +27,7 @@ public class MemberDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
-        Member findMember = optionalMember.orElseThrow();
-        //Todo: 예외처리 해야함
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return new MemberDetails(findMember);
     }

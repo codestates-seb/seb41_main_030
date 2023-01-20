@@ -13,7 +13,9 @@ public class MemberAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException{
-        //Todo : 로그인후 어떤 정보 리턴할지, 성공메세지 같은거 보내기
-    }
 
+
+        log.info("# Authenticated successfully!");
+
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,8 +42,14 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()        // csrf 공격에 대한 설정 비활성화
                 .cors(withDefaults())    // cors filter적용
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin().disable()   // 폼로그인 사용 안함
                 .httpBasic().disable()   // 사용안함
+                .exceptionHandling()
+                .and()
+                .apply(new CustomFilterConfigurer())
+                .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()
                 );
