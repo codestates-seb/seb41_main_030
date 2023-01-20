@@ -1,18 +1,24 @@
 import styled from "styled-components";
+import Footer from "../Footer";
 
 const IntroCenter = () => {
     return (
         <>
-            <IntroCenterContainer>
-                <div className="title">상담 센터 추천</div>
-                <div className="description">전문 기관의 도움이 필요하다면, 가까운 상담 센터를 카카오맵에서 둘러보세요.</div>
-                <div className="mockupImg"></div>
-            </IntroCenterContainer>
+            <Container>
+                <IntroCenterContainer>
+                    <div className="title">상담 센터 추천</div>
+                    <div className="description">전문 기관의 도움이 필요하다면, 가까운 상담 센터를 카카오맵에서 둘러보세요.</div>
+                    <div className="mockupImg"></div>
+                </IntroCenterContainer>
+                <Footer />
+            </Container>
         </>
     );
 };
 
 export default IntroCenter;
+
+const Container = styled.div``;
 
 const IntroCenterContainer = styled.div`
     display: flex;
