@@ -1,7 +1,18 @@
 import styled from "styled-components";
 
+const CreateBoardHeader = () => {
+    return (
+        <CBHeaderWrapper>
+            <CBHeaderTitle>
+                <div>어떤 고민을 하고 계신가요?</div>
+                <div>말하지 못했던 괴로움, 고민을 여기에 마음껏 털어놓아보세요.</div>
+            </CBHeaderTitle>
+        </CBHeaderWrapper>
+    );
+};
+
 // styled components
-const BoardHeaderWrapper = styled.header`
+const CBHeaderWrapper = styled.header`
     padding: 60px 100px;
     background-color: var(--lightgreen2);
 
@@ -10,7 +21,8 @@ const BoardHeaderWrapper = styled.header`
     }
 `;
 
-const BoardHeaderTitle = styled.div`
+// ------------- title wrapper ------------- //
+const CBHeaderTitle = styled.div`
     margin: 0 auto;
     max-width: 1500px;
     height: 100px;
@@ -44,17 +56,5 @@ const BoardHeaderTitle = styled.div`
         }
     }
 `;
-
-// component
-const CreateBoardHeader = () => {
-    return (
-        <BoardHeaderWrapper>
-            <BoardHeaderTitle>
-                <div>어떤 고민을 하고 계신가요?</div>
-                <div>말하지 못했던 괴로움, 고민을 여기에 마음껏 털어놓아보세요.</div>
-            </BoardHeaderTitle>
-        </BoardHeaderWrapper>
-    );
-};
 
 export default CreateBoardHeader;
