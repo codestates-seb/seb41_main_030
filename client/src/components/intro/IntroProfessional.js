@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import useScrollFadeIn from "./useScrollFadeIn";
+import { Link } from "react-router-dom";
 
 const IntroProfessional = () => {
     const animatedItem = {
@@ -27,8 +28,12 @@ const IntroProfessional = () => {
                         상담 전문가 회원의 답변도 받을 수 있습니다.
                     </div>
                     <div className="buttonContainer" {...animatedItem[3]}>
-                        <button className="professionalBtn">상담사 보기</button>
-                        <button className="writeBtn">고민글 작성하기</button>
+                        <Link to="/counselors">
+                            <button className="professionalBtn">상담사 보기</button>
+                        </Link>
+                        <Link to="/write">
+                            <button className="writeBtn">고민글 작성하기</button>
+                        </Link>
                     </div>
                 </LeftContent>
                 <RightContent></RightContent>

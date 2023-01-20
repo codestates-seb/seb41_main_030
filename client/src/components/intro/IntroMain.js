@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { TypeAnimation } from "react-type-animation";
 import useScrollFadeIn from "./useScrollFadeIn";
+import { Link } from "react-router-dom";
 
 const IntroMain = () => {
     const introMessage = [
@@ -20,7 +21,7 @@ const IntroMain = () => {
         0: useScrollFadeIn("down", 1, 0),
         1: useScrollFadeIn("down", 2, 1),
         2: useScrollFadeIn("down", 3, 2),
-        3: useScrollFadeIn("down", 4, 3),
+        3: useScrollFadeIn("down", 4, 2.5),
     };
 
     return (
@@ -37,9 +38,11 @@ const IntroMain = () => {
                     <div className="logo" {...animatedItem[2]}>
                         MENTALTAL
                     </div>
-                    <div className="button" {...animatedItem[3]}>
-                        MENTALTAL 둘러보기
-                    </div>
+                    <Link to="/main">
+                        <div className="button" {...animatedItem[3]}>
+                            MENTALTAL 둘러보기
+                        </div>
+                    </Link>
                 </IntroMainContent>
             </IntroMainContainer>
         </>
