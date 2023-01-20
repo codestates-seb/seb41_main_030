@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { TypeAnimation } from "react-type-animation";
+import useScrollFadeIn from "./useScrollFadeIn";
 
 const IntroMain = () => {
     const introMessage = [
@@ -15,16 +16,29 @@ const IntroMain = () => {
         1000,
     ];
 
+    const animatedItem = useScrollFadeIn("down", 1, 0);
+    const animatedItem2s = useScrollFadeIn("down", 2, 1);
+    const animatedItem3s = useScrollFadeIn("down", 3, 2);
+    const animatedItem4s = useScrollFadeIn("down", 4, 3);
+
     return (
         <>
             <NavSize />
             <IntroMainContainer>
-                <TypingContainer>
-                    <TypeAnimation sequence={introMessage} wrapper="div" speed={0} repeat={Infinity} cursor={true} />
-                </TypingContainer>
-                <div className="subTitle">이런 고민, 이곳에 탈탈 털어놓으세요.</div>
-                <div className="logo">MENTALTAL</div>
-                <div className="button">MENTALTAL 둘러보기</div>
+                <IntroMainContent>
+                    <TypingContainer {...animatedItem}>
+                        <TypeAnimation sequence={introMessage} wrapper="div" speed={0} repeat={Infinity} cursor={true} />
+                    </TypingContainer>
+                    <div className="subTitle" {...animatedItem2s}>
+                        이런 고민, 이곳에 탈탈 털어놓으세요.
+                    </div>
+                    <div className="logo" {...animatedItem3s}>
+                        MENTALTAL
+                    </div>
+                    <div className="button" {...animatedItem4s}>
+                        MENTALTAL 둘러보기
+                    </div>
+                </IntroMainContent>
             </IntroMainContainer>
         </>
     );
@@ -42,6 +56,12 @@ const IntroMainContainer = styled.div`
     /* height: 1080px; */
     height: 840px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const IntroMainContent = styled.div`
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -51,13 +71,14 @@ const IntroMainContainer = styled.div`
     .subTitle {
         /* height: 100px; */
         padding-top: 15px;
+        padding-bottom: 40px;
         font-size: 27px;
         font-weight: var(--font-bold);
     }
 
     .logo {
         font-size: 91.42px;
-        padding: 40px 0 60px 0;
+        padding-bottom: 60px;
     }
 
     .button {
