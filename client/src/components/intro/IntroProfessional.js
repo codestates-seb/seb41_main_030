@@ -31,7 +31,7 @@ const IntroProContainer = styled.div`
     background-color: var(--green);
     display: flex;
     width: 100%;
-    height: 840px;
+    height: 100%;
     font-family: "Nanum Gothic", sans-serif;
     padding: 100px;
 `;

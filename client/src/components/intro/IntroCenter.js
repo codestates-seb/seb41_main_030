@@ -19,7 +19,7 @@ const IntroCenterContainer = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 840px;
+    height: 100%;
     font-family: "Nanum Gothic", sans-serif;
     color: var(--green);
     padding: 100px;

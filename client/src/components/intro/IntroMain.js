@@ -53,8 +53,7 @@ const NavSize = styled.div`
 const IntroMainContainer = styled.div`
     background-color: var(--green);
     width: 100%;
-    /* height: 1080px; */
-    height: 840px;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

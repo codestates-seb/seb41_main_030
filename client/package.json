@@ -9,6 +9,7 @@
         "axios": "^1.2.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-full-page": "^0.1.12",
         "react-hook-form": "^7.41.5",
         "react-intersection-observer": "^9.4.1",
         "react-js-pagination": "^3.0.3",
