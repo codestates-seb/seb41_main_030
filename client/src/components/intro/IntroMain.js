@@ -23,11 +23,6 @@ const IntroMain = () => {
         3: useScrollFadeIn("down", 4, 3),
     };
 
-    // const animatedItem = useScrollFadeIn("down", 1, 0);
-    // const animatedItem2s = useScrollFadeIn("down", 2, 1);
-    // const animatedItem3s = useScrollFadeIn("down", 3, 2);
-    // const animatedItem4s = useScrollFadeIn("down", 4, 3);
-
     return (
         <>
             <NavSize />
@@ -75,7 +70,6 @@ const IntroMainContent = styled.div`
     font-family: "Nanum Gothic", sans-serif;
 
     .subTitle {
-        /* height: 100px; */
         padding-top: 15px;
         padding-bottom: 40px;
         font-size: 27px;

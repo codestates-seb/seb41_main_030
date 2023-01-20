@@ -40,7 +40,6 @@ const IntroCenterContainer = styled.div`
     .title {
         font-size: 45px;
         font-weight: var(--font-bold);
-        /* padding-top: 40px; */
     }
     .description {
         font-size: 20px;

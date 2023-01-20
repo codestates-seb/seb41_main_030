@@ -49,7 +49,6 @@ const IntroProContainer = styled.div`
 `;
 
 const LeftContent = styled.div`
-    /* border: 1px solid red; */
     flex-grow: 1;
     flex-basis: 0;
     color: var(--white);

@@ -63,7 +63,6 @@ const LeftContent = styled.div`
 `;
 
 const RightContent = styled.div`
-    /* border: 1px solid red; */
     flex-grow: 1;
     flex-basis: 0;
     color: var(--green);
@@ -108,7 +107,6 @@ const BoardIconContainer = styled.div`
     background-image: url(${(props) => props.icon});
     background-repeat: no-repeat;
     background-position: left;
-    /* background-position: 85% -620%; */
     background-size: 70px 70px;
 
     display: flex;
