@@ -4,9 +4,9 @@ import useScrollFadeIn from "./useScrollFadeIn";
 const IntroProfessional = () => {
     const animatedItem = {
         0: useScrollFadeIn("down", 1, 0),
-        1: useScrollFadeIn("down", 1, 1),
-        2: useScrollFadeIn("down", 1, 2),
-        3: useScrollFadeIn("down", 1, 3),
+        1: useScrollFadeIn("down", 1, 0.5),
+        2: useScrollFadeIn("down", 1, 1),
+        3: useScrollFadeIn("down", 1, 1.5),
     };
 
     return (

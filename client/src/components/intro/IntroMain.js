@@ -88,6 +88,10 @@ const IntroMainContent = styled.div`
         font-weight: var(--font-bold);
         border-radius: 50px;
         padding: 15px 30px;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 `;
 
