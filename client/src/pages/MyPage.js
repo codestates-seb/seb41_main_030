@@ -71,6 +71,13 @@ const MyPage = ({ setIsFooter }) => {
         setChecked(index);
     }
 
+    // 회원탈퇴 모달
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModalHandler = () => {
+        setIsOpen(!isOpen);
+    };
+
     return (
         <>
             <MyPageContainer>
@@ -79,7 +86,9 @@ const MyPage = ({ setIsFooter }) => {
                     <div className="textContainer">
                         <p className="userName">{userData && userData.memberName} 님</p>
                         <p className="email">{userData && userData.email}</p>
-                        <p className="leaveText">회원 탈퇴</p>
+                        <p className="deleteUserText" onClick={openModalHandler}>
+                            회원 탈퇴
+                        </p>
                     </div>
                 </MyPageHeader>
                 <MyPageTab>
@@ -95,6 +104,21 @@ const MyPage = ({ setIsFooter }) => {
                 </MyPageTab>
                 <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit />}</MyPageBody>
             </MyPageContainer>
+            {isOpen ? (
+                <ModalBackdrop onClick={openModalHandler}>
+                    <ModalView onClick={(event) => event.stopPropagation()}>
+                        <div className="title">회원 탈퇴</div>
+                        <div className="description1">
+                            지금까지 MENTALTAL 서비스를
+                            <br /> 이용해주셔서 감사합니다.
+                        </div>
+                        <div className="description2">
+                            하단 버튼을 눌러 회원을 탈퇴하면 <br /> MENTALTAL 서비스 내 계정 정보가 <br /> 삭제되고 복구할 수 없습니다.
+                        </div>
+                        <button>탈퇴하기</button>
+                    </ModalView>
+                </ModalBackdrop>
+            ) : null}
         </>
     );
 };
@@ -143,12 +167,20 @@ const MyPageHeader = styled.div`
         }
 
         .email,
-        .leaveText {
+        .deleteUserText {
             color: var(--green);
             padding-top: 8px;
 
             &.email {
                 text-decoration: underline;
+            }
+
+            &.deleteUserText {
+                :hover {
+                    cursor: pointer;
+                    color: var(--darkgreen);
+                    transition: 0.5s;
+                }
             }
         }
     }
@@ -213,4 +245,65 @@ const MyPageTab = styled.div`
 
 const MyPageBody = styled.div`
     margin-bottom: 50px;
+`;
+
+const ModalBackdrop = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const ModalView = styled.div.attrs((props) => ({
+    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
+    role: "dialog",
+}))`
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 400px;
+    margin: 0 auto;
+    border-radius: 30px;
+    font-family: "Nanum Gothic", sans-serif;
+    padding: 20px;
+
+    .title {
+        font-size: 20px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 10%;
+    }
+    .description1,
+    .description2 {
+        font-size: 15px;
+        line-height: 150%;
+        text-align: center;
+        color: var(--darkgreen);
+
+        &.description2 {
+            padding-top: 2%;
+            padding-bottom: 15%;
+        }
+    }
+
+    button {
+        background-color: var(--darkgreen);
+        font-size: 17px;
+        width: 80%;
+        border-radius: 50px;
+
+        :hover {
+            background-color: var(--lightgreen);
+            color: var(--darkgreen);
+            cursor: pointer;
+            transition: 0.5s;
+        }
+    }
 `;
