@@ -4,17 +4,49 @@ import MyPagePosts from "../components/mypage/MyPagePosts";
 import MyPageAnswer from "../components/mypage/MyPageAnswer";
 import MyPageEdit from "../components/mypage/MyPageEdit";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const MyPage = ({ setIsFooter }) => {
+    const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
-    const url = `http://localhost:3001`;
+    const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
+    // const getMemberId = () => {
+    //     const memberId = localStorage.getItem("memberId") ? JSON.parse(localStorage.getItem("memberId")) : null;
+    //     console.log(memberId);
+    //     return memberId;
+    // };
+    // const memberId = getMemberId();
+
+    let decoded;
+    let loginToken = window.localStorage.getItem("loginToken");
+
+    if (loginToken) {
+        decoded = jwt_decode(loginToken);
+        console.log(decoded);
+    }
+
+    const userProfileData = async (id) => {
+        const member = await axios.get(`${url}/members/${id}`);
+        return {
+            memberName: member.data.data.nickName,
+            email: member.data.data.email,
+        };
+    };
 
     useEffect(() => {
         setIsFooter(false);
-        axios.get(`${url}/members`).then((res) => {
-            // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
-            setUserData(res.data[0]);
-        });
+        // axios.get(`${url}/members/${memberId}`).then((res) => {
+        //     // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
+        //     // console.log(res);
+        //     setUserData(res.data);
+        // });
+
+        const userDataList = async () => {
+            const userData2 = await userProfileData(id);
+            setUserData(userData2);
+        };
+        userDataList();
     }, []);
 
     const [openTab, setOpenTab] = useState([
@@ -45,7 +77,7 @@ const MyPage = ({ setIsFooter }) => {
                 <MyPageHeader>
                     <div className="imgContainer"></div>
                     <div className="textContainer">
-                        <p className="userName">{userData && userData.name} 님</p>
+                        <p className="userName">{userData && userData.memberName} 님</p>
                         <p className="email">{userData && userData.email}</p>
                         <p className="leaveText">회원 탈퇴</p>
                     </div>
