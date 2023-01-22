@@ -5,7 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
-const MyPageEdit = ({ email }) => {
+const MyPageEdit = ({ name, email }) => {
     const {
         register,
         handleSubmit,
@@ -68,7 +68,7 @@ const MyPageEdit = ({ email }) => {
                         <div className="nickname">
                             <label>닉네임</label>
                             <input
-                                placeholder="김코딩"
+                                value={name}
                                 className={errors.name && "nameInputError"}
                                 {...register("name", {
                                     required: { value: true, message: "닉네임을 입력해주세요." },

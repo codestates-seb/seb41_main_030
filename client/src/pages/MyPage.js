@@ -30,7 +30,7 @@ const MyPage = ({ setIsFooter }) => {
     const userProfileData = async (id) => {
         const member = await axios.get(`${url}/members/${id}`);
         return {
-            memberName: member.data.data.nickName,
+            nickName: member.data.data.nickName,
             email: member.data.data.email,
         };
     };
@@ -105,7 +105,7 @@ const MyPage = ({ setIsFooter }) => {
                 <MyPageHeader>
                     <div className="imgContainer"></div>
                     <div className="textContainer">
-                        <p className="userName">{userData && userData.memberName} 님</p>
+                        <p className="userName">{userData && userData.nickName} 님</p>
                         <p className="email">{userData && userData.email}</p>
                         <p className="deleteUserText" onClick={openModalHandler}>
                             회원 탈퇴
@@ -123,7 +123,9 @@ const MyPage = ({ setIsFooter }) => {
                         })}
                     </div>
                 </MyPageTab>
-                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit email={userData.email} />}</MyPageBody>
+                <MyPageBody>
+                    {checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit name={userData.nickName} email={userData.email} />}
+                </MyPageBody>
             </MyPageContainer>
             {isOpen ? (
                 <ModalBackdrop onClick={openModalHandler}>
