@@ -6,7 +6,7 @@ import axios from "axios";
 const MyPagePosts = ({ userData }) => {
     // Server Data
     const [postListData, setPostListData] = useState(undefined);
-    const url = `http://localhost:3001`;
+    const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
     let memberId = undefined;
     if (userData) {
         memberId = userData.memberId;
@@ -14,7 +14,7 @@ const MyPagePosts = ({ userData }) => {
 
     useEffect(() => {
         axios
-            .get(`${url}/boards`)
+            .get(`${url}/boards/all`)
             .then((res) => {
                 setPostListData(res.data);
             })

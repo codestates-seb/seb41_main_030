@@ -23,7 +23,7 @@ const MyPage = ({ setIsFooter }) => {
 
     if (loginToken) {
         decoded = jwt_decode(loginToken);
-        console.log(decoded);
+        // console.log(decoded);
     }
 
     const userProfileData = async (id) => {
