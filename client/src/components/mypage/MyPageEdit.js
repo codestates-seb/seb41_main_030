@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const MyPageEdit = () => {
@@ -10,18 +12,52 @@ const MyPageEdit = () => {
         formState: { errors },
         watch,
     } = useForm();
-    const [inputNameValue, setInputNameValue] = useState("");
-    const [inputPWValue, setInputPWValue] = useState("");
+    // const [inputNameValue, setInputNameValue] = useState("");
+    // const [inputPWValue, setInputPWValue] = useState("");
     const [inputEmailValue, setInputEmailValue] = useState("");
     const [inputPWCheckValue, setInputPWCheckValue] = useState("");
 
     // const navigate = useNavigate();
 
+    const [editUser, setEditUser] = useState({
+        nickName: "",
+        password: "",
+    });
+
+    const handleEditInputValue = (key, e) => {
+        setEditUser({ ...editUser, [key]: e.target.value });
+    };
+
     const handleClear = () => {
-        setInputNameValue("");
-        setInputPWValue("");
+        // setInputNameValue("");
+        // setInputPWValue("");
         setInputEmailValue("");
         setInputPWCheckValue("");
+    };
+
+    // 회원정보 수정 서버 연결
+    const { id } = useParams();
+
+    const handleUpdateRequest = () => {
+        const { nickName, password } = editUser;
+
+        return axios({
+            method: "patch",
+            url: `/members/${id}`,
+            headers: {
+                Authorization: localStorage.getItem("loginToken"),
+            },
+            data: {
+                nickName: nickName,
+                password: password,
+            },
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     return (
@@ -34,8 +70,6 @@ const MyPageEdit = () => {
                             <input
                                 placeholder="김코딩"
                                 className={errors.name && "nameInputError"}
-                                value={inputNameValue}
-                                onKeyUp={(event) => setInputNameValue(event.value)}
                                 {...register("name", {
                                     required: { value: true, message: "닉네임을 입력해주세요." },
                                     minLength: {
@@ -47,6 +81,7 @@ const MyPageEdit = () => {
                                         message: "10 글자 이하로 입력해주세요.",
                                     },
                                 })}
+                                onChange={(e) => handleEditInputValue("nickName", e)}
                             />
                             {errors.name && <div className="nameErrorMessage">{errors.name.message}</div>}
                         </div>
@@ -56,8 +91,6 @@ const MyPageEdit = () => {
                                 placeholder="새로운 비밀번호를 입력해주세요."
                                 autoComplete="new-password"
                                 type="password"
-                                value={inputPWValue}
-                                onKeyUp={(event) => setInputPWValue(event.value)}
                                 className={errors.password && "passwordInputError"}
                                 {...register("password", {
                                     required: { value: true, message: "비밀번호를 입력해주세요." },
@@ -66,6 +99,7 @@ const MyPageEdit = () => {
                                         message: "8자리 이상 비밀번호를 입력해주세요.",
                                     },
                                 })}
+                                onChange={(e) => handleEditInputValue("password", e)}
                             />
                             {errors.password && <div className="passwordErrorMessage">{errors.password.message}</div>}
                         </div>
@@ -113,7 +147,7 @@ const MyPageEdit = () => {
                         <button className="clear" onClick={handleClear}>
                             취소
                         </button>
-                        <button className="edit" type="submit">
+                        <button className="edit" type="submit" onClick={handleUpdateRequest}>
                             회원정보 수정
                         </button>
                     </ButtonContainer>
