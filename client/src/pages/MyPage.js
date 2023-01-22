@@ -6,6 +6,7 @@ import MyPageEdit from "../components/mypage/MyPageEdit";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
     const { id } = useParams();
@@ -78,6 +79,26 @@ const MyPage = ({ setIsFooter }) => {
         setIsOpen(!isOpen);
     };
 
+    const navigate = useNavigate();
+    // 회원탈퇴 서버 연결
+    const userDelete = () => {
+        axios({
+            method: "delete",
+            url: `/members/${id}`,
+            headers: {
+                Authorization: localStorage.getItem("loginToken"),
+            },
+        })
+            .then((res) => {
+                console.log(`${id}번 유저가 삭제됨`);
+                localStorage.removeItem("loginToken");
+                navigate("/");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
         <>
             <MyPageContainer>
@@ -115,7 +136,7 @@ const MyPage = ({ setIsFooter }) => {
                         <div className="description2">
                             하단 버튼을 눌러 회원을 탈퇴하면 <br /> MENTALTAL 서비스 내 계정 정보가 <br /> 삭제되고 복구할 수 없습니다.
                         </div>
-                        <button>탈퇴하기</button>
+                        <button onClick={userDelete}>탈퇴하기</button>
                     </ModalView>
                 </ModalBackdrop>
             ) : null}
@@ -301,7 +322,6 @@ const ModalView = styled.div.attrs((props) => ({
 
         :hover {
             background-color: var(--lightgreen);
-            color: var(--darkgreen);
             cursor: pointer;
             transition: 0.5s;
         }
