@@ -5,6 +5,7 @@ import com.e1i5.mentaltal.board.respository.BoardRepository;
 import com.e1i5.mentaltal.comment.repository.CommentRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
+import com.e1i5.mentaltal.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,11 @@ import java.util.Optional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-
     private final BoardRepository boardRepository;
-
     private final CommentRepository commentRepository;
     private final CustomAuthorityUtils authorityUtils;
     private final PasswordEncoder passwordEncoder;
+    private final CustomBeanUtils<Member> beanUtils;
 
     // 회원 정보 등록
     public Member createMember(Member member) {
@@ -46,16 +46,18 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         // 추후에 Custom BeanUtils 사용
-        Optional.ofNullable(member.getNickName())
-                .ifPresent(findMember::setNickName);
-//        Optional.ofNullable(member.getEmail())
-//                .ifPresent(findMember::setEmail);  //이메일은 아이디라 수정 불가
-        Optional.ofNullable(member.getPassword())
-                .ifPresent(findMember::setPassword);
-        Optional.ofNullable(member.getImage())
-                .ifPresent(findMember::setImage);
+//        Optional.ofNullable(member.getNickName())
+//                .ifPresent(findMember::setNickName);
+////        Optional.ofNullable(member.getEmail())
+////                .ifPresent(findMember::setEmail);  //이메일은 아이디라 수정 불가
+//        Optional.ofNullable(member.getPassword())
+//                .ifPresent(findMember::setPassword);
+//        Optional.ofNullable(member.getImage())
+//                .ifPresent(findMember::setImage);
 
-        return memberRepository.save(findMember);
+        Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
+
+        return memberRepository.save(updatingMember);
     }
 
     // 특정 회원 목록 조회
