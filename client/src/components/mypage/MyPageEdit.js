@@ -5,7 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
-const MyPageEdit = () => {
+const MyPageEdit = ({ email }) => {
     const {
         register,
         handleSubmit,
@@ -107,21 +107,7 @@ const MyPageEdit = () => {
                     <BottomBlock>
                         <div className="email">
                             <label>이메일</label>
-                            <input
-                                placeholder="mentaltal2023@gmail.com"
-                                autoComplete="off"
-                                value={inputEmailValue}
-                                onKeyUp={(event) => setInputEmailValue(event.value)}
-                                className={errors.email && "emailInputError"}
-                                {...register("email", {
-                                    required: { value: true, message: "이메일을 입력해주세요." },
-                                    pattern: {
-                                        value: /\S+@\S+\.\S+/,
-                                        message: "올바른 이메일 형식을 입력해주세요.",
-                                    },
-                                })}
-                            />
-                            {errors.email && <div className="emailErrorMessage">{errors.email.message}</div>}
+                            <input autoComplete="off" value={email} disabled />
                         </div>
                         <div className="passwordConfirm">
                             <label>비밀번호 재입력</label>

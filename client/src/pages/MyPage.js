@@ -123,7 +123,7 @@ const MyPage = ({ setIsFooter }) => {
                         })}
                     </div>
                 </MyPageTab>
-                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit />}</MyPageBody>
+                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit email={userData.email} />}</MyPageBody>
             </MyPageContainer>
             {isOpen ? (
                 <ModalBackdrop onClick={openModalHandler}>
