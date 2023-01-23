@@ -11,11 +11,11 @@ const MyPageEdit = ({ name, email }) => {
         formState: { errors },
         watch,
     } = useForm();
-    const [inputPWCheckValue, setInputPWCheckValue] = useState("");
 
     const [editUser, setEditUser] = useState({
         nickName: name,
         password: "",
+        checkPW: "",
     });
 
     const handleEditInputValue = (key, e) => {
@@ -23,10 +23,10 @@ const MyPageEdit = ({ name, email }) => {
     };
 
     const handleClear = () => {
-        setInputPWCheckValue("");
         setEditUser({
             nickName: name,
             password: "",
+            checkPW: "",
         });
     };
 
@@ -123,8 +123,6 @@ const MyPageEdit = ({ name, email }) => {
                             <input
                                 placeholder="새로운 비밀번호를 다시 한 번 입력해주세요."
                                 type="password"
-                                value={inputPWCheckValue}
-                                onKeyUp={(event) => setInputPWCheckValue(event.value)}
                                 className={errors.passwordConfirmation && "pwConfirmInputError"}
                                 {...register("passwordConfirmation", {
                                     required: { value: true, message: "비밀번호를 다시 한 번 입력해주세요." },
@@ -134,6 +132,8 @@ const MyPageEdit = ({ name, email }) => {
                                         }
                                     },
                                 })}
+                                onChange={(e) => handleEditInputValue("checkPW", e)}
+                                value={editUser.checkPW}
                             />
                             {errors.passwordConfirmation && <div className="pwConfirmErrorMessage">{errors.passwordConfirmation.message}</div>}
                         </div>
