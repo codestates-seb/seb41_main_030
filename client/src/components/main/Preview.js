@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Preview = ({ tag, title, content, writer }) => {
     return (
         <Post>
-            <div className="tag">{tag}</div>
+            <div className="tag">기타</div>
             <div className="title">{title}</div>
             <div className="content">{content.slice(0, 63)}... </div>
             <div className="writerContainer">

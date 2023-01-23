@@ -17,13 +17,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Carousel() {
-    const url = `http://localhost:3001`;
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get(`${url}/boards`).then((res) => {
-            setData(res.data.slice(0, 12));
-        });
+        axios
+            .get(`${url}/boards/all`)
+            .then((res) => {
+                const topBoardArray = res.data.sort((a, b) => b.voteCount - a.voteCount);
+                setData(topBoardArray.slice(0, 12));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     return (
@@ -52,7 +58,7 @@ export default function Carousel() {
                     }}
                     // spaceBetween={-30}
                     slidesPerGroup={4}
-                    loop={true}
+                    loop={false}
                     loopFillGroupWithBlank={true}
                     navigation={true}
                     modules={[Navigation]}
@@ -60,8 +66,8 @@ export default function Carousel() {
                 >
                     {data &&
                         data.map((post) => (
-                            <SwiperSlide key={post.BoardId + 1}>
-                                <Preview key={post.BoardId} tag={post.tag[0]} title={post.title} content={post.content} writer={post.BoardWriterId} />
+                            <SwiperSlide key={post.boardId + 1}>
+                                <Preview key={post.boardId} tag={"기타"} title={post.title} content={post.content} writer={post.nickName} />
                             </SwiperSlide>
                         ))}
                 </Swiper>
