@@ -33,7 +33,13 @@ const MyPageEdit = ({ name, email }) => {
     // 회원정보 수정 서버 연결
     const { id } = useParams();
 
-    const handleUpdateRequest = () => {
+    const handleEdit = () => {
+        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && editUser.password.length >= 8) {
+            updateRequest();
+        }
+    };
+
+    const updateRequest = () => {
         const { nickName, password } = editUser;
 
         return axios({
@@ -60,7 +66,11 @@ const MyPageEdit = ({ name, email }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openModalHandler = () => {
-        setIsOpen(!isOpen);
+        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && editUser.password.length >= 8) {
+            console.log("변경됨");
+            setIsOpen(!isOpen);
+        }
+        console.log("비번 다르게하거나 닉네임 안쓰거나 짧음");
     };
 
     // 개인정보 수정 후 모달창 확인 버튼 누르면 새로고침
@@ -142,7 +152,7 @@ const MyPageEdit = ({ name, email }) => {
                         <button className="clear" onClick={handleClear}>
                             취소
                         </button>
-                        <button className="edit" type="submit" onClick={handleUpdateRequest}>
+                        <button className="edit" type="submit" onClick={handleEdit}>
                             회원정보 수정
                         </button>
                     </ButtonContainer>
