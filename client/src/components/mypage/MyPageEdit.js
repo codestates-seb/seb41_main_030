@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 const MyPageEdit = ({ name, email }) => {
     const {
@@ -12,11 +11,7 @@ const MyPageEdit = ({ name, email }) => {
         formState: { errors },
         watch,
     } = useForm();
-    // const [inputNameValue, setInputNameValue] = useState("");
-    // const [inputPWValue, setInputPWValue] = useState("");
     const [inputPWCheckValue, setInputPWCheckValue] = useState("");
-
-    // const navigate = useNavigate();
 
     const [editUser, setEditUser] = useState({
         nickName: name,

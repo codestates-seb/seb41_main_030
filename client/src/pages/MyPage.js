@@ -37,12 +37,6 @@ const MyPage = ({ setIsFooter }) => {
 
     useEffect(() => {
         setIsFooter(false);
-        // axios.get(`${url}/members/${memberId}`).then((res) => {
-        //     // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
-        //     // console.log(res);
-        //     setUserData(res.data);
-        // });
-
         const userDataList = async () => {
             const userData2 = await userProfileData(id);
             setUserData(userData2);

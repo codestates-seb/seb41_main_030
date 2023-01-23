@@ -64,17 +64,6 @@ const Login = () => {
         },
     });
 
-    // const onSubmit = async (data) => {
-    //     try {
-    //         await axios.post(`http://localhost:3000/login`, data).then((data) => {
-    //             navigate("/");
-    //             console.log(data);
-    //         });
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
     return (
         <>
             <LoginContainer>
