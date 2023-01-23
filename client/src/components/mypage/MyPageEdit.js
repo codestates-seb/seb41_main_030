@@ -14,13 +14,12 @@ const MyPageEdit = ({ name, email }) => {
     } = useForm();
     // const [inputNameValue, setInputNameValue] = useState("");
     // const [inputPWValue, setInputPWValue] = useState("");
-    const [inputEmailValue, setInputEmailValue] = useState("");
     const [inputPWCheckValue, setInputPWCheckValue] = useState("");
 
     // const navigate = useNavigate();
 
     const [editUser, setEditUser] = useState({
-        nickName: "",
+        nickName: name,
         password: "",
     });
 
@@ -29,10 +28,11 @@ const MyPageEdit = ({ name, email }) => {
     };
 
     const handleClear = () => {
-        // setInputNameValue("");
-        // setInputPWValue("");
-        setInputEmailValue("");
         setInputPWCheckValue("");
+        setEditUser({
+            nickName: name,
+            password: "",
+        });
     };
 
     // 회원정보 수정 서버 연결
@@ -68,7 +68,7 @@ const MyPageEdit = ({ name, email }) => {
                         <div className="nickname">
                             <label>닉네임</label>
                             <input
-                                value={name}
+                                value={editUser.nickName}
                                 className={errors.name && "nameInputError"}
                                 {...register("name", {
                                     required: { value: true, message: "닉네임을 입력해주세요." },
@@ -100,6 +100,7 @@ const MyPageEdit = ({ name, email }) => {
                                     },
                                 })}
                                 onChange={(e) => handleEditInputValue("password", e)}
+                                value={editUser.password}
                             />
                             {errors.password && <div className="passwordErrorMessage">{errors.password.message}</div>}
                         </div>
