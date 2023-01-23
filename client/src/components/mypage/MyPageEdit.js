@@ -49,10 +49,23 @@ const MyPageEdit = ({ name, email }) => {
         })
             .then((res) => {
                 console.log(res);
+                openModalHandler();
             })
             .catch((error) => {
                 console.log(error);
             });
+    };
+
+    // 개인정보 수정 모달
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModalHandler = () => {
+        setIsOpen(!isOpen);
+    };
+
+    // 개인정보 수정 후 모달창 확인 버튼 누르면 새로고침
+    const handleRefresh = () => {
+        window.location.reload();
     };
 
     return (
@@ -135,6 +148,14 @@ const MyPageEdit = ({ name, email }) => {
                     </ButtonContainer>
                 </form>
             </EditContainer>
+            {isOpen ? (
+                <ModalBackdrop onClick={openModalHandler}>
+                    <ModalView onClick={(event) => event.stopPropagation()}>
+                        <div className="title">개인정보 수정이 완료되었습니다.</div>
+                        <button onClick={handleRefresh}>확인</button>
+                    </ModalView>
+                </ModalBackdrop>
+            ) : null}
         </>
     );
 };
@@ -311,6 +332,53 @@ const ButtonContainer = styled.div`
         &.edit {
             background-color: var(--darkgreen);
             color: var(--white);
+        }
+    }
+`;
+
+const ModalBackdrop = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const ModalView = styled.div.attrs((props) => ({
+    role: "dialog",
+}))`
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 380px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 30px;
+    font-family: "Nanum Gothic", sans-serif;
+    padding: 20px;
+
+    .title {
+        font-size: 20px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 10%;
+    }
+
+    button {
+        background-color: var(--darkgreen);
+        font-size: 17px;
+        width: 30%;
+        border-radius: 50px;
+
+        :hover {
+            background-color: var(--lightgreen);
+            cursor: pointer;
+            transition: 0.5s;
         }
     }
 `;
