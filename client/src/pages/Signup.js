@@ -146,12 +146,10 @@ const NameInput = styled.input`
     margin-bottom: 5px;
     padding: 0.5em 0.5em;
     font-size: 18px;
-    border-color: ${(props) => (props.error ? "#de4f54" : "")};
+    border-bottom: 2px solid var(--green);
+    border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
-        outline: none;
-        border-color: ${(props) => (props.error ? "#de4f54" : "#2c483f")};
-        border-width: 0px;
-        box-shadow: ${(props) => (props.error ? "0 0 0 4px #f7e1e1, 0 0 0 4px #f7e1e1" : "0 0 0 4px #ecf0e6, 0 0 0 4px #ecf0e6")};
+        border-color: ${(props) => (props.error ? "#de4f54" : "var(--lightgreen)")};
     }
 `;
 
@@ -162,12 +160,10 @@ const EmailInput = styled.input`
     margin-bottom: 5px;
     padding: 0.5em 0.5em;
     font-size: 18px;
-    border-color: ${(props) => (props.error ? "#de4f54" : "")};
+    border-bottom: 2px solid var(--green);
+    border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
-        outline: none;
-        border-color: ${(props) => (props.error ? "#de4f54" : "#2c483f")};
-        border-width: 0px;
-        box-shadow: ${(props) => (props.error ? "0 0 0 4px #f7e1e1, 0 0 0 4px #f7e1e1" : "0 0 0 4px #ecf0e6, 0 0 0 4px #ecf0e6")};
+        border-color: ${(props) => (props.error ? "#de4f54" : "var(--lightgreen)")};
     }
 `;
 
@@ -178,12 +174,10 @@ const PwInput = styled.input`
     margin-bottom: 10px;
     padding: 0.5em 0.5em;
     font-size: 18px;
-    border-color: ${(props) => (props.error ? "#de4f54" : "")};
+    border-bottom: 2px solid var(--green);
+    border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
-        outline: none;
-        border-color: ${(props) => (props.error ? "#de4f54" : "#2c483f")};
-        border-width: 0px;
-        box-shadow: ${(props) => (props.error ? "0 0 0 4px #f7e1e1, 0 0 0 4px #f7e1e1" : "0 0 0 4px #ecf0e6, 0 0 0 4px #ecf0e6")};
+        border-color: ${(props) => (props.error ? "#de4f54" : "var(--lightgreen)")};
     }
 `;
 
