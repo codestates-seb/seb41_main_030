@@ -2,6 +2,8 @@ package com.e1i5.mentaltal.user.counselor;
 
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
+import com.e1i5.mentaltal.utils.CustomBeanUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,13 +13,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class CounselorService {
     private final CounselorRepository counselorRepository;
+    private final CustomBeanUtils<Counselor> beanUtils;
 
-    public CounselorService(CounselorRepository counselorRepository) {
-        this.counselorRepository = counselorRepository;
-    }
+//    public CounselorService(CounselorRepository counselorRepository) {
+//        this.counselorRepository = counselorRepository;
+//    }
 
     // 상담사 정보 등록
     public Counselor createCounselor(Counselor counselor) {
@@ -32,20 +36,22 @@ public class CounselorService {
         Counselor findCounselor = findVerifiedCounselor(counselor.getCounselorId());
 
         // 추후에 Custom BeanUtils 사용
-        Optional.ofNullable(counselor.getUserName())
-                .ifPresent(findCounselor::setUserName);
-        Optional.ofNullable(counselor.getEmail())
-                .ifPresent(findCounselor::setEmail);
-        Optional.ofNullable(counselor.getPassword())
-                .ifPresent(findCounselor::setPassword);
-        Optional.ofNullable(counselor.getEducation())
-                .ifPresent(findCounselor::setEducation);
-        Optional.ofNullable(counselor.getCareer())
-                .ifPresent(findCounselor::setCareer);
-        Optional.ofNullable(counselor.getImage())
-                .ifPresent(findCounselor::setImage);
+//        Optional.ofNullable(counselor.getUserName())
+//                .ifPresent(findCounselor::setUserName);
+//        Optional.ofNullable(counselor.getEmail())
+//                .ifPresent(findCounselor::setEmail);
+//        Optional.ofNullable(counselor.getPassword())
+//                .ifPresent(findCounselor::setPassword);
+//        Optional.ofNullable(counselor.getEducation())
+//                .ifPresent(findCounselor::setEducation);
+//        Optional.ofNullable(counselor.getCareer())
+//                .ifPresent(findCounselor::setCareer);
+//        Optional.ofNullable(counselor.getImage())
+//                .ifPresent(findCounselor::setImage);
 
-        return counselorRepository.save(findCounselor);
+        Counselor updatingCounselor = beanUtils.copyNonNullProperties(counselor, findCounselor);
+
+        return counselorRepository.save(updatingCounselor);
     }
 
     // 특정 상담사 목록 조회
