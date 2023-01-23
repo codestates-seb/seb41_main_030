@@ -48,8 +48,8 @@ public class MemberService {
         // 추후에 Custom BeanUtils 사용
         Optional.ofNullable(member.getNickName())
                 .ifPresent(findMember::setNickName);
-//        Optional.ofNullable(member.getEmail())
-//                .ifPresent(findMember::setEmail);  //이메일은 아이디라 수정 불가
+        Optional.ofNullable(member.getEmail())
+                .ifPresent(findMember::setEmail);
         Optional.ofNullable(member.getPassword())
                 .ifPresent(findMember::setPassword);
         Optional.ofNullable(member.getImage())
