@@ -31,7 +31,8 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
-    private Boolean image;
+    @Column(nullable = true)
+    private String image;
 
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();

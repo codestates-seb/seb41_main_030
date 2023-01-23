@@ -24,7 +24,7 @@ public class MemberDto {
         @NotBlank(message = "비밀번호를 입력하세요.")
         private String password;
 
-        private Boolean image;
+        private String image;
     }
 
     @Getter
@@ -43,7 +43,7 @@ public class MemberDto {
         @NotBlank(message = "비밀번호를 입력하세요.")
         private String password;
 
-        private Boolean image;
+        private String image;
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;
@@ -56,6 +56,7 @@ public class MemberDto {
         private long memberId;
         private String nickName;
         private String email;
+        private String image;
         // 작성한 게시물 목록
         // 작성한 댓글 목록
     }
@@ -69,6 +70,7 @@ public class MemberDto {
         private long memberId;
         private String nickName;
         private String email;
+        private String image;
 
         private Long boardCount;
         private Long commentCount;

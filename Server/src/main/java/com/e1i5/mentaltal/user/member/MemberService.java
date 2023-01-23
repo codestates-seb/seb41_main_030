@@ -99,6 +99,8 @@ public class MemberService {
         }
     }
 
+
+
     @Transactional(readOnly = true)
     public Long getBoardCount(Long memberId) {
         Long boardCount = boardRepository.countBoardByMember_MemberId(memberId);
