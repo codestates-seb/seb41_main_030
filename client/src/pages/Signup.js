@@ -17,7 +17,7 @@ const Signup = () => {
 
     const NICKNAME_REGEX = /(?=.*[a-z0-9가-힣]).{2,}/;
     const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
-    const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{4,}/;
+    const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{8,}/;
 
     const nickNameRegister = register("nickName", {
         required: { value: true, message: "닉네임을 입력해주세요." },
@@ -90,16 +90,17 @@ const Signup = () => {
         </>
     );
 };
-
 const SignupContainer = styled.div`
     display: flex;
     margin-top: 15px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    background-color: #ecf0e6;
+    width: 100%;
+    background-color: var(--lightgreen2);
     min-height: 100vh;
+    padding-top: 90px;
+    padding-bottom: 90px;
 `;
 
 const SignupFormBox = styled.form`
@@ -120,21 +121,22 @@ const InputBox = styled.div`
     margin: 8px;
 `;
 
-const MainText = styled.h2`
+const MainText = styled.div`
     font-size: 25px;
     margin: 10px 0px 20px 5px;
     font-family: "Viga";
     font-weight: var(--font-bold);
-    color: #2c483f;
+    color: var(--darkgreen);
 `;
 
-const InputText = styled.label`
+const InputText = styled.div`
     display: flex;
     margin: 10px 0px 5px 5px;
-    font-weight: bold;
-    font-family: "Inter";
-    color: #2c483f;
-    font-size: 20px;
+    .text {
+        color: var(--darkgreen);
+        font-size: 20px;
+        font-weight: bold;
+    }
 `;
 
 const NameInput = styled.input`
@@ -199,10 +201,11 @@ const SingupBtn = styled.button`
     margin-bottom: 13px;
     width: 335px;
     color: white;
-    background-color: #3f724d;
+    background-color: var(--green);
     border-radius: 10px;
     padding: 10px;
     font-size: 18px;
+    font-family: "Viga";
 `;
 
 const KalkBtn = styled.button`
@@ -217,7 +220,7 @@ const KalkBtn = styled.button`
     border-radius: 10px;
     padding: 10px;
     font-size: 18px;
-    color: #3f724d;
+    color: var(--green);
     border-radius: 7px;
     box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px, rgb(0 0 0 / 5%) 0px 0px 8px, rgb(0 0 0 / 10%) 0px 1px 4px;
 `;
