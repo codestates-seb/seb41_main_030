@@ -4,17 +4,44 @@ import MyPagePosts from "../components/mypage/MyPagePosts";
 import MyPageAnswer from "../components/mypage/MyPageAnswer";
 import MyPageEdit from "../components/mypage/MyPageEdit";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
+    const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
-    const url = `http://localhost:3001`;
+    const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
+    // const getMemberId = () => {
+    //     const memberId = localStorage.getItem("memberId") ? JSON.parse(localStorage.getItem("memberId")) : null;
+    //     console.log(memberId);
+    //     return memberId;
+    // };
+    // const memberId = getMemberId();
+
+    let decoded;
+    let loginToken = window.localStorage.getItem("loginToken");
+
+    if (loginToken) {
+        decoded = jwt_decode(loginToken);
+        // console.log(decoded);
+    }
+
+    const userProfileData = async (id) => {
+        const member = await axios.get(`${url}/members/${id}`);
+        return {
+            nickName: member.data.data.nickName,
+            email: member.data.data.email,
+        };
+    };
 
     useEffect(() => {
         setIsFooter(false);
-        axios.get(`${url}/members`).then((res) => {
-            // 임시 유저 데이터 가져오는 테스트 코드. token을 받아오게 되면 수정 예정
-            setUserData(res.data[0]);
-        });
+        const userDataList = async () => {
+            const userData2 = await userProfileData(id);
+            setUserData(userData2);
+        };
+        userDataList();
     }, []);
 
     const [openTab, setOpenTab] = useState([
@@ -39,15 +66,44 @@ const MyPage = ({ setIsFooter }) => {
         setChecked(index);
     }
 
+    // 회원탈퇴 모달
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModalHandler = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const navigate = useNavigate();
+    // 회원탈퇴 서버 연결
+    const userDelete = () => {
+        axios({
+            method: "delete",
+            url: `/members/${id}`,
+            headers: {
+                Authorization: localStorage.getItem("loginToken"),
+            },
+        })
+            .then((res) => {
+                console.log(`${id}번 유저가 삭제됨`);
+                localStorage.removeItem("loginToken");
+                navigate("/");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
         <>
             <MyPageContainer>
                 <MyPageHeader>
                     <div className="imgContainer"></div>
                     <div className="textContainer">
-                        <p className="userName">{userData && userData.name} 님</p>
+                        <p className="userName">{userData && userData.nickName} 님</p>
                         <p className="email">{userData && userData.email}</p>
-                        <p className="leaveText">회원 탈퇴</p>
+                        <p className="deleteUserText" onClick={openModalHandler}>
+                            회원 탈퇴
+                        </p>
                     </div>
                 </MyPageHeader>
                 <MyPageTab>
@@ -61,8 +117,25 @@ const MyPage = ({ setIsFooter }) => {
                         })}
                     </div>
                 </MyPageTab>
-                <MyPageBody>{checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit />}</MyPageBody>
+                <MyPageBody>
+                    {checked === 0 ? <MyPagePosts userData={userData} /> : checked === 1 ? <MyPageAnswer userData={userData} /> : <MyPageEdit name={userData.nickName} email={userData.email} />}
+                </MyPageBody>
             </MyPageContainer>
+            {isOpen ? (
+                <ModalBackdrop onClick={openModalHandler}>
+                    <ModalView onClick={(event) => event.stopPropagation()}>
+                        <div className="title">회원 탈퇴</div>
+                        <div className="description1">
+                            지금까지 MENTALTAL 서비스를
+                            <br /> 이용해주셔서 감사합니다.
+                        </div>
+                        <div className="description2">
+                            하단 버튼을 눌러 회원을 탈퇴하면 <br /> MENTALTAL 서비스 내 계정 정보가 <br /> 삭제되고 복구할 수 없습니다.
+                        </div>
+                        <button onClick={userDelete}>탈퇴하기</button>
+                    </ModalView>
+                </ModalBackdrop>
+            ) : null}
         </>
     );
 };
@@ -111,12 +184,20 @@ const MyPageHeader = styled.div`
         }
 
         .email,
-        .leaveText {
+        .deleteUserText {
             color: var(--green);
             padding-top: 8px;
 
             &.email {
                 text-decoration: underline;
+            }
+
+            &.deleteUserText {
+                :hover {
+                    cursor: pointer;
+                    color: var(--darkgreen);
+                    transition: 0.5s;
+                }
             }
         }
     }
@@ -181,4 +262,64 @@ const MyPageTab = styled.div`
 
 const MyPageBody = styled.div`
     margin-bottom: 50px;
+`;
+
+const ModalBackdrop = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const ModalView = styled.div.attrs((props) => ({
+    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
+    role: "dialog",
+}))`
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 400px;
+    margin: 0 auto;
+    border-radius: 30px;
+    font-family: "Nanum Gothic", sans-serif;
+    padding: 20px;
+
+    .title {
+        font-size: 20px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 10%;
+    }
+    .description1,
+    .description2 {
+        font-size: 15px;
+        line-height: 150%;
+        text-align: center;
+        color: var(--darkgreen);
+
+        &.description2 {
+            padding-top: 2%;
+            padding-bottom: 15%;
+        }
+    }
+
+    button {
+        background-color: var(--darkgreen);
+        font-size: 17px;
+        width: 80%;
+        border-radius: 50px;
+
+        :hover {
+            background-color: var(--lightgreen);
+            cursor: pointer;
+            transition: 0.5s;
+        }
+    }
 `;

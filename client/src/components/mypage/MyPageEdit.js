@@ -1,27 +1,71 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-const MyPageEdit = () => {
+const MyPageEdit = ({ name, email }) => {
     const {
         register,
         handleSubmit,
         formState: { errors },
         watch,
     } = useForm();
-    const [inputNameValue, setInputNameValue] = useState("");
-    const [inputPWValue, setInputPWValue] = useState("");
-    const [inputEmailValue, setInputEmailValue] = useState("");
     const [inputPWCheckValue, setInputPWCheckValue] = useState("");
 
-    // const navigate = useNavigate();
+    const [editUser, setEditUser] = useState({
+        nickName: name,
+        password: "",
+    });
+
+    const handleEditInputValue = (key, e) => {
+        setEditUser({ ...editUser, [key]: e.target.value });
+    };
 
     const handleClear = () => {
-        setInputNameValue("");
-        setInputPWValue("");
-        setInputEmailValue("");
         setInputPWCheckValue("");
+        setEditUser({
+            nickName: name,
+            password: "",
+        });
+    };
+
+    // 회원정보 수정 서버 연결
+    const { id } = useParams();
+
+    const handleUpdateRequest = () => {
+        const { nickName, password } = editUser;
+
+        return axios({
+            method: "patch",
+            url: `/members/${id}`,
+            headers: {
+                Authorization: localStorage.getItem("loginToken"),
+            },
+            data: {
+                nickName: nickName,
+                password: password,
+            },
+        })
+            .then((res) => {
+                console.log(res);
+                openModalHandler();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    // 개인정보 수정 모달
+    const [isOpen, setIsOpen] = useState(false);
+
+    const openModalHandler = () => {
+        setIsOpen(!isOpen);
+    };
+
+    // 개인정보 수정 후 모달창 확인 버튼 누르면 새로고침
+    const handleRefresh = () => {
+        window.location.reload();
     };
 
     return (
@@ -32,10 +76,8 @@ const MyPageEdit = () => {
                         <div className="nickname">
                             <label>닉네임</label>
                             <input
-                                placeholder="김코딩"
+                                value={editUser.nickName}
                                 className={errors.name && "nameInputError"}
-                                value={inputNameValue}
-                                onKeyUp={(event) => setInputNameValue(event.value)}
                                 {...register("name", {
                                     required: { value: true, message: "닉네임을 입력해주세요." },
                                     minLength: {
@@ -47,6 +89,7 @@ const MyPageEdit = () => {
                                         message: "10 글자 이하로 입력해주세요.",
                                     },
                                 })}
+                                onChange={(e) => handleEditInputValue("nickName", e)}
                             />
                             {errors.name && <div className="nameErrorMessage">{errors.name.message}</div>}
                         </div>
@@ -56,8 +99,6 @@ const MyPageEdit = () => {
                                 placeholder="새로운 비밀번호를 입력해주세요."
                                 autoComplete="new-password"
                                 type="password"
-                                value={inputPWValue}
-                                onKeyUp={(event) => setInputPWValue(event.value)}
                                 className={errors.password && "passwordInputError"}
                                 {...register("password", {
                                     required: { value: true, message: "비밀번호를 입력해주세요." },
@@ -66,6 +107,8 @@ const MyPageEdit = () => {
                                         message: "8자리 이상 비밀번호를 입력해주세요.",
                                     },
                                 })}
+                                onChange={(e) => handleEditInputValue("password", e)}
+                                value={editUser.password}
                             />
                             {errors.password && <div className="passwordErrorMessage">{errors.password.message}</div>}
                         </div>
@@ -73,21 +116,7 @@ const MyPageEdit = () => {
                     <BottomBlock>
                         <div className="email">
                             <label>이메일</label>
-                            <input
-                                placeholder="mentaltal2023@gmail.com"
-                                autoComplete="off"
-                                value={inputEmailValue}
-                                onKeyUp={(event) => setInputEmailValue(event.value)}
-                                className={errors.email && "emailInputError"}
-                                {...register("email", {
-                                    required: { value: true, message: "이메일을 입력해주세요." },
-                                    pattern: {
-                                        value: /\S+@\S+\.\S+/,
-                                        message: "올바른 이메일 형식을 입력해주세요.",
-                                    },
-                                })}
-                            />
-                            {errors.email && <div className="emailErrorMessage">{errors.email.message}</div>}
+                            <input autoComplete="off" value={email} disabled />
                         </div>
                         <div className="passwordConfirm">
                             <label>비밀번호 재입력</label>
@@ -113,12 +142,20 @@ const MyPageEdit = () => {
                         <button className="clear" onClick={handleClear}>
                             취소
                         </button>
-                        <button className="edit" type="submit">
+                        <button className="edit" type="submit" onClick={handleUpdateRequest}>
                             회원정보 수정
                         </button>
                     </ButtonContainer>
                 </form>
             </EditContainer>
+            {isOpen ? (
+                <ModalBackdrop onClick={openModalHandler}>
+                    <ModalView onClick={(event) => event.stopPropagation()}>
+                        <div className="title">개인정보 수정이 완료되었습니다.</div>
+                        <button onClick={handleRefresh}>확인</button>
+                    </ModalView>
+                </ModalBackdrop>
+            ) : null}
         </>
     );
 };
@@ -295,6 +332,53 @@ const ButtonContainer = styled.div`
         &.edit {
             background-color: var(--darkgreen);
             color: var(--white);
+        }
+    }
+`;
+
+const ModalBackdrop = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const ModalView = styled.div.attrs((props) => ({
+    role: "dialog",
+}))`
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 380px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 30px;
+    font-family: "Nanum Gothic", sans-serif;
+    padding: 20px;
+
+    .title {
+        font-size: 20px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 10%;
+    }
+
+    button {
+        background-color: var(--darkgreen);
+        font-size: 17px;
+        width: 30%;
+        border-radius: 50px;
+
+        :hover {
+            background-color: var(--lightgreen);
+            cursor: pointer;
+            transition: 0.5s;
         }
     }
 `;

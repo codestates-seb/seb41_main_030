@@ -36,7 +36,7 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgotPw" element={<ForgotPw />} />
                 <Route path="/counselingcenter" element={<CounselingCenter setIsFooter={setIsFooter} />} />
-                <Route path="/mypage" element={<MyPage setIsFooter={setIsFooter} />} />
+                <Route path="/mypage/:id/*" element={<MyPage setIsFooter={setIsFooter} />} />
             </Routes>
             {isFooter ? <Footer /> : null}
         </div>
