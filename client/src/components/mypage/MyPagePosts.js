@@ -18,9 +18,6 @@ const MyPagePosts = ({ userData }) => {
     }, []);
 
     const userPostData = postListData && postListData.filter((postData) => postData.nickName === userData.nickName);
-    if (userPostData) {
-        console.log(userPostData);
-    }
 
     // Infinite Scroll
     /* const [target, setTarget] = useState(null);
