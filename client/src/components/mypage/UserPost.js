@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const UserPost = ({ title, content, createdAt, answerCount }) => {
+const UserPost = ({ title, content, createdAt, isComment, commentCount }) => {
+    const date = createdAt.slice(0, 10).replaceAll("-", " / ");
+
     return (
         <>
             <PostsContainer>
@@ -8,8 +10,8 @@ const UserPost = ({ title, content, createdAt, answerCount }) => {
                     <p className="postTitle">{title}</p>
                     <p className="postContent">{content} ...</p>
                     <div className="postInfo">
-                        <span className="postCreatedAt">{createdAt}</span>
-                        {answerCount ? <span className="answerCount">답변 수 2</span> : null}
+                        <span className="postCreatedAt">{date}</span>
+                        {isComment ? <span className="answerCount">답변 수 {commentCount}</span> : null}
                     </div>
                 </Post>
             </PostsContainer>
