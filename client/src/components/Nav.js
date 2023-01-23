@@ -76,7 +76,7 @@ const Nav = () => {
     return (
         <NavWrapper>
             <NavTitle>
-                <Link to="/" className="logo">
+                <Link to="/main" className="logo">
                     MENTALTAL
                 </Link>
                 {/* 삭제할 예정 */}
