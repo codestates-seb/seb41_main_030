@@ -1,8 +1,8 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { boardState } from "../../states/";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { boardState, memberIdState } from "../../states/";
 import { dateCalculation } from "./dateCalculation";
 
 // component
@@ -10,13 +10,24 @@ const BoardDetailQuestion = () => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const navigate = useNavigate();
     const [board, setBoard] = useRecoilState(boardState);
+    const memberId = useRecoilValue(memberIdState);
 
     // 질문 삭제
     const deleteQuestion = () => {
-        axios.delete(`${url}/boards/${board.boardId}`).then((res) => {
+        axios.delete(`/boards/${board.boardId}`).then((res) => {
             navigate("/community");
             setBoard(null);
         });
+    };
+
+    // 공감 버튼
+    const heartBtnHandle = () => {
+        axios
+            .post(`/boards/${board.boardId}/votes?memberId=${memberId}&voteCheck=true`)
+            .then((res) => {
+                window.location.reload();
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
@@ -31,36 +42,49 @@ const BoardDetailQuestion = () => {
                         ))}
                     </BDQTagsWrapper> */}
 
-                    <BDQHeader>
-                        <BDQTitle>{board.title}</BDQTitle>
-                        <BDQInfo>
-                            <BDQInfoProfile></BDQInfoProfile>
-                            <BDQInfoWriterInfo>
-                                <div className="BDQInfoWriterInfoName">{board.nickName}</div>
-                                <div className="BDQInfoWriterInfoTime">
+                    <div className="BDQHeader">
+                        <BDQHeaderTitle>{board.title}</BDQHeaderTitle>
+
+                        <BDQHeaderMain>
+                            <BDQInfo>
+                                <BDQInfoProfile></BDQInfoProfile>
+                                <BDQInfoWriter>
+                                    <div>{board.nickName}</div>
+                                </BDQInfoWriter>
+                            </BDQInfo>
+
+                            <BDQEditBtn>
+                                {memberId === board.memberId ? (
+                                    <div className="BDQEditBtns">
+                                        <Link to="/community/edit">
+                                            <button type="button">편집</button>
+                                        </Link>
+                                        <button type="button" onClick={deleteQuestion}>
+                                            삭제
+                                        </button>
+                                    </div>
+                                ) : null}
+
+                                <div className="BDQEditBtnTime">
                                     <i className="fa-regular fa-clock"></i>
                                     <div>{dateCalculation(new Date(board.createdAt))}</div>
                                 </div>
-                            </BDQInfoWriterInfo>
-                        </BDQInfo>
-
-                        <BDQEditBtn>
-                            <Link to="/community/edit">
-                                <button type="button">편집</button>
-                            </Link>
-
-                            <button type="button" onClick={deleteQuestion}>
-                                삭제
-                            </button>
-                        </BDQEditBtn>
-                    </BDQHeader>
+                            </BDQEditBtn>
+                        </BDQHeaderMain>
+                    </div>
 
                     <BDQMain>
                         <div>{board.content}</div>
                     </BDQMain>
 
                     <BDQResponseInfo>
-                        <div>{board.voteCount}명 공감</div>
+                        <div className="BDQResponseInfoBtnWrapper">
+                            <button onClick={heartBtnHandle}>
+                                <i className="fa-solid fa-heart"></i>
+                            </button>
+                            <div>{board.voteCount}명 공감</div>
+                        </div>
+
                         <div>댓글 {board.commentCount}개</div>
                     </BDQResponseInfo>
                 </>
@@ -124,13 +148,14 @@ const BDQTagsWrapper = styled.div`
 `;
 
 // ------------- header  ------------- //
-const BDQHeader = styled.div``;
-
-const BDQTitle = styled.div`
+const BDQHeaderTitle = styled.div`
     font-size: 35px;
     font-weight: 700;
     color: var(--darkgreen);
     margin-bottom: 40px;
+
+    word-wrap: break-word;
+    word-break: break-all;
 
     @media screen and (max-width: 768px) {
         font-size: 23px;
@@ -138,16 +163,24 @@ const BDQTitle = styled.div`
     }
 `;
 
+const BDQHeaderMain = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 0 0 15px;
+    border-bottom: 1px solid var(--green);
+`;
+
 const BDQInfo = styled.div`
     display: flex;
-    justify-content: flex-start;
     align-items: center;
     gap: 10px;
 `;
 
 const BDQInfoProfile = styled.div`
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: var(--green);
 
@@ -157,18 +190,36 @@ const BDQInfoProfile = styled.div`
     }
 `;
 
-const BDQInfoWriterInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+const BDQInfoWriter = styled.div`
+    color: var(--darkgreen);
+    font-size: 20px;
+    font-weight: 700;
 
-    .BDQInfoWriterInfoName {
-        color: var(--darkgreen);
-        font-size: 20px;
-        font-weight: 700;
+    @media screen and (max-width: 768px) {
+        font-size: 14px;
+    }
+`;
+
+const BDQEditBtn = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .BDQEditBtns {
+        button {
+            padding: 5px;
+            background-color: white;
+            color: var(--green);
+            font-size: 15px;
+        }
+
+        button:hover {
+            font-weight: 900;
+            transition: 0.5s;
+        }
     }
 
-    .BDQInfoWriterInfoTime {
+    .BDQEditBtnTime {
         color: var(--green);
         font-size: 15px;
 
@@ -181,39 +232,8 @@ const BDQInfoWriterInfo = styled.div`
     }
 
     @media screen and (max-width: 768px) {
-        gap: 5px;
+        font-size: 12px;
 
-        .BDQInfoWriterInfoName {
-            font-size: 14px;
-        }
-
-        .BDQInfoWriterInfoTime {
-            font-size: 12px;
-        }
-    }
-`;
-
-const BDQEditBtn = styled.div`
-    padding: 5px 0px 15px;
-    display: flex;
-    justify-content: flex-end;
-    border-bottom: 1px solid var(--green);
-
-    button {
-        padding: 0 5px;
-        background-color: white;
-        color: var(--green);
-
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    button:hover {
-        font-weight: 900;
-    }
-
-    @media screen and (max-width: 768px) {
-        padding: 0 0 2px;
         button {
             font-size: 12px;
         }
@@ -253,6 +273,42 @@ const BDQResponseInfo = styled.div`
 
     color: var(--darkgreen);
     font-size: 14px;
+
+    .BDQResponseInfoBtnWrapper {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        button {
+            padding: 0px;
+            background-color: white;
+            color: var(--darkgreen);
+            font-size: 23px;
+        }
+
+        button:hover {
+            animation: heartbeat 1s ease-in infinite;
+            cursor: pointer;
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(0.9);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(0.9);
+            }
+            75% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(0.9);
+            }
+        }
+    }
 `;
 
 export default BoardDetailQuestion;

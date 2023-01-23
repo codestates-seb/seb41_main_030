@@ -17,6 +17,8 @@ import EditBoard from "./pages/EditBoard";
 import CounselingCenter from "./pages/CounselingCenter";
 import MyPage from "./pages/MyPage";
 import Intro from "./pages/Intro";
+import SelfCheck from "./pages/SelfCheck";
+import SelfCheckResult from "./pages/SelfCheckResult";
 
 function App() {
     // footer 유무 조작
@@ -26,17 +28,19 @@ function App() {
         <div>
             <Nav />
             <Routes>
-                <Route path="/main" element={<Main setIsFooter={setIsFooter} />} />
                 <Route path="/" element={<Intro setIsFooter={setIsFooter} />} />
+                <Route path="/main" element={<Main setIsFooter={setIsFooter} />} />
                 <Route path="/community" element={<Boards setIsFooter={setIsFooter} />} />
                 <Route path="/community/:id" element={<BoardDetail setIsFooter={setIsFooter} />} />
-                <Route path="community/edit" element={<EditBoard setIsFooter={setIsFooter} />} />
+                <Route path="/community/edit" element={<EditBoard setIsFooter={setIsFooter} />} />
                 <Route path="/write" element={<CreateBoard setIsFooter={setIsFooter} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forgotPw" element={<ForgotPw />} />
-                <Route path="/counselingcenter" element={<CounselingCenter setIsFooter={setIsFooter} />} />
                 <Route path="/mypage/:id/*" element={<MyPage setIsFooter={setIsFooter} />} />
+                <Route path="/counselingcenter" element={<CounselingCenter setIsFooter={setIsFooter} />} />
+                <Route path="/selfcheck" element={<SelfCheck setIsFooter={setIsFooter} />} />
+                <Route path="/selfcheckresult" element={<SelfCheckResult setIsFooter={setIsFooter} />} />
             </Routes>
             {isFooter ? <Footer /> : null}
         </div>

@@ -35,6 +35,9 @@ const NavModal = ({ test }) => {
                 <Link to="/community">커뮤니티</Link>
             </li>
             <li>
+                <Link to="/selfcheck">자가진단</Link>
+            </li>
+            <li>
                 <Link to="/counselors">전문가</Link>
             </li>
             <li>

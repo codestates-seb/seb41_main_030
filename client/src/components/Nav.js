@@ -5,62 +5,6 @@ import NavModal from "./NavModal";
 import { memberIdState } from "../states/memberIdState";
 import { useRecoilValue } from "recoil";
 
-const NavWrapper = styled.nav`
-    height: 65px;
-    padding: 10px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-`;
-
-const NavTitle = styled.div`
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--green);
-
-    @media screen and (max-width: 600px) {
-        font-size: 20px;
-    }
-`;
-
-const NavContainer = styled.ul`
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--darkgreen);
-
-    button {
-        font-size: 16px;
-    }
-
-    @media screen and (max-width: 768px) {
-        display: none;
-    }
-`;
-
-// * 600px 이하 스타일
-const NavMedia = styled.div`
-    display: none;
-    position: relative;
-    i {
-        cursor: pointer;
-        font-size: 25px;
-        color: var(--green);
-    }
-    @media screen and (max-width: 768px) {
-        display: block;
-    }
-`;
-
 const Nav = () => {
     // 마이페이지 클릭 시 path
     const memberId = useRecoilValue(memberIdState);
@@ -91,6 +35,9 @@ const Nav = () => {
             <NavContainer>
                 <li>
                     <Link to="/community">커뮤니티</Link>
+                </li>
+                <li>
+                    <Link to="/selfcheck">자가진단</Link>
                 </li>
                 <li>
                     <Link to="/counselors">전문가</Link>
@@ -132,5 +79,66 @@ const Nav = () => {
         </NavWrapper>
     );
 };
+
+const NavWrapper = styled.nav`
+    height: 65px;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+`;
+
+const NavTitle = styled.div`
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--green);
+
+    @media screen and (max-width: 600px) {
+        font-size: 20px;
+    }
+`;
+
+const NavContainer = styled.ul`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--darkgreen);
+
+    button {
+        font-size: 16px;
+    }
+
+    @media screen and (max-width: 768px) {
+        display: none;
+    }
+
+    li:hover {
+        font-weight: 900;
+        transition: 0.5s;
+    }
+`;
+
+// * 600px 이하 스타일
+const NavMedia = styled.div`
+    display: none;
+    position: relative;
+    i {
+        cursor: pointer;
+        font-size: 25px;
+        color: var(--green);
+    }
+    @media screen and (max-width: 768px) {
+        display: block;
+    }
+`;
 
 export default Nav;

@@ -20,7 +20,6 @@ const BoardsHeader = () => {
 };
 
 // styled components
-
 const BoardsHeaderWrapper = styled.header`
     width: 100%;
     height: 300px;
