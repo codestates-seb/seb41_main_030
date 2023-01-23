@@ -10,6 +10,7 @@ import org.mapstruct.Mapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -23,6 +24,9 @@ public interface BoardMapper {
         board.setContent(boardPostDto.getContent());
 //        board.setTags(boardPostDto.getTags());
         member.setMemberId(boardPostDto.getMemberId());
+
+        Optional.ofNullable(boardPostDto.getTags())
+                .ifPresent(tags -> boardPostDto.getTags());
 
         return board;
     }
@@ -51,6 +55,9 @@ public interface BoardMapper {
         long viewCount = board.getViewCount();   // 조회수
         long voteCount = board.getVoteCount();   // 공감수
         long commentCount = board.getCommentCount();
+
+        List<String> tags = board.getTags();
+
         // 닉네임?
         LocalDateTime createdAt = board.getCreatedAt();
         LocalDateTime modifiedAt = board.getModifiedAt();
@@ -62,12 +69,31 @@ public interface BoardMapper {
         String nickName = board.getMember().getNickName();
 
         BoardResponseDto boardResponseDto =
-                new BoardResponseDto(boardId, memberId, title, content, viewCount, voteCount, commentCount, nickName, createdAt, modifiedAt);
+                new BoardResponseDto(boardId, memberId, title, content, tags, viewCount, voteCount, commentCount, nickName, createdAt, modifiedAt);
 
         return boardResponseDto;
     }
 
-    List<BoardResponseDto> boardToBoardResponses(List<Board> boards);
+    default List<BoardResponseDto> boardToBoardResponses(List<Board> boards){
+        return boards
+                .stream()
+                .map(board -> BoardResponseDto
+                        .builder()
+                        .boardId(board.getBoardId())
+                        .memberId(board.getMember().getMemberId())
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .tags(board.getTags())
+                        .viewCount(board.getViewCount())
+                        .voteCount(board.getVoteCount())
+                        .commentCount(board.getCommentCount())
+                        .createdAt(board.getCreatedAt())
+                        .modifiedAt(board.getModifiedAt())
+                        .nickName(board.getMember().getNickName())
+                        .build()
+                ).collect(Collectors.toList());
+    }
+
 
 //    Board boardDeleteDtoToBoard(BoardDeleteDto boardDeleteDto);
 

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class BoardResponseDto {
     private String title;
     private String content;
 //    private String tags;
+    private List<String> tags;
     private long viewCount;  // 조회수
     private long voteCount;  // 공감수
     private long commentCount;
