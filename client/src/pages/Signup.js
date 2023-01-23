@@ -1,9 +1,95 @@
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 import "../globalStyle.css";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+
+const Signup = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm();
+
+    const navigate = useNavigate();
+
+    const NICKNAME_REGEX = /(?=.*[a-z0-9가-힣]).{2,}/;
+    const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
+    const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{4,}/;
+
+    const nickNameRegister = register("nickName", {
+        required: { value: true, message: "닉네임을 입력해주세요." },
+        pattern: {
+            value: NICKNAME_REGEX,
+            message: "두글자이상 입력해주세요."
+        }
+    });
+
+    const emailRegister = register("email", {
+        required: { value: true, message: "이메일을 입력해주세요." },
+        pattern: {
+            value: EMAIL_REGEX,
+            message: "이메일 형식에 맞게 입력해주세요."
+        }
+    });
+
+    const passwordRegister = register("password", {
+        required: { value: true, message: "비밀번호를 입력해주세요." },
+        pattern: {
+            value: PASSWORD_REGEX,
+            message: "8자 이상 영문, 숫자, 특수문자를 사용하세요."
+        }
+    });
+    const onSubmit = (data) => {
+        axios
+            .post(`/members`, data)
+            .then((res) => {
+                Swal.fire({
+                    icon: "success",
+                    text: "회원가입을 축하합니다!",
+                    width: "400px"
+                });
+                navigate("/login");
+            })
+            .catch((error) => {
+                console.log("error : ", error.response);
+                Swal.fire({
+                    icon: "error",
+                    text: "이메일 또는 닉네임이 이미 존재합니다.",
+                    width: "400px"
+                });
+            });
+    };
+
+    return (
+        <>
+            <SignupContainer>
+                <MainText>일반 회원가입</MainText>
+                <SignupFormBox onSubmit={handleSubmit(onSubmit)}>
+                    <InputBox>
+                        <InputText> 이메일</InputText>
+                        <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
+                        <ErrorText>{errors.email?.message}</ErrorText>
+                    </InputBox>
+                    <InputBox>
+                        <InputText> 닉네임</InputText>
+                        <NameInput type="text" error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
+                        <ErrorText>{errors.nickName?.message}</ErrorText>
+                    </InputBox>
+                    <InputBox>
+                        <InputText> 비밀번호</InputText>
+                        <PwInput type="password" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
+                        <ErrorText>{errors.password?.message}</ErrorText>
+                    </InputBox>
+                    <SingupBtn> 회원가입</SingupBtn>
+                </SignupFormBox>
+                <KalkBtn> 카카오톡으로 회원가입하기</KalkBtn>
+            </SignupContainer>
+        </>
+    );
+};
 
 const SignupContainer = styled.div`
     display: flex;
@@ -135,80 +221,5 @@ const KalkBtn = styled.button`
     border-radius: 7px;
     box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px, rgb(0 0 0 / 5%) 0px 0px 8px, rgb(0 0 0 / 10%) 0px 1px 4px;
 `;
-
-const Signup = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors }
-    } = useForm();
-
-    const navigate = useNavigate();
-
-    const NAME_REGEX = /(?=.*[a-z0-9가-힣]).{2,}/;
-    const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
-    const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{4,}/;
-
-    const nameRegister = register("name", {
-        required: { value: true, message: "닉네임을 입력해주세요." },
-        pattern: {
-            value: NAME_REGEX,
-            message: "두글자이상 입력해주세요."
-        }
-    });
-
-    const emailRegister = register("email", {
-        required: { value: true, message: "이메일을 입력해주세요." },
-        pattern: {
-            value: EMAIL_REGEX,
-            message: "이메일 형식에 맞게 입력해주세요."
-        }
-    });
-
-    const passwordRegister = register("password", {
-        required: { value: true, message: "비밀번호를 입력해주세요." },
-        pattern: {
-            value: PASSWORD_REGEX,
-            message: "비밀번호를 입력해주세요."
-        }
-    });
-    // const onSubmit = async (data) => {
-    //     try {
-    //         await axios.post(`http://localhost:3000/signup`, data).then((data) => {
-    //             navigate("/");
-    //             console.log(data);
-    //         });
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // };
-
-    return (
-        <>
-            <SignupContainer>
-                <MainText>일반 회원가입</MainText>
-                <SignupFormBox onSubmit={handleSubmit()}>
-                    <InputBox>
-                        <InputText> 이메일</InputText>
-                        <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
-                        <ErrorText>{errors.email?.message}</ErrorText>
-                    </InputBox>
-                    <InputBox>
-                        <InputText> 닉네임</InputText>
-                        <NameInput type="text" error={errors.name?.message === undefined ? "" : "error"} {...nameRegister} />
-                        <ErrorText>{errors.name?.message}</ErrorText>
-                    </InputBox>
-                    <InputBox>
-                        <InputText> 비밀번호</InputText>
-                        <PwInput type="password" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
-                        <ErrorText>{errors.password?.message}</ErrorText>
-                    </InputBox>
-                    <SingupBtn> 회원가입</SingupBtn>
-                </SignupFormBox>
-                <KalkBtn> 카카오톡으로 회원가입하기</KalkBtn>
-            </SignupContainer>
-        </>
-    );
-};
 
 export default Signup;
