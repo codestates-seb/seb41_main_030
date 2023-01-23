@@ -4,8 +4,12 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { memberIdState } from "../states/memberIdState";
 
 const Login = () => {
+    const [memberId, setMemberId] = useRecoilState(memberIdState);
+
     const {
         register,
         handleSubmit,
@@ -37,6 +41,8 @@ const Login = () => {
                     localStorage.setItem("loginToken", res.headers.authorization);
                     setIsLogin(true);
                     setUserInfo({ email });
+                    setMemberId(res.data.memberId);
+                    // console.log(res.data.memberId);
                     navigate("/main");
                 })
                 .catch((err) => {
