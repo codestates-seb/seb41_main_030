@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { boardState } from "../../states";
-import { useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { boardState, memberIdState } from "../../states";
 
 // component
 const EditBoardMain = () => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const navigate = useNavigate();
     const [board, setBoard] = useRecoilState(boardState);
+    const memberId = useRecoilValue(memberIdState);
 
     const {
         register,
@@ -45,7 +45,7 @@ const EditBoardMain = () => {
         axios
             .patch(`/boards/${board.boardId}/`, data)
             .then((res) => {
-                navigate("/community");
+                navigate(`/community/${board.boardId}`);
                 setBoard(data);
             })
             .catch((err) => console.log(err));
@@ -56,9 +56,8 @@ const EditBoardMain = () => {
             <form
                 onSubmit={handleSubmit((data) => {
                     // ! 백에서 태그 기능이 구현되면 살려놓을 것
-                    // ! memberId 받아올 수 있으면 바꾸기
                     // data.tag = [...tags];
-                    data.memberId = 1;
+                    data.memberId = memberId;
                     data.boardId = board.boardId;
                     patchBoard(data);
                 })}

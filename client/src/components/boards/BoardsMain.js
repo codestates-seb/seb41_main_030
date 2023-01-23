@@ -14,7 +14,7 @@ const BoardsMain = () => {
 
     // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        axios.get(`${url}/boards?page=${current}&size=10`).then((res) => {
+        axios.get(`/boards?page=${current}&size=8`).then((res) => {
             setList(res.data.data);
             setTotal(res.data.pageInfo.totalElements);
         });
@@ -42,7 +42,7 @@ const BoardsMain = () => {
             <PagingWrapper>
                 <Pagination
                     activePage={current}
-                    itemsCountPerPage={10}
+                    itemsCountPerPage={8}
                     totalItemsCount={total}
                     pageRangeDisplayed={5}
                     prevPageText={"‹"}
@@ -66,20 +66,16 @@ const BoardsMainWrapper = styled.main`
 
 const BoardsList = styled.ul`
     padding: 60px 100px;
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-
     @media screen and (max-width: 768px) {
         display: flex;
         flex-direction: column;
     }
-
     @media screen and (max-width: 920px) {
         padding: 40px;
     }
-
     @media screen and (min-width: 1921px) {
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -91,7 +87,6 @@ const BoardsCardLink = styled(Link)`
     width: 100%;
     height: 210px;
     padding: 30px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -107,6 +102,9 @@ const BoardsTitle = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+
+    word-wrap: break-word;
+    word-break: break-all;
 `;
 
 const BoardsTagWrapper = styled.ul`
@@ -122,7 +120,6 @@ const BoardsTag = styled.li`
     border-radius: 15px;
     padding: 5px 8px;
     width: fit-content;
-
     @media screen and (max-width: 319px) {
         padding: 3px;
     }
@@ -137,15 +134,16 @@ const BoardsContent = styled.div`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+
+    word-wrap: break-word;
+    word-break: break-all;
 `;
 
 const BoardsInfo = styled.div`
     display: flex;
     justify-content: space-between;
-
     font-size: 14px;
     color: var(--darkgreen);
-
     @media screen and (max-width: 319px) {
         font-size: 14px;
     }
@@ -159,27 +157,22 @@ const PagingWrapper = styled.div`
         justify-content: center;
         gap: 5px;
     }
-
     .pagination > li {
         width: 35px;
         height: 35px;
-
         font-size: 18px;
         font-weight: 600;
         color: var(--darkgreen);
-
         display: flex;
         justify-content: center;
         align-items: center;
     }
-
     .pagination > li:hover {
         color: #1a2d27;
         background-color: rgba(63, 114, 77, 0.2);
         border-radius: 10px;
         cursor: pointer;
     }
-
     ul.pagination li.active {
         background-color: rgba(63, 114, 77, 0.5);
         border-radius: 10px;

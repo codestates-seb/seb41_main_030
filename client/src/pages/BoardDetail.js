@@ -2,21 +2,20 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useSetRecoilState } from "recoil";
+import { useSetRecoilState, useRecoilState } from "recoil";
 import { boardState, answerState } from "../states";
 import BoardDetailQuestion from "../components/boards/BoardDetailQuestion";
-import BoardDetailAnswer from "../components/boards/BoardDetailAnswer";
+import BoardDetailAnswerList from "../components/boards/BoardDetailAnswerList";
+import BoardDetailAnswerCreate from "../components/boards/BoardDetailAnswerCreate";
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
-    const setBoard = useSetRecoilState(boardState);
+    const [board, setBoard] = useRecoilState(boardState);
     const setAnswer = useSetRecoilState(answerState);
 
-    // ! 서버 열리면 이후 수정 예정
     useEffect(() => {
         setIsFooter(true);
-        window.scrollTo(0, 0);
 
         axios
             .get(`${url}/boards/${id}`)
@@ -30,7 +29,9 @@ const BoardDetail = ({ setIsFooter }) => {
     return (
         <BoardDetailWrapper>
             <BoardDetailQuestion></BoardDetailQuestion>
-            <BoardDetailAnswer></BoardDetailAnswer>
+            {/* {board.commentCount === 0 ? null : <BoardDetailAnswerList />} */}
+            <BoardDetailAnswerList />
+            <BoardDetailAnswerCreate />
         </BoardDetailWrapper>
     );
 };
@@ -45,6 +46,7 @@ const BoardDetailWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 40px;
 `;
 
 export default BoardDetail;

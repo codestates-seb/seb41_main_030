@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { memberIdState } from "../../states/";
 
 const CreateBoardMain = () => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
@@ -12,6 +14,7 @@ const CreateBoardMain = () => {
         formState: { errors },
     } = useForm();
     const navigate = useNavigate();
+    const memberId = useRecoilValue(memberIdState);
 
     // ! 백에서 태그 기능이 구현되면 살려놓을 것
     // // 태그
@@ -51,7 +54,7 @@ const CreateBoardMain = () => {
                 onSubmit={handleSubmit((data) => {
                     // ! 백에서 태그 기능이 구현되면 살려놓을 것
                     // data.tag = [...tags];
-                    data.memberId = 1;
+                    data.memberId = memberId;
                     postBoard(data);
                 })}
             >

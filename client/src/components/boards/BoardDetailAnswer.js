@@ -1,27 +1,55 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { dateCalculation } from "./dateCalculation";
 import { useRecoilValue } from "recoil";
-import { answerState, boardState } from "../../states";
-import BoardDetailAnswerMain from "./BoardDetailAnswersMain";
+import { memberIdState } from "../../states";
 
-// ! 나중에 서버 연결시 데이터 받아서 랜더링되도록 수정할 것
-const BoardDetailAnswer = () => {
-    const answers = useRecoilValue(answerState);
-    const board = useRecoilValue(boardState);
+// ! 전문가 회원 구현되면  전문가만 따로 표시하도록 수정
+const BoardDetailAnswer = ({ answer }) => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
+    const [isEdit, setIsEdit] = useState(false);
+    const memberId = useRecoilValue(memberIdState);
 
-    // 답글 등록 form
+    // 답글 수정 form
     const {
-        register,
-        handleSubmit,
-        formState: { errors },
+        register: register2,
+        handleSubmit: handleSubmit2,
+        formState: { errors: errors2 },
     } = useForm();
 
-    // 답글 등록 요청 함수
-    const postComment = (data) => {
+    // 답글 수정 버튼 핸들러
+    const editBtnHandle = () => {
+        setIsEdit(!isEdit);
+    };
+
+    // 답글 수정 요청 함수
+    const editComment = (data) => {
         axios
-            .post(`/comments`, data)
+            .patch(`/comments/${answer.commentId}`, data)
+            .then((res) => {
+                window.location.reload();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    // 답글 삭제 요청 함수
+    const deleteComment = () => {
+        axios
+            .delete(`/comments/${answer.commentId}`)
+            .then((res) => {
+                window.location.reload();
+            })
+            .catch((err) => console.log(err));
+    };
+
+    // 공감 버튼
+    const heartBtnHandle = () => {
+        axios
+            .post(`/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
             .then((res) => {
                 window.location.reload();
             })
@@ -30,58 +58,75 @@ const BoardDetailAnswer = () => {
 
     return (
         <>
-            {board.commentCount === 0 ? null : <BDAWrapper>{answers && answers.map((answer, idx) => <BoardDetailAnswerMain answer={answer} key={idx} />)}</BDAWrapper>}
+            <BDAContainer key={answer.commentId}>
+                <BDAHeaderWrapper>
+                    <BDAInfo>
+                        <BDAInfoProfile></BDAInfoProfile>
+                        <BDAInfoWriterInfo>
+                            <div>{answer.nickName}</div>
+                        </BDAInfoWriterInfo>
+                    </BDAInfo>
 
-            <BDAMainForm
-                onSubmit={handleSubmit((data) => {
-                    // ! 로그인 구현시 memberId 수정
-                    data.memberId = 1;
-                    data.boardId = Number(board.boardId);
-                    postComment(data);
-                })}
-            >
-                <BDMainTextareaWrapper>
-                    <textarea
-                        placeholder="작성자에게 따듯한 응원과 격려를 보내주세요."
-                        className={errors.content ? "boardErrorTextarea1" : "boardTextarea1"}
-                        {...register("content", {
-                            required: true,
-                            minLength: 10,
-                        })}
-                    />
+                    <BDAEditBtn>
+                        {memberId === answer.memberId ? (
+                            <div className="BDAEditBtns">
+                                <button type="button" onClick={editBtnHandle}>
+                                    {isEdit ? "편집 취소" : "편집"}
+                                </button>
+                                <button type="button" onClick={deleteComment}>
+                                    삭제
+                                </button>
+                            </div>
+                        ) : null}
+                        <div className="BDAEditBtnTime">
+                            <i className="fa-regular fa-clock"></i>
+                            <div>{dateCalculation(new Date(answer.createdAt))}</div>
+                        </div>
+                    </BDAEditBtn>
+                </BDAHeaderWrapper>
 
-                    <div>
-                        {errors.content ? <div className="boardErrorMessage">최소 10자 이상 작성해주세요.</div> : <div></div>}
-                        <button type="submit">답글 등록</button>
-                    </div>
-                </BDMainTextareaWrapper>
-            </BDAMainForm>
+                <BDAMain>
+                    {isEdit ? (
+                        <BDAMainEditForm
+                            onSubmit={handleSubmit2((data) => {
+                                data.commentId = answer.commentId;
+                                editComment(data);
+                            })}
+                        >
+                            <div className="BDAMainEditFormTextareaWrapper">
+                                <textarea
+                                    className={errors2.content ? "boardErrorTextarea1" : "boardTextarea1"}
+                                    {...register2("content", {
+                                        required: true,
+                                        minLength: 10,
+                                    })}
+                                    defaultValue={answer.content}
+                                />
+                                {errors2.content && <div className="boardErrorMessage">최소 10자 이상 작성해주세요.</div>}
+                            </div>
+
+                            <button type="submit">편집 완료</button>
+                        </BDAMainEditForm>
+                    ) : (
+                        <div className="BDAMainText">{answer.content}</div>
+                    )}
+                </BDAMain>
+
+                <BDAResponseInfo>
+                    <button onClick={heartBtnHandle}>
+                        <i className="fa-solid fa-heart"></i>
+                    </button>
+
+                    <div>{answer.voteCount}명 공감</div>
+                </BDAResponseInfo>
+            </BDAContainer>
         </>
     );
 };
 
-// styled components
-// ------------- answers wrapper ------------- //
-const BDAWrapper = styled.ul`
-    margin-top: 40px;
-    width: 80%;
-    max-width: 1300px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-
-    @media screen and (max-width: 768px) {
-        width: 100%;
-    }
-`;
-
-// ------------- textarea wrapper ------------- //
-const BDAMainForm = styled.form`
-    margin-top: 40px;
-    padding: 30px;
-    width: 80%;
-    max-width: 1300px;
+// ------------- answer 하나 wrapper ------------- //
+const BDAContainer = styled.li`
+    padding: 40px;
 
     background-color: white;
     box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
@@ -93,63 +138,182 @@ const BDAMainForm = styled.form`
     }
 `;
 
-// ------------- textarea ------------- //
-const BDMainTextareaWrapper = styled.div`
-    textarea {
-        resize: none;
-        width: 100%;
-        max-width: 1300px;
-        height: 80px;
-        padding: 10px;
+// ------------- answer header wrapper ------------- //
+const BDAHeaderWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 
-        border: none;
-        border-radius: 5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--green);
+
+    @media screen and (max-width: 304px) {
+        flex-direction: column;
+        align-items: baseline;
+    }
+`;
+
+// ------------- answer header 중 왼쪽 파트 ------------- //
+const BDAInfo = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+`;
+
+const BDAInfoProfile = styled.div`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--lightgreen);
+
+    @media screen and (max-width: 768px) {
+        width: 30px;
+        height: 30px;
+    }
+`;
+
+const BDAInfoWriterInfo = styled.div`
+    color: var(--darkgreen);
+    font-weight: 700;
+
+    @media screen and (max-width: 768px) {
+        font-size: 14px;
+    }
+`;
+
+// ------------- answer header 중 오른쪽 파트 ------------- //
+const BDAEditBtn = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 15px;
+
+    .BDAEditBtns {
+        button {
+            padding: 5px;
+            background-color: white;
+            color: var(--green);
+            font-size: 15px;
+        }
+
+        button:hover {
+            font-weight: 900;
+            transition: 0.5s;
+        }
     }
 
-    div {
+    .BDAEditBtnTime {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 3px;
-    }
+        gap: 3px;
 
-    button {
-        width: fit-content;
-        padding: 6px 10px;
+        color: var(--green);
+
+        div {
+            margin-top: 1px;
+        }
     }
 
     @media screen and (max-width: 768px) {
-        div {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        button {
-            margin-top: 5px;
-            padding: 5px 6px;
-            font-size: 12px;
+        font-size: 12px;
+
+        .BDAEditBtns {
+            button {
+                font-size: 12px;
+            }
         }
     }
 `;
 
-// const BDMainTextareaContainer = styled.div`
-//     display: flex;
-//     justify-content: space-between;
-//     gap: 5px;
+// ------------- answer main  ------------- //
+const BDAMain = styled.div`
+    margin: 30px 0;
 
-//     @media screen and (max-width: 768px) {
-//         display: flex;
-//         flex-direction: column;
-//         align-items: flex-end;
+    color: var(--darkgreen);
+    font-size: 16px;
 
-//         textarea {
-//             width: 100%;
-//         }
+    .BDAMainText {
+        line-height: 20px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
 
-//         button {
-//             width: fit-content;
-//             padding: 5px 6px;
-//         }
-//     }
-// `;
+    @media screen and (max-width: 768px) {
+        margin: 20px 0;
+        font-size: 14px;
+    }
+`;
+
+const BDAMainEditForm = styled.form`
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+
+    .BDAMainEditFormTextareaWrapper {
+        width: 100%;
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            resize: none;
+
+            border: none;
+            border-radius: 5px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        button {
+            width: fit-content;
+            padding: 5px 6px;
+        }
+    }
+`;
+
+// ------------- ResponseInfo  ------------- //
+const BDAResponseInfo = styled.div`
+    border-top: 1px solid var(--darkgreen);
+    padding: 15px 0 0;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    color: var(--darkgreen);
+    font-size: 14px;
+
+    button {
+        padding: 0px;
+        background-color: white;
+        color: var(--darkgreen);
+        font-size: 23px;
+    }
+
+    button:hover {
+        animation: heartbeat 1s ease-in infinite;
+        cursor: pointer;
+    }
+
+    @keyframes heartbeat {
+        0% {
+            transform: scale(0.9);
+        }
+        25% {
+            transform: scale(1.1);
+        }
+        50% {
+            transform: scale(0.9);
+        }
+        75% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(0.9);
+        }
+    }
+`;
 
 export default BoardDetailAnswer;
