@@ -7,10 +7,6 @@ const MyPagePosts = ({ userData }) => {
     // Server Data
     const [postListData, setPostListData] = useState(undefined);
     const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
-    let memberId = undefined;
-    if (userData) {
-        memberId = userData.memberId;
-    }
 
     useEffect(() => {
         axios
@@ -21,7 +17,10 @@ const MyPagePosts = ({ userData }) => {
             .catch((error) => console.log(error.response));
     }, []);
 
-    const userPostData = postListData && postListData.filter((postData) => postData.memberId === memberId);
+    const userPostData = postListData && postListData.filter((postData) => postData.nickName === userData.nickName);
+    if (userPostData) {
+        console.log(userPostData);
+    }
 
     // Infinite Scroll
     /* const [target, setTarget] = useState(null);
