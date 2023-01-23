@@ -5,10 +5,6 @@ import axios from "axios";
 const MyPageAnswer = ({ userData }) => {
     const [answerListData, setAnswerListData] = useState(undefined);
     const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
-    let memberId = undefined;
-    if (userData) {
-        memberId = userData.memberId;
-    }
 
     useEffect(() => {
         axios.get(`${url}/comments/all`).then((res) => {
@@ -16,7 +12,7 @@ const MyPageAnswer = ({ userData }) => {
         });
     }, []);
 
-    const userAnswerData = answerListData && answerListData.filter((answerData) => answerData.memberId === memberId);
+    const userAnswerData = answerListData && userData && answerListData.filter((answerData) => answerData.nickName === userData.nickName);
 
     return (
         <>
