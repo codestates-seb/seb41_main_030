@@ -15,24 +15,22 @@ const IntroProfessional = () => {
             <IntroProContainer>
                 <LeftContent>
                     <div className="title" {...animatedItem[0]}>
-                        상담 전문가
+                        심리 자가진단
                     </div>
                     <div className="subTitle" {...animatedItem[1]}>
-                        상담 전문가와 일반 회원 구분 관리
+                        {/* MENTALTAL이 알려주는 자가진단 테스트 */}
+                        당신의 마음 상태는?
                     </div>
                     <div className="description" {...animatedItem[2]}>
-                        상담 전문가 추천 페이지를 둘러보세요.
+                        MENTALTAL에서 제공하는 문항 체크를 통해
                         <br />
-                        고민글을 작성하고 추천수가 높아지면
+                        성인우울증, 스트레스에 대한
                         <br />
-                        상담 전문가 회원의 답변도 받을 수 있습니다.
+                        나의 마음 상태를 간단하게 확인해보세요.
                     </div>
                     <div className="buttonContainer" {...animatedItem[3]}>
-                        <Link to="/counselors">
-                            <button className="professionalBtn">상담사 보기</button>
-                        </Link>
-                        <Link to="/write">
-                            <button className="writeBtn">고민글 작성하기</button>
+                        <Link to="/selfcheck">
+                            <button>자가진단하러 가기</button>
                         </Link>
                     </div>
                 </LeftContent>
@@ -62,11 +60,11 @@ const LeftContent = styled.div`
     justify-content: center;
 
     .title {
-        font-size: 45px;
+        font-size: 43px;
         font-weight: var(--font-bold);
     }
     .subTitle {
-        font-size: 21px;
+        font-size: 23px;
         font-weight: var(--font-bold);
         padding: 30px 0;
     }
@@ -84,9 +82,6 @@ const LeftContent = styled.div`
             font-weight: var(--font-bold);
             padding: 10px 30px;
 
-            &.professionalBtn {
-                margin-right: 20px;
-            }
             :hover {
                 background-color: var(--lightgreen);
                 color: var(--white);
