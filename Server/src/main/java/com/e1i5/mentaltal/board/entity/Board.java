@@ -29,9 +29,9 @@ public class Board {
     @Column(nullable = false, columnDefinition = "Text")
     private String content;
 
-//    private String tags;
-    @ElementCollection
-    private List<String> tags = new ArrayList<>();
+    private String tags;
+//    @ElementCollection
+//    private List<String> tags = new ArrayList<>();
 
     // 게시판 : 게시판 태그 ( 1 : n)
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)

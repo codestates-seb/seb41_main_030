@@ -9,13 +9,7 @@ import java.util.List;
 @Setter
 public class BoardPostDto {
     private long memberId;
-
     private String title;
-    // TO DO 유효성 검증 로직 필요 공백만 입력시
-
     private String content;
-
-//    private String tags;
-
-    private List<String> tags;
+    private String tags;
 }

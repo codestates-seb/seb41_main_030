@@ -14,5 +14,5 @@ public class BoardPatchDto {
 
     private String content;
 
-//    private String tags;
+    private String tags;
 }
