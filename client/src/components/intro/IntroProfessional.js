@@ -18,13 +18,12 @@ const IntroProfessional = () => {
                         심리 자가진단
                     </div>
                     <div className="subTitle" {...animatedItem[1]}>
-                        {/* MENTALTAL이 알려주는 자가진단 테스트 */}
-                        당신의 마음 상태는?
+                        MENTALTAL이 알려주는 자가진단 서비스
                     </div>
                     <div className="description" {...animatedItem[2]}>
-                        MENTALTAL에서 제공하는 문항 체크를 통해
+                        성인우울증, 스트레스 항목 중
                         <br />
-                        성인우울증, 스트레스에 대한
+                        검사받고 싶은 항목을 선택하고, 각 문항을 체크해서
                         <br />
                         나의 마음 상태를 간단하게 확인해보세요.
                     </div>
