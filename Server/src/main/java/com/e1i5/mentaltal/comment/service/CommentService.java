@@ -18,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -67,11 +68,13 @@ public class CommentService {
     }
 
     // 답변 전체조회
+    @Transactional(readOnly = true)
     public List<Comment> findAllComment() {
         return commentRepository.findAll();
     }
 
     // 답변 페이지네이션
+    @Transactional(readOnly = true)
     public Page<Comment> findComments(int page, int size) {
         return commentRepository.findAll(PageRequest.of(page, size, Sort.by("commentId").descending()));
     }
@@ -88,6 +91,7 @@ public class CommentService {
     }
 
 
+    @Transactional(readOnly = true)
     public Comment findVerifiedComment(long commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         // 답변이 db에 존재하는지 검증

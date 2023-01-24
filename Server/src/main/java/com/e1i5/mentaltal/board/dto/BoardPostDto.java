@@ -3,6 +3,8 @@ package com.e1i5.mentaltal.board.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class BoardPostDto {
@@ -14,4 +16,6 @@ public class BoardPostDto {
     private String content;
 
 //    private String tags;
+
+    private List<String> tags;
 }

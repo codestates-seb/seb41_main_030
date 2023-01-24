@@ -30,6 +30,12 @@ public class Board {
     private String content;
 
 //    private String tags;
+    @ElementCollection
+    private List<String> tags = new ArrayList<>();
+
+    // 게시판 : 게시판 태그 ( 1 : n)
+//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+//    private List<BoardTag> tags = new ArrayList<>();
 
     @Column(nullable = false) // columnDefinition = "integer default 0"
     private long viewCount = 0;  // 조회수
