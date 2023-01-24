@@ -2,8 +2,13 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import NavModal from "./NavModal";
+import { memberIdState } from "../states/memberIdState";
+import { useRecoilValue } from "recoil";
 
 const Nav = () => {
+    // 마이페이지 클릭 시 path
+    const memberId = useRecoilValue(memberIdState);
+
     // ! 임시 - 로그인이 구현될 시 교체 예정입니다.
     const [test, setTest] = useState(false);
     const handleTest = () => {
@@ -44,7 +49,7 @@ const Nav = () => {
                     <>
                         <li>
                             <button>
-                                <Link to="/mypage">마이페이지</Link>
+                                <Link to={`/mypage/${memberId}`}>마이페이지</Link>
                             </button>
                         </li>
                         <li>
@@ -69,7 +74,7 @@ const Nav = () => {
 
             <NavMedia>
                 {isOpen ? <i className="fa-solid fa-x" onClick={handleNavModal}></i> : <i className="fa-solid fa-bars" onClick={handleNavModal}></i>}
-                {isOpen ? <NavModal test={test} /> : null}
+                {isOpen ? <NavModal test={test} memberId={memberId} /> : null}
             </NavMedia>
         </NavWrapper>
     );
@@ -88,6 +93,7 @@ const NavWrapper = styled.nav`
     left: 0;
     right: 0;
     z-index: 10;
+    font-family: "Nanum Gothic", sans-serif;
 `;
 
 const NavTitle = styled.div`
@@ -109,6 +115,7 @@ const NavContainer = styled.ul`
     color: var(--darkgreen);
 
     button {
+        font-family: "Nanum Gothic", sans-serif;
         font-size: 16px;
     }
 

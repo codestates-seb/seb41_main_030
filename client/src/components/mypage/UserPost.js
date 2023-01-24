@@ -1,15 +1,22 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const UserPost = ({ title, content, createdAt, answerCount }) => {
+const UserPost = ({ title, content, createdAt, isComment, commentCount, boardId }) => {
+    const date = createdAt.slice(0, 10).replaceAll("-", " / ");
+
     return (
         <>
             <PostsContainer>
                 <Post>
-                    <p className="postTitle">{title}</p>
-                    <p className="postContent">{content} ...</p>
+                    <Link to={`/community/${boardId}`}>
+                        <p className="postTitle">{title}</p>
+                    </Link>
+                    <p className="postContent">
+                        {content.slice(0, 150)} {content.length > 149 ? "..." : null}
+                    </p>
                     <div className="postInfo">
-                        <span className="postCreatedAt">{createdAt}</span>
-                        {answerCount ? <span className="answerCount">답변 수 2</span> : null}
+                        <span className="postCreatedAt">{date}</span>
+                        {isComment ? <span className="answerCount">답변 수 {commentCount}</span> : null}
                     </div>
                 </Post>
             </PostsContainer>
@@ -27,20 +34,24 @@ const PostsContainer = styled.div`
     margin-top: 20px;
     padding: 40px;
 
+    @media screen and (max-width: 1120px) {
+        height: 210px;
+    }
+
     @media screen and (max-width: 1087px) {
         height: 212px;
     }
 
-    @media screen and (max-width: 842px) {
+    @media screen and (max-width: 866px) {
         height: 232px;
     }
 
-    @media screen and (max-width: 724px) {
+    @media screen and (max-width: 742px) {
         height: 250px;
     }
 
-    @media screen and (max-width: 669px) {
-        height: 252px;
+    @media screen and (max-width: 665px) {
+        height: 262px;
     }
 
     @media screen and (max-width: 576px) {
@@ -51,32 +62,43 @@ const PostsContainer = styled.div`
 const Post = styled.div`
     .postTitle {
         color: var(--darkgreen);
-        font-size: 22px;
+        font-size: 21px;
         font-weight: var(--font-bold);
         line-height: 27px;
         @media screen and (max-width: 619px) {
             font-size: 20px;
         }
+        :hover {
+            color: var(--green);
+            transition: 0.5s;
+            cursor: pointer;
+        }
     }
     .postContent {
         color: var(--darkgreen);
-        font-size: 14px;
+        font-size: 13px;
         padding-top: 15px;
         line-height: 20px;
         height: 55px;
 
+        @media screen and (max-width: 1120px) {
+            height: 70px;
+        }
         @media screen and (max-width: 1087px) {
             height: 77px;
         }
-        @media screen and (max-width: 842px) {
+        @media screen and (max-width: 866px) {
             height: 99px;
         }
-        @media screen and (max-width: 724px) {
+        @media screen and (max-width: 742px) {
             height: 110px;
         }
+        @media screen and (max-width: 665px) {
+            height: 128px;
+        }
         @media screen and (max-width: 619px) {
-            font-size: 13px;
-            height: 120px;
+            font-size: 12px;
+            /* height: 90px; */
         }
         @media screen and (max-width: 576px) {
             display: none;
@@ -85,7 +107,7 @@ const Post = styled.div`
 
     .postInfo {
         color: var(--darkgreen);
-        font-size: 13px;
+        font-size: 12px;
         padding-top: 28px;
         .postCreatedAt {
             padding-right: 30px;
@@ -95,9 +117,9 @@ const Post = styled.div`
             padding-top: 53px;
         }
 
-        @media screen and (max-width: 535px) {
+        /* @media screen and (max-width: 535px) {
             padding-top: 25px;
-        }
+        } */
 
         @media screen and (max-width: 503px) {
             display: none;

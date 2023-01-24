@@ -42,11 +42,13 @@ const Login = () => {
                     setIsLogin(true);
                     setUserInfo({ email });
                     setMemberId(res.data.memberId);
-                    // console.log(res.data.memberId);
                     navigate("/main");
                 })
-                .catch((err) => {
-                    console.log(err);
+                .catch((error) => {
+                    console.log(error);
+                    if (error.response.data.status === 401) {
+                        setErrorModal(true);
+                    }
                 })
         );
     };
@@ -69,6 +71,13 @@ const Login = () => {
             message: "비밀번호를 입력해주세요."
         }
     });
+
+    // 에러코드 401시 띄우는 에러 모달창
+    const [errorModal, setErrorModal] = useState(false);
+
+    const openModalHandler = () => {
+        setErrorModal(!errorModal);
+    };
 
     return (
         <>
@@ -96,6 +105,17 @@ const Login = () => {
                 </LoginFormBox>
                 <KalkBtn> 카카오톡으로 로그인하기</KalkBtn>
             </LoginContainer>
+            {errorModal ? (
+                <ModalBackdrop onClick={openModalHandler}>
+                    <ModalView onClick={(event) => event.stopPropagation()}>
+                        <div className="description">
+                            이메일이나 비밀번호를 잘못 입력하셨습니다. <br />
+                            다시 한 번 확인해주세요!
+                        </div>
+                        <button onClick={openModalHandler}>확인</button>
+                    </ModalView>
+                </ModalBackdrop>
+            ) : null}
         </>
     );
 };
@@ -234,4 +254,53 @@ const KalkBtn = styled.button`
     color: #3f724d;
     border-radius: 7px;
     box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px, rgb(0 0 0 / 5%) 0px 0px 8px, rgb(0 0 0 / 10%) 0px 1px 4px;
+`;
+
+const ModalBackdrop = styled.div`
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const ModalView = styled.div.attrs((props) => ({
+    role: "dialog",
+}))`
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 200px;
+    margin: 0 auto;
+    border-radius: 30px;
+    font-family: "Nanum Gothic", sans-serif;
+    padding: 20px;
+
+    .description {
+        font-size: 18px;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        padding-bottom: 5%;
+        line-height: 170%;
+        text-align: center;
+    }
+
+    button {
+        background-color: var(--darkgreen);
+        font-size: 17px;
+        width: 30%;
+        border-radius: 50px;
+
+        :hover {
+            background-color: var(--lightgreen);
+            cursor: pointer;
+            transition: 0.5s;
+        }
+    }
 `;
