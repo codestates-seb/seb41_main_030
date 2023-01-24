@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Preview = ({ tag, title, content, writer }) => {
+const Preview = ({ tag, title, content, writer, boardId }) => {
     return (
         <Post>
             <div className="tag">기타</div>
@@ -14,7 +15,9 @@ const Preview = ({ tag, title, content, writer }) => {
                 <span className="writer">{writer}</span>
                 <span className="writerTxt">&nbsp;님</span>
             </div>
-            <button>보러가기</button>
+            <Link to={`/community/${boardId}`}>
+                <button>보러가기</button>
+            </Link>
         </Post>
     );
 };
@@ -92,5 +95,8 @@ const Post = styled.div`
             font-size: var(--font-body-size);
             color: var(--darkgreen);
         }
+    }
+    button {
+        width: 100%;
     }
 `;

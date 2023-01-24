@@ -67,7 +67,7 @@ export default function Carousel() {
                     {data &&
                         data.map((post) => (
                             <SwiperSlide key={post.boardId + 1}>
-                                <Preview key={post.boardId} tag={"기타"} title={post.title} content={post.content} writer={post.nickName} />
+                                <Preview key={post.boardId} tag={"기타"} title={post.title} content={post.content} writer={post.nickName} boardId={post.boardId} />
                             </SwiperSlide>
                         ))}
                 </Swiper>

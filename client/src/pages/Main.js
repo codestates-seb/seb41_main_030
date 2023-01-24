@@ -3,8 +3,24 @@ import "../globalStyle.css";
 import Carousel from "../components/main/Carousel";
 import { useEffect } from "react";
 import IntroImg from "../icons/main-leaf.svg";
+import { Link } from "react-router-dom";
+import { memberIdState } from "../states/memberIdState";
+import { useRecoilValue } from "recoil";
+import { useNavigate } from "react-router-dom";
 
 const Main = ({ setIsFooter }) => {
+    const memberId = useRecoilValue(memberIdState);
+    const navigate = useNavigate();
+
+    // 로그인한 경우에만 게시글 작성 가능
+    const handleWriteBtn = () => {
+        if (memberId !== null) {
+            navigate("/write");
+        } else {
+            navigate("/login");
+        }
+    };
+
     useEffect(() => {
         setIsFooter(true);
     });
@@ -28,24 +44,30 @@ const Main = ({ setIsFooter }) => {
                     <p className="text">당신을 위한 멘탈 케어</p>
                     <div className="blockContainer">
                         <div className="blockLeft">
-                            <div className="block_counsel">
-                                <p className="title">전문 상담</p>
-                                <p className="description">전문가나 상담 기관의 도움이 필요하신가요?</p>
-                            </div>
-                            <div className="block_write">
+                            <Link to="/selfcheckresult">
+                                <div className="block_counsel">
+                                    <p className="title">자가진단</p>
+                                    <p className="description">자가진단 테스트로 심리 문제를 점검해보세요.</p>
+                                </div>
+                            </Link>
+                            <div className="block_write" onClick={handleWriteBtn}>
                                 <p className="title">고민 털어놓기</p>
                                 <p className="description">MENTALTAL에 고민을 털어놓으세요</p>
                             </div>
                         </div>
                         <div className="blockRight">
-                            <div className="block_community">
-                                <p className="title">MENTALTAL 커뮤니티</p>
-                                <p className="description">비슷한 고민을 가진 사람들과 이야기해보세요</p>
-                            </div>
-                            <div className="block_postit">
-                                <p className="title">마음도장</p>
-                                <p className="description">코멘트를 남겨 마음도장을 찍어보세요</p>
-                            </div>
+                            <Link to="/community">
+                                <div className="block_community">
+                                    <p className="title">MENTALTAL 커뮤니티</p>
+                                    <p className="description">비슷한 고민을 가진 사람들과 이야기해보세요</p>
+                                </div>
+                            </Link>
+                            <Link to="/counselingcenter">
+                                <div className="block_postit">
+                                    <p className="title">상담 기관</p>
+                                    <p className="description">전문 상담 기관의 도움이 필요하신가요?</p>
+                                </div>
+                            </Link>
                         </div>
                     </div>
                 </Shortcut>
