@@ -13,14 +13,14 @@ const Login = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }
     } = useForm();
 
     const navigate = useNavigate();
 
     const [loginInfo, setLoginInfo] = useState({
         email: "",
-        password: "",
+        password: ""
     });
 
     const [isLogin, setIsLogin] = useState(false); // 로그인 여부
@@ -58,16 +58,16 @@ const Login = () => {
         required: { value: true, message: "이메일을 입력해주세요." },
         pattern: {
             value: EMAIL_REGEX,
-            message: "이메일 형식에 맞게 입력해주세요.",
-        },
+            message: "이메일 형식에 맞게 입력해주세요."
+        }
     });
 
     const passwordRegister = register("password", {
         required: { value: true, message: "비밀번호를 입력해주세요." },
         pattern: {
             value: PASSWORD_REGEX,
-            message: "비밀번호를 입력해주세요.",
-        },
+            message: "비밀번호를 입력해주세요."
+        }
     });
 
     return (
