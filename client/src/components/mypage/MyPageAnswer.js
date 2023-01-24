@@ -46,7 +46,7 @@ const MyPageAnswer = ({ userData }) => {
         <>
             {answerListData &&
                 userAnswerData.map((answer, index) => {
-                    return <UserPost key={index} title={answer.title} content={answer.content} createdAt={answer.createdAt} answerCount={false} />;
+                    return <UserPost key={index} title={answer.title} content={answer.content} createdAt={answer.createdAt} answerCount={false} boardId={answer.boardId} />;
                 })}
         </>
     );

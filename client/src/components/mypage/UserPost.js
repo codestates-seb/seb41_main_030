@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const UserPost = ({ title, content, createdAt, isComment, commentCount }) => {
+const UserPost = ({ title, content, createdAt, isComment, commentCount, boardId }) => {
     const date = createdAt.slice(0, 10).replaceAll("-", " / ");
 
     return (
         <>
             <PostsContainer>
                 <Post>
-                    <p className="postTitle">{title}</p>
+                    <Link to={`/community/${boardId}`}>
+                        <p className="postTitle">{title}</p>
+                    </Link>
                     <p className="postContent">
                         {content.slice(0, 150)} {content.length > 149 ? "..." : null}
                     </p>
@@ -64,6 +67,11 @@ const Post = styled.div`
         line-height: 27px;
         @media screen and (max-width: 619px) {
             font-size: 20px;
+        }
+        :hover {
+            color: var(--green);
+            transition: 0.5s;
+            cursor: pointer;
         }
     }
     .postContent {

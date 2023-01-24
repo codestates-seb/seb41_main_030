@@ -111,7 +111,7 @@ const MyPagePosts = ({ userData }) => {
         <>
             {userPostData &&
                 userPostData.map((post, index) => {
-                    return <UserPost key={index} title={post.title} content={post.content} createdAt={post.createdAt} isComment={true} commentCount={post.commentCount} />;
+                    return <UserPost key={index} title={post.title} content={post.content} createdAt={post.createdAt} isComment={true} commentCount={post.commentCount} boardId={post.boardId} />;
                 })}
             {/* <div ref={setTarget} />
             {isLoaded && <Loader />} */}
