@@ -287,7 +287,7 @@ const ModalView = styled.div.attrs((props) => ({
         font-weight: var(--font-bold);
         color: var(--darkgreen);
         padding-bottom: 5%;
-        line-height: 150%;
+        line-height: 170%;
         text-align: center;
     }
 

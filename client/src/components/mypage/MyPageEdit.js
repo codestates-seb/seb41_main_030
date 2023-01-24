@@ -149,7 +149,7 @@ const MyPageEdit = ({ name, email }) => {
                         </div>
                     </BottomBlock>
                     <ButtonContainer>
-                        <button className="clear" onClick={handleClear}>
+                        <button className="clear" onClick={handleClear} type="button">
                             취소
                         </button>
                         <button className="edit" type="submit" onClick={handleEdit}>
@@ -159,7 +159,7 @@ const MyPageEdit = ({ name, email }) => {
                 </form>
             </EditContainer>
             {isOpen ? (
-                <ModalBackdrop onClick={openModalHandler}>
+                <ModalBackdrop onClick={handleRefresh}>
                     <ModalView onClick={(event) => event.stopPropagation()}>
                         <div className="title">개인정보 수정이 완료되었습니다.</div>
                         <button onClick={handleRefresh}>확인</button>
