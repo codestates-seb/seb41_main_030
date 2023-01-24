@@ -47,7 +47,7 @@ const Main = ({ setIsFooter }) => {
                             <Link to="/selfcheckresult">
                                 <div className="block_counsel">
                                     <p className="title">자가진단</p>
-                                    <p className="description">자가진단 테스트로 심리 문제를 점검해보세요.</p>
+                                    <p className="description">자가진단 테스트로 심리 문제를 점검해보세요</p>
                                 </div>
                             </Link>
                             <div className="block_write" onClick={handleWriteBtn}>
