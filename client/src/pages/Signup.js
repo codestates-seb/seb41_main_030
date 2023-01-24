@@ -2,11 +2,14 @@ import React from "react";
 import axios from "axios";
 import "../globalStyle.css";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Signup = () => {
+const Signup = ({ setIsFooter }) => {
+    useEffect(() => {
+        setIsFooter(false);
+    });
     const {
         register,
         handleSubmit,
@@ -71,6 +74,7 @@ const Signup = () => {
         setSuccessModal(!successModal);
         navigate("/login");
     };
+
     return (
         <>
             <SignupContainer>
