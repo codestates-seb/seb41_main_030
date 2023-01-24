@@ -74,7 +74,7 @@ const Nav = () => {
 
             <NavMedia>
                 {isOpen ? <i className="fa-solid fa-x" onClick={handleNavModal}></i> : <i className="fa-solid fa-bars" onClick={handleNavModal}></i>}
-                {isOpen ? <NavModal test={test} /> : null}
+                {isOpen ? <NavModal test={test} memberId={memberId} /> : null}
             </NavMedia>
         </NavWrapper>
     );

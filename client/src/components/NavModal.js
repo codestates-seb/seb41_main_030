@@ -28,7 +28,7 @@ const NavModalWrapper = styled.ul`
     }
 `;
 
-const NavModal = ({ test }) => {
+const NavModal = ({ test, memberId }) => {
     return (
         <NavModalWrapper>
             <li>
@@ -46,7 +46,7 @@ const NavModal = ({ test }) => {
             {test ? (
                 <>
                     <li>
-                        <Link to="/mypage">마이페이지</Link>
+                        <Link to={`/mypage/${memberId}`}>마이페이지</Link>
                     </li>
                     <li>로그아웃</li>
                 </>
