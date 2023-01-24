@@ -70,7 +70,6 @@ const MyPageEdit = ({ name, email }) => {
             console.log("변경됨");
             setIsOpen(!isOpen);
         }
-        console.log("비번 다르게하거나 닉네임 안쓰거나 짧음");
     };
 
     // 개인정보 수정 후 모달창 확인 버튼 누르면 새로고침
