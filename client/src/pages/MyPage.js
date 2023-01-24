@@ -5,27 +5,12 @@ import MyPageAnswer from "../components/mypage/MyPageAnswer";
 import MyPageEdit from "../components/mypage/MyPageEdit";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
     const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
     const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
-    // const getMemberId = () => {
-    //     const memberId = localStorage.getItem("memberId") ? JSON.parse(localStorage.getItem("memberId")) : null;
-    //     console.log(memberId);
-    //     return memberId;
-    // };
-    // const memberId = getMemberId();
-
-    let decoded;
-    let loginToken = window.localStorage.getItem("loginToken");
-
-    if (loginToken) {
-        decoded = jwt_decode(loginToken);
-        // console.log(decoded);
-    }
 
     const userProfileData = async (id) => {
         const member = await axios.get(`${url}/members/${id}`);

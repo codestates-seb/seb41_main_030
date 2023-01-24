@@ -29,11 +29,10 @@ const MyPageAnswer = ({ userData }) => {
     const userAnswerData = answerListData && userData && answerListData.filter((answerData) => answerData.nickName === userData.nickName);
 
     // 전체 게시글 중 답변을 단 게시글
-    const result = postListData && userAnswerData && postListData.filter(({ boardId: id1 }) => userAnswerData.some(({ boardId: id2 }) => id1 === id2));
+    const answeredBoards = postListData && userAnswerData && postListData.filter(({ boardId: id1 }) => userAnswerData.some(({ boardId: id2 }) => id1 === id2));
 
     // 작성한 답변 데이터(userAnswerData)에 답변 대상 게시글의 title 추가
-    const addTitle =
-        postListData &&
+    postListData &&
         userAnswerData &&
         userAnswerData.map((answer) => {
             postListData.forEach((post) => {
