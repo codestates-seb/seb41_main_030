@@ -174,7 +174,7 @@ export default MyPageEdit;
 
 const EditContainer = styled.div`
     width: 100%;
-    font-size: 24px;
+    font-size: 22px;
     color: var(--darkgreen);
     font-weight: var(--font-bold);
     padding: 100px 0px 30px 38px;
@@ -186,7 +186,7 @@ const EditContainer = styled.div`
     input {
         margin-top: 30px;
         width: 450px;
-        font-size: 20px;
+        font-size: 19px;
         line-height: 40px;
         padding: 10px;
         border-bottom: 2px solid var(--green);
@@ -334,6 +334,7 @@ const ButtonContainer = styled.div`
         height: 55px;
         font-size: 17px;
         font-weight: var(--font-bold);
+        font-family: "Nanum Gothic", sans-serif;
         &.clear {
             background-color: #f1efe4;
             color: var(--darkgreen);

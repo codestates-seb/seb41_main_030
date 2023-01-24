@@ -145,8 +145,8 @@ export default MyPage;
 const MyPageContainer = styled.div`
     display: flex;
     flex-direction: column;
-
     padding: 0 130px;
+    font-family: "Nanum Gothic", sans-serif;
 
     @media screen and (max-width: 611px) {
         padding: 0 100px;
@@ -181,15 +181,18 @@ const MyPageHeader = styled.div`
             color: var(--darkgreen);
             font-size: 25px;
             font-weight: var(--font-bold);
+            padding-bottom: 4px;
         }
 
         .email,
         .deleteUserText {
             color: var(--green);
-            padding-top: 8px;
+            padding-top: 10px;
+            font-size: 15px;
 
             &.email {
                 text-decoration: underline;
+                text-underline-offset: 4px;
             }
 
             &.deleteUserText {
@@ -217,23 +220,24 @@ const MyPageTab = styled.div`
         width: 156px;
         height: 55px;
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 19px;
         font-weight: var(--font-bold);
+        font-family: "Nanum Gothic", sans-serif;
 
-        @media screen and (max-width: 693px) {
-            font-size: 19px;
-        }
-        @media screen and (max-width: 678px) {
+        @media screen and (max-width: 702px) {
             font-size: 18px;
         }
-        @media screen and (max-width: 660px) {
+        @media screen and (max-width: 684px) {
             font-size: 17px;
         }
-        @media screen and (max-width: 643px) {
+        @media screen and (max-width: 666px) {
             font-size: 16px;
         }
-        @media screen and (max-width: 627px) {
+        @media screen and (max-width: 649px) {
             font-size: 15px;
+        }
+        @media screen and (max-width: 631px) {
+            font-size: 14px;
         }
         @media screen and (max-width: 611px) {
             font-size: 19px;
