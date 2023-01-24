@@ -60,6 +60,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 60px;
+    font-family: "Nanum Gothic", sans-serif;
 `;
 
 const Intro = styled.div`
@@ -83,7 +84,7 @@ const Intro = styled.div`
         color: var(--white);
 
         .description {
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .logo {
@@ -99,7 +100,7 @@ const PreviewContainer = styled.div`
     padding-top: 90px;
 
     .text {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
         padding-bottom: 25px;
@@ -116,7 +117,7 @@ const Shortcut = styled.div`
     padding-top: 90px;
 
     .text {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
         padding-bottom: 25px;
@@ -127,30 +128,31 @@ const Shortcut = styled.div`
         justify-content: space-between;
         margin-bottom: 80px;
 
-        @media screen and (max-width: 863px) {
+        @media screen and (max-width: 976px) {
             flex-direction: column;
         }
 
         .title {
-            font-size: 27px;
+            font-size: 25px;
             font-weight: var(--font-bold);
+            line-height: 30px;
 
             @media screen and (max-width: 522px) {
-                font-size: 24px;
+                font-size: 23px;
             }
         }
 
         .description {
-            font-size: 18px;
+            font-size: 16px;
             margin-top: 10px;
             line-height: 24px;
             @media screen and (max-width: 522px) {
-                font-size: 16px;
+                font-size: 14px;
             }
             @media screen and (max-width: 512px) {
-                font-size: 15px;
+                font-size: 13px;
             }
-            @media screen and (max-width: 509px) {
+            @media screen and (max-width: 578px) {
                 display: none;
             }
         }
@@ -161,7 +163,7 @@ const Shortcut = styled.div`
             display: flex;
             flex-direction: column;
 
-            @media screen and (max-width: 863px) {
+            @media screen and (max-width: 976px) {
                 margin-right: 0px;
             }
 
@@ -189,7 +191,7 @@ const Shortcut = styled.div`
                 padding-top: 53px;
                 margin-top: 20px;
                 color: var(--white);
-                @media screen and (max-width: 863px) {
+                @media screen and (max-width: 976px) {
                     height: 166px;
                 }
 
@@ -208,7 +210,7 @@ const Shortcut = styled.div`
             display: flex;
             flex-direction: column;
 
-            @media screen and (max-width: 863px) {
+            @media screen and (max-width: 976px) {
                 margin-left: 0px;
                 margin-top: 20px;
             }
@@ -220,7 +222,7 @@ const Shortcut = styled.div`
                 padding-top: 53px;
                 color: var(--white);
 
-                @media screen and (max-width: 863px) {
+                @media screen and (max-width: 976px) {
                     height: 166px;
                 }
 

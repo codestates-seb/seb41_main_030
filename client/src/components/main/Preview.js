@@ -5,11 +5,14 @@ const Preview = ({ tag, title, content, writer }) => {
         <Post>
             <div className="tag">기타</div>
             <div className="title">{title}</div>
-            <div className="content">{content.slice(0, 63)}... </div>
+            <div className="content">
+                {content.slice(0, 63)}
+                {content.length > 62 ? "..." : null}
+            </div>
             <div className="writerContainer">
-                <span className="img"></span>
-                <span className="writer">{writer} </span>
-                <span className="writerTxt">님</span>
+                <span className="circle"></span>
+                <span className="writer">{writer}</span>
+                <span className="writerTxt">&nbsp;님</span>
             </div>
             <button>보러가기</button>
         </Post>
@@ -26,6 +29,7 @@ const Post = styled.div`
     padding: 25px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     .tag {
         background-color: var(--white);
@@ -41,6 +45,15 @@ const Post = styled.div`
         padding-top: 15px;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
+        line-height: 120%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+
+        word-wrap: break-word;
+        word-break: break-all;
     }
 
     .content {
@@ -49,16 +62,27 @@ const Post = styled.div`
         height: 120px;
         line-height: 20px;
         color: var(--darkgreen);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+
+        word-wrap: break-word;
+        word-break: break-all;
     }
 
     .writerContainer {
-        padding-bottom: 8px;
-        margin-left: 78%;
-        /* .img {
-            border: 1px solid;
-            width: 17px;
+        padding-bottom: 12px;
+        display: flex;
+        justify-content: right;
+
+        .circle {
+            background-color: var(--green);
+            width: 12px;
             border-radius: 50%;
-        } */
+            margin-right: 5px;
+        }
         .writer {
             font-size: var(--font-body-size);
             color: var(--darkgreen);
