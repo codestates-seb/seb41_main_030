@@ -93,6 +93,7 @@ const NavWrapper = styled.nav`
     left: 0;
     right: 0;
     z-index: 10;
+    font-family: "Nanum Gothic", sans-serif;
 `;
 
 const NavTitle = styled.div`
@@ -114,6 +115,7 @@ const NavContainer = styled.ul`
     color: var(--darkgreen);
 
     button {
+        font-family: "Nanum Gothic", sans-serif;
         font-size: 16px;
     }
 
