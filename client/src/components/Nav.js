@@ -46,7 +46,7 @@ const Nav = () => {
                     <Link to="/selfcheck">자가진단</Link>
                 </li>
                 <li>
-                    <Link to="/counselors">전문가</Link>
+                    <Link to="/counselor">전문가</Link>
                 </li>
                 <li>
                     <Link to="/counselingcenter">전문기관</Link>
