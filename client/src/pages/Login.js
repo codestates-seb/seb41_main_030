@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../globalStyle.css";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -7,20 +7,23 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../states/memberIdState";
 
-const Login = () => {
+const Login = ({ setIsFooter }) => {
+    useEffect(() => {
+        setIsFooter(false);
+    });
     const [memberId, setMemberId] = useRecoilState(memberIdState);
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors }
     } = useForm();
 
     const navigate = useNavigate();
 
     const [loginInfo, setLoginInfo] = useState({
         email: "",
-        password: "",
+        password: ""
     });
 
     const [isLogin, setIsLogin] = useState(false); // 로그인 여부
@@ -60,16 +63,16 @@ const Login = () => {
         required: { value: true, message: "이메일을 입력해주세요." },
         pattern: {
             value: EMAIL_REGEX,
-            message: "이메일 형식에 맞게 입력해주세요.",
-        },
+            message: "이메일 형식에 맞게 입력해주세요."
+        }
     });
 
     const passwordRegister = register("password", {
         required: { value: true, message: "비밀번호를 입력해주세요." },
         pattern: {
             value: PASSWORD_REGEX,
-            message: "비밀번호를 입력해주세요.",
-        },
+            message: "비밀번호를 입력해주세요."
+        }
     });
 
     // 에러코드 401시 띄우는 에러 모달창
@@ -165,12 +168,10 @@ const EmailInput = styled.input`
     margin-bottom: 5px;
     padding: 0.5em 0.5em;
     font-size: 18px;
-    border-color: ${(props) => (props.error ? "#de4f54" : "")};
+    border-bottom: 2px solid var(--green);
+    border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
-        outline: none;
-        border-color: ${(props) => (props.error ? "#de4f54" : "#2c483f")};
-        border-width: 0px;
-        box-shadow: ${(props) => (props.error ? "0 0 0 4px #f7e1e1, 0 0 0 4px #f7e1e1" : "0 0 0 4px #ecf0e6, 0 0 0 4px #ecf0e6")};
+        border-color: ${(props) => (props.error ? "#de4f54" : "var(--lightgreen)")};
     }
 `;
 
@@ -181,12 +182,10 @@ const PwInput = styled.input`
     margin-bottom: 10px;
     padding: 0.5em 0.5em;
     font-size: 18px;
-    border-color: ${(props) => (props.error ? "#de4f54" : "")};
+    border-bottom: 2px solid var(--green);
+    border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
-        outline: none;
-        border-color: ${(props) => (props.error ? "#de4f54" : "#2c483f")};
-        border-width: 0px;
-        box-shadow: ${(props) => (props.error ? "0 0 0 4px #f7e1e1, 0 0 0 4px #f7e1e1" : "0 0 0 4px #ecf0e6, 0 0 0 4px #ecf0e6")};
+        border-color: ${(props) => (props.error ? "#de4f54" : "var(--lightgreen)")};
     }
 `;
 
@@ -268,7 +267,7 @@ const ModalBackdrop = styled.div`
 `;
 
 const ModalView = styled.div.attrs((props) => ({
-    role: "dialog",
+    role: "dialog"
 }))`
     background-color: whitesmoke;
     display: flex;

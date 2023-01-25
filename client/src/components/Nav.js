@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavModal from "./NavModal";
 import { memberIdState } from "../states/memberIdState";
@@ -9,11 +9,17 @@ const Nav = () => {
     // 마이페이지 클릭 시 path
     const memberId = useRecoilValue(memberIdState);
 
-    // ! 임시 - 로그인이 구현될 시 교체 예정입니다.
-    const [test, setTest] = useState(false);
-    const handleTest = () => {
-        setTest(!test);
-    };
+    // local storage login token 확인
+    const [istoken, setIstoken] = useState(false);
+
+    //memberId의 여부로 Nav버튼 상태 변경
+    useEffect(() => {
+        if (memberId === null) {
+            console.log(memberId);
+        } else {
+            setIstoken(true);
+        }
+    });
     // !
 
     // * 모달
@@ -29,7 +35,7 @@ const Nav = () => {
                     MENTALTAL
                 </Link>
                 {/* 삭제할 예정 */}
-                <button onClick={handleTest}>0</button>
+                {/* <button onClick={handleTest}>0</button> */}
             </NavTitle>
 
             <NavContainer>
@@ -40,12 +46,12 @@ const Nav = () => {
                     <Link to="/selfcheck">자가진단</Link>
                 </li>
                 <li>
-                    <Link to="/counselors">전문가</Link>
+                    <Link to="/counselor">전문가</Link>
                 </li>
                 <li>
                     <Link to="/counselingcenter">전문기관</Link>
                 </li>
-                {test ? (
+                {istoken ? (
                     <>
                         <li>
                             <button>

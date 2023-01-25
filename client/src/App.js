@@ -34,8 +34,8 @@ function App() {
                 <Route path="/community/:id" element={<BoardDetail setIsFooter={setIsFooter} />} />
                 <Route path="/community/edit" element={<EditBoard setIsFooter={setIsFooter} />} />
                 <Route path="/write" element={<CreateBoard setIsFooter={setIsFooter} />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
+                <Route path="/login" element={<Login setIsFooter={setIsFooter} />} />
+                <Route path="/signup" element={<Signup setIsFooter={setIsFooter} />} />
                 <Route path="/forgotPw" element={<ForgotPw />} />
                 <Route path="/mypage/:id/*" element={<MyPage setIsFooter={setIsFooter} />} />
                 <Route path="/counselingcenter" element={<CounselingCenter setIsFooter={setIsFooter} />} />
