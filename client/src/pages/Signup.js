@@ -10,6 +10,7 @@ const Signup = ({ setIsFooter }) => {
     useEffect(() => {
         setIsFooter(false);
     });
+
     const {
         register,
         handleSubmit,
