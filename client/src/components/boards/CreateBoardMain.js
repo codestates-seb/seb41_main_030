@@ -16,34 +16,30 @@ const CreateBoardMain = () => {
     const navigate = useNavigate();
     const memberId = useRecoilValue(memberIdState);
 
-    // ! 백에서 태그 기능이 구현되면 살려놓을 것
-    // // 태그
-    // const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
-    // const [tags, setTags] = useState(["일반"]);
+    // 태그
+    const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
+    const [tags, setTags] = useState(["일반"]);
 
-    // // 태그 버튼 이벤트 핸들러
-    // const handleTags = (e) => {
-    //     const str = e.target.value;
+    // 태그 버튼 이벤트 핸들러
+    const handleTags = (e) => {
+        const str = e.target.value;
 
-    //     if (tags.includes(str)) {
-    //         const result = tags.filter((el) => el !== `${str}`);
-    //         return setTags(result);
-    //     }
+        if (tags.includes(str)) {
+            const result = tags.filter((el) => el !== `${str}`);
+            return setTags(result);
+        }
 
-    //     if (!tags.includes(str)) {
-    //         return setTags([...tags, str]);
-    //     }
-    // };
+        if (!tags.includes(str)) {
+            return setTags([...tags, str]);
+        }
+    };
 
     // 게시글 등록 요청 함수
     const postBoard = async (data) => {
-        console.log(data);
-
         axios
             .post(`/boards`, data)
             .then((res) => {
                 navigate("/community");
-                console.log(res);
             })
             .catch((err) => console.log(err));
     };
@@ -52,9 +48,9 @@ const CreateBoardMain = () => {
         <CBMainWrapper>
             <form
                 onSubmit={handleSubmit((data) => {
-                    // ! 백에서 태그 기능이 구현되면 살려놓을 것
-                    // data.tag = [...tags];
+                    data.tags = tags.join();
                     data.memberId = memberId;
+                    console.log(tags);
                     postBoard(data);
                 })}
             >
@@ -91,7 +87,7 @@ const CreateBoardMain = () => {
                     {errors.content && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요.</div>}
                 </CBMainText>
 
-                {/* <CBTags>
+                <CBTags>
                     <label htmlFor="CBTagsInput">아래의 태그 중 하나를 선택해주세요.</label>
                     <ul>
                         {tagData.map((tag, idx) => (
@@ -102,7 +98,7 @@ const CreateBoardMain = () => {
                             </li>
                         ))}
                     </ul>
-                </CBTags> */}
+                </CBTags>
 
                 <CBSubmitBtn>
                     <button type="submit">
@@ -118,10 +114,12 @@ const CreateBoardMain = () => {
 const CBMainWrapper = styled.div`
     padding: 60px 100px;
 
+    font-family: "Nanum Gothic", sans-serif;
+
     label {
         color: var(--darkgreen);
-        font-weight: 600;
-        font-size: 20px;
+        font-weight: var(--font-bold);
+        font-size: 1.2rem;
         margin-bottom: 5px;
     }
 
@@ -132,12 +130,16 @@ const CBMainWrapper = styled.div`
 
     .createBoardErrorMessage {
         color: red;
-        font-size: 14px;
+        font-size: 0.85rem;
         margin-left: 4px;
     }
 
     @media screen and (max-width: 630px) {
         padding: 40px;
+
+        label {
+            font-size: 1.1rem;
+        }
     }
 `;
 
@@ -151,19 +153,14 @@ const CBMainTitle = styled.div`
 
     input {
         padding: 10px;
-        font-size: 16px;
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 1rem;
         border-bottom: 2px solid var(--green);
         cursor: text;
     }
 
     input:focus {
         border-bottom: 2px solid var(--lightgreen);
-    }
-
-    @media screen and (max-width: 630px) {
-        label {
-            font-size: 20px;
-        }
     }
 `;
 
@@ -185,7 +182,8 @@ const CBMainText = styled.div`
         border-radius: 20px;
         outline: 2px solid var(--green);
 
-        font-size: 16px;
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 1rem;
     }
 
     textarea:focus {
@@ -195,12 +193,6 @@ const CBMainText = styled.div`
     .createBoardErrorTextarea,
     .createBoardErrorTextarea:focus {
         outline: 2px solid red;
-    }
-
-    @media screen and (max-width: 630px) {
-        label {
-            font-size: 20px;
-        }
     }
 `;
 
@@ -228,8 +220,10 @@ const CBTags = styled.div`
         border-radius: 20px;
         background-color: var(--lightgreen2);
         color: var(--darkgreen);
-        font-size: 14px;
-        font-weight: 500;
+
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 0.8rem;
+        font-weight: var(--font-medium);
     }
 
     .tagBtnActive {
@@ -240,7 +234,7 @@ const CBTags = styled.div`
     @media screen and (max-width: 630px) {
         button {
             padding: 5px 10px;
-            font-size: 12px;
+            font-size: 0.75rem;
         }
     }
 `;
@@ -258,7 +252,7 @@ const CBSubmitBtn = styled.div`
     button {
         border-radius: 30px;
         width: 300px;
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     i {
@@ -271,7 +265,7 @@ const CBSubmitBtn = styled.div`
     @media screen and (max-width: 630px) {
         button {
             width: 100%;
-            font-size: 14px;
+            font-size: 0.8rem;
         }
 
         i {

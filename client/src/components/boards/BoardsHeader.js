@@ -29,11 +29,13 @@ const BoardsHeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: flex-end;
 
+    font-family: "Nanum Gothic", sans-serif;
+
     @media screen and (max-width: 768px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         gap: 15px;
     }
 
@@ -51,13 +53,13 @@ const BoardsHeaderTitle = styled.div`
     color: var(--darkgreen);
 
     & :nth-child(1) {
-        font-size: 40px;
-        font-weight: 900;
+        font-size: 2.5rem;
+        font-weight: var(--font-bold);
         margin-bottom: 10px;
     }
 
     & :not(:nth-child(1)) {
-        font-size: 16px;
+        font-size: 0.95rem;
     }
 
     @media screen and (max-width: 387px) {
@@ -70,25 +72,21 @@ const BoardsHeaderTitle = styled.div`
 
     @media screen and (max-width: 768px) {
         & :nth-child(1) {
-            font-size: 33px;
+            font-size: 1.8rem;
         }
 
         & :not(:nth-child(1)) {
-            font-size: 14px;
+            font-size: 0.7rem;
         }
     }
 `;
 
 const BoardsLink = styled(Link)`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-
     button {
+        font-family: "Nanum Gothic", sans-serif;
         border-radius: 30px;
         width: 300px;
-        font-size: 16px;
+        font-size: 0.9rem;
     }
 
     i {
@@ -99,8 +97,10 @@ const BoardsLink = styled(Link)`
     }
 
     @media screen and (max-width: 768px) {
+        width: 100px;
+
         button {
-            font-size: 14px;
+            font-size: 0.8rem;
             width: 100%;
         }
 
@@ -109,7 +109,7 @@ const BoardsLink = styled(Link)`
         }
     }
 
-    @media screen and (min-width: 769px) and (max-width: 920px) {
+    @media screen and (min-width: 768px) and (max-width: 960px) {
         button {
             width: 240px;
         }

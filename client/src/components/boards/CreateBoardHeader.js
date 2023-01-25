@@ -31,15 +31,18 @@ const CBHeaderTitle = styled.div`
     flex-direction: column;
     justify-content: center;
 
+    font-family: "Nanum Gothic", sans-serif;
+
     & :nth-child(1) {
-        font-size: 35px;
-        font-weight: 600;
         margin-bottom: 20px;
+
+        font-size: 2.15rem;
+        font-weight: var(--font-bold);
         color: var(--darkgreen);
     }
 
     & :not(:nth-child(1)) {
-        font-size: 16px;
+        font-size: 1rem;
         color: var(--green);
     }
 
@@ -47,12 +50,12 @@ const CBHeaderTitle = styled.div`
         height: 60px;
 
         & :nth-child(1) {
-            font-size: 22px;
+            font-size: 1.4rem;
             margin-bottom: 15px;
         }
 
         & :not(:nth-child(1)) {
-            font-size: 13px;
+            font-size: 0.8rem;
         }
     }
 `;
