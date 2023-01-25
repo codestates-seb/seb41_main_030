@@ -12,8 +12,6 @@ const BoardDetailQuestion = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const memberId = useRecoilValue(memberIdState);
 
-    console.log(board.createdAt);
-
     // 질문 삭제
     const deleteQuestion = () => {
         axios.delete(`/boards/${board.boardId}`).then((res) => {
@@ -37,11 +35,13 @@ const BoardDetailQuestion = () => {
             {board && (
                 <>
                     <BDQTagsWrapper>
-                        {board.tags.split(",").map((tag, idx) => (
-                            <div key={idx} className="BDQTag">
-                                {tag}
-                            </div>
-                        ))}
+                        {board.tags === ""
+                            ? null
+                            : board.tags.split(",").map((tag, idx) => (
+                                  <div key={idx} className="BDQTag">
+                                      {tag}
+                                  </div>
+                              ))}
                     </BDQTagsWrapper>
 
                     <div className="BDQHeader">
