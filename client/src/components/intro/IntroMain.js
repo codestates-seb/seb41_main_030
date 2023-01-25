@@ -19,9 +19,9 @@ const IntroMain = () => {
 
     const animatedItem = {
         0: useScrollFadeIn("down", 1, 0),
-        1: useScrollFadeIn("down", 2, 1),
-        2: useScrollFadeIn("down", 3, 2),
-        3: useScrollFadeIn("down", 4, 2.5),
+        1: useScrollFadeIn("down", 2, 1.5),
+        2: useScrollFadeIn("down", 3, 2.5),
+        3: useScrollFadeIn("down", 4, 3),
     };
 
     return (
