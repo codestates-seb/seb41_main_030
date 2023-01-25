@@ -11,11 +11,11 @@ const MyPageEdit = ({ name, email }) => {
         formState: { errors },
         watch,
     } = useForm();
-    const [inputPWCheckValue, setInputPWCheckValue] = useState("");
 
     const [editUser, setEditUser] = useState({
         nickName: name,
         password: "",
+        checkPW: "",
     });
 
     const handleEditInputValue = (key, e) => {
@@ -23,17 +23,23 @@ const MyPageEdit = ({ name, email }) => {
     };
 
     const handleClear = () => {
-        setInputPWCheckValue("");
         setEditUser({
             nickName: name,
             password: "",
+            checkPW: "",
         });
     };
 
     // 회원정보 수정 서버 연결
     const { id } = useParams();
 
-    const handleUpdateRequest = () => {
+    const handleEdit = () => {
+        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && editUser.password.length >= 8) {
+            updateRequest();
+        }
+    };
+
+    const updateRequest = () => {
         const { nickName, password } = editUser;
 
         return axios({
@@ -60,7 +66,10 @@ const MyPageEdit = ({ name, email }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const openModalHandler = () => {
-        setIsOpen(!isOpen);
+        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && editUser.password.length >= 8) {
+            console.log("변경됨");
+            setIsOpen(!isOpen);
+        }
     };
 
     // 개인정보 수정 후 모달창 확인 버튼 누르면 새로고침
@@ -123,8 +132,6 @@ const MyPageEdit = ({ name, email }) => {
                             <input
                                 placeholder="새로운 비밀번호를 다시 한 번 입력해주세요."
                                 type="password"
-                                value={inputPWCheckValue}
-                                onKeyUp={(event) => setInputPWCheckValue(event.value)}
                                 className={errors.passwordConfirmation && "pwConfirmInputError"}
                                 {...register("passwordConfirmation", {
                                     required: { value: true, message: "비밀번호를 다시 한 번 입력해주세요." },
@@ -134,22 +141,24 @@ const MyPageEdit = ({ name, email }) => {
                                         }
                                     },
                                 })}
+                                onChange={(e) => handleEditInputValue("checkPW", e)}
+                                value={editUser.checkPW}
                             />
                             {errors.passwordConfirmation && <div className="pwConfirmErrorMessage">{errors.passwordConfirmation.message}</div>}
                         </div>
                     </BottomBlock>
                     <ButtonContainer>
-                        <button className="clear" onClick={handleClear}>
+                        <button className="clear" onClick={handleClear} type="button">
                             취소
                         </button>
-                        <button className="edit" type="submit" onClick={handleUpdateRequest}>
+                        <button className="edit" type="submit" onClick={handleEdit}>
                             회원정보 수정
                         </button>
                     </ButtonContainer>
                 </form>
             </EditContainer>
             {isOpen ? (
-                <ModalBackdrop onClick={openModalHandler}>
+                <ModalBackdrop onClick={handleRefresh}>
                     <ModalView onClick={(event) => event.stopPropagation()}>
                         <div className="title">개인정보 수정이 완료되었습니다.</div>
                         <button onClick={handleRefresh}>확인</button>
@@ -164,7 +173,7 @@ export default MyPageEdit;
 
 const EditContainer = styled.div`
     width: 100%;
-    font-size: 24px;
+    font-size: 22px;
     color: var(--darkgreen);
     font-weight: var(--font-bold);
     padding: 100px 0px 30px 38px;
@@ -176,7 +185,7 @@ const EditContainer = styled.div`
     input {
         margin-top: 30px;
         width: 450px;
-        font-size: 20px;
+        font-size: 19px;
         line-height: 40px;
         padding: 10px;
         border-bottom: 2px solid var(--green);
@@ -324,6 +333,7 @@ const ButtonContainer = styled.div`
         height: 55px;
         font-size: 17px;
         font-weight: var(--font-bold);
+        font-family: "Nanum Gothic", sans-serif;
         &.clear {
             background-color: #f1efe4;
             color: var(--darkgreen);
