@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Footer from "../Footer";
 import useScrollFadeIn from "./useScrollFadeIn";
 import centerImg from "../../icons/intro-center-img.png";
 import mobileCenterImg from "../../icons/intro-mobile-center-img.png";
@@ -23,7 +22,6 @@ const IntroCenter = () => {
                 </div>
                 {useMediaQuery({ maxWidth: 768 }) ? <img src={`${mobileCenterImg}`} {...animatedItem[2]} className="mobile" /> : <img src={`${centerImg}`} {...animatedItem[2]} className="desktop" />}
             </IntroCenterContainer>
-            <Footer />
         </>
     );
 };
@@ -37,7 +35,6 @@ const IntroCenterContainer = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    font-family: "Nanum Gothic", sans-serif;
     color: var(--green);
     padding: 100px;
 

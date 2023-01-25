@@ -70,7 +70,6 @@ const IntroMainContent = styled.div`
     justify-content: center;
     align-items: center;
     color: var(--white);
-    font-family: "Nanum Gothic", sans-serif;
 
     .subTitle {
         padding-top: 15px;
@@ -91,7 +90,6 @@ const IntroMainContent = styled.div`
         font-weight: var(--font-bold);
         border-radius: 50px;
         padding: 15px 30px;
-
         &:hover {
             cursor: pointer;
         }
