@@ -21,7 +21,7 @@ const IntroResponsive = () => {
         <>
             <NavSize />
             <IntroResponsiveContainer>
-                <LeftContainer onClickWhite={btnClick ? "#fff" : "#3f724d"} onClickGreen={btnClick ? "#3f724d" : "#fff"}>
+                <LeftContainer clickWhite={btnClick ? "#fff" : "#3f724d"} clickGreen={btnClick ? "#3f724d" : "#fff"}>
                     <div className="title" {...animatedItem[0]}>
                         반응형 웹 서비스
                     </div>
@@ -35,7 +35,7 @@ const IntroResponsive = () => {
                         화면 너비를 조정해보세요!
                     </button>
                 </LeftContainer>
-                <RightContainer onClickWhite={btnClick ? "#3f724d" : "#fff"} onClickGreen={btnClick ? "#fff" : "#3f724d"} />
+                <RightContainer clickWhite={btnClick ? "#3f724d" : "#fff"} clickGreen={btnClick ? "#fff" : "#3f724d"} />
                 {btnClick ? <MobileMockupImg /> : <MockupImg />}
             </IntroResponsiveContainer>
             <Footer />
@@ -64,8 +64,8 @@ const LeftContainer = styled.div`
     height: 100%;
     padding: 0 100px;
     flex-direction: column;
-    color: ${(props) => props.onClickWhite};
-    background-color: ${(props) => props.onClickGreen};
+    color: ${(props) => props.clickWhite};
+    background-color: ${(props) => props.clickGreen};
 
     @media screen and (max-width: 420px) {
         padding: 0;
@@ -116,8 +116,8 @@ const LeftContainer = styled.div`
         font-weight: var(--font-bold);
         padding: 10px 30px;
         font-family: "Nanum Gothic", sans-serif;
-        background-color: ${(props) => props.onClickWhite};
-        color: ${(props) => props.onClickGreen};
+        background-color: ${(props) => props.clickWhite};
+        color: ${(props) => props.clickGreen};
         :hover {
             background-color: var(--lightgreen);
             transition: 1s;
@@ -132,8 +132,8 @@ const RightContainer = styled.div`
     flex-grow: 1.9;
     height: 100%;
     background-color: var(--green);
-    color: ${(props) => props.onClickWhite};
-    background-color: ${(props) => props.onClickGreen};
+    color: ${(props) => props.clickWhite};
+    background-color: ${(props) => props.clickGreen};
 
     @media screen and (max-width: 768px) {
         display: none;
