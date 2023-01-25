@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Footer from "../Footer";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
+import useScrollFadeIn from "./useScrollFadeIn";
 
 const IntroResponsive = () => {
     // false인 경우 데스크탑 목업 이미지, true인 경우 모바일 목업 이미지
@@ -10,19 +11,29 @@ const IntroResponsive = () => {
         setBtnClick(!btnClick);
     };
 
+    const animatedItem = {
+        0: useScrollFadeIn("down", 1, 0),
+        1: useScrollFadeIn("down", 1, 0.5),
+        2: useScrollFadeIn("down", 1, 1),
+    };
+
     return (
         <>
             <NavSize />
             <IntroResponsiveContainer>
                 <LeftContainer onClickWhite={btnClick ? "#fff" : "#3f724d"} onClickGreen={btnClick ? "#3f724d" : "#fff"}>
-                    <div className="title">반응형 웹 서비스</div>
-                    <div className="description">
+                    <div className="title" {...animatedItem[0]}>
+                        반응형 웹 서비스
+                    </div>
+                    <div className="description" {...animatedItem[1]}>
                         다양한 환경을 고려하여
                         <br />
                         화면 크기에 맞게{useMediaQuery({ maxWidth: 606 }) ? <br /> : null} 반응형 웹을 구현했습니다.
                         {useMediaQuery({ maxWidth: 768 }) ? <div className="addDescription">화면 너비를 조정해보세요!</div> : null}
                     </div>
-                    <button onClick={handleBtnClick}>화면 너비를 조정해보세요!</button>
+                    <button onClick={handleBtnClick} {...animatedItem[2]}>
+                        화면 너비를 조정해보세요!
+                    </button>
                 </LeftContainer>
                 <RightContainer onClickWhite={btnClick ? "#3f724d" : "#fff"} onClickGreen={btnClick ? "#fff" : "#3f724d"} />
                 {btnClick ? <MobileMockupImg /> : <MockupImg />}
