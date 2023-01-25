@@ -20,12 +20,13 @@ const IntroBoard = () => {
 
     return (
         <>
+            <NavSize />
             <IntroBoardContainer>
                 <LeftContent></LeftContent>
                 <RightContent>
                     <div className="title" {...animatedItem[0]}>
-                        <span className="logo">MENTALTAL</span>
-                        <span className="logoDescription">&nbsp;커뮤니티</span>
+                        <p className="logo">MENTALTAL&nbsp;</p>
+                        <p className="logoDescription">커뮤니티</p>
                     </div>
                     <div className="description" {...animatedItem[1]}>
                         나와 비슷한 고민을 가진 사람들과
@@ -35,7 +36,7 @@ const IntroBoard = () => {
                     <div className="board" {...animatedItem[2]}>
                         {introArray.map((element) => (
                             <BoardIconContainer key={element.key} icon={element.iconURL}>
-                                <span>{element.text}</span>
+                                <p>{element.text}</p>
                             </BoardIconContainer>
                         ))}
                     </div>
@@ -47,18 +48,25 @@ const IntroBoard = () => {
 
 export default IntroBoard;
 
+const NavSize = styled.div`
+    height: 65px;
+`;
+
 const IntroBoardContainer = styled.div`
     display: flex;
+    align-items: center;
     width: 100%;
     height: 100%;
     padding: 100px;
+    padding-top: 50px;
 `;
 
 const LeftContent = styled.div`
     border: 1px solid lightgrey;
+    width: auto;
+    height: 90%;
     flex-grow: 1;
     flex-basis: 0;
-    margin-top: 50px;
 `;
 
 const RightContent = styled.div`
@@ -68,16 +76,54 @@ const RightContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 100px;
-    margin-top: 50px;
+    /* padding-left: 100px; */
+    padding-left: 13%;
 
     .title {
         font-size: 45px;
+        display: flex;
         .logoDescription {
             font-weight: var(--font-bold);
+            font-size: 41px;
+        }
+        @media screen and (max-width: 1201px) {
+            font-size: 43px;
+            .logoDescription {
+                font-size: 38px;
+            }
+        }
+        @media screen and (max-width: 1187px) {
+            font-size: 42px;
+            .logoDescription {
+                font-size: 37px;
+            }
+        }
+        @media screen and (max-width: 1133px) {
+            font-size: 40px;
+            .logoDescription {
+                font-size: 35px;
+            }
+        }
+        @media screen and (max-width: 1095px) {
+            font-size: 39px;
+            .logoDescription {
+                font-size: 34px;
+            }
+        }
+        @media screen and (max-width: 1065px) {
+            font-size: 37px;
+            .logoDescription {
+                font-size: 32px;
+            }
+        }
+        @media screen and (max-width: 1019px) {
+            flex-direction: column;
+            .logoDescription {
+                padding-top: 1.4%;
+            }
         }
         @media screen and (max-height: 602px) {
-            font-size: 35px;
+            font-size: 32px;
             margin-top: 80px;
         }
     }
@@ -86,6 +132,12 @@ const RightContent = styled.div`
         font-size: 22px;
         line-height: 35px;
         padding-top: 17px;
+        @media screen and (max-width: 1187px) {
+            font-size: 21px;
+        }
+        @media screen and (max-width: 1095px) {
+            font-size: 20px;
+        }
 
         @media screen and (max-height: 602px) {
             font-size: 18px;
@@ -115,6 +167,13 @@ const BoardIconContainer = styled.div`
     font-weight: var(--font-bold);
 
     margin-bottom: 10px;
+
+    @media screen and (max-width: 1030px) {
+        font-size: 20px;
+    }
+    @media screen and (max-width: 981px) {
+        font-size: 18px;
+    }
 
     @media screen and (max-height: 602px) {
         background-size: 60px 60px;
