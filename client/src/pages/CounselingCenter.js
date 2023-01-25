@@ -34,6 +34,10 @@ const CCHeader = styled.div`
         font-size: 45px;
         font-weight: 700;
         color: var(--darkgreen);
+
+        @media screen and (max-width: 768px) {
+            font-size: 35px;
+        }
     }
 `;
 
