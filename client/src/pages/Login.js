@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../globalStyle.css";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
@@ -7,7 +7,10 @@ import axios from "axios";
 import { useRecoilState } from "recoil";
 import { memberIdState } from "../states/memberIdState";
 
-const Login = () => {
+const Login = ({ setIsFooter }) => {
+    useEffect(() => {
+        setIsFooter(false);
+    });
     const [memberId, setMemberId] = useRecoilState(memberIdState);
 
     const {
