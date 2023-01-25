@@ -20,9 +20,10 @@ const EditBoardMain = () => {
     } = useForm();
 
     // 태그
-    const initialTag = board.tags.split(",");
+    const initialTags = board.tags.split(",");
+    const deleteBlankTags = initialTags.filter((el) => el !== "");
     const tagData = ["일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
-    const [tags, setTags] = useState([...initialTag]);
+    const [tags, setTags] = useState([...deleteBlankTags]);
 
     // 태그 버튼 이벤트 핸들러
     const handleTags = (e) => {
