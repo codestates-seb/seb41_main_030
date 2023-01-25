@@ -21,6 +21,8 @@ const SCHeaderWrapper = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: "Nanum Gothic", sans-serif;
+    line-height: 17px;
 
     @media screen and (max-width: 1100px) {
         height: 200px;
@@ -32,14 +34,14 @@ const SCHeaderTitle = styled.div`
 
     display: flex;
     flex-direction: column;
+    gap: 5px;
 
-    gap: 10px;
     color: var(--darkgreen);
 
     & :nth-child(1) {
         font-size: 40px;
         font-weight: 900;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     & :not(:nth-child(1)) {

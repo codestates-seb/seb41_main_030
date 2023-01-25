@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import SelfCheckResulConfirm from "./SelfCheckResulConfirm";
+import SelfCheckResultConfirm from "./SelfCheckResultConfirm";
 
 const SelfCheckResultMain = () => {
     const dataList = [
@@ -27,10 +27,10 @@ const SelfCheckResultMain = () => {
     return (
         <SCResultMainWrapper>
             <SCResultConfirmWrapper>
-                <SelfCheckResulConfirm />
+                <SelfCheckResultConfirm />
             </SCResultConfirmWrapper>
 
-            <SCResultMainNavBtnWrapper>
+            <SCResultMainNavBtnWrapper className="SCResultMainNavBtnWrapperPc">
                 {dataList.map((el, idx) => (
                     <SCResultMainNavBox key={idx}>
                         <SCResultMainNavText>
@@ -43,28 +43,58 @@ const SelfCheckResultMain = () => {
                     </SCResultMainNavBox>
                 ))}
             </SCResultMainNavBtnWrapper>
+
+            <div className="SCResultMainNavBtnWrapperMobile">
+                {dataList.map((el, idx) => (
+                    <button key={idx}>{el.word} 바로가기</button>
+                ))}
+            </div>
         </SCResultMainWrapper>
     );
 };
 
 const SCResultMainWrapper = styled.div`
     width: 100%;
-    height: 70vh;
-    background-color: white;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     gap: 20px;
+    padding: 60px 100px;
+
+    .SCResultMainNavBtnWrapperMobile {
+        display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        padding: 40px 0;
+
+        .SCResultMainNavBtnWrapperPc {
+            display: none;
+        }
+
+        .SCResultMainNavBtnWrapperMobile {
+            width: 90%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 20px;
+
+            button {
+                height: 60px;
+            }
+        }
+    }
 `;
 
 const SCResultConfirmWrapper = styled.div`
-    width: 50vw;
-    height: 60vh;
-
     background-color: white;
     box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        height: 40vh;
+    }
 `;
 
 const SCResultMainNavBtnWrapper = styled.div`
@@ -74,8 +104,6 @@ const SCResultMainNavBtnWrapper = styled.div`
 `;
 
 const SCResultMainNavBox = styled.div`
-    width: 22vw;
-    height: 18.5vh;
     padding: 15px;
 
     display: flex;
@@ -85,7 +113,7 @@ const SCResultMainNavBox = styled.div`
 
     background-color: var(--lightgreen2);
     border-radius: 10px;
-    box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
     & > :nth-child(2) {
         align-items: flex-end;
@@ -94,11 +122,16 @@ const SCResultMainNavBox = styled.div`
 
 const SCResultMainNavText = styled.div`
     color: var(--darkgreen);
+    font-family: "Nanum Gothic", sans-serif;
 
     & :nth-child(1) {
-        font-size: 20px;
+        font-size: 1.1rem;
         font-weight: var(--font-bold);
         margin-bottom: 10px;
+    }
+
+    & :nth-child(2) {
+        font-size: 0.9rem;
     }
 `;
 

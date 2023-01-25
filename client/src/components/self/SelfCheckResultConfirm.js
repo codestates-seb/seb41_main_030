@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { selfCheckState } from "../../states";
-import { ReactComponent as LeafImg } from "../../icons/main-leaf.svg";
 import { Link } from "react-router-dom";
 
-const SelfCheckResulConfirm = () => {
+const SelfCheckResultConfirm = () => {
     const result = useRecoilValue(selfCheckState);
 
     let resultType = result.type;
@@ -123,7 +122,6 @@ const SCResultConfirmWrapper = styled.div`
     justify-content: center;
     align-items: center;
     gap: 40px;
-    position: relative;
 
     color: var(--darkgreen);
     text-align: center;
@@ -161,13 +159,4 @@ const SCResultConfirmResultInfo = styled.div`
     gap: 10px;
 `;
 
-const SCResultConfirmImg = styled(LeafImg)`
-    opacity: 0.09;
-    fill: var(--green);
-    width: 120px;
-    height: 120px;
-
-    position: absolute;
-`;
-
-export default SelfCheckResulConfirm;
+export default SelfCheckResultConfirm;

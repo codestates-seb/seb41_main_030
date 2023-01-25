@@ -45,11 +45,13 @@ const SCErrorModalWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
+    font-family: "Nanum Gothic", sans-serif;
     font-size: 18px;
 
     div {
         color: var(--darkgreen);
         padding-bottom: 5%;
+        font-weight: var(--font-medium);
     }
 
     button {
@@ -57,8 +59,7 @@ const SCErrorModalWrapper = styled.div`
         border-radius: 50px;
         background-color: var(--darkgreen);
 
-        font-size: 18px;
-        font-weight: 500;
+        font-size: 1.1rem;
     }
 
     button:hover {

@@ -5,12 +5,12 @@ import { useRecoilState } from "recoil";
 import { selfCheckState, selfCheckErrorState } from "../../states";
 import SelfCheckTable from "./SelfCheckTable";
 import { depression, stress } from "./selfCheckDummy";
-import SelfCheckError from "./SelfrCheckError";
+import SelfCheckError from "./SelfCheckError";
 
 const SelfCheckMain = () => {
-    useEffect(() => {
-        setError(false);
-    }, []);
+    const [result, setResult] = useRecoilState(selfCheckState);
+    const [error, setError] = useRecoilState(selfCheckErrorState);
+    const navigate = useNavigate();
 
     const [isOn, setIsOn] = useState(false);
     const [accordionIndex, setAccordionIndex] = useState(null);
@@ -24,11 +24,12 @@ const SelfCheckMain = () => {
             name: "스트레스",
         },
     ]);
-    const [result, setResult] = useRecoilState(selfCheckState);
-    const [error, setError] = useRecoilState(selfCheckErrorState);
-    const navigate = useNavigate();
 
-    const accodionMainBoxBtnHandle = (e, idx) => {
+    useEffect(() => {
+        setError(false);
+    }, []);
+
+    const accordionMainBoxBtnHandle = (e, idx) => {
         setAccordionIndex(idx);
         setResult((current) => ({ ...current, type: e.target.value }));
     };
@@ -81,10 +82,10 @@ const SelfCheckMain = () => {
                                     <button
                                         key={idx}
                                         onClick={(e) => {
-                                            accodionMainBoxBtnHandle(e, idx);
+                                            accordionMainBoxBtnHandle(e, idx);
                                         }}
                                         value={el.name}
-                                        className={accordionIndex === idx ? "accodionActive" : null}
+                                        className={accordionIndex === idx ? "accordionActive" : null}
                                     >
                                         {el.name}
                                     </button>
@@ -148,8 +149,10 @@ const Wrapper = styled.div`
 
             background-color: white;
             color: var(--darkgreen);
-            font-weight: 600;
-            font-size: 1rem;
+
+            font-family: "Nanum Gothic", sans-serif;
+            font-weight: var(--font-medium);
+            font-size: 0.9rem;
         }
     }
 `;
@@ -189,8 +192,9 @@ const SCAccordionTitle = styled.div`
     }
 
     button > div {
-        font-size: 16px;
-        font-weight: 600;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
     }
 
     @media screen and (max-width: 1100px) {
@@ -237,13 +241,14 @@ const SCAccordionMainBox = styled.div`
         background-color: white;
         color: var(--darkgreen);
 
-        font-size: 15px;
-        font-weight: 600;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
 
         display: flex;
     }
 
-    .accodionActive {
+    .accordionActive {
         font-weight: 900;
         background-color: RGBA(63, 114, 77, 0.2);
     }
@@ -283,8 +288,9 @@ const SCTableResultBtn = styled.div`
     button {
         width: 200px;
         height: 40px;
-        font-size: 16px;
-        font-weight: 600;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
     }
 
     @media screen and (max-width: 1100px) {
