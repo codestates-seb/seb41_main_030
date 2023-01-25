@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Footer from "../Footer";
 import useScrollFadeIn from "./useScrollFadeIn";
+import centerImg from "../../icons/intro-center-img.png";
 
 const IntroCenter = () => {
     const animatedItem = {
@@ -18,7 +19,8 @@ const IntroCenter = () => {
                 <div className="description" {...animatedItem[1]}>
                     전문 기관의 도움이 필요하다면, 가까운 상담 센터를 카카오맵에서 둘러보세요.
                 </div>
-                <div className="mockupImg" {...animatedItem[2]}></div>
+                <img src={`${centerImg}`} className="mockupImg" {...animatedItem[2]} />
+                {/* <div className="mockupImg" {...animatedItem[2]}></div> */}
             </IntroCenterContainer>
             <Footer />
         </>
@@ -46,9 +48,9 @@ const IntroCenterContainer = styled.div`
         padding-top: 30px;
     }
     .mockupImg {
-        border: 1px solid lightgrey;
-        width: 80%;
-        height: 528px;
-        margin-top: 50px;
+        /* width: 80%; */
+        /* height: 528px; */
+        height: 85%;
+        margin-top: 40px;
     }
 `;
