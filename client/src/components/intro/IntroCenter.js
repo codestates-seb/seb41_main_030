@@ -13,6 +13,7 @@ const IntroCenter = () => {
 
     return (
         <>
+            <NavSize />
             <IntroCenterContainer>
                 <div className="title" {...animatedItem[0]}>
                     상담 센터 추천
@@ -27,6 +28,10 @@ const IntroCenter = () => {
 };
 
 export default IntroCenter;
+
+const NavSize = styled.div`
+    height: 58px;
+`;
 
 const IntroCenterContainer = styled.div`
     display: flex;
