@@ -90,7 +90,7 @@ const SCTableMainHedaer = styled.thead`
     tr {
         padding: 15px 0;
         display: grid;
-        grid-template-columns: 0.5fr 6fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 6fr 1fr 1fr 1fr 1fr;
         justify-items: center;
         align-items: center;
     }
@@ -100,12 +100,12 @@ const SCTableMainBody = styled.tbody`
     tr {
         padding: 15px 0;
         display: grid;
-        grid-template-columns: 0.5fr 6fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 6fr 1fr 1fr 1fr 1fr;
         align-items: center;
     }
 
     tr :nth-child(2) {
-        display: flex;
+        text-align: left;
     }
 `;
 

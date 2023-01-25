@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { selfCheckState, selfCheckErrorState } from "../../states";
 import SelfCheckTable from "./SelfCheckTable";
-import { deression, stress } from "./selfCheckDummy";
+import { depression, stress } from "./selfCheckDummy";
 import SelfCheckError from "./SelfrCheckError";
 
 const SelfCheckMain = () => {
@@ -96,7 +96,7 @@ const SelfCheckMain = () => {
 
                 <SCTableWrapper>
                     {accordionIndex === 0 ? (
-                        <SelfCheckTable title={"성인우울증검사"} data={deression.list} type={deression.thead} />
+                        <SelfCheckTable title={"성인우울증검사"} data={depression.list} type={depression.thead} />
                     ) : accordionIndex === 1 ? (
                         <SelfCheckTable title={"스트레스"} data={stress.list} type={stress.thead} />
                     ) : (
