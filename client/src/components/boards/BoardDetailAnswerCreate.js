@@ -90,6 +90,8 @@ const BDMainTextareaWrapper = styled.div`
 
         border: none;
         border-radius: 5px;
+
+        font-family: "Nanum Gothic", sans-serif;
     }
 
     div {
@@ -100,19 +102,16 @@ const BDMainTextareaWrapper = styled.div`
     }
 
     button {
+        font-family: "Nanum Gothic", sans-serif;
         width: fit-content;
         padding: 6px 10px;
     }
 
     @media screen and (max-width: 768px) {
-        div {
-            flex-direction: column;
-            align-items: flex-start;
-        }
         button {
             margin-top: 5px;
             padding: 5px 6px;
-            font-size: 12px;
+            font-size: 0.75rem;
         }
     }
 `;

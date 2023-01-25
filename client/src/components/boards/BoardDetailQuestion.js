@@ -34,13 +34,15 @@ const BoardDetailQuestion = () => {
         <BDQWrapper>
             {board && (
                 <>
-                    {/* <BDQTagsWrapper>
-                        {board.tag.map((tag, idx) => (
-                            <div key={idx} className="questionTags">
-                                {tag}
-                            </div>
-                        ))}
-                    </BDQTagsWrapper> */}
+                    <BDQTagsWrapper>
+                        {board.tags === ""
+                            ? null
+                            : board.tags.split(",").map((tag, idx) => (
+                                  <div key={idx} className="BDQTag">
+                                      {tag}
+                                  </div>
+                              ))}
+                    </BDQTagsWrapper>
 
                     <div className="BDQHeader">
                         <BDQHeaderTitle>{board.title}</BDQHeaderTitle>
@@ -55,7 +57,7 @@ const BoardDetailQuestion = () => {
 
                             <BDQEditBtn>
                                 {memberId === board.memberId ? (
-                                    <div className="BDQEditBtns">
+                                    <div className="BDQEditBtnWrapper">
                                         <Link to="/community/edit">
                                             <button type="button">편집</button>
                                         </Link>
@@ -113,52 +115,54 @@ const BDQWrapper = styled.div`
 const BDQTagsWrapper = styled.div`
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
+
     margin-bottom: 25px;
 
-    .questionTags {
+    .BDQTag {
         width: fit-content;
-        padding: 8px 15px;
+        padding: 7px 10px;
         border-radius: 20px;
         background-color: var(--lightgreen2);
         color: var(--darkgreen);
 
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 0.85rem;
+        font-family: "Nanum Gothic", sans-serif;
     }
 
     @media screen and (max-width: 597px) {
         flex-wrap: wrap;
         gap: 2px;
 
-        .questionTags {
+        .BDQTag {
             padding: 5px 7px;
-            font-size: 11px;
+            font-size: 0.7rem;
             margin-bottom: 2px;
         }
     }
 
     @media screen and (min-width: 598px) and (max-width: 935px) {
-        gap: 5px;
-
-        .boardDetailTags {
-            padding: 5px 10px;
-            font-size: 12px;
+        .BDQTag {
+            font-size: 0.8rem;
         }
     }
 `;
 
 // ------------- header  ------------- //
 const BDQHeaderTitle = styled.div`
-    font-size: 35px;
-    font-weight: 700;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1.8rem;
+    font-weight: var(--font-bold);
+    line-height: 2.1rem;
     color: var(--darkgreen);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 
     word-wrap: break-word;
     word-break: break-all;
 
     @media screen and (max-width: 768px) {
-        font-size: 23px;
+        font-size: 1.3rem;
+        line-height: 1.7rem;
         margin-bottom: 25px;
     }
 `;
@@ -170,6 +174,12 @@ const BDQHeaderMain = styled.div`
     gap: 10px;
     padding: 0 0 15px;
     border-bottom: 1px solid var(--green);
+
+    @media screen and (max-width: 380px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
 `;
 
 const BDQInfo = styled.div`
@@ -192,11 +202,12 @@ const BDQInfoProfile = styled.div`
 
 const BDQInfoWriter = styled.div`
     color: var(--darkgreen);
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 1.1rem;
+    font-weight: var(--font-bold);
+    font-family: "Nanum Gothic", sans-serif;
 
     @media screen and (max-width: 768px) {
-        font-size: 14px;
+        font-size: 0.85rem;
     }
 `;
 
@@ -205,37 +216,42 @@ const BDQEditBtn = styled.div`
     align-items: center;
     gap: 6px;
 
-    .BDQEditBtns {
+    .BDQEditBtnWrapper {
         button {
             padding: 5px;
             background-color: white;
             color: var(--green);
-            font-size: 15px;
+            font-size: 0.9rem;
+            font-family: "Nanum Gothic", sans-serif;
         }
 
         button:hover {
-            font-weight: 900;
-            transition: 0.5s;
+            font-weight: var(--font-bold);
         }
     }
 
     .BDQEditBtnTime {
         color: var(--green);
-        font-size: 15px;
+        font-size: 0.9rem;
+        font-family: "Nanum Gothic", sans-serif;
 
         display: flex;
-        gap: 5px;
+        gap: 3px;
 
-        & :nth-child(2) {
+        i {
             margin-top: 1px;
         }
     }
 
     @media screen and (max-width: 768px) {
-        font-size: 12px;
+        .BDQEditBtnTime {
+            font-size: 0.8rem;
+        }
 
-        button {
-            font-size: 12px;
+        .BDQEditBtnWrapper {
+            button {
+                font-size: 0.8rem;
+            }
         }
     }
 `;
@@ -245,10 +261,11 @@ const BDQMain = styled.div`
     width: 100%;
     margin: 30px 0;
     color: var(--darkgreen);
-    font-size: 16px;
+    font-size: 1rem;
+    font-family: "Nanum Gothic", sans-serif;
 
     div {
-        line-height: 20px;
+        line-height: 1.2rem;
         white-space: pre-wrap;
         word-wrap: break-word;
     }
@@ -257,7 +274,7 @@ const BDQMain = styled.div`
         margin: 20px 0;
 
         div {
-            font-size: 14px;
+            font-size: 0.9rem;
         }
     }
 `;
@@ -272,7 +289,8 @@ const BDQResponseInfo = styled.div`
     gap: 10px;
 
     color: var(--darkgreen);
-    font-size: 14px;
+    font-size: 0.9rem;
+    font-family: "Nanum Gothic", sans-serif;
 
     .BDQResponseInfoBtnWrapper {
         display: flex;
@@ -283,7 +301,7 @@ const BDQResponseInfo = styled.div`
             padding: 0px;
             background-color: white;
             color: var(--darkgreen);
-            font-size: 23px;
+            font-size: 1.5rem;
         }
 
         button:hover {
@@ -306,6 +324,16 @@ const BDQResponseInfo = styled.div`
             }
             100% {
                 transform: scale(0.9);
+            }
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.8rem;
+
+        .BDQResponseInfoBtnWrapper {
+            button {
+                font-size: 1.2rem;
             }
         }
     }
