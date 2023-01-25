@@ -22,11 +22,11 @@ public interface BoardMapper {
         board.setMid(boardPostDto.getMemberId());
         board.setTitle(boardPostDto.getTitle());
         board.setContent(boardPostDto.getContent());
-//        board.setTags(boardPostDto.getTags());
+        board.setTags(boardPostDto.getTags());
         member.setMemberId(boardPostDto.getMemberId());
 
-        Optional.ofNullable(boardPostDto.getTags())
-                .ifPresent(tags -> boardPostDto.getTags());
+//        Optional.ofNullable(boardPostDto.getTags())
+//                .ifPresent(tags -> boardPostDto.getTags());
 
         return board;
     }
@@ -37,8 +37,11 @@ public interface BoardMapper {
         board.setMid(boardPatchDto.getMemberId());
         board.setTitle(boardPatchDto.getTitle());
         board.setContent(boardPatchDto.getContent());
-//        board.setTags(boardPatchDto.getTags());
+        board.setTags(boardPatchDto.getTags());
         board.setModifiedAt(LocalDateTime.now());
+
+//        Optional.ofNullable(boardPatchDto.getTags())
+//                .ifPresent(tags -> boardPatchDto.getTags());
 
         return board;
     }
@@ -55,8 +58,9 @@ public interface BoardMapper {
         long viewCount = board.getViewCount();   // 조회수
         long voteCount = board.getVoteCount();   // 공감수
         long commentCount = board.getCommentCount();
+        String tags = board.getTags();
 
-        List<String> tags = board.getTags();
+//        List<String> tags = board.getTags();
 
         // 닉네임?
         LocalDateTime createdAt = board.getCreatedAt();
@@ -107,6 +111,7 @@ public interface BoardMapper {
         boardGetResponseDto.setMemberId(board.getMember().getMemberId());
         boardGetResponseDto.setTitle(board.getTitle());
         boardGetResponseDto.setContent(board.getContent());
+        boardGetResponseDto.setTags(board.getTags());
         boardGetResponseDto.setViewCount(board.getViewCount()); // 조회수
         boardGetResponseDto.setVoteCount(board.getVoteCount()); // 공감수
         boardGetResponseDto.setCreatedAt(board.getCreatedAt());
