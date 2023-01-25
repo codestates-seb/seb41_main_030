@@ -148,9 +148,10 @@ const BDAHeaderWrapper = styled.div`
     padding-bottom: 15px;
     border-bottom: 1px solid var(--green);
 
-    @media screen and (max-width: 304px) {
+    @media screen and (max-width: 380px) {
         flex-direction: column;
-        align-items: baseline;
+        align-items: flex-start;
+        gap: 5px;
     }
 `;
 
@@ -174,11 +175,12 @@ const BDAInfoProfile = styled.div`
 `;
 
 const BDAInfoWriterInfo = styled.div`
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: var(--font-bold);
     color: var(--darkgreen);
-    font-weight: 700;
 
     @media screen and (max-width: 768px) {
-        font-size: 14px;
+        font-size: 0.85rem;
     }
 `;
 
@@ -187,19 +189,21 @@ const BDAEditBtn = styled.div`
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 15px;
+
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 0.9rem;
 
     .BDAEditBtns {
         button {
             padding: 5px;
             background-color: white;
             color: var(--green);
-            font-size: 15px;
+            font-size: 0.9rem;
+            font-family: "Nanum Gothic", sans-serif;
         }
 
         button:hover {
-            font-weight: 900;
-            transition: 0.5s;
+            font-weight: var(--font-bold);
         }
     }
 
@@ -209,17 +213,17 @@ const BDAEditBtn = styled.div`
 
         color: var(--green);
 
-        div {
+        i {
             margin-top: 1px;
         }
     }
 
     @media screen and (max-width: 768px) {
-        font-size: 12px;
+        font-size: 0.8rem;
 
         .BDAEditBtns {
             button {
-                font-size: 12px;
+                font-size: 0.8rem;
             }
         }
     }
@@ -230,17 +234,18 @@ const BDAMain = styled.div`
     margin: 30px 0;
 
     color: var(--darkgreen);
-    font-size: 16px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1rem;
 
     .BDAMainText {
-        line-height: 20px;
+        line-height: 1.2rem;
         white-space: pre-wrap;
         word-wrap: break-word;
     }
 
     @media screen and (max-width: 768px) {
         margin: 20px 0;
-        font-size: 14px;
+        font-size: 0.9rem;
     }
 `;
 
@@ -283,13 +288,14 @@ const BDAResponseInfo = styled.div`
     gap: 5px;
 
     color: var(--darkgreen);
-    font-size: 14px;
+    font-size: 0.9rem;
+    font-family: "Nanum Gothic", sans-serif;
 
     button {
         padding: 0px;
         background-color: white;
         color: var(--darkgreen);
-        font-size: 23px;
+        font-size: 1.5rem;
     }
 
     button:hover {
@@ -312,6 +318,16 @@ const BDAResponseInfo = styled.div`
         }
         100% {
             transform: scale(0.9);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 0.8rem;
+
+        .BDQResponseInfoBtnWrapper {
+            button {
+                font-size: 1.2rem;
+            }
         }
     }
 `;
