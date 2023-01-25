@@ -19,8 +19,7 @@ const IntroCenter = () => {
                 <div className="description" {...animatedItem[1]}>
                     전문 기관의 도움이 필요하다면, 가까운 상담 센터를 카카오맵에서 둘러보세요.
                 </div>
-                <img src={`${centerImg}`} className="mockupImg" {...animatedItem[2]} />
-                {/* <div className="mockupImg" {...animatedItem[2]}></div> */}
+                <img src={`${centerImg}`} {...animatedItem[2]} />
             </IntroCenterContainer>
             <Footer />
         </>
@@ -47,9 +46,7 @@ const IntroCenterContainer = styled.div`
         font-size: 20px;
         padding-top: 30px;
     }
-    .mockupImg {
-        /* width: 80%; */
-        /* height: 528px; */
+    img {
         height: 85%;
         margin-top: 40px;
     }
