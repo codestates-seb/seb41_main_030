@@ -1,7 +1,7 @@
 import IntroBoard from "../components/intro/IntroBoard";
 import IntroCenter from "../components/intro/IntroCenter";
 import IntroMain from "../components/intro/IntroMain";
-import IntroProfessional from "../components/intro/IntroProfessional";
+import IntroSelfCheck from "../components/intro/IntroSelfCheck";
 import { FullPage, Slide } from "react-full-page";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -23,7 +23,7 @@ const Intro = ({ setIsFooter }) => {
                         <IntroBoard />
                     </Slide>
                     <Slide>
-                        <IntroProfessional />
+                        <IntroSelfCheck />
                     </Slide>
                     <Slide>
                         <IntroCenter />

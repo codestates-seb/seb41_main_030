@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import useScrollFadeIn from "./useScrollFadeIn";
 import { Link } from "react-router-dom";
+import selfCheckImg from "../../icons/intro-selfcheck-img.png";
 
-const IntroProfessional = () => {
+const IntroSelfCheck = () => {
     const animatedItem = {
         0: useScrollFadeIn("down", 1, 0),
         1: useScrollFadeIn("down", 1, 0.5),
@@ -12,7 +13,7 @@ const IntroProfessional = () => {
 
     return (
         <>
-            <IntroProContainer>
+            <IntroSelfCheckContainer>
                 <LeftContent>
                     <div className="title" {...animatedItem[0]}>
                         심리 자가진단
@@ -33,15 +34,17 @@ const IntroProfessional = () => {
                         </Link>
                     </div>
                 </LeftContent>
-                <RightContent></RightContent>
-            </IntroProContainer>
+                <RightContent>
+                    <img src={`${selfCheckImg}`} />
+                </RightContent>
+            </IntroSelfCheckContainer>
         </>
     );
 };
 
-export default IntroProfessional;
+export default IntroSelfCheck;
 
-const IntroProContainer = styled.div`
+const IntroSelfCheckContainer = styled.div`
     background-color: var(--green);
     display: flex;
     width: 100%;
@@ -90,7 +93,14 @@ const LeftContent = styled.div`
 `;
 
 const RightContent = styled.div`
-    border: 1px solid lightgrey;
     flex-grow: 1;
     flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
 `;
