@@ -117,17 +117,17 @@ const Footer = () => {
                     <h5>FrontEnd</h5>
                     <ul>
                         <li>
-                            <a href="https://github.com/dev-sena" target="__blacnk">
+                            <a href="https://github.com/dev-sena" target="__blank">
                                 이세나
                             </a>
                         </li>
                         <li>
-                            <a href="https://github.com/xxyeon129" target="__blacnk">
+                            <a href="https://github.com/xxyeon129" target="__blank">
                                 정승연
                             </a>
                         </li>
                         <li>
-                            <a href="https://github.com/yeong00" target="__blacnk">
+                            <a href="https://github.com/yeong00" target="__blank">
                                 최자영
                             </a>
                         </li>
@@ -138,17 +138,17 @@ const Footer = () => {
                     <h5>BackEnd</h5>
                     <ul>
                         <li>
-                            <a href="https://github.com/Kim-Jihyun1" target="__blacnk">
+                            <a href="https://github.com/Kim-Jihyun1" target="__blank">
                                 김지현
                             </a>
                         </li>
                         <li>
-                            <a href="https://github.com/Sangwonee" target="__blacnk">
+                            <a href="https://github.com/Sangwonee" target="__blank">
                                 윤상원
                             </a>
                         </li>
                         <li>
-                            <a href="https://github.com/jinhuiju" target="__blacnk">
+                            <a href="https://github.com/jinhuiju" target="__blank">
                                 진희주
                             </a>
                         </li>
