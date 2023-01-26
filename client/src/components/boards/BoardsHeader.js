@@ -1,7 +1,19 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const BoardsHeader = () => {
+const BoardsHeader = ({ setIsLogin }) => {
+    const navigate = useNavigate();
+    const token = localStorage.getItem("loginToken");
+
+    const createBoardLinkBtnHandle = () => {
+        if (token) {
+            setIsLogin(false);
+            navigate("/write");
+        } else {
+            setIsLogin(true);
+        }
+    };
+
     return (
         <BoardsHeaderWrapper>
             <BoardsHeaderTitle>
@@ -10,8 +22,8 @@ const BoardsHeader = () => {
                 <div>나와 비슷한 고민을 가진 사람들과 마음속 이야기를 나누어 보세요.</div>
             </BoardsHeaderTitle>
 
-            <BoardsLink to="/write">
-                <button>
+            <BoardsLink>
+                <button onClick={createBoardLinkBtnHandle}>
                     고민 작성하기 <i className="fa-solid fa-chevron-right"></i>
                 </button>
             </BoardsLink>
@@ -81,7 +93,7 @@ const BoardsHeaderTitle = styled.div`
     }
 `;
 
-const BoardsLink = styled(Link)`
+const BoardsLink = styled.div`
     button {
         font-family: "Nanum Gothic", sans-serif;
         border-radius: 30px;

@@ -6,11 +6,12 @@ import { boardState, memberIdState } from "../../states/";
 import { dateCalculation } from "./dateCalculation";
 
 // component
-const BoardDetailQuestion = () => {
+const BoardDetailQuestion = ({ setIsLogin }) => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const navigate = useNavigate();
     const [board, setBoard] = useRecoilState(boardState);
     const memberId = useRecoilValue(memberIdState);
+    const token = localStorage.getItem("loginToken");
 
     // 질문 삭제
     const deleteQuestion = () => {
@@ -22,6 +23,16 @@ const BoardDetailQuestion = () => {
 
     // 공감 버튼
     const heartBtnHandle = () => {
+        if (token) {
+            setIsLogin(false);
+            postHeart();
+        } else {
+            setIsLogin(true);
+        }
+    };
+
+    // 공감 서버 요청 함수
+    const postHeart = () => {
         axios
             .post(`/boards/${board.boardId}/votes?memberId=${memberId}&voteCheck=true`)
             .then((res) => {
