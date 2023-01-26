@@ -82,18 +82,18 @@ const Signup = ({ setIsFooter }) => {
                 <MainText>회원가입</MainText>
                 <SignupFormBox onSubmit={handleSubmit(onSubmit)}>
                     <InputBox>
-                        <InputText> 이메일</InputText>
-                        <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
+                        <InputText htmlFor="signupEmail">이메일</InputText>
+                        <EmailInput type="text" id="signupEmail" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
                         <ErrorText>{errors.email?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText> 닉네임</InputText>
-                        <NameInput type="text" error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
+                        <InputText htmlFor="signupNickname">닉네임</InputText>
+                        <NameInput type="text" id="signupNickname" error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
                         <ErrorText>{errors.nickName?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText> 비밀번호</InputText>
-                        <PwInput type="password" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
+                        <InputText htmlFor="signupPassword">비밀번호</InputText>
+                        <PwInput type="password" id="signupPassword" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
                     <SingupBtn> 회원가입</SingupBtn>
@@ -165,6 +165,7 @@ const CloseIcon = styled.button`
         transition: 0.5s;
     }
 `;
+
 const SignupContainer = styled.div`
     display: flex;
     margin-top: 15px;
@@ -205,14 +206,14 @@ const MainText = styled.div`
     color: var(--darkgreen);
 `;
 
-const InputText = styled.div`
+const InputText = styled.label`
     display: flex;
     margin: 10px 0px 5px 5px;
-    .text {
-        color: var(--darkgreen);
-        font-size: 20px;
-        font-weight: bold;
-    }
+
+    color: var(--darkgreen);
+    font-size: 1.2rem;
+    font-weight: var(--font-bold);
+    font-family: "Nanum Gothic", sans-serif;
 `;
 
 const NameInput = styled.input`
