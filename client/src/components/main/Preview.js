@@ -1,10 +1,21 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Preview = ({ tag, title, content, writer, boardId }) => {
+const Preview = ({ tags, title, content, writer, boardId }) => {
+    const tagArray = tags && tags === "" ? ["미지정"] : (tags || "").split(",");
+    if (tagArray.length > 3) {
+        tagArray.splice(3);
+    }
+
     return (
         <Post>
-            <div className="tag">기타</div>
+            <div className="tagContainer">
+                {tagArray.map((tag, index) => (
+                    <div className="tag" key={index}>
+                        {tag}
+                    </div>
+                ))}
+            </div>
             <div className="title">{title}</div>
             <div className="content">
                 {content.slice(0, 63)}
@@ -34,6 +45,9 @@ const Post = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
+    .tagContainer {
+        display: flex;
+    }
     .tag {
         background-color: var(--white);
         border-radius: 10px;
@@ -42,6 +56,7 @@ const Post = styled.div`
         color: var(--green);
         text-align: center;
         font-size: var(--font-body-size);
+        margin-right: 3%;
     }
 
     .title {
