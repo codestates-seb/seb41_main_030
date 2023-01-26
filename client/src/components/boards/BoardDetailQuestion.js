@@ -48,7 +48,7 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
                     <BDQTagsWrapper>
                         {board.tags === ""
                             ? null
-                            : board.tags.split(",").map((tag, idx) => (
+                            : (board.tags || "").split(",").map((tag, idx) => (
                                   <div key={idx} className="BDQTag">
                                       {tag}
                                   </div>

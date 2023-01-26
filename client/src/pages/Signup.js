@@ -21,7 +21,7 @@ const Signup = ({ setIsFooter }) => {
 
     const NICKNAME_REGEX = /(?=.*[a-z0-9가-힣]).{2,}/;
     const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
-    const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{8,}/;
+    const PASSWORD_REGEX = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8}$/;
 
     const nickNameRegister = register("nickName", {
         required: { value: true, message: "닉네임을 입력해주세요." },

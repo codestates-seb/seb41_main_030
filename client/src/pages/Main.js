@@ -44,7 +44,7 @@ const Main = ({ setIsFooter }) => {
                     <p className="text">당신을 위한 멘탈 케어</p>
                     <div className="blockContainer">
                         <div className="blockLeft">
-                            <Link to="/selfcheckresult">
+                            <Link to="/selfcheck">
                                 <div className="block_counsel">
                                     <p className="title">자가진단</p>
                                     <p className="description">자가진단 테스트로 심리 문제를 점검해보세요</p>

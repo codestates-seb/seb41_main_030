@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import Footer from "../Footer";
 import useScrollFadeIn from "./useScrollFadeIn";
+import centerImg from "../../icons/intro-center-img.png";
+import mobileCenterImg from "../../icons/intro-mobile-center-img.png";
+import { useMediaQuery } from "react-responsive";
 
 const IntroCenter = () => {
     const animatedItem = {
@@ -11,44 +13,77 @@ const IntroCenter = () => {
 
     return (
         <>
+            <NavSize />
             <IntroCenterContainer>
                 <div className="title" {...animatedItem[0]}>
                     상담 센터 추천
                 </div>
                 <div className="description" {...animatedItem[1]}>
-                    전문 기관의 도움이 필요하다면, 가까운 상담 센터를 카카오맵에서 둘러보세요.
+                    전문 기관의 도움이 필요하다면, {useMediaQuery({ maxWidth: 873 }) ? <br /> : null} 가까운 상담 센터를 {useMediaQuery({ maxWidth: 562 }) ? <br /> : null} 카카오맵에서 둘러보세요.
                 </div>
-                <div className="mockupImg" {...animatedItem[2]}></div>
+                {useMediaQuery({ maxWidth: 768 }) ? <img src={`${mobileCenterImg}`} {...animatedItem[2]} className="mobile" /> : <img src={`${centerImg}`} {...animatedItem[2]} className="desktop" />}
             </IntroCenterContainer>
-            <Footer />
         </>
     );
 };
 
 export default IntroCenter;
 
+const NavSize = styled.div`
+    height: 58px;
+`;
+
 const IntroCenterContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    font-family: "Nanum Gothic", sans-serif;
     color: var(--green);
     padding: 100px;
 
     .title {
         font-size: 45px;
         font-weight: var(--font-bold);
+
+        @media screen and (max-width: 768px) {
+            font-size: 38px;
+        }
     }
     .description {
         font-size: 20px;
         padding-top: 30px;
+        text-align: center;
+        line-height: 130%;
+
+        @media screen and (max-width: 768px) {
+            font-size: 18px;
+        }
+        @media screen and (max-width: 455px) {
+            display: none;
+        }
     }
-    .mockupImg {
-        border: 1px solid lightgrey;
-        width: 80%;
-        height: 528px;
-        margin-top: 50px;
+    img {
+        &.desktop {
+            width: auto;
+            height: 85%;
+            margin-top: 40px;
+
+            @media screen and (max-width: 1195px) {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        &.mobile {
+            width: auto;
+            height: 90%;
+            margin-top: 20px;
+
+            @media screen and (max-width: 562px) {
+                max-width: auto;
+                height: 80%;
+            }
+        }
     }
 `;

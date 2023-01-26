@@ -5,6 +5,7 @@ import IntroProfessional from "../components/intro/IntroProfessional";
 import { FullPage, Slide } from "react-full-page";
 import styled from "styled-components";
 import { useEffect } from "react";
+import IntroResponsive from "../components/intro/IntroResponsive";
 
 const Intro = ({ setIsFooter }) => {
     useEffect(() => {
@@ -27,6 +28,9 @@ const Intro = ({ setIsFooter }) => {
                     <Slide>
                         <IntroCenter />
                     </Slide>
+                    <Slide>
+                        <IntroResponsive />
+                    </Slide>
                 </FullPage>
             </IntroContainer>
         </>
@@ -36,6 +40,7 @@ const Intro = ({ setIsFooter }) => {
 export default Intro;
 
 const IntroContainer = styled.div`
+    font-family: "Nanum Gothic", sans-serif;
     .slide-navigation {
         display: none;
     }
