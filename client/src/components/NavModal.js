@@ -1,6 +1,51 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+const NavModal = ({ test, memberId }) => {
+    const token = localStorage.getItem("loginToken");
+
+    // 로그아웃 버튼 핸들러
+    const logoutBtnHandle = () => {
+        localStorage.removeItem("memberId");
+        localStorage.removeItem("loginToken");
+        window.location.reload();
+    };
+
+    return (
+        <NavModalWrapper>
+            <li>
+                <Link to="/community">커뮤니티</Link>
+            </li>
+            <li>
+                <Link to="/selfcheck">자가진단</Link>
+            </li>
+            <li>
+                <Link to="/counselor">전문가</Link>
+            </li>
+            <li>
+                <Link to="/counselingcenter">전문기관</Link>
+            </li>
+            {token ? (
+                <>
+                    <li>
+                        <Link to={`/mypage/${memberId}`}>마이페이지</Link>
+                    </li>
+                    <li onClick={logoutBtnHandle}>로그아웃</li>
+                </>
+            ) : (
+                <>
+                    <li>
+                        <Link to="/login">로그인</Link>
+                    </li>
+                    <li>
+                        <Link to="/signup">회원가입</Link>
+                    </li>
+                </>
+            )}
+        </NavModalWrapper>
+    );
+};
+
 const NavModalWrapper = styled.ul`
     width: 150px;
 
@@ -25,43 +70,13 @@ const NavModalWrapper = styled.ul`
 
     li {
         padding: 10px;
+        cursor: pointer;
+    }
+
+    li:hover {
+        font-weight: 900;
+        transition: 0.5s;
     }
 `;
-
-const NavModal = ({ test, memberId }) => {
-    return (
-        <NavModalWrapper>
-            <li>
-                <Link to="/community">커뮤니티</Link>
-            </li>
-            <li>
-                <Link to="/selfcheck">자가진단</Link>
-            </li>
-            <li>
-                <Link to="/counselors">전문가</Link>
-            </li>
-            <li>
-                <Link to="/counselingcenter">전문기관</Link>
-            </li>
-            {test ? (
-                <>
-                    <li>
-                        <Link to={`/mypage/${memberId}`}>마이페이지</Link>
-                    </li>
-                    <li>로그아웃</li>
-                </>
-            ) : (
-                <>
-                    <li>
-                        <Link to="/login">로그인</Link>
-                    </li>
-                    <li>
-                        <Link to="/signup">회원가입</Link>
-                    </li>
-                </>
-            )}
-        </NavModalWrapper>
-    );
-};
 
 export default NavModal;

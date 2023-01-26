@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -31,7 +31,6 @@ const EditBoardMain = () => {
 
         if (tags.includes(str)) {
             const result = tags.filter((el) => el !== `${str}`);
-            console.log(tags);
             return setTags(result);
         }
 

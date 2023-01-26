@@ -6,11 +6,11 @@ import { dateCalculation } from "./dateCalculation";
 import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../states";
 
-// ! 전문가 회원 구현되면  전문가만 따로 표시하도록 수정
-const BoardDetailAnswer = ({ answer }) => {
+const BoardDetailAnswer = ({ answer, setIsLogin }) => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const [isEdit, setIsEdit] = useState(false);
     const memberId = useRecoilValue(memberIdState);
+    const token = localStorage.getItem("loginToken");
 
     // 답글 수정 form
     const {
@@ -48,12 +48,18 @@ const BoardDetailAnswer = ({ answer }) => {
 
     // 공감 버튼
     const heartBtnHandle = () => {
-        axios
-            .post(`/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
-            .then((res) => {
-                window.location.reload();
-            })
-            .catch((err) => console.log(err));
+        if (token) {
+            setIsLogin(false);
+
+            axios
+                .post(`/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
+                .then((res) => {
+                    window.location.reload();
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setIsLogin(true);
+        }
     };
 
     return (

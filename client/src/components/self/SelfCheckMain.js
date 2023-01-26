@@ -1,17 +1,16 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { selfCheckState, selfCheckErrorState } from "../../states";
+import { selfCheckState } from "../../states";
 import SelfCheckTable from "./SelfCheckTable";
 import { depression, stress } from "./selfCheckDummy";
 import SelfCheckError from "./SelfCheckError";
 
 const SelfCheckMain = () => {
-    const [result, setResult] = useRecoilState(selfCheckState);
-    const [error, setError] = useRecoilState(selfCheckErrorState);
     const navigate = useNavigate();
-
+    const [isAllSelect, setIsAllSelect] = useState(false);
+    const [result, setResult] = useRecoilState(selfCheckState);
     const [isOn, setIsOn] = useState(false);
     const [accordionIndex, setAccordionIndex] = useState(null);
     const [accordionData] = useState([
@@ -24,10 +23,6 @@ const SelfCheckMain = () => {
             name: "스트레스",
         },
     ]);
-
-    useEffect(() => {
-        setError(false);
-    }, []);
 
     const accordionMainBoxBtnHandle = (e, idx) => {
         setAccordionIndex(idx);
@@ -53,11 +48,11 @@ const SelfCheckMain = () => {
         const stressStandard = result.type === "스트레스" && check === 15;
 
         if (depressionStandard || stressStandard) {
-            setError(!error);
+            setIsAllSelect(!isAllSelect);
             navigate("/selfcheckresult");
         }
 
-        setError(!error);
+        setIsAllSelect(!isAllSelect);
     };
 
     return (
@@ -103,7 +98,7 @@ const SelfCheckMain = () => {
                     ) : (
                         <div className="none">메뉴에서 자가진단할 테스트를 선택해주세요.</div>
                     )}
-                    {error ? <SelfCheckError /> : null}
+                    {isAllSelect ? <SelfCheckError setIsAllSelect={setIsAllSelect} /> : null}
                 </SCTableWrapper>
 
                 <SCTableResultBtn>{accordionIndex === 0 || accordionIndex === 1 ? <button onClick={calculationSelfCheck}>결과보기</button> : null}</SCTableResultBtn>
