@@ -15,7 +15,6 @@ const SelfCheckResultHeader = () => {
 // styled components
 const SCResultHeaderWrapper = styled.header`
     margin-top: 65px;
-    padding: 60px 100px;
     width: 100%;
     height: 220px;
 
@@ -24,39 +23,41 @@ const SCResultHeaderWrapper = styled.header`
     justify-content: center;
 
     background-color: var(--lightgreen2);
-
-    @media screen and (max-width: 1100px) {
-        padding: 40px;
-    }
 `;
 
 const SCResultHeaderTitle = styled.div`
     width: 100%;
+    max-width: 1500px;
+    height: 100%;
+    padding: 60px 100px;
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 10px;
 
     font-family: "Nanum Gothic", sans-serif;
     color: var(--darkgreen);
 
     & :nth-child(1) {
-        font-size: 40px;
+        font-size: 2.4rem;
         font-weight: var(--font-bold);
         margin-bottom: 10px;
     }
 
     & :not(:nth-child(1)) {
-        font-size: 16px;
+        font-size: 1rem;
     }
 
-    @media screen and (max-width: 1100px) {
+    @media screen and (max-width: 920px) {
+        padding: 40px;
+
         & :nth-child(1) {
-            font-size: 28px;
+            font-size: 1.7rem;
         }
 
         & :not(:nth-child(1)) {
-            font-size: 13px;
+            font-size: 0.8rem;
         }
     }
 `;

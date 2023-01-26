@@ -3,11 +3,13 @@ import styled from "styled-components";
 const SelfCheckHeader = () => {
     return (
         <SCHeaderWrapper>
-            <SCHeaderTitle>
-                <div>자가진단</div>
-                <div>본 자가검진은 간단하게 알아보는 심리 검사입니다.</div>
-                <div>점수와 관계없이 일상생활에 불편함이 있다면, 면담을 통해 현재 상태를 정확하게 파악해보는 것이 필요합니다.</div>
-            </SCHeaderTitle>
+            <SCHeaderBox>
+                <SCHeaderTitle>
+                    <div>자가진단</div>
+                    <div>본 자가검진은 간단하게 알아보는 심리 검사입니다.</div>
+                    <div>점수와 관계없이 일상생활에 불편함이 있다면, 면담을 통해 현재 상태를 정확하게 파악해보는 것이 필요합니다.</div>
+                </SCHeaderTitle>
+            </SCHeaderBox>
         </SCHeaderWrapper>
     );
 };
@@ -19,19 +21,32 @@ const SCHeaderWrapper = styled.header`
     height: 300px;
 
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-family: "Nanum Gothic", sans-serif;
-    line-height: 17px;
 
     @media screen and (max-width: 1100px) {
         height: 200px;
     }
 `;
 
-const SCHeaderTitle = styled.div`
-    width: 73%;
+const SCHeaderBox = styled.div`
+    max-width: 1500px;
+    width: 100%;
+    height: 100%;
+    padding: 60px 100px;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    font-family: "Nanum Gothic", sans-serif;
+    line-height: 17px;
+
+    @media screen and (max-width: 920px) {
+        padding: 40px;
+    }
+`;
+
+const SCHeaderTitle = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -49,8 +64,6 @@ const SCHeaderTitle = styled.div`
     }
 
     @media screen and (max-width: 1100px) {
-        width: 90%;
-
         & :nth-child(1) {
             font-size: 28px;
         }

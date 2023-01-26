@@ -7,7 +7,7 @@ const SelfCheckResultMain = () => {
         {
             title: "전문가의 도움이 필요하신가요?",
             explain: "여러분의 고민과 괴로움을 전문가가 들어드리겠습니다.",
-            url: "/counselors",
+            url: "/counselor",
             word: "전문가",
         },
         {
@@ -26,63 +26,64 @@ const SelfCheckResultMain = () => {
 
     return (
         <SCResultMainWrapper>
-            <SCResultConfirmWrapper>
-                <SelfCheckResultConfirm />
-            </SCResultConfirmWrapper>
+            <SCResultMainBox>
+                <SCResultConfirmWrapper>
+                    <SelfCheckResultConfirm />
+                </SCResultConfirmWrapper>
 
-            <SCResultMainNavBtnWrapper className="SCResultMainNavBtnWrapperPc">
-                {dataList.map((el, idx) => (
-                    <SCResultMainNavBox key={idx}>
-                        <SCResultMainNavText>
-                            <div>{el.title}</div>
-                            <div>{el.explain}</div>
-                        </SCResultMainNavText>
-                        <SCResultMainNavLink to={el.url}>
-                            <button>{el.word} 바로가기</button>
-                        </SCResultMainNavLink>
-                    </SCResultMainNavBox>
-                ))}
-            </SCResultMainNavBtnWrapper>
+                <SCResultMainNavBtnWrapper className="SCResultMainNavBtnWrapperPc">
+                    {dataList.map((el, idx) => (
+                        <SCResultMainNavBox key={idx}>
+                            <SCResultMainNavText>
+                                <div>{el.title}</div>
+                                <div>{el.explain}</div>
+                            </SCResultMainNavText>
+                            <SCResultMainNavLink to={el.url}>
+                                <button>{el.word} 바로가기</button>
+                            </SCResultMainNavLink>
+                        </SCResultMainNavBox>
+                    ))}
+                </SCResultMainNavBtnWrapper>
 
-            <div className="SCResultMainNavBtnWrapperMobile">
-                {dataList.map((el, idx) => (
-                    <button key={idx}>{el.word} 바로가기</button>
-                ))}
-            </div>
+                <SCResultMainNavBtnWrapperMobile>
+                    {dataList.map((el, idx) => (
+                        <button key={idx}>{el.word} 바로가기</button>
+                    ))}
+                </SCResultMainNavBtnWrapperMobile>
+            </SCResultMainBox>
         </SCResultMainWrapper>
     );
 };
 
 const SCResultMainWrapper = styled.div`
     width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+`;
+
+const SCResultMainBox = styled.div`
+    width: 100%;
+    max-width: 1500px;
+    padding: 60px 100px;
+
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 20px;
-    padding: 60px 100px;
-
-    .SCResultMainNavBtnWrapperMobile {
-        display: none;
-    }
 
     @media screen and (max-width: 768px) {
         display: flex;
         flex-direction: column;
-        padding: 40px 0;
+        align-items: center;
 
         .SCResultMainNavBtnWrapperPc {
             display: none;
         }
+    }
 
-        .SCResultMainNavBtnWrapperMobile {
-            width: 90%;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 20px;
-
-            button {
-                height: 60px;
-            }
-        }
+    @media screen and (max-width: 920px) {
+        padding: 40px;
     }
 `;
 
@@ -92,8 +93,8 @@ const SCResultConfirmWrapper = styled.div`
     border-radius: 10px;
 
     @media screen and (max-width: 768px) {
-        width: 90%;
-        height: 40vh;
+        width: 100%;
+        min-height: 40vh;
     }
 `;
 
@@ -121,8 +122,8 @@ const SCResultMainNavBox = styled.div`
 `;
 
 const SCResultMainNavText = styled.div`
-    color: var(--darkgreen);
     font-family: "Nanum Gothic", sans-serif;
+    color: var(--darkgreen);
 
     & :nth-child(1) {
         font-size: 1.1rem;
@@ -132,12 +133,50 @@ const SCResultMainNavText = styled.div`
 
     & :nth-child(2) {
         font-size: 0.9rem;
+        line-height: 1rem;
+    }
+
+    @media screen and (max-width: 1013px) {
+        & :nth-child(1) {
+            font-size: 0.95rem;
+        }
+
+        & :nth-child(2) {
+            font-size: 0.8rem;
+            line-height: 0.9rem;
+        }
     }
 `;
 
 const SCResultMainNavLink = styled(Link)`
     display: flex;
     justify-content: flex-end;
+
+    button {
+        font-family: "Nanum Gothic", sans-serif;
+    }
+
+    @media screen and (max-width: 1013px) {
+        button {
+            font-size: 0.8rem;
+        }
+    }
+`;
+
+const SCResultMainNavBtnWrapperMobile = styled.div`
+    display: none;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 10px;
+
+        button {
+            font-size: 0.7rem;
+            min-height: 60px;
+        }
+    }
 `;
 
 export default SelfCheckResultMain;

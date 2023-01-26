@@ -104,7 +104,7 @@ const SCTableMainHedaer = styled.thead`
 
 const SCTableMainBody = styled.tbody`
     tr {
-        padding: 12px 0;
+        padding: 15px 0;
         display: grid;
         grid-template-columns: 0.7fr 6fr 0.9fr 0.9fr 0.9fr 0.9fr;
         align-items: center;
