@@ -4,6 +4,7 @@ import { selfCheckErrorState } from "../../states";
 
 const SelfCheckError = () => {
     const setError = useSetRecoilState(selfCheckErrorState);
+
     const closeBtnHandle = () => {
         setError(false);
     };
@@ -23,19 +24,17 @@ const SCErrorWrapper = styled.div`
 
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-
     margin: 0 auto;
 
     display: flex;
     align-items: center;
     justify-content: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 `;
 
 const SCErrorModalWrapper = styled.div`
-    background-color: white;
-
     width: 350px;
     height: 25%;
     border-radius: 30px;
@@ -45,11 +44,15 @@ const SCErrorModalWrapper = styled.div`
     align-items: center;
     justify-content: center;
 
+    background-color: white;
+
+    font-family: "Nanum Gothic", sans-serif;
     font-size: 18px;
 
     div {
         color: var(--darkgreen);
         padding-bottom: 5%;
+        font-weight: var(--font-medium);
     }
 
     button {
@@ -57,13 +60,12 @@ const SCErrorModalWrapper = styled.div`
         border-radius: 50px;
         background-color: var(--darkgreen);
 
-        font-size: 18px;
-        font-weight: 500;
+        font-size: 1.1rem;
     }
 
     button:hover {
-        background-color: var(--lightgreen);
         cursor: pointer;
+        background-color: var(--lightgreen);
         transition: 0.5s;
     }
 `;
