@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 env:
-  working-directory: ./Server
+  # working-directory: ./Server
   S3_BUCKET_NAME: mentaltal-s3-bucket
 
 jobs:
@@ -52,4 +52,4 @@ jobs:
     
     # 압축한 프로젝트를 S3로 전송합니다.
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./mentaltal.zip s3://$S3_BUCKET_NAME/mentaltal.zip
+      run: aws s3 cp --region ap-northeast-2 ./mentaltal.zip s3://$mentaltal-s3-bucket/mentaltal.zip
