@@ -1,12 +1,8 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { selfCheckErrorState } from "../../states";
 
-const SelfCheckError = () => {
-    const setError = useSetRecoilState(selfCheckErrorState);
-
+const SelfCheckError = ({ setIsAllSelect }) => {
     const closeBtnHandle = () => {
-        setError(false);
+        setIsAllSelect(false);
     };
 
     return (

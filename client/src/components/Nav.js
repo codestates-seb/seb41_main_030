@@ -1,28 +1,22 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import NavModal from "./NavModal";
-import { memberIdState } from "../states/memberIdState";
 import { useRecoilValue } from "recoil";
+import { memberIdState } from "../states/memberIdState";
+import NavModal from "./NavModal";
 
 const Nav = () => {
-    // 마이페이지 클릭 시 path
-    const memberId = useRecoilValue(memberIdState);
+    const memberId = useRecoilValue(memberIdState); // 마이페이지 path
+    const token = localStorage.getItem("loginToken");
 
-    // local storage login token 확인
-    const [istoken, setIstoken] = useState(false);
+    // 로그아웃 버튼 핸들러
+    const logoutBtnHandle = () => {
+        localStorage.removeItem("memberId");
+        localStorage.removeItem("loginToken");
+        window.location.reload();
+    };
 
-    //memberId의 여부로 Nav버튼 상태 변경
-    useEffect(() => {
-        if (memberId === null) {
-            console.log(memberId);
-        } else {
-            setIstoken(true);
-        }
-    });
-    // !
-
-    // * 모달
+    // 모바일 환경 nav 모달
     const [isOpen, setIsOpen] = useState(false);
     const handleNavModal = () => {
         setIsOpen(!isOpen);
@@ -34,8 +28,6 @@ const Nav = () => {
                 <Link to="/main" className="logo">
                     MENTALTAL
                 </Link>
-                {/* 삭제할 예정 */}
-                {/* <button onClick={handleTest}>0</button> */}
             </NavTitle>
 
             <NavContainer>
@@ -51,28 +43,28 @@ const Nav = () => {
                 <li>
                     <Link to="/counselingcenter">전문기관</Link>
                 </li>
-                {istoken ? (
+                {token ? (
                     <>
                         <li>
-                            <button>
-                                <Link to={`/mypage/${memberId}`}>마이페이지</Link>
-                            </button>
+                            <Link to={`/mypage/${memberId}`}>
+                                <button>마이페이지</button>
+                            </Link>
                         </li>
                         <li>
-                            <button>로그아웃</button>
+                            <button onClick={logoutBtnHandle}>로그아웃</button>
                         </li>
                     </>
                 ) : (
                     <>
                         <li>
-                            <button>
-                                <Link to="/login">로그인</Link>
-                            </button>
+                            <Link to="/login">
+                                <button>로그인</button>
+                            </Link>
                         </li>
                         <li>
-                            <button>
-                                <Link to="/signup">회원가입</Link>
-                            </button>
+                            <Link to="/signup">
+                                <button>회원가입</button>
+                            </Link>
                         </li>
                     </>
                 )}
@@ -80,7 +72,7 @@ const Nav = () => {
 
             <NavMedia>
                 {isOpen ? <i className="fa-solid fa-x" onClick={handleNavModal}></i> : <i className="fa-solid fa-bars" onClick={handleNavModal}></i>}
-                {isOpen ? <NavModal test={test} memberId={memberId} /> : null}
+                {isOpen ? <NavModal memberId={memberId} /> : null}
             </NavMedia>
         </NavWrapper>
     );
@@ -135,15 +127,17 @@ const NavContainer = styled.ul`
     }
 `;
 
-// * 600px 이하 스타일
+// 600px 이하 스타일
 const NavMedia = styled.div`
     display: none;
     position: relative;
+
     i {
         cursor: pointer;
         font-size: 25px;
         color: var(--green);
     }
+
     @media screen and (max-width: 768px) {
         display: block;
     }

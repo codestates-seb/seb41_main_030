@@ -14,7 +14,7 @@ const Signup = ({ setIsFooter }) => {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
     } = useForm();
 
     const navigate = useNavigate();
@@ -27,24 +27,24 @@ const Signup = ({ setIsFooter }) => {
         required: { value: true, message: "닉네임을 입력해주세요." },
         pattern: {
             value: NICKNAME_REGEX,
-            message: "두글자이상 입력해주세요."
-        }
+            message: "두글자이상 입력해주세요.",
+        },
     });
 
     const emailRegister = register("email", {
         required: { value: true, message: "이메일을 입력해주세요." },
         pattern: {
             value: EMAIL_REGEX,
-            message: "이메일 형식에 맞게 입력해주세요."
-        }
+            message: "이메일 형식에 맞게 입력해주세요.",
+        },
     });
 
     const passwordRegister = register("password", {
         required: { value: true, message: "비밀번호를 입력해주세요." },
         pattern: {
             value: PASSWORD_REGEX,
-            message: "8자 이상 영문, 숫자, 특수문자를 사용하세요."
-        }
+            message: "8자 이상 영문, 숫자, 특수문자를 사용하세요.",
+        },
     });
     const onSubmit = (data) => {
         axios
@@ -82,18 +82,18 @@ const Signup = ({ setIsFooter }) => {
                 <MainText>회원가입</MainText>
                 <SignupFormBox onSubmit={handleSubmit(onSubmit)}>
                     <InputBox>
-                        <InputText> 이메일</InputText>
-                        <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
+                        <InputText htmlFor="signupEmail">이메일</InputText>
+                        <EmailInput type="text" id="signupEmail" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
                         <ErrorText>{errors.email?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText> 닉네임</InputText>
-                        <NameInput type="text" error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
+                        <InputText htmlFor="signupNickname">닉네임</InputText>
+                        <NameInput type="text" id="signupNickname" error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
                         <ErrorText>{errors.nickName?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText> 비밀번호</InputText>
-                        <PwInput type="password" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
+                        <InputText htmlFor="signupPassword">비밀번호</InputText>
+                        <PwInput type="password" id="signupPassword" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
                     <SingupBtn> 회원가입</SingupBtn>
@@ -154,16 +154,18 @@ const ModalView = styled.div`
 `;
 
 const CloseIcon = styled.button`
- background-color: var(--darkgreen);
-        font-size: 17px;
-        width: 50%;
-        border-radius: 50px;
+    background-color: var(--darkgreen);
+    font-size: 17px;
+    width: 50%;
+    border-radius: 50px;
 
-        :hover {
-            background-color: var(--lightgreen);
-            cursor: pointer;
-            transition: 0.5s;
+    :hover {
+        background-color: var(--lightgreen);
+        cursor: pointer;
+        transition: 0.5s;
+    }
 `;
+
 const SignupContainer = styled.div`
     display: flex;
     margin-top: 15px;
@@ -204,14 +206,14 @@ const MainText = styled.div`
     color: var(--darkgreen);
 `;
 
-const InputText = styled.div`
+const InputText = styled.label`
     display: flex;
     margin: 10px 0px 5px 5px;
-    .text {
-        color: var(--darkgreen);
-        font-size: 20px;
-        font-weight: bold;
-    }
+
+    color: var(--darkgreen);
+    font-size: 1.2rem;
+    font-weight: var(--font-bold);
+    font-family: "Nanum Gothic", sans-serif;
 `;
 
 const NameInput = styled.input`

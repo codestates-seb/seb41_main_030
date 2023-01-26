@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import { boardState, memberIdState } from "../../states";
 
-// ! 나중에 서버 연결시 데이터 받아서 랜더링되도록 수정할 것
-const BoardDetailAnswerCreate = () => {
+const BoardDetailAnswerCreate = ({ setIsLogin }) => {
+    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const board = useRecoilValue(boardState);
     const memberId = useRecoilValue(memberIdState);
-    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
+    const token = localStorage.getItem("loginToken");
 
     // 답글 등록 form
     const {
@@ -19,12 +19,18 @@ const BoardDetailAnswerCreate = () => {
 
     // 답글 등록 요청 함수
     const postComment = (data) => {
-        axios
-            .post(`/comments`, data)
-            .then((res) => {
-                window.location.reload();
-            })
-            .catch((err) => console.log(err));
+        if (token) {
+            setIsLogin(false);
+
+            axios
+                .post(`/comments`, data)
+                .then((res) => {
+                    window.location.reload();
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setIsLogin(true);
+        }
     };
 
     return (

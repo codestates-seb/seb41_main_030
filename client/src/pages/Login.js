@@ -1,59 +1,41 @@
 import React, { useState, useEffect } from "react";
-import "../globalStyle.css";
 import styled from "styled-components";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { memberIdState } from "../states/memberIdState";
 
 const Login = ({ setIsFooter }) => {
     useEffect(() => {
         setIsFooter(false);
     });
-    const [memberId, setMemberId] = useRecoilState(memberIdState);
+
+    const setMemberId = useSetRecoilState(memberIdState);
 
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
     } = useForm();
 
     const navigate = useNavigate();
 
-    const [loginInfo, setLoginInfo] = useState({
-        email: "",
-        password: ""
-    });
-
-    const [isLogin, setIsLogin] = useState(false); // 로그인 여부
-    const [userInfo, setUserInfo] = useState(null); // 회원 정보
-
-    const handleInputValue = (key, e) => {
-        setLoginInfo({ ...loginInfo, [key]: e.target.value });
-    };
-
-    const handleLoginRequest = () => {
-        const { email, password } = loginInfo;
-
-        return (
-            axios
-                // proxy 적용해서 도메인 제거함. CORS 문제 해결 후 수정
-                .post("/members/login", { email, password })
-                .then((res) => {
-                    localStorage.setItem("loginToken", res.headers.authorization);
-                    setIsLogin(true);
-                    setUserInfo({ email });
-                    setMemberId(res.data.memberId);
-                    navigate("/main");
-                })
-                .catch((error) => {
-                    console.log(error);
-                    if (error.response.data.status === 401) {
-                        setErrorModal(true);
-                    }
-                })
-        );
+    const handleLoginRequest = (data) => {
+        axios
+            // proxy 적용해서 도메인 제거함. CORS 문제 해결 후 수정
+            .post("/members/login", data)
+            .then((res) => {
+                localStorage.setItem("loginToken", res.headers.authorization);
+                setMemberId(res.data.memberId);
+                navigate("/main");
+            })
+            .catch((error) => {
+                console.log(error);
+                if (error.response.data.status === 401) {
+                    setErrorModal(true);
+                }
+            });
     };
 
     const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
@@ -63,16 +45,16 @@ const Login = ({ setIsFooter }) => {
         required: { value: true, message: "이메일을 입력해주세요." },
         pattern: {
             value: EMAIL_REGEX,
-            message: "이메일 형식에 맞게 입력해주세요."
-        }
+            message: "이메일 형식에 맞게 입력해주세요.",
+        },
     });
 
     const passwordRegister = register("password", {
         required: { value: true, message: "비밀번호를 입력해주세요." },
         pattern: {
             value: PASSWORD_REGEX,
-            message: "비밀번호를 입력해주세요."
-        }
+            message: "비밀번호를 입력해주세요.",
+        },
     });
 
     // 에러코드 401시 띄우는 에러 모달창
@@ -85,18 +67,22 @@ const Login = ({ setIsFooter }) => {
     return (
         <>
             <LoginContainer>
-                <LoginFormBox onSubmit={handleSubmit()}>
+                <LoginFormBox
+                    onSubmit={handleSubmit((data) => {
+                        handleLoginRequest(data);
+                    })}
+                >
                     <InputBox>
-                        <InputText> 이메일</InputText>
-                        <EmailInput type="text" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} onChange={(e) => handleInputValue("email", e)} />
+                        <InputText htmlFor="emailInput">이메일</InputText>
+                        <EmailInput type="text" id="emailInput" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
                         <ErrorText>{errors.email?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText> 비밀번호</InputText>
-                        <PwInput type="password" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} onChange={(e) => handleInputValue("password", e)} />
+                        <InputText htmlFor="passwordInput">비밀번호</InputText>
+                        <PwInput type="password" id="passwordInput" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
-                    <LoginBtn onClick={handleLoginRequest}>로그인</LoginBtn>
+                    <LoginBtn type="submit">로그인</LoginBtn>
                     <LinkBox>
                         아직 회원이 아니신가요?
                         <SignupLink href="/signup">회원가입하기</SignupLink>
@@ -106,7 +92,7 @@ const Login = ({ setIsFooter }) => {
                         <PwLink href="/ForgotPw">비밀번호 찾기</PwLink>
                     </LinkBox>
                 </LoginFormBox>
-                <KalkBtn> 카카오톡으로 로그인하기</KalkBtn>
+                <KalkBtn>카카오톡으로 로그인하기</KalkBtn>
             </LoginContainer>
             {errorModal ? (
                 <ModalBackdrop onClick={openModalHandler}>
@@ -156,18 +142,20 @@ const InputBox = styled.div`
 const InputText = styled.label`
     display: flex;
     margin: 10px 0px 5px 5px;
-    font-weight: bold;
-    font-family: "Inter";
     color: #2c483f;
-    font-size: 20px;
+    font-weight: var(--font-bold);
+    font-size: 1.2rem;
+    font-family: "Nanum Gothic", sans-serif;
 `;
+
 const EmailInput = styled.input`
     display: flex;
     width: 325px;
     margin-top: 12px;
     margin-bottom: 5px;
     padding: 0.5em 0.5em;
-    font-size: 18px;
+    font-family: "Nanum Gothic", sans-serif;
+    font-size: 1.05rem;
     border-bottom: 2px solid var(--green);
     border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
@@ -181,7 +169,7 @@ const PwInput = styled.input`
     margin-top: 12px;
     margin-bottom: 10px;
     padding: 0.5em 0.5em;
-    font-size: 18px;
+    font-size: 1.05rem;
     border-bottom: 2px solid var(--green);
     border-color: ${(props) => (props.error ? "#de4f54" : "var(--green)")};
     &:focus {
@@ -267,7 +255,7 @@ const ModalBackdrop = styled.div`
 `;
 
 const ModalView = styled.div.attrs((props) => ({
-    role: "dialog"
+    role: "dialog",
 }))`
     background-color: whitesmoke;
     display: flex;
