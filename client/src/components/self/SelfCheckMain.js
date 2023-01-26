@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { selfCheckState, selfCheckErrorState } from "../../states";
 import SelfCheckTable from "./SelfCheckTable";
-import { deression, stress } from "./selfCheckDummy";
-import SelfCheckError from "./SelfrCheckError";
+import { depression, stress } from "./selfCheckDummy";
+import SelfCheckError from "./SelfCheckError";
 
 const SelfCheckMain = () => {
-    useEffect(() => {
-        setError(false);
-    }, []);
+    const [result, setResult] = useRecoilState(selfCheckState);
+    const [error, setError] = useRecoilState(selfCheckErrorState);
+    const navigate = useNavigate();
 
     const [isOn, setIsOn] = useState(false);
     const [accordionIndex, setAccordionIndex] = useState(null);
@@ -24,11 +24,12 @@ const SelfCheckMain = () => {
             name: "스트레스",
         },
     ]);
-    const [result, setResult] = useRecoilState(selfCheckState);
-    const [error, setError] = useRecoilState(selfCheckErrorState);
-    const navigate = useNavigate();
 
-    const accodionMainBoxBtnHandle = (e, idx) => {
+    useEffect(() => {
+        setError(false);
+    }, []);
+
+    const accordionMainBoxBtnHandle = (e, idx) => {
         setAccordionIndex(idx);
         setResult((current) => ({ ...current, type: e.target.value }));
     };
@@ -52,11 +53,11 @@ const SelfCheckMain = () => {
         const stressStandard = result.type === "스트레스" && check === 15;
 
         if (depressionStandard || stressStandard) {
-            setError(false);
+            setError(!error);
             navigate("/selfcheckresult");
         }
 
-        setError(true);
+        setError(!error);
     };
 
     return (
@@ -81,10 +82,10 @@ const SelfCheckMain = () => {
                                     <button
                                         key={idx}
                                         onClick={(e) => {
-                                            accodionMainBoxBtnHandle(e, idx);
+                                            accordionMainBoxBtnHandle(e, idx);
                                         }}
                                         value={el.name}
-                                        className={accordionIndex === idx ? "accodionActive" : null}
+                                        className={accordionIndex === idx ? "accordionActive" : null}
                                     >
                                         {el.name}
                                     </button>
@@ -96,7 +97,7 @@ const SelfCheckMain = () => {
 
                 <SCTableWrapper>
                     {accordionIndex === 0 ? (
-                        <SelfCheckTable title={"성인우울증검사"} data={deression.list} type={deression.thead} />
+                        <SelfCheckTable title={"성인우울증검사"} data={depression.list} type={depression.thead} />
                     ) : accordionIndex === 1 ? (
                         <SelfCheckTable title={"스트레스"} data={stress.list} type={stress.thead} />
                     ) : (
@@ -108,8 +109,8 @@ const SelfCheckMain = () => {
                 <SCTableResultBtn>{accordionIndex === 0 || accordionIndex === 1 ? <button onClick={calculationSelfCheck}>결과보기</button> : null}</SCTableResultBtn>
             </SCMainWrapper>
 
-            <div className="mobile">
-                <div className="wrapper">
+            <div className="mobileWrapper">
+                <div className="mobileBox">
                     <div>자가진단은 pc 화면에 최적화되어있습니다. </div>
                     <div>pc로 진행해주세요.</div>
                 </div>
@@ -120,12 +121,18 @@ const SelfCheckMain = () => {
 
 // styled components
 const Wrapper = styled.div`
-    .mobile {
+    width: 100%;
+    background-color: var(--lightgreen2);
+
+    display: flex;
+    justify-content: center;
+
+    .mobileWrapper {
         display: none;
     }
 
     @media screen and (min-width: 0) and (max-width: 700px) {
-        .mobile {
+        .mobileWrapper {
             width: 100%;
             height: 500px;
             background-color: var(--lightgreen2);
@@ -135,7 +142,7 @@ const Wrapper = styled.div`
             align-items: center;
         }
 
-        .wrapper {
+        .mobileBox {
             width: 85%;
             height: 80%;
             border-radius: 10px;
@@ -148,16 +155,18 @@ const Wrapper = styled.div`
 
             background-color: white;
             color: var(--darkgreen);
-            font-weight: 600;
-            font-size: 1rem;
+
+            font-family: "Nanum Gothic", sans-serif;
+            font-weight: var(--font-medium);
+            font-size: 0.9rem;
         }
     }
 `;
 
 const SCMainWrapper = styled.div`
-    background-color: var(--lightgreen2);
     width: 100%;
-    padding: 40px;
+    max-width: 1500px;
+    padding: 60px 100px;
 
     display: flex;
     flex-direction: column;
@@ -173,10 +182,14 @@ const SCMainWrapper = styled.div`
     @media screen and (min-width: 0) and (max-width: 700px) {
         display: none;
     }
+
+    @media screen and (max-width: 920px) {
+        padding: 40px;
+    }
 `;
 
 const SCAccordionTitle = styled.div`
-    width: 77%;
+    width: 100%;
 
     button {
         width: 100%;
@@ -189,12 +202,9 @@ const SCAccordionTitle = styled.div`
     }
 
     button > div {
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-    @media screen and (max-width: 1100px) {
-        width: 99%;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
     }
 `;
 
@@ -205,7 +215,7 @@ const SCAccordionMain = styled.div`
     flex-direction: column;
     align-items: center;
 
-    width: 77%;
+    width: 100%;
 
     div :nth-child(1) {
         border-bottom-left-radius: 0;
@@ -215,10 +225,6 @@ const SCAccordionMain = styled.div`
     div :nth-child(2) {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
-    }
-
-    @media screen and (max-width: 1100px) {
-        width: 99%;
     }
 `;
 
@@ -237,13 +243,14 @@ const SCAccordionMainBox = styled.div`
         background-color: white;
         color: var(--darkgreen);
 
-        font-size: 15px;
-        font-weight: 600;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
 
         display: flex;
     }
 
-    .accodionActive {
+    .accordionActive {
         font-weight: 900;
         background-color: RGBA(63, 114, 77, 0.2);
     }
@@ -253,7 +260,7 @@ const SCTableWrapper = styled.div`
     display: flex;
     justify-content: center;
     margin: 30px 0;
-    width: 77%;
+    width: 100%;
     position: relative;
 
     .none {
@@ -269,26 +276,19 @@ const SCTableWrapper = styled.div`
         align-items: center;
         justify-content: center;
     }
-
-    @media screen and (max-width: 1100px) {
-        width: 99%;
-    }
 `;
 
 const SCTableResultBtn = styled.div`
-    width: 77%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
 
     button {
         width: 200px;
         height: 40px;
-        font-size: 16px;
-        font-weight: 600;
-    }
-
-    @media screen and (max-width: 1100px) {
-        width: 99%;
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
     }
 `;
 

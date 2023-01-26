@@ -31,9 +31,16 @@ const CCHeader = styled.div`
     align-items: center;
 
     div {
-        font-size: 45px;
-        font-weight: 700;
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 2.6rem;
+        font-weight: var(--font-bold);
         color: var(--darkgreen);
+    }
+
+    @media screen and (max-width: 920px) {
+        div {
+            font-size: 2rem;
+        }
     }
 `;
 

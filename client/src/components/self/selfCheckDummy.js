@@ -1,4 +1,4 @@
-export const deression = {
+export const depression = {
     thead: ["없음", "2-6일", "7-12일", "거의 매일"],
     list: [
         "기분이 가라앉거나, 우울하거나, 희망이 없다고 느꼈다.",

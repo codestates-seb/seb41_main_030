@@ -76,7 +76,6 @@ const KaKaoMap = () => {
 const KaKaoMapWrapper = styled.div`
     width: 100%;
     height: 70vh;
-
     margin: 0 auto;
 
     .overlayWrap {
@@ -109,9 +108,11 @@ const KaKaoMapWrapper = styled.div`
         justify-content: center;
         gap: 5px;
         flex-wrap: wrap;
-
-        font-weight: 600;
         white-space: normal;
+
+        font-family: "Nanum Gothic", sans-serif;
+        font-weight: var(--font-medium);
+        font-size: 0.9rem;
     }
 
     .overlayArrow {
