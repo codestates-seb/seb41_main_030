@@ -34,12 +34,10 @@ const BMWrapper = styled.div`
 
     display: flex;
     justify-content: center;
+    align-items: center;
 `;
 
 const BMContainer = styled.div`
-    position: absolute;
-    top: 300px;
-
     width: 280px;
     height: 150px;
     padding: 20px;

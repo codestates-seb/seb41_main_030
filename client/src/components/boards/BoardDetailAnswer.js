@@ -6,7 +6,6 @@ import { dateCalculation } from "./dateCalculation";
 import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../states";
 
-// ! 전문가 회원 구현되면  전문가만 따로 표시하도록 수정
 const BoardDetailAnswer = ({ answer }) => {
     const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const [isEdit, setIsEdit] = useState(false);
@@ -27,7 +26,7 @@ const BoardDetailAnswer = ({ answer }) => {
     // 답글 수정 요청 함수
     const editComment = (data) => {
         axios
-            .patch(`${url}/comments/${answer.commentId}`, data)
+            .patch(`/comments/${answer.commentId}`, data)
             .then((res) => {
                 window.location.reload();
             })
@@ -39,7 +38,7 @@ const BoardDetailAnswer = ({ answer }) => {
     // 답글 삭제 요청 함수
     const deleteComment = () => {
         axios
-            .delete(`${url}/comments/${answer.commentId}`)
+            .delete(`/comments/${answer.commentId}`)
             .then((res) => {
                 window.location.reload();
             })
@@ -49,7 +48,7 @@ const BoardDetailAnswer = ({ answer }) => {
     // 공감 버튼
     const heartBtnHandle = () => {
         axios
-            .post(`${url}/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
+            .post(`/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
             .then((res) => {
                 window.location.reload();
             })
