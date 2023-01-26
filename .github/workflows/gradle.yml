@@ -17,8 +17,8 @@ permissions:
   contents: read
 
 env:
-  # working-directory: ./Server
   S3_BUCKET_NAME: mentaltal-s3-bucket
+  working-directory: ./Server
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
     
     # build한 후 프로젝트를 압축합니다.
     - name: Make zip file
-      run: zip -r ./mentaltal.zip .
+      run: zip -r ./mentaltal-deploy.zip .
       shell: bash
     
     # Access Key와 Secret Access Key를 통해 권한을 확인합니다.
@@ -52,4 +52,4 @@ jobs:
     
     # 압축한 프로젝트를 S3로 전송합니다.
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./mentaltal.zip s3://$mentaltal-s3-bucket/mentaltal.zip
+      run: aws s3 cp --region ap-northeast-2 ./mentaltal-deploy.zip s3://$S3_BUCKET_NAME/mentaltal-deploy.zip
