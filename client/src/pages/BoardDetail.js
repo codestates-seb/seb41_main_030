@@ -34,7 +34,7 @@ const BoardDetail = ({ setIsFooter }) => {
         <BoardDetailWrapper>
             <BoardDetailQuestion setIsLogin={setIsLogin} />
             {/* {board.commentCount === 0 ? null : <BoardDetailAnswerList />} */}
-            <BoardDetailAnswerList />
+            <BoardDetailAnswerList setIsLogin={setIsLogin} />
             <BoardDetailAnswerCreate setIsLogin={setIsLogin} />
             {isLogin ? <BoardModal setIsLogin={setIsLogin} /> : null}
         </BoardDetailWrapper>
