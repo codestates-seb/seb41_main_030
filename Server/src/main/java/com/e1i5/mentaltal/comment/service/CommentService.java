@@ -38,7 +38,6 @@ public class CommentService {
     public Comment createComment(Comment comment) {
         Member member = memberService.findMember(comment.getMid());
         Board board = boardService.findVerifiedBoard(comment.getBid());
-        comment.setCreatedAt(LocalDateTime.now());
         comment.addMember(member);
         comment.addBoard(board);
         board.plusCommentCount();
@@ -53,7 +52,6 @@ public class CommentService {
         Comment updatingComment = beanUtils.copyNonNullProperties(comment, findComment);
         //comment : 모든 필드를 저장할 변수
         //destination : 모든 필드를 중 변경한 값만 저장할 변수
-        updatingComment.setModifiedAt(LocalDateTime.now());
 
         return commentRepository.save(updatingComment);
 

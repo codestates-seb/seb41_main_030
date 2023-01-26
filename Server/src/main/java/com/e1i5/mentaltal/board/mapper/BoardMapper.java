@@ -38,7 +38,7 @@ public interface BoardMapper {
         board.setTitle(boardPatchDto.getTitle());
         board.setContent(boardPatchDto.getContent());
         board.setTags(boardPatchDto.getTags());
-        board.setModifiedAt(LocalDateTime.now());
+//        board.setModifiedAt(LocalDateTime.now());
 
 //        Optional.ofNullable(boardPatchDto.getTags())
 //                .ifPresent(tags -> boardPatchDto.getTags());

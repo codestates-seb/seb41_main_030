@@ -1,5 +1,6 @@
 package com.e1i5.mentaltal.board.entity;
 
+import com.e1i5.mentaltal.audit.BaseTimeEntity;
 import com.e1i5.mentaltal.comment.entity.Comment;
 import com.e1i5.mentaltal.user.member.Member;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Board {
+public class Board extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
@@ -30,12 +31,6 @@ public class Board {
     private String content;
 
     private String tags;
-//    @ElementCollection
-//    private List<String> tags = new ArrayList<>();
-
-    // 게시판 : 게시판 태그 ( 1 : n)
-//    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-//    private List<BoardTag> tags = new ArrayList<>();
 
     @Column(nullable = false) // columnDefinition = "integer default 0"
     private long viewCount = 0;  // 조회수
@@ -45,20 +40,12 @@ public class Board {
 
     private long commentCount = 0;
 
-    @Column
-    private LocalDateTime createdAt;
-
-
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
-
-    @Column
-    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     private String nickName;
 

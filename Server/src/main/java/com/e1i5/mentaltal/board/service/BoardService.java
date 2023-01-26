@@ -32,7 +32,6 @@ public class BoardService {
     public Board createBoard(Board board) {
         verifyStrLength(board); // 게시글 길이 검증
         Member member = memberService.findMember(board.getMid()); // 회원 검증
-        board.setCreatedAt(LocalDateTime.now());
         board.addMember(member);
 
         return boardRepository.save(board);
@@ -50,7 +49,6 @@ public class BoardService {
         Board updatedBoard = beanUtils.copyNonNullProperties(board, findBoard);
         //beanUtils 클래스 내의 copyNonNullProperties 메서드 사용하여 안에  (수정하고자 하는 정보, 넣을 메서드명)
         verifyStrLength(updatedBoard);
-        updatedBoard.setModifiedAt(LocalDateTime.now());
 
         return boardRepository.save(updatedBoard);
 

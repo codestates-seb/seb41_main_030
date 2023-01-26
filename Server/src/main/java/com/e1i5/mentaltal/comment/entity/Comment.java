@@ -1,6 +1,7 @@
 package com.e1i5.mentaltal.comment.entity;
 
 
+import com.e1i5.mentaltal.audit.BaseTimeEntity;
 import com.e1i5.mentaltal.board.entity.Board;
 import com.e1i5.mentaltal.user.member.Member;
 import lombok.AllArgsConstructor;
@@ -20,19 +21,13 @@ import static org.apache.catalina.security.SecurityUtil.remove;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class Comment extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
     @Column(nullable = false, columnDefinition = "Text")
     private String content;
-
-    @Column
-    private LocalDateTime createdAt;
-
-    @Column
-    private LocalDateTime modifiedAt;
 
     @Column(nullable = false) // columnDefinition = "integer default 0"
     private long viewCount = 0;  // 조회수
