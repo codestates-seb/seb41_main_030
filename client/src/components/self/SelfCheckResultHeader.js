@@ -26,34 +26,38 @@ const SCResultHeaderWrapper = styled.header`
 `;
 
 const SCResultHeaderTitle = styled.div`
-    width: 73%;
+    width: 100%;
+    max-width: 1500px;
+    height: 100%;
+    padding: 60px 100px;
 
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
     gap: 10px;
 
+    font-family: "Nanum Gothic", sans-serif;
     color: var(--darkgreen);
 
     & :nth-child(1) {
-        font-size: 40px;
-        font-weight: 900;
+        font-size: 2.4rem;
+        font-weight: var(--font-bold);
         margin-bottom: 10px;
     }
 
     & :not(:nth-child(1)) {
-        font-size: 16px;
+        font-size: 1rem;
     }
 
-    @media screen and (max-width: 1100px) {
-        width: 90%;
+    @media screen and (max-width: 920px) {
+        padding: 40px;
 
         & :nth-child(1) {
-            font-size: 28px;
+            font-size: 1.7rem;
         }
 
         & :not(:nth-child(1)) {
-            font-size: 13px;
+            font-size: 0.8rem;
         }
     }
 `;
