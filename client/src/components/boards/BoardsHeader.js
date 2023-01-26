@@ -1,19 +1,16 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { loginState } from "../../states";
 
-const BoardsHeader = () => {
+const BoardsHeader = ({ setIsLogin }) => {
     const navigate = useNavigate();
     const token = localStorage.getItem("loginToken");
-    const setIsLogIn = useSetRecoilState(loginState);
 
     const createBoardLinkBtnHandle = () => {
         if (token) {
-            setIsLogIn(false);
+            setIsLogin(false);
             navigate("/write");
         } else {
-            setIsLogIn(true);
+            setIsLogin(true);
         }
     };
 
