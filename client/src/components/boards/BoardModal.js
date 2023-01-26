@@ -8,14 +8,17 @@ const BoardModal = ({ setIsLogin }) => {
         <BMWrapper onClick={() => setIsLogin(false)}>
             <BMContainer>
                 <div>로그인 후 이용해주세요.</div>
-                <button
-                    onClick={() => {
-                        navigate("/login");
-                        setIsLogin(false);
-                    }}
-                >
-                    바로가기
-                </button>
+                <BMBtnContainer>
+                    <button
+                        onClick={() => {
+                            navigate("/login");
+                            setIsLogin(false);
+                        }}
+                    >
+                        바로가기
+                    </button>
+                    <button onClick={() => setIsLogin(false)}>취소</button>
+                </BMBtnContainer>
             </BMContainer>
         </BMWrapper>
     );
@@ -56,9 +59,21 @@ const BMContainer = styled.div`
         font-weight: var(--font-bold);
         margin-bottom: 15px;
     }
+`;
+
+const BMBtnContainer = styled.div`
+    display: flex;
+    gap: 15px;
 
     button {
+        background-color: var(--darkgreen);
         font-family: "Nanum Gothic", sans-serif;
+
+        :hover {
+            background-color: var(--lightgreen);
+            cursor: pointer;
+            transition: 0.5s;
+        }
     }
 `;
 
