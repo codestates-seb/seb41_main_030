@@ -17,6 +17,7 @@ permissions:
   contents: read
 
 env:
+  working-directory: ./Server
   S3_BUCKET_NAME: mentaltal-s3-bucket
 
 jobs:
