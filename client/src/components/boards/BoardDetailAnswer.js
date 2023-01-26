@@ -27,7 +27,7 @@ const BoardDetailAnswer = ({ answer }) => {
     // 답글 수정 요청 함수
     const editComment = (data) => {
         axios
-            .patch(`/comments/${answer.commentId}`, data)
+            .patch(`${url}/comments/${answer.commentId}`, data)
             .then((res) => {
                 window.location.reload();
             })
@@ -39,7 +39,7 @@ const BoardDetailAnswer = ({ answer }) => {
     // 답글 삭제 요청 함수
     const deleteComment = () => {
         axios
-            .delete(`/comments/${answer.commentId}`)
+            .delete(`${url}/comments/${answer.commentId}`)
             .then((res) => {
                 window.location.reload();
             })
@@ -49,7 +49,7 @@ const BoardDetailAnswer = ({ answer }) => {
     // 공감 버튼
     const heartBtnHandle = () => {
         axios
-            .post(`/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
+            .post(`${url}/comments/${answer.commentId}/votes?memberId=${memberId}&voteCheck=true`)
             .then((res) => {
                 window.location.reload();
             })

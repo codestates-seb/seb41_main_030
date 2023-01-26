@@ -50,7 +50,6 @@ const CreateBoardMain = () => {
                 onSubmit={handleSubmit((data) => {
                     data.tags = tags.join();
                     data.memberId = memberId;
-                    console.log(tags);
                     postBoard(data);
                 })}
             >

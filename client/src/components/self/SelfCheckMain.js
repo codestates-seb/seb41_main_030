@@ -98,7 +98,7 @@ const SelfCheckMain = () => {
                     ) : (
                         <div className="none">메뉴에서 자가진단할 테스트를 선택해주세요.</div>
                     )}
-                    {isAllSelect ? <SelfCheckError /> : null}
+                    {isAllSelect ? <SelfCheckError setIsAllSelect={setIsAllSelect} /> : null}
                 </SCTableWrapper>
 
                 <SCTableResultBtn>{accordionIndex === 0 || accordionIndex === 1 ? <button onClick={calculationSelfCheck}>결과보기</button> : null}</SCTableResultBtn>
