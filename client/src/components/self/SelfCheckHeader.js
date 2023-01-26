@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 const SelfCheckHeader = () => {
     return (
@@ -7,7 +8,7 @@ const SelfCheckHeader = () => {
                 <SCHeaderTitle>
                     <div>자가진단</div>
                     <div>본 자가검진은 간단하게 알아보는 심리 검사입니다.</div>
-                    <div>점수와 관계없이 일상생활에 불편함이 있다면, 면담을 통해 현재 상태를 정확하게 파악해보는 것이 필요합니다.</div>
+                    <div>점수와 관계없이 일상생활에 불편함이 있다면, {useMediaQuery({ maxWidth: 687 }) ? <br /> : null}면담을 통해 현재 상태를 정확하게 파악해보는 것이 필요합니다.</div>
                 </SCHeaderTitle>
             </SCHeaderBox>
         </SCHeaderWrapper>
@@ -61,6 +62,7 @@ const SCHeaderTitle = styled.div`
 
     & :not(:nth-child(1)) {
         font-size: 16px;
+        line-height: 140%;
     }
 
     @media screen and (max-width: 1100px) {
@@ -71,6 +73,13 @@ const SCHeaderTitle = styled.div`
         & :not(:nth-child(1)) {
             font-size: 13px;
         }
+    }
+    @media screen and (max-width: 768px) {
+        text-align: center;
+    }
+
+    @media screen and (max-width: 436px) {
+        padding: 60px 0;
     }
 `;
 
