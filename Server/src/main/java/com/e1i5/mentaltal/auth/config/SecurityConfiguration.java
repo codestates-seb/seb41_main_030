@@ -5,9 +5,13 @@ import com.e1i5.mentaltal.auth.filter.JwtVerificationFilter;
 import com.e1i5.mentaltal.auth.handler.MemberAuthenticationFailureHandler;
 import com.e1i5.mentaltal.auth.handler.MemberAuthenticationSuccessHandler;
 import com.e1i5.mentaltal.auth.jwt.JwtTokenizer;
+import com.e1i5.mentaltal.auth.userdetails.MemberDetailsService;
 import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
+import com.e1i5.mentaltal.auth.utils.RedisUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,14 +30,15 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity(debug = true)
+@RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final RedisUtils redisUtils;
+    private final MemberDetailsService memberDetailsService;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils customAuthorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.customAuthorityUtils = customAuthorityUtils;
-    }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -78,10 +83,12 @@ public class SecurityConfiguration {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, redisUtils);
+
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils);
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils, memberDetailsService, redisTemplate);
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
 
 
