@@ -49,9 +49,9 @@ public class BoardService {
         Board updatedBoard = beanUtils.copyNonNullProperties(board, findBoard);
         //beanUtils 클래스 내의 copyNonNullProperties 메서드 사용하여 안에  (수정하고자 하는 정보, 넣을 메서드명)
         verifyStrLength(updatedBoard);
+        updatedBoard.setVoteCount(1);
 
         return boardRepository.save(updatedBoard);
-
     }
 
     // 게시물 상세조회
@@ -94,16 +94,9 @@ public class BoardService {
 //        throw new BusinessLogicException(ExceptionCode.BOARD_WRITER_NOT_MATCH);
 //    }
 
-    // 조회수
-    public void updateBoardViewCount(Board board, int viewCount) {
-        board.setViewCount(viewCount + 1);
-        boardRepository.save(board);
-    }
-
     // 공감수 (좋아요)
     public long getVoteCount(long boardId) {
         Board board = findVerifiedBoard(boardId);
-//        board.setVoteCount(board.getVoteCount() + 1);
         return board.getVoteCount();
     }
 
@@ -115,7 +108,7 @@ public class BoardService {
      * @param voteCheck
      * @return
      */
-    public Board boardVote(long boardId, long memberId, boolean voteCheck) {
+    public Board voteBoard(long boardId, long memberId, boolean voteCheck) {
         Member member = memberService.findMember(memberId);
 
         Board board = findVerifiedBoard(boardId);

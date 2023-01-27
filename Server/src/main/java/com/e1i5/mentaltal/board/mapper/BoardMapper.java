@@ -55,7 +55,6 @@ public interface BoardMapper {
         long boardId = board.getBoardId();
         String title = board.getTitle();
         String content = board.getContent();
-        long viewCount = board.getViewCount();   // 조회수
         long voteCount = board.getVoteCount();   // 공감수
         long commentCount = board.getCommentCount();
         String tags = board.getTags();
@@ -73,7 +72,7 @@ public interface BoardMapper {
         String nickName = board.getMember().getNickName();
 
         BoardResponseDto boardResponseDto =
-                new BoardResponseDto(boardId, memberId, title, content, tags, viewCount, voteCount, commentCount, nickName, createdAt, modifiedAt);
+                new BoardResponseDto(boardId, memberId, title, content, tags, voteCount, commentCount, nickName, createdAt, modifiedAt);
 
         return boardResponseDto;
     }
@@ -88,7 +87,6 @@ public interface BoardMapper {
                         .title(board.getTitle())
                         .content(board.getContent())
                         .tags(board.getTags())
-                        .viewCount(board.getViewCount())
                         .voteCount(board.getVoteCount())
                         .commentCount(board.getCommentCount())
                         .createdAt(board.getCreatedAt())
@@ -112,7 +110,6 @@ public interface BoardMapper {
         boardGetResponseDto.setTitle(board.getTitle());
         boardGetResponseDto.setContent(board.getContent());
         boardGetResponseDto.setTags(board.getTags());
-        boardGetResponseDto.setViewCount(board.getViewCount()); // 조회수
         boardGetResponseDto.setVoteCount(board.getVoteCount()); // 공감수
         boardGetResponseDto.setCreatedAt(board.getCreatedAt());
         boardGetResponseDto.setModifiedAt(board.getModifiedAt());
@@ -121,7 +118,6 @@ public interface BoardMapper {
         boardGetResponseDto.setComment(
                 boardToCommentResponseDtos(comments)
         );
-        // tag
 
         return boardGetResponseDto;
     }
@@ -136,7 +132,6 @@ public interface BoardMapper {
                         .content(comment.getContent())
                         .createdAt(comment.getCreatedAt())
                         .modifiedAt(comment.getModifiedAt())
-                        .viewCount(comment.getViewCount())
                         .voteCount(comment.getVoteCount())
                         .boardId(comment.getBoard().getBoardId())
                         .memberId(comment.getMember().getMemberId())

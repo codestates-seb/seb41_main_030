@@ -49,12 +49,12 @@ public class CommentService {
     // 답변 수정
     public Comment updateComment(Comment comment) {
         Comment findComment = findVerifiedComment(comment.getCommentId());
-        Comment updatingComment = beanUtils.copyNonNullProperties(comment, findComment);
+        Comment updatedComment = beanUtils.copyNonNullProperties(comment, findComment);
         //comment : 모든 필드를 저장할 변수
         //destination : 모든 필드를 중 변경한 값만 저장할 변수
 
-        return commentRepository.save(updatingComment);
-
+        updatedComment.setVoteCount(1);
+        return commentRepository.save(updatedComment);
     }
 
     // 답변 조회
@@ -97,12 +97,6 @@ public class CommentService {
         Comment findComment = optionalComment.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         return findComment;
-    }
-
-    // 조회수
-    public void updateCommentViewCount(Comment comment, int viewCount) {
-        comment.setViewCount(viewCount + 1);
-        commentRepository.save(comment);
     }
 
     // 공감
