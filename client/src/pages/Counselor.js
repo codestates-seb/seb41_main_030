@@ -2,7 +2,7 @@ import styled from "styled-components";
 import "../globalStyle.css";
 import { useEffect } from "react";
 import CounselorList from "../components/counselor/CounselorList";
-import CounselorHeader from "../components/counselor/CounselorHeader";
+import CounselorHead from "../components/counselor/CounselorHead";
 
 const Counselor = ({ setIsFooter }) => {
     useEffect(() => {
@@ -11,7 +11,7 @@ const Counselor = ({ setIsFooter }) => {
 
     return (
         <Container>
-            <CounselorHeader />
+            <CounselorHead />
             <CounselorList />
         </Container>
     );

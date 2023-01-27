@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 //전문가 페이지 header
 // 기존 다른 페이지와 같은 방식으로 작성
-const CounselorHeader = () => {
+const CounselorHead = () => {
     return (
         <BoardsHeaderWrapper>
             <CounselorTitle>
@@ -60,4 +60,4 @@ const CounselorTitle = styled.div`
     }
 `;
 
-export default CounselorHeader;
+export default CounselorHead;
