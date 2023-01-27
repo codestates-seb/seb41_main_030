@@ -31,9 +31,9 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-    - name: Run chomd to make gradlew executable
-      run: chmod +x gradlew
-      shell: bash
+#     - name: Run chomd to make gradlew executable
+#       run: chmod +x gradlew
+#       shell: bash
 
     - name: Build with Gradle
       run: ./gradlew clean build -x test
