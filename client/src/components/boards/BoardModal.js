@@ -24,6 +24,8 @@ const BoardModal = ({ setIsLogin }) => {
     );
 };
 
+export default BoardModal;
+
 const BMWrapper = styled.div`
     width: 100%;
     height: 100%;
@@ -76,5 +78,3 @@ const BMBtnContainer = styled.div`
         }
     }
 `;
-
-export default BoardModal;

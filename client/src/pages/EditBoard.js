@@ -18,10 +18,10 @@ const EditBoard = ({ setIsFooter }) => {
     );
 };
 
+export default EditBoard;
+
 const EditBoardWrapper = styled.div`
     margin-top: 65px;
     background-color: white;
     height: 600px;
 `;
-
-export default EditBoard;

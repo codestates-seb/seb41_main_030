@@ -42,7 +42,7 @@ const EditBoardMain = () => {
     // 게시글 수정 요청 함수
     const patchBoard = (data) => {
         axios
-            .patch(`/boards/${board.boardId}/`, data)
+            .patch(`${url}/boards/${board.boardId}/`, data)
             .then((res) => {
                 navigate(`/community/${board.boardId}`);
                 setBoard(data);
@@ -112,6 +112,8 @@ const EditBoardMain = () => {
         </EBMainWrapper>
     );
 };
+
+export default EditBoardMain;
 
 // styled components
 const EBMainWrapper = styled.div`
@@ -275,5 +277,3 @@ const EBSubmitBtn = styled.div`
         }
     }
 `;
-
-export default EditBoardMain;

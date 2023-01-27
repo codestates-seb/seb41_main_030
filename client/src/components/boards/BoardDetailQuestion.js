@@ -15,7 +15,7 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
 
     // 질문 삭제
     const deleteQuestion = () => {
-        axios.delete(`/boards/${board.boardId}`).then((res) => {
+        axios.delete(`${url}/boards/${board.boardId}`).then((res) => {
             navigate("/community");
             setBoard(null);
         });
@@ -34,7 +34,7 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
     // 공감 서버 요청 함수
     const postHeart = () => {
         axios
-            .post(`/boards/${board.boardId}/votes?memberId=${memberId}&voteCheck=true`)
+            .post(`${url}/boards/${board.boardId}/votes?memberId=${memberId}&voteCheck=true`)
             .then((res) => {
                 window.location.reload();
             })
@@ -105,6 +105,8 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
         </BDQWrapper>
     );
 };
+
+export default BoardDetailQuestion;
 
 // styled components
 const BDQWrapper = styled.div`
@@ -349,5 +351,3 @@ const BDQResponseInfo = styled.div`
         }
     }
 `;
-
-export default BoardDetailQuestion;
