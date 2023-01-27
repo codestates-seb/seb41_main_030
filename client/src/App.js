@@ -48,5 +48,3 @@ function App() {
 }
 
 export default App;
-
-// test github actions
