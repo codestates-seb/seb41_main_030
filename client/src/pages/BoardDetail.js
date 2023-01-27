@@ -13,7 +13,6 @@ import BoardModal from "../components/boards/BoardModal";
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
-    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
     const [board, setBoard] = useRecoilState(boardState);
     const setAnswer = useSetRecoilState(answerState);
     const [isLogin, setIsLogin] = useState(false);
@@ -22,7 +21,7 @@ const BoardDetail = ({ setIsFooter }) => {
         setIsFooter(true);
 
         axios
-            .get(`${url}/boards/${id}`)
+            .get(`/boards/${id}`)
             .then((res) => {
                 setBoard(res.data.data);
                 setAnswer(res.data.data.comment);
