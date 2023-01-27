@@ -32,9 +32,6 @@ public class Board extends BaseTimeEntity {
 
     private String tags;
 
-    @Column(columnDefinition = "integer default 0", nullable = false) // columnDefinition = "integer default 0"
-    private long viewCount;  // 조회수
-
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long voteCount;  // 공감수 (좋아요)
 

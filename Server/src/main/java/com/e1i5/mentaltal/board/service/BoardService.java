@@ -94,12 +94,6 @@ public class BoardService {
 //        throw new BusinessLogicException(ExceptionCode.BOARD_WRITER_NOT_MATCH);
 //    }
 
-    // 조회수
-    public void updateBoardViewCount(Board board, long viewCount) {
-        board.setViewCount(viewCount + 1);
-        boardRepository.save(board);
-    }
-
     // 공감수 (좋아요)
     public long getVoteCount(long boardId) {
         Board board = findVerifiedBoard(boardId);

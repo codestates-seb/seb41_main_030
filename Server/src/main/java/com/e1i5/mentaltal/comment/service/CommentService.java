@@ -99,12 +99,6 @@ public class CommentService {
         return findComment;
     }
 
-    // 조회수
-    public void updateCommentViewCount(Comment comment, int viewCount) {
-        comment.setViewCount(viewCount + 1);
-        commentRepository.save(comment);
-    }
-
     // 공감
     public long getVoteCount(long commentId) {
         Comment comment = findVerifiedComment(commentId);

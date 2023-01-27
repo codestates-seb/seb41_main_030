@@ -15,7 +15,6 @@ public class BoardGetResponseDto {
     private String title;
     private String content;
     private String tags;
-    private long viewCount;  // 조회수
     private long voteCount;  // 공감수
     private long commentCount;
     private List<CommentResponseDto> comment;

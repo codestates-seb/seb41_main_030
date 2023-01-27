@@ -57,7 +57,6 @@ public class BoardController {
         // TODO Member 엔티티 매핑 이후 @RequestParam 으로 mid(memberId)를 받아오는 코드가 추가되어야 합니다
 
         Board board = boardService.findBoard(boardId);
-//        boardService.updateBoardViewCount(board, board.getViewCount());   // 조회수
 
         return new ResponseEntity(
                 new SingleResponseDto(mapper.boardToBoardGetResponseDto(board)), HttpStatus.OK);
@@ -108,7 +107,6 @@ public class BoardController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
-//                new SingleResponseDto<>(mapper.boardToBoardResponseDto(board)), HttpStatus.OK);
     }
 
     // todo 500 error

@@ -29,11 +29,8 @@ public class Comment extends BaseTimeEntity {
     @Column(nullable = false, columnDefinition = "Text")
     private String content;
 
-    @Column(nullable = false) // columnDefinition = "integer default 0"
-    private long viewCount = 0;  // 조회수
-
-    @Column(nullable = false)
-    private long voteCount = 0;  // 공감수 (좋아요)
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private long voteCount;  // 공감수 (좋아요)
 
     @Transient
     private long bid;
