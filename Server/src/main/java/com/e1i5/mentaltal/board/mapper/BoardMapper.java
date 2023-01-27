@@ -132,7 +132,6 @@ public interface BoardMapper {
                         .content(comment.getContent())
                         .createdAt(comment.getCreatedAt())
                         .modifiedAt(comment.getModifiedAt())
-                        .viewCount(comment.getViewCount())
                         .voteCount(comment.getVoteCount())
                         .boardId(comment.getBoard().getBoardId())
                         .memberId(comment.getMember().getMemberId())
