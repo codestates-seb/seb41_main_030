@@ -9,47 +9,47 @@ const counselorListData = [
         center: "마음날씨 상담센터",
         address: "서울특별시 강남구 봉은사로 326",
         number: "02-549-1043",
-        img: require("./Counselor01.png")
+        img: require("../../icons/Counselor01.png")
     },
     {
-        name: "김지수",
+        name: "김한진",
         field: "우울증치료 전문가",
         center: "다사랑중앙 상담센터",
         address: "서울특별시 강남구 강남대로 84",
         number: "02-2349-1913",
-        img: require("./Counselor02.png")
+        img: require("../../icons/Counselor02.png")
     },
     {
-        name: "조현진",
+        name: "이지숙",
         field: "부부상담 전문가",
-        center: "디딤정신건강 상담센터",
+        center: "건강디딤돌 상담센터",
         address: "서울특별시 강남구 봉은사로 119",
         number: "02-4249-1713",
-        img: require("./Counselor03.png")
+        img: require("../../icons/Counselor03.png")
     },
     {
         name: "최재호",
         field: "트라우마 전문가",
-        center: "정신건강지킴 상담센터",
+        center: "정신지킴이 상담센터",
         address: "경기도 성남시 중원구 성남대로 997",
         number: "031-698-3844",
-        img: require("./Counselor04.png")
+        img: require("../../icons/Counselor04.png")
     },
     {
-        name: "천아현",
+        name: "오현지",
         field: "소아상담 전문가",
         center: "스마일소아 상담센터",
         address: "경기도 부천시 원미구 길주로 137",
         number: "031-756-1388",
-        img: require("./Counselor05.png")
+        img: require("../../icons/Counselor05.png")
     },
     {
         name: "박지은",
         field: "청소년상담 전문가",
-        center: "마인드하우스 상담센터",
+        center: "마음의집 상담센터",
         address: "서울특별시 강남구 테헤란로 528",
         number: "02-473-0923",
-        img: require("./Counselor06.png")
+        img: require("../../icons/Counselor06.png")
     }
 ];
 
