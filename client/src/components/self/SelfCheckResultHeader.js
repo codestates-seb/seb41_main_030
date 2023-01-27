@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 const SelfCheckResultHeader = () => {
     return (
@@ -6,7 +7,7 @@ const SelfCheckResultHeader = () => {
             <SCResultHeaderTitle>
                 <div>자가진단 테스트 결과</div>
                 <div>본 자가검진은 간단하게 알아보는 심리 검사입니다.</div>
-                <div>점수와 관계없이 일상생활에 불편함이 있다면, 면담을 통해 현재 상태를 정확하게 파악해보는 것이 필요합니다.</div>
+                <div>점수와 관계없이 일상생활에 불편함이 있다면, {useMediaQuery({ maxWidth: 687 }) ? <br /> : null}면담을 통해 현재 상태를 정확하게 파악해보는 것이 필요합니다.</div>
             </SCResultHeaderTitle>
         </SCResultHeaderWrapper>
     );
@@ -47,6 +48,7 @@ const SCResultHeaderTitle = styled.div`
 
     & :not(:nth-child(1)) {
         font-size: 1rem;
+        line-height: 140%;
     }
 
     @media screen and (max-width: 920px) {
@@ -59,6 +61,14 @@ const SCResultHeaderTitle = styled.div`
         & :not(:nth-child(1)) {
             font-size: 0.8rem;
         }
+    }
+
+    @media screen and (max-width: 768px) {
+        text-align: center;
+    }
+
+    @media screen and (max-width: 436px) {
+        padding: 60px 0;
     }
 `;
 

@@ -171,6 +171,7 @@ const SCResultMainNavBtnWrapperMobile = styled.div`
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 10px;
+        padding-top: 3%;
 
         button {
             font-size: 0.7rem;
