@@ -32,6 +32,7 @@ public class JwtTokenizer {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
+    // AccessToken 생성
     public String generateAccessToken(Map<String, Object> claims,
                                       String subject,
                                       Date expiration,
@@ -39,14 +40,14 @@ public class JwtTokenizer {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(Calendar.getInstance().getTime())
-                .setExpiration(expiration)
-                .signWith(key)
-                .compact();
+                .setClaims(claims)  // 인증된 사용자 정보
+                .setSubject(subject)  // 토큰 제목
+                .setIssuedAt(Calendar.getInstance().getTime()) // 발행일자
+                .setExpiration(expiration)  // 만료일자
+                .signWith(key)  // 서명을 위한 Key 객체
+                .compact();  // 토큰 생성 및 직렬화
     }
-
+    // RefreshToken 생성
     public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -79,6 +80,7 @@ public class JwtTokenizer {
     }
 
 
+    // 서명에 사용할 Secret Key 생성
     private Key getKeyFromBase64EncodedKey(String base64EncodedSecretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(base64EncodedSecretKey);
         Key key = Keys.hmacShaKeyFor(keyBytes);
@@ -86,6 +88,7 @@ public class JwtTokenizer {
         return key;
     }
 
+    // 검증 기능, Signature 검증함으로써 위/변조 여부 확인 가능
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -93,5 +96,23 @@ public class JwtTokenizer {
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(jws);
+    }
+
+    public Long getATKExpiration(String accessToken) {
+        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+        Date expiration = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody()
+                .getExpiration();
+        Long now = new Date().getTime();
+        return (expiration.getTime() - now);
+    }
+
+    public String getATKemail(String accessToken) {
+        String base64EncodedSecretKey = encodeBase64SecretKey(secretKey);
+        Map<String, Object> claims = getClaims(accessToken, base64EncodedSecretKey).getBody();
+        return (String)claims.get("email");
     }
 }

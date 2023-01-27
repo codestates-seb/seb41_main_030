@@ -1,6 +1,8 @@
 package com.e1i5.mentaltal.user.member;
 
+import com.e1i5.mentaltal.auth.jwt.JwtTokenizer;
 import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
+import com.e1i5.mentaltal.auth.utils.RedisUtils;
 import com.e1i5.mentaltal.board.respository.BoardRepository;
 import com.e1i5.mentaltal.comment.repository.CommentRepository;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,8 @@ public class MemberService {
     private final CustomAuthorityUtils authorityUtils;
     private final PasswordEncoder passwordEncoder;
     private final CustomBeanUtils<Member> beanUtils;
+    private final JwtTokenizer jwtTokenizer;
+    private final RedisUtils redisUtils;
 
     // 회원 정보 등록
     public Member createMember(Member member) {
@@ -110,5 +115,18 @@ public class MemberService {
         Long commentCount = commentRepository.countCommentByMember_MemberId(memberId);
         return commentCount;
     }
+
+    @Transactional
+    public void logout(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+        accessToken = accessToken.split(" ")[1];
+
+        String ATKemail = jwtTokenizer.getATKemail(accessToken);
+        redisUtils.deleteData(ATKemail);
+
+        Long expiration = jwtTokenizer.getATKExpiration(accessToken);
+        redisUtils.setData(accessToken, "blackList", expiration);
+    }
+
 
 }
