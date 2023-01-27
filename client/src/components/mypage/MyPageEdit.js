@@ -125,7 +125,7 @@ const MyPageEdit = ({ name, email }) => {
                                 {...register("password", {
                                     required: { value: true, message: "비밀번호를 입력해주세요." },
                                     pattern: {
-                                        value: /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8}$/,
+                                        value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
                                         message: "8자 이상 영문, 숫자, 특수문자를 입력해주세요.",
                                     },
                                 })}
