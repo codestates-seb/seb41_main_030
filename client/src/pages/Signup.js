@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Signup = ({ setIsFooter }) => {
+    const url = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         setIsFooter(false);
     });
