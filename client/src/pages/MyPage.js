@@ -8,9 +8,10 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
+    const token = localStorage.getItem("loginToken"); // 토큰 존재할 경우에만 마이페이지 진입 가능
     const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
-    const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
+    const url = process.env.REACT_APP_SERVER_URL;
 
     const userProfileData = async (id) => {
         const member = await axios.get(`${url}/members/${id}`);
@@ -121,6 +122,21 @@ const MyPage = ({ setIsFooter }) => {
                     </ModalView>
                 </ModalBackdrop>
             ) : null}
+            {token ? null : (
+                <ModalBackdrop onClick={() => navigate("/main")}>
+                    <ModalView onClick={(event) => event.stopPropagation()}>
+                        <div className="title">로그아웃이 완료되었습니다.</div>
+                        <div className="description1">
+                            오늘도 MENTALTAL 서비스를
+                            <br /> 이용해주셔서 감사합니다.
+                        </div>
+                        <div className="description2">
+                            하단 버튼을 눌러 로그인하시면 <br /> 마이페이지를 확인하실 수 있습니다.
+                        </div>
+                        <button onClick={() => navigate("/login")}>로그인</button>
+                    </ModalView>
+                </ModalBackdrop>
+            )}
         </>
     );
 };

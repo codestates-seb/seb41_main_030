@@ -19,9 +19,9 @@ const IntroMain = () => {
 
     const animatedItem = {
         0: useScrollFadeIn("down", 1, 0),
-        1: useScrollFadeIn("down", 2, 1),
-        2: useScrollFadeIn("down", 3, 2),
-        3: useScrollFadeIn("down", 4, 2.5),
+        1: useScrollFadeIn("down", 2, 1.5),
+        2: useScrollFadeIn("down", 2, 2.5),
+        3: useScrollFadeIn("down", 2, 3.5),
     };
 
     return (
@@ -70,7 +70,6 @@ const IntroMainContent = styled.div`
     justify-content: center;
     align-items: center;
     color: var(--white);
-    font-family: "Nanum Gothic", sans-serif;
 
     .subTitle {
         padding-top: 15px;
@@ -91,7 +90,6 @@ const IntroMainContent = styled.div`
         font-weight: var(--font-bold);
         border-radius: 50px;
         padding: 15px 30px;
-
         &:hover {
             cursor: pointer;
         }

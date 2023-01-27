@@ -2,6 +2,9 @@ import styled from "styled-components";
 import "../../globalStyle.css";
 import leftArrow from "../../icons/main-page-arrow-left.svg";
 import rightArrow from "../../icons/main-page-arrow-right.svg";
+import Preview from "./Preview";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -12,17 +15,14 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Navigation } from "swiper";
-import Preview from "./Preview";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 export default function Carousel() {
-    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
     const [data, setData] = useState([]);
 
     useEffect(() => {
         axios
-            .get(`${url}/boards/all`)
+            .get(`/boards/all`)
             .then((res) => {
                 const topBoardArray = res.data.sort((a, b) => b.voteCount - a.voteCount);
                 setData(topBoardArray.slice(0, 12));
@@ -67,7 +67,7 @@ export default function Carousel() {
                     {data &&
                         data.map((post) => (
                             <SwiperSlide key={post.boardId + 1}>
-                                <Preview key={post.boardId} tag={"기타"} title={post.title} content={post.content} writer={post.nickName} boardId={post.boardId} />
+                                <Preview key={post.boardId} tags={post.tags} title={post.title} content={post.content} writer={post.nickName} boardId={post.boardId} />
                             </SwiperSlide>
                         ))}
                 </Swiper>

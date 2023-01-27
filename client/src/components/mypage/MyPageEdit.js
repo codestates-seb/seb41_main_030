@@ -5,6 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const MyPageEdit = ({ name, email }) => {
+    const url = process.env.REACT_APP_SERVER_URL;
+
     const {
         register,
         handleSubmit,
@@ -34,7 +36,7 @@ const MyPageEdit = ({ name, email }) => {
     const { id } = useParams();
 
     const handleEdit = () => {
-        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && editUser.password.length >= 8) {
+        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && checkPWPattern(editUser.password)) {
             updateRequest();
         }
     };
@@ -62,11 +64,24 @@ const MyPageEdit = ({ name, email }) => {
             });
     };
 
+    // 비밀번호 패턴 체크 (8자 이상, 영문, 숫자, 특수문자 포함여부)
+    const checkPWPattern = (input) => {
+        const patternNumber = /[0-9]/;
+        const patternText = /[a-zA-Z]/;
+        const patternMark = /[~!@#$%^&*()_+|<>?:{}]/;
+
+        if (!patternNumber.test(input) || !patternText.test(input) || !patternMark.test(input) || input.length < 8) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     // 개인정보 수정 모달
     const [isOpen, setIsOpen] = useState(false);
 
     const openModalHandler = () => {
-        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && editUser.password.length >= 8) {
+        if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && checkPWPattern(editUser.password)) {
             console.log("변경됨");
             setIsOpen(!isOpen);
         }
@@ -111,9 +126,9 @@ const MyPageEdit = ({ name, email }) => {
                                 className={errors.password && "passwordInputError"}
                                 {...register("password", {
                                     required: { value: true, message: "비밀번호를 입력해주세요." },
-                                    minLength: {
-                                        value: 8,
-                                        message: "8자리 이상 비밀번호를 입력해주세요.",
+                                    pattern: {
+                                        value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/,
+                                        message: "8자 이상 영문, 숫자, 특수문자를 입력해주세요.",
                                     },
                                 })}
                                 onChange={(e) => handleEditInputValue("password", e)}
