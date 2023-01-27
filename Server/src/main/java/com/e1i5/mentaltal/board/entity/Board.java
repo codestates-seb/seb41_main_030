@@ -32,13 +32,14 @@ public class Board extends BaseTimeEntity {
 
     private String tags;
 
-    @Column(nullable = false) // columnDefinition = "integer default 0"
-    private long viewCount = 0;  // 조회수
+    @Column(columnDefinition = "integer default 0", nullable = false) // columnDefinition = "integer default 0"
+    private long viewCount;  // 조회수
 
-    @Column(nullable = false)
-    private long voteCount = 0;  // 공감수 (좋아요)
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private long voteCount;  // 공감수 (좋아요)
 
-    private long commentCount = 0;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private long commentCount;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();

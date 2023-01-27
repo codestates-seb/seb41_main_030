@@ -45,11 +45,10 @@ public class BoardController {
                                      @RequestBody BoardPatchDto boardPatchDto) {
         boardPatchDto.setBoardId(boardId);
 
-        Board board = boardService.updateBoard(boardId,mapper.boardPatchDtoToBoard(boardPatchDto));
+        Board board = boardService.updateBoard(boardId, mapper.boardPatchDtoToBoard(boardPatchDto));
 
         return new ResponseEntity(
-                new SingleResponseDto(mapper.boardToBoardResponseDto(board)), HttpStatus.OK
-        );
+                new SingleResponseDto(mapper.boardToBoardResponseDto(board)), HttpStatus.OK);
     }
 
     // 게시물 상세조회
@@ -58,17 +57,16 @@ public class BoardController {
         // TODO Member 엔티티 매핑 이후 @RequestParam 으로 mid(memberId)를 받아오는 코드가 추가되어야 합니다
 
         Board board = boardService.findBoard(boardId);
-
+//        boardService.updateBoardViewCount(board, board.getViewCount());   // 조회수
 
         return new ResponseEntity(
                 new SingleResponseDto(mapper.boardToBoardGetResponseDto(board)), HttpStatus.OK);
     }
 
     //게시물 전체조회
-    @GetMapping("/all") // ~/boards or ~/boards/all ? --> ~/boards 400error
+    @GetMapping("/all")
     public ResponseEntity getAllBoards () {
         return ResponseEntity.ok(mapper.boardToBoardResponses(boardService.findAllBoards()));
-
     }
 
 
@@ -104,12 +102,13 @@ public class BoardController {
      * @return
      */
     @PostMapping("/{board-id}/votes")  // {board-id}/votes?memberId={member-id}&voteCheck=true
-    public ResponseEntity boardVote(
+    public ResponseEntity voteBoard(
             @PathVariable("board-id") long boardId, @Positive @RequestParam long memberId, @RequestParam boolean voteCheck) {
-        boardService.boardVote(boardId, memberId, voteCheck);
+        Board board = boardService.voteBoard(boardId, memberId, voteCheck);
 
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
+//                new SingleResponseDto<>(mapper.boardToBoardResponseDto(board)), HttpStatus.OK);
     }
 
     // todo 500 error

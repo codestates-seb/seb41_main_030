@@ -74,7 +74,6 @@ public class CommentController {
     @GetMapping("/all")
     public ResponseEntity allComment() {
         return ResponseEntity.ok(mapper.commentToCommentResponses(commentService.findAllComment()));
-
     }
 
     // 답변 삭제
