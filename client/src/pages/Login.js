@@ -87,12 +87,7 @@ const Login = ({ setIsFooter }) => {
                         아직 회원이 아니신가요?
                         <SignupLink href="/signup">회원가입하기</SignupLink>
                     </LinkBox>
-                    <LinkBox>
-                        비밀번호가 생각나지 않나요?
-                        <PwLink href="/ForgotPw">비밀번호 찾기</PwLink>
-                    </LinkBox>
                 </LoginFormBox>
-                <KalkBtn>카카오톡으로 로그인하기</KalkBtn>
             </LoginContainer>
             {errorModal ? (
                 <ModalBackdrop onClick={openModalHandler}>
@@ -212,35 +207,6 @@ const SignupLink = styled.a`
     &:hover {
         color: #379fef;
     }
-`;
-
-const PwLink = styled.a`
-    padding: 4px;
-    font-size: 12px;
-    color: hsl(206, 100%, 40%);
-    &:visited {
-        color: #0e7bce;
-    }
-    &:hover {
-        color: #379fef;
-    }
-`;
-
-const KalkBtn = styled.button`
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    width: 375px;
-    heigt: 401px;
-    border-radius: 10px;
-    color: white;
-    background-color: #ffff;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 18px;
-    color: #3f724d;
-    border-radius: 7px;
-    box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px, rgb(0 0 0 / 5%) 0px 0px 8px, rgb(0 0 0 / 10%) 0px 1px 4px;
 `;
 
 const ModalBackdrop = styled.div`

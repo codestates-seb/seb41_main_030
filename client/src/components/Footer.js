@@ -1,6 +1,70 @@
 import styled from "styled-components";
 
-// * styled-components
+const Footer = () => {
+    return (
+        <FooterWrapper>
+            <FooterLeft>
+                <div>MENTALTAL</div>
+                <div>site design / logo © E1I5 </div>
+            </FooterLeft>
+
+            <FooterMiddle>
+                <div>
+                    <h5>E1I5</h5>
+                </div>
+
+                <div>
+                    <h5>FrontEnd</h5>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/dev-sena" target="__blank">
+                                이세나
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/xxyeon129" target="__blank">
+                                정승연
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/yeong00" target="__blank">
+                                최자영
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5>BackEnd</h5>
+                    <ul>
+                        <li>
+                            <a href="https://github.com/Kim-Jihyun1" target="__blank">
+                                김지현
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Sangwonee" target="__blank">
+                                윤상원
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/jinhuiju" target="__blank">
+                                진희주
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </FooterMiddle>
+
+            <FooterRight>
+                <i className="fa-brands fa-github"></i>
+            </FooterRight>
+        </FooterWrapper>
+    );
+};
+
+export default Footer;
+
 const FooterWrapper = styled.footer`
     width: 100%;
     height: 300px;
@@ -98,69 +162,3 @@ const FooterRight = styled.ul`
         font-size: 28px;
     }
 `;
-
-// * component
-const Footer = () => {
-    return (
-        <FooterWrapper>
-            <FooterLeft>
-                <div>MENTALTAL</div>
-                <div>site design / logo © E1I5 </div>
-            </FooterLeft>
-
-            <FooterMiddle>
-                <div>
-                    <h5>E1I5</h5>
-                </div>
-
-                <div>
-                    <h5>FrontEnd</h5>
-                    <ul>
-                        <li>
-                            <a href="https://github.com/dev-sena" target="__blank">
-                                이세나
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/xxyeon129" target="__blank">
-                                정승연
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/yeong00" target="__blank">
-                                최자영
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h5>BackEnd</h5>
-                    <ul>
-                        <li>
-                            <a href="https://github.com/Kim-Jihyun1" target="__blank">
-                                김지현
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/Sangwonee" target="__blank">
-                                윤상원
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/jinhuiju" target="__blank">
-                                진희주
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </FooterMiddle>
-
-            <FooterRight>
-                <i className="fa-brands fa-github"></i>
-            </FooterRight>
-        </FooterWrapper>
-    );
-};
-
-export default Footer;

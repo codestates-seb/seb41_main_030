@@ -5,6 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const MyPageEdit = ({ name, email }) => {
+    const url = process.env.REACT_APP_SERVER_URL;
+
     const {
         register,
         handleSubmit,
