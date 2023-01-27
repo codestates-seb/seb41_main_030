@@ -1,9 +1,9 @@
 import styled from "styled-components";
-// import BoardIconText from "./BoardIconText";
 import boardIcon from "../../icons/intro-bubble.svg";
 import writeIcon from "../../icons/intro-write.svg";
 import tagIcon from "../../icons/intro-tag.svg";
 import useScrollFadeIn from "./useScrollFadeIn";
+import boardImg from "../../icons/intro-board-img.png";
 
 const IntroBoard = () => {
     const introArray = [
@@ -20,9 +20,10 @@ const IntroBoard = () => {
 
     return (
         <>
-            <NavSize />
             <IntroBoardContainer>
-                <LeftContent></LeftContent>
+                <LeftContent>
+                    <img src={`${boardImg}`} />
+                </LeftContent>
                 <RightContent>
                     <div className="title" {...animatedItem[0]}>
                         <p className="logo">MENTALTAL&nbsp;</p>
@@ -48,25 +49,36 @@ const IntroBoard = () => {
 
 export default IntroBoard;
 
-const NavSize = styled.div`
-    height: 65px;
-`;
-
 const IntroBoardContainer = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
     height: 100%;
-    padding: 100px;
-    padding-top: 50px;
+    margin-top: 2%;
 `;
 
 const LeftContent = styled.div`
-    border: 1px solid lightgrey;
-    width: auto;
-    height: 90%;
     flex-grow: 1;
     flex-basis: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 55%;
+        height: auto;
+
+        @media screen and (max-width: 1420px) {
+            width: 65%;
+        }
+        @media screen and (max-width: 1235px) {
+            width: 75%;
+        }
+        @media screen and (max-width: 1080px) {
+            width: 85%;
+        }
+    }
 `;
 
 const RightContent = styled.div`
@@ -76,8 +88,7 @@ const RightContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* padding-left: 100px; */
-    padding-left: 13%;
+    /* padding-left: 13%; */
 
     .title {
         font-size: 45px;
