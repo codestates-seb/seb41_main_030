@@ -18,6 +18,7 @@ import MyPage from "./pages/MyPage";
 import Intro from "./pages/Intro";
 import SelfCheck from "./pages/SelfCheck";
 import SelfCheckResult from "./pages/SelfCheckResult";
+import Counselor from "./pages/Counselor";
 
 function App() {
     // footer 유무 조작
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/signup" element={<Signup setIsFooter={setIsFooter} />} />
                 <Route path="/mypage/:id/*" element={<MyPage setIsFooter={setIsFooter} />} />
                 <Route path="/counselingcenter" element={<CounselingCenter setIsFooter={setIsFooter} />} />
+                <Route path="/counselor" element={<Counselor setIsFooter={setIsFooter} />} />
                 <Route path="/selfcheck" element={<SelfCheck setIsFooter={setIsFooter} />} />
                 <Route path="/selfcheckresult" element={<SelfCheckResult setIsFooter={setIsFooter} />} />
             </Routes>
