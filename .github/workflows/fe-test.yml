@@ -19,5 +19,5 @@ jobs:
       - name: Configure AWS credentials
         run: aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
              aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-       - name: Deploy to S3
-         run: aws s3 sync build/ s3://test-mental/
+      - name: Deploy to S3
+        run: aws s3 sync build/ s3://test-mental/
