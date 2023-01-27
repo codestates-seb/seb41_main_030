@@ -17,12 +17,12 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper";
 
 export default function Carousel() {
-    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
     const [data, setData] = useState([]);
 
     useEffect(() => {
         axios
-            .get(`${url}/boards/all`)
+            .get(`/boards/all`)
             .then((res) => {
                 const topBoardArray = res.data.sort((a, b) => b.voteCount - a.voteCount);
                 setData(topBoardArray.slice(0, 12));

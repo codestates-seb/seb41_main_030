@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Signup = ({ setIsFooter }) => {
+    const url = process.env.REACT_APP_SERVER_URL;
+
     useEffect(() => {
         setIsFooter(false);
     });
@@ -96,9 +98,8 @@ const Signup = ({ setIsFooter }) => {
                         <PwInput type="password" id="signupPassword" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
-                    <SingupBtn> 회원가입</SingupBtn>
+                    <SingupBtn>회원가입</SingupBtn>
                 </SignupFormBox>
-                <KalkBtn> 카카오톡으로 회원가입하기</KalkBtn>
             </SignupContainer>
             {successModal ? (
                 <ModalBackdrop onClick={handleNavigate}>
@@ -277,23 +278,6 @@ const SingupBtn = styled.button`
     padding: 10px;
     font-size: 18px;
     font-family: "Viga";
-`;
-
-const KalkBtn = styled.button`
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    width: 375px;
-
-    border-radius: 10px;
-    color: white;
-    background-color: #ffff;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 18px;
-    color: var(--green);
-    border-radius: 7px;
-    box-shadow: rgb(0 0 0 / 5%) 0px 0px 4px, rgb(0 0 0 / 5%) 0px 0px 8px, rgb(0 0 0 / 10%) 0px 1px 4px;
 `;
 
 export default Signup;
