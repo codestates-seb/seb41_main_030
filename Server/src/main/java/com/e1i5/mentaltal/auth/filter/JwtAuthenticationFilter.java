@@ -3,7 +3,7 @@ package com.e1i5.mentaltal.auth.filter;
 import com.e1i5.mentaltal.auth.dto.LoginDto;
 import com.e1i5.mentaltal.auth.jwt.JwtTokenizer;
 import com.e1i5.mentaltal.auth.utils.RedisUtils;
-import com.e1i5.mentaltal.user.member.Member;
+import com.e1i5.mentaltal.domain.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
