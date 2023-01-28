@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
 const BoardsMain = () => {
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
 
     // 페이지 관련 상태
     const [list, setList] = useState([]);
