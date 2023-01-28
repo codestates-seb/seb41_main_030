@@ -25,6 +25,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("/boards")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BoardController {
     private final BoardMapper mapper;
     private final BoardService boardService;

@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class JwtTokenizer {
     @Getter
-    @Value("${JWT_SECRET_KEY}")
+    @Value("sadjasfdsjkhfajsdkhfjaks4673249871279461293746")
     private String secretKey;
     @Getter
     @Value("${jwt.access-token-expiration-minutes}")
