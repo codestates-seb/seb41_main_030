@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class CommentService {
     private final CommentRepository commentRepository;

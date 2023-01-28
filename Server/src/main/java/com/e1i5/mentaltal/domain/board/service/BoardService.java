@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
