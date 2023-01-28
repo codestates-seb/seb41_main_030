@@ -24,24 +24,26 @@ const IntroBoard = () => {
                 <LeftContent>
                     <img src={`${boardImg}`} alt="MENTALTAL 커뮤니티 페이지 모바일 목업 이미지" />
                 </LeftContent>
-                <RightContent>
-                    <div className="title" {...animatedItem[0]}>
-                        <p className="logo">MENTALTAL&nbsp;</p>
-                        <p className="logoDescription">커뮤니티</p>
-                    </div>
-                    <div className="description" {...animatedItem[1]}>
-                        나와 비슷한 고민을 가진 사람들과
-                        <br />
-                        이야기를 나누어 보세요.
-                    </div>
-                    <div className="board" {...animatedItem[2]}>
-                        {introArray.map((element) => (
-                            <BoardIconContainer key={element.key} icon={element.iconURL}>
-                                <p>{element.text}</p>
-                            </BoardIconContainer>
-                        ))}
-                    </div>
-                </RightContent>
+                <RightContentContainer>
+                    <RightContent>
+                        <div className="title" {...animatedItem[0]}>
+                            <p className="logo">MENTALTAL&nbsp;</p>
+                            <p className="logoDescription">커뮤니티</p>
+                        </div>
+                        <div className="description" {...animatedItem[1]}>
+                            나와 비슷한 고민을 가진 사람들과
+                            <br />
+                            이야기를 나누어 보세요.
+                        </div>
+                        <div className="board" {...animatedItem[2]}>
+                            {introArray.map((element) => (
+                                <BoardIconContainer key={element.key} icon={element.iconURL}>
+                                    <p>{element.text}</p>
+                                </BoardIconContainer>
+                            ))}
+                        </div>
+                    </RightContent>
+                </RightContentContainer>
             </IntroBoardContainer>
         </>
     );
@@ -64,6 +66,9 @@ const LeftContent = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 700px) {
+        display: none;
+    }
 
     img {
         width: 55%;
@@ -71,31 +76,43 @@ const LeftContent = styled.div`
 
         @media screen and (max-width: 1420px) {
             width: 65%;
+            transition: 0.5s;
         }
         @media screen and (max-width: 1235px) {
             width: 75%;
+            transition: 0.5s;
         }
         @media screen and (max-width: 1080px) {
             width: 85%;
+            transition: 0.5s;
         }
     }
 `;
 
-const RightContent = styled.div`
+const RightContentContainer = styled.div`
     flex-grow: 1;
     flex-basis: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const RightContent = styled.div`
     color: var(--green);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* padding-left: 13%; */
+
+    @media screen and (max-width: 700px) {
+        align-items: center;
+    }
 
     .title {
         font-size: 45px;
         display: flex;
         .logoDescription {
             font-weight: var(--font-bold);
-            font-size: 41px;
+            padding-top: 0.1%;
+            font-size: 39px;
         }
         @media screen and (max-width: 1201px) {
             font-size: 43px;
@@ -127,15 +144,24 @@ const RightContent = styled.div`
                 font-size: 32px;
             }
         }
-        @media screen and (max-width: 1019px) {
-            flex-direction: column;
+        @media screen and (max-width: 700px) {
+            font-size: 45px;
+            flex-direction: row;
             .logoDescription {
-                padding-top: 1.4%;
+                padding-top: 0.1%;
+                font-size: 39px;
             }
         }
-        @media screen and (max-height: 602px) {
-            font-size: 32px;
-            margin-top: 80px;
+        @media screen and (max-width: 602px) {
+            font-size: 43px;
+            .logoDescription {
+                font-size: 38px;
+            }
+        }
+        @media screen and (max-width: 410px) {
+            flex-direction: column;
+            text-align: center;
+            line-height: 110%;
         }
     }
 
@@ -149,17 +175,25 @@ const RightContent = styled.div`
         @media screen and (max-width: 1095px) {
             font-size: 20px;
         }
-
-        @media screen and (max-height: 602px) {
-            font-size: 18px;
-            line-height: 30px;
+        @media screen and (max-width: 700px) {
+            text-align: center;
+            font-size: 22px;
+        }
+        @media screen and (max-width: 602px) {
+            font-size: 21px;
+        }
+        @media screen and (max-width: 410px) {
+            padding-top: 25px;
         }
     }
 
     .board {
         margin-top: 50px;
-        @media screen and (max-height: 602px) {
-            margin-top: 0;
+        @media screen and (max-width: 1095px) {
+            margin-top: 20px;
+        }
+        @media screen and (max-width: 700px) {
+            margin-top: 50px;
         }
     }
 `;
@@ -184,6 +218,9 @@ const BoardIconContainer = styled.div`
     }
     @media screen and (max-width: 981px) {
         font-size: 18px;
+    }
+    @media screen and (max-width: 700px) {
+        font-size: 22px;
     }
 
     @media screen and (max-height: 602px) {
