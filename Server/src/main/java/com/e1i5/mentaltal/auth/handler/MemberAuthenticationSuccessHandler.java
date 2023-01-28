@@ -1,6 +1,6 @@
 package com.e1i5.mentaltal.auth.handler;
 
-import com.e1i5.mentaltal.user.member.Member;
+import com.e1i5.mentaltal.domain.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
