@@ -3,6 +3,8 @@ import Footer from "../Footer";
 import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import useScrollFadeIn from "./useScrollFadeIn";
+import desktopImg from "../../icons/intro-responsive-img.png";
+import mobileImg from "../../icons/intro-mobile-responsive-img.png";
 
 const IntroResponsive = () => {
     // false인 경우 데스크탑 목업 이미지, true인 경우 모바일 목업 이미지
@@ -19,7 +21,6 @@ const IntroResponsive = () => {
 
     return (
         <>
-            <NavSize />
             <IntroResponsiveContainer>
                 <LeftContainer clickWhite={btnClick ? "#fff" : "#3f724d"} clickGreen={btnClick ? "#3f724d" : "#fff"}>
                     <div className="title" {...animatedItem[0]}>
@@ -36,7 +37,15 @@ const IntroResponsive = () => {
                     </button>
                 </LeftContainer>
                 <RightContainer clickWhite={btnClick ? "#3f724d" : "#fff"} clickGreen={btnClick ? "#fff" : "#3f724d"} />
-                {btnClick ? <MobileMockupImg /> : <MockupImg />}
+                {btnClick ? (
+                    <MobileMockupImg>
+                        <img src={`${mobileImg}`} />
+                    </MobileMockupImg>
+                ) : (
+                    <MockupImg>
+                        <img src={`${desktopImg}`} />
+                    </MockupImg>
+                )}
             </IntroResponsiveContainer>
             <Footer />
         </>
@@ -45,13 +54,9 @@ const IntroResponsive = () => {
 
 export default IntroResponsive;
 
-const NavSize = styled.div`
-    height: 65px;
-`;
-
 const IntroResponsiveContainer = styled.div`
     width: 100%;
-    height: 56%;
+    height: 62%;
     display: flex;
     position: relative;
 `;
@@ -143,29 +148,63 @@ const RightContainer = styled.div`
 const MockupImg = styled.div`
     position: absolute;
     top: 20%;
-    left: 50%;
+    left: 60%;
     right: 10%;
     bottom: 20%;
     width: 40%;
     height: auto;
-    border: 1px solid;
+    /* border: 1px solid; */
     border-radius: 20px;
     @media screen and (max-width: 1024px) {
         display: none;
+    }
+
+    img {
+        width: 50%;
+        height: auto;
+        @media screen and (max-width: 1700px) {
+            width: 55%;
+        }
+        @media screen and (max-width: 1430px) {
+            width: 60%;
+        }
+        @media screen and (max-width: 1270px) {
+            width: 70%;
+        }
+        @media screen and (max-width: 1080px) {
+            width: 80%;
+        }
     }
 `;
 
 const MobileMockupImg = styled.div`
     position: absolute;
     top: 13%;
-    left: 63%;
-    /* right: 15%; */
+    left: 61%;
     bottom: 10%;
-    width: 18%;
+    width: 20%;
     height: auto;
-    border: 1px solid;
     border-radius: 20px;
+    @media screen and (max-width: 1631px) {
+        left: 63%;
+    }
     @media screen and (max-width: 1024px) {
         display: none;
+    }
+    img {
+        width: 70%;
+        height: auto;
+        @media screen and (max-width: 1585px) {
+            width: 80%;
+        }
+        @media screen and (max-width: 1375px) {
+            width: 90%;
+        }
+        @media screen and (max-width: 1233px) {
+            width: 100%;
+        }
+        @media screen and (max-width: 1024px) {
+            display: none;
+        }
     }
 `;

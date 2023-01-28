@@ -11,6 +11,8 @@ const CreateBoardHeader = () => {
     );
 };
 
+export default CreateBoardHeader;
+
 // styled components
 const CBHeaderWrapper = styled.header`
     padding: 60px 100px;
@@ -59,5 +61,3 @@ const CBHeaderTitle = styled.div`
         }
     }
 `;
-
-export default CreateBoardHeader;

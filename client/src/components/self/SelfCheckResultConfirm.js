@@ -101,7 +101,7 @@ const SelfCheckResultConfirm = () => {
                     </SCResultConfirmTitle>
                     <SCResultConfirmCount>{resultCount}점</SCResultConfirmCount>
                     <SCResultConfirmResultInfo>
-                        <div>
+                        <div className="SCResultConfirmResultInfoScore">
                             {resultRange}점: {resultTitle}
                         </div>
                         <div className="SCResultConfirmResultInfoText">{resultText}</div>
@@ -170,9 +170,15 @@ const SCResultConfirmResultInfo = styled.div`
     flex-direction: column;
     gap: 10px;
 
+    .SCResultConfirmResultInfoScore {
+        font-weight: var(--font-bold);
+        color: var(--green);
+    }
+
     .SCResultConfirmResultInfoText {
-        line-height: 1.1rem;
+        line-height: 1.3rem;
         font-size: 0.9rem;
+        padding-top: 3%;
     }
 
     @media screen and (max-width: 380px) {

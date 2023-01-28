@@ -17,6 +17,8 @@ const CounselingCenter = ({ setIsFooter }) => {
     );
 };
 
+export default CounselingCenter;
+
 const CCWrapper = styled.div`
     padding-top: 65px;
 `;
@@ -35,10 +37,6 @@ const CCHeader = styled.div`
         font-size: 2.6rem;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
-
-        @media screen and (max-width: 768px) {
-            font-size: 35px;
-        }
     }
 
     @media screen and (max-width: 920px) {
@@ -47,5 +45,3 @@ const CCHeader = styled.div`
         }
     }
 `;
-
-export default CounselingCenter;

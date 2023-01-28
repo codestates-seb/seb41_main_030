@@ -16,6 +16,6 @@ const SelfCheckResult = ({ setIsFooter }) => {
     );
 };
 
-const SCResultWrapper = styled.div``;
-
 export default SelfCheckResult;
+
+const SCResultWrapper = styled.div``;

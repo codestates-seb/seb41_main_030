@@ -18,10 +18,10 @@ const CreateBoard = ({ setIsFooter }) => {
     );
 };
 
+export default CreateBoard;
+
 const CreateBoardsWrapper = styled.div`
     margin-top: 65px;
     background-color: white;
     height: 600px;
 `;
-
-export default CreateBoard;

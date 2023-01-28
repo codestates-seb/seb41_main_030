@@ -11,7 +11,7 @@ const MyPage = ({ setIsFooter }) => {
     const token = localStorage.getItem("loginToken"); // 토큰 존재할 경우에만 마이페이지 진입 가능
     const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
-    const url = `http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080`;
+    const url = process.env.REACT_APP_SERVER_URL;
 
     const userProfileData = async (id) => {
         const member = await axios.get(`${url}/members/${id}`);

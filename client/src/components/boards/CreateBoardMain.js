@@ -7,7 +7,8 @@ import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../states/";
 
 const CreateBoardMain = () => {
-    const url = "http://ec2-3-36-53-155.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
+
     const {
         register,
         handleSubmit,
@@ -37,7 +38,7 @@ const CreateBoardMain = () => {
     // 게시글 등록 요청 함수
     const postBoard = async (data) => {
         axios
-            .post(`/boards`, data)
+            .post(`${url}/boards`, data)
             .then((res) => {
                 navigate("/community");
             })
@@ -108,6 +109,8 @@ const CreateBoardMain = () => {
         </CBMainWrapper>
     );
 };
+
+export default CreateBoardMain;
 
 // styled components
 const CBMainWrapper = styled.div`
@@ -272,5 +275,3 @@ const CBSubmitBtn = styled.div`
         }
     }
 `;
-
-export default CreateBoardMain;
