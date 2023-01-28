@@ -22,7 +22,7 @@ const BoardDetail = ({ setIsFooter }) => {
         setIsFooter(true);
 
         axios
-            .get(`/boards/${id}`)
+            .get(`${url}/boards/${id}`)
             .then((res) => {
                 setBoard(res.data.data);
                 setAnswer(res.data.data.comment);
@@ -40,6 +40,8 @@ const BoardDetail = ({ setIsFooter }) => {
     );
 };
 
+export default BoardDetail;
+
 // styled components
 const BoardDetailWrapper = styled.div`
     margin-top: 65px;
@@ -54,5 +56,3 @@ const BoardDetailWrapper = styled.div`
 
     position: relative; // modal 위치
 `;
-
-export default BoardDetail;

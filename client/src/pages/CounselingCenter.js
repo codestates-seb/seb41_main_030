@@ -17,6 +17,8 @@ const CounselingCenter = ({ setIsFooter }) => {
     );
 };
 
+export default CounselingCenter;
+
 const CCWrapper = styled.div`
     padding-top: 65px;
 `;
@@ -43,5 +45,3 @@ const CCHeader = styled.div`
         }
     }
 `;
-
-export default CounselingCenter;

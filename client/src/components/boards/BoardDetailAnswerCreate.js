@@ -23,7 +23,7 @@ const BoardDetailAnswerCreate = ({ setIsLogin }) => {
             setIsLogin(false);
 
             axios
-                .post(`/comments`, data)
+                .post(`${url}/comments`, data)
                 .then((res) => {
                     window.location.reload();
                 })
@@ -61,6 +61,8 @@ const BoardDetailAnswerCreate = ({ setIsLogin }) => {
         </BDAnswerCreateWrapper>
     );
 };
+
+export default BoardDetailAnswerCreate;
 
 // styled components
 const BDAnswerCreateWrapper = styled.div`
@@ -121,5 +123,3 @@ const BDMainTextareaWrapper = styled.div`
         }
     }
 `;
-
-export default BoardDetailAnswerCreate;
