@@ -22,7 +22,7 @@ const IntroBoard = () => {
         <>
             <IntroBoardContainer>
                 <LeftContent>
-                    <img src={`${boardImg}`} />
+                    <img src={`${boardImg}`} alt="MENTALTAL 커뮤니티 페이지 모바일 목업 이미지" />
                 </LeftContent>
                 <RightContent>
                     <div className="title" {...animatedItem[0]}>

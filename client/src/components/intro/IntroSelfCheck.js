@@ -36,7 +36,7 @@ const IntroSelfCheck = () => {
                     </div>
                 </LeftContent>
                 <RightContent>
-                    <img src={`${selfCheckImg}`} />
+                    <img src={`${selfCheckImg}`} alt="MENTALTAL 자가진단 페이지 모바일 목업 이미지" />
                 </RightContent>
             </IntroSelfCheckContainer>
         </>
