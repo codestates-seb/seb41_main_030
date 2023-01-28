@@ -5,7 +5,7 @@ import axios from "axios";
 const MyPageAnswer = ({ userData }) => {
     const [answerListData, setAnswerListData] = useState(undefined); // 전체 답변
     const [postListData, setPostListData] = useState(undefined); // 전체 게시글
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
 
     useEffect(() => {
         // 답변
