@@ -1,6 +1,5 @@
 package com.e1i5.mentaltal.domain.board.mapper;
 
-import com.e1i5.mentaltal.board.dto.*;
 import com.e1i5.mentaltal.domain.board.entity.Board;
 import com.e1i5.mentaltal.domain.comment.dto.CommentResponseDto;
 import com.e1i5.mentaltal.domain.comment.entity.Comment;
