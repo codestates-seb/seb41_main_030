@@ -13,7 +13,7 @@ import BoardModal from "../components/boards/BoardModal";
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
     const setBoard = useSetRecoilState(boardState);
     const setAnswer = useSetRecoilState(answerState);
     const [isLogin, setIsLogin] = useState(false);
@@ -22,7 +22,7 @@ const BoardDetail = ({ setIsFooter }) => {
         setIsFooter(true);
 
         axios
-            .get(`/boards/${id}`)
+            .get(`${url}/boards/${id}`)
             .then((res) => {
                 setBoard(res.data.data);
                 setAnswer(res.data.data.comment);
@@ -40,6 +40,8 @@ const BoardDetail = ({ setIsFooter }) => {
     );
 };
 
+export default BoardDetail;
+
 // styled components
 const BoardDetailWrapper = styled.div`
     margin-top: 65px;
@@ -54,5 +56,3 @@ const BoardDetailWrapper = styled.div`
 
     position: relative; // modal 위치
 `;
-
-export default BoardDetail;

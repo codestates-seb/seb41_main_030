@@ -8,7 +8,7 @@ import { boardState, memberIdState } from "../../states";
 
 // component
 const EditBoardMain = () => {
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
     const navigate = useNavigate();
     const [board, setBoard] = useRecoilState(boardState);
     const memberId = useRecoilValue(memberIdState);
@@ -42,7 +42,7 @@ const EditBoardMain = () => {
     // 게시글 수정 요청 함수
     const patchBoard = (data) => {
         axios
-            .patch(`/boards/${board.boardId}/`, data)
+            .patch(`${url}/boards/${board.boardId}/`, data)
             .then((res) => {
                 navigate(`/community/${board.boardId}`);
                 setBoard(data);
@@ -112,6 +112,8 @@ const EditBoardMain = () => {
         </EBMainWrapper>
     );
 };
+
+export default EditBoardMain;
 
 // styled components
 const EBMainWrapper = styled.div`
@@ -275,5 +277,3 @@ const EBSubmitBtn = styled.div`
         }
     }
 `;
-
-export default EditBoardMain;

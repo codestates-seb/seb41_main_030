@@ -13,6 +13,8 @@ const BoardDetailAnswerList = ({ setIsLogin }) => {
     );
 };
 
+export default BoardDetailAnswerList;
+
 // styled components
 const BDAWrapper = styled.ul`
     width: 80%;
@@ -26,5 +28,3 @@ const BDAWrapper = styled.ul`
         width: 100%;
     }
 `;
-
-export default BoardDetailAnswerList;

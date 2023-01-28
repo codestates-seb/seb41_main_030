@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import { boardState, memberIdState } from "../../states";
 
 const BoardDetailAnswerCreate = ({ setIsLogin }) => {
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
     const board = useRecoilValue(boardState);
     const memberId = useRecoilValue(memberIdState);
     const token = localStorage.getItem("loginToken");
@@ -23,7 +23,7 @@ const BoardDetailAnswerCreate = ({ setIsLogin }) => {
             setIsLogin(false);
 
             axios
-                .post(`/comments`, data)
+                .post(`${url}/comments`, data)
                 .then((res) => {
                     window.location.reload();
                 })
@@ -61,6 +61,8 @@ const BoardDetailAnswerCreate = ({ setIsLogin }) => {
         </BDAnswerCreateWrapper>
     );
 };
+
+export default BoardDetailAnswerCreate;
 
 // styled components
 const BDAnswerCreateWrapper = styled.div`
@@ -121,5 +123,3 @@ const BDMainTextareaWrapper = styled.div`
         }
     }
 `;
-
-export default BoardDetailAnswerCreate;

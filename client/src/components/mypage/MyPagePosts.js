@@ -6,7 +6,7 @@ import axios from "axios";
 const MyPagePosts = ({ userData }) => {
     // Server Data
     const [postListData, setPostListData] = useState(undefined);
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
 
     useEffect(() => {
         axios

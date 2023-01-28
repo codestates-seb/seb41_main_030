@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
 const BoardsMain = () => {
-    const url = process.env.REACT_APP_SERVER_URL;
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
 
     // 페이지 관련 상태
     const [list, setList] = useState([]);
@@ -14,7 +14,7 @@ const BoardsMain = () => {
 
     // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        axios.get(`/boards?page=${current}&size=8`).then((res) => {
+        axios.get(`${url}/boards?page=${current}&size=8`).then((res) => {
             setList(res.data.data);
             setTotal(res.data.pageInfo.totalElements);
         });
@@ -56,6 +56,8 @@ const BoardsMain = () => {
         </BoardsMainWrapper>
     );
 };
+
+export default BoardsMain;
 
 // styled components
 // ------------- body ------------- //
@@ -225,5 +227,3 @@ const PagingWrapper = styled.div`
         color: white;
     }
 `;
-
-export default BoardsMain;

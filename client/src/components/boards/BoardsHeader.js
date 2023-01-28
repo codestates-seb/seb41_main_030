@@ -31,6 +31,8 @@ const BoardsHeader = ({ setIsLogin }) => {
     );
 };
 
+export default BoardsHeader;
+
 // styled components
 const BoardsHeaderWrapper = styled.header`
     width: 100%;
@@ -127,5 +129,3 @@ const BoardsLink = styled.div`
         }
     }
 `;
-
-export default BoardsHeader;
