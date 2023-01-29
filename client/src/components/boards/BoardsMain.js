@@ -176,6 +176,61 @@ const BoardsMainTagsBtnWrapper = styled.ul`
             font-size: 0.8rem;
         }
     }
+
+    @media screen and (max-width: 771px) {
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 8px;
+
+        li:nth-child(5) {
+            button {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border-right: none;
+            }
+        }
+
+        li:nth-child(6) {
+            button {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 439px) {
+        grid-template-columns: repeat(3, 1fr);
+
+        button {
+            font-size: 0.7rem;
+            padding: 5px;
+        }
+
+        li:nth-child(3n) {
+            button {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                border-right: none;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        li:nth-child(3n + 1) {
+            button {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                border-right: none;
+            }
+        }
+
+        li:nth-child(3n + 2) {
+            button {
+                border-radius: 0;
+                border-right: 1px solid var(--darkgreen);
+                border-left: 1px solid var(--darkgreen);
+            }
+        }
+    }
 `;
 
 // ------------- 게시글 카드 wrapper ------------- //
