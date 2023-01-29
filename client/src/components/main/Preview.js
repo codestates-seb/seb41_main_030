@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const Preview = ({ tags, title, content, writer, boardId }) => {
-    const tagArray = tags && tags === "" ? ["미지정"] : (tags || "").split(",");
+    const tagArray = tags && tags.length === 0 ? null : (tags || "").split(",");
     if (tagArray.length > 3) {
         tagArray.splice(3);
     }
@@ -10,11 +10,15 @@ const Preview = ({ tags, title, content, writer, boardId }) => {
     return (
         <Post>
             <div className="tagContainer">
-                {tagArray.map((tag, index) => (
-                    <div className="tag" key={index}>
-                        {tag}
-                    </div>
-                ))}
+                {tagArray[0] === "" ? (
+                    <div className="tag">미지정</div>
+                ) : (
+                    tagArray.map((tag, index) => (
+                        <div className="tag" key={index}>
+                            {tag}
+                        </div>
+                    ))
+                )}
             </div>
             <div className="title">{title}</div>
             <div className="content">
