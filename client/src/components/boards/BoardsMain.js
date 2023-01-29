@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import BoardCard from "./BoardCard";
+import { Link } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { boardState, answerState } from "../../states";
 
 const BoardsMain = () => {
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const setBoard = useSetRecoilState(boardState);
+    const setAnswer = useSetRecoilState(answerState);
+
+    const [loading, setLoading] = useState(true);
 
     // 페이지 관련 상태
     const [list, setList] = useState([]);
@@ -23,16 +30,10 @@ const BoardsMain = () => {
     return (
         <BoardsMainWrapper>
             <BoardsList>
-                {list.map((post) => (
-                    <li key={post.boardId}>
+                {list.map((post, idx) => (
+                    <li key={idx}>
                         <BoardsCardLink to={`/community/${post.boardId}`}>
-                            <BoardsTitle>{post.title}</BoardsTitle>
-                            <BoardsTagWrapper> {post.tags === "" ? null : (post.tags || "").split(",").map((tag, idx) => <BoardsTag key={idx}>{tag}</BoardsTag>)}</BoardsTagWrapper>
-                            <BoardsContent>{post.content}</BoardsContent>
-                            <BoardsInfo>
-                                {post.voteCount === 0 ? <div>♡ 공감해주세요</div> : <div>♡ {post.voteCount}명이 공감</div>}
-                                <div>{post.nickName}</div>
-                            </BoardsInfo>
+                            <BoardCard post={post} />
                         </BoardsCardLink>
                     </li>
                 ))}
@@ -66,28 +67,6 @@ const BoardsMainWrapper = styled.main`
     background-color: var(--lightgreen2);
 `;
 
-// ------------- 게시글 리스트 wrapper ------------- //
-const BoardsList = styled.ul`
-    padding: 60px 100px;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-
-    @media screen and (max-width: 768px) {
-        display: flex;
-        flex-direction: column;
-    }
-
-    @media screen and (max-width: 920px) {
-        padding: 40px;
-    }
-
-    @media screen and (min-width: 1921px) {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-`;
-
 // ------------- 게시글 카드 wrapper ------------- //
 const BoardsCardLink = styled(Link)`
     width: 100%;
@@ -108,85 +87,25 @@ const BoardsCardLink = styled(Link)`
     }
 `;
 
-const BoardsTitle = styled.div`
-    color: var(--darkgreen);
-    font-size: 1.15rem;
-    font-weight: var(--font-bold);
-    margin-bottom: 12px;
+// ------------- 게시글 리스트 wrapper ------------- //
+const BoardsList = styled.ul`
+    padding: 60px 100px;
 
-    // 줄넘침
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
 
-    // 영어
-    word-wrap: break-word;
-    word-break: break-all;
-
-    @media screen and (max-width: 319px) {
-        font-size: 1rem;
-    }
-`;
-
-const BoardsTagWrapper = styled.ul`
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 12px;
-`;
-
-const BoardsTag = styled.li`
-    width: fit-content;
-    padding: 5px 8px;
-
-    border-radius: 15px;
-    background-color: var(--lightgreen);
-    color: white;
-    font-size: 0.75rem;
-
-    @media screen and (max-width: 319px) {
-        padding: 3px;
-        font-size: 0.5rem;
-    }
-`;
-
-const BoardsContent = styled.div`
-    margin-bottom: 20px;
-
-    color: var(--darkgreen);
-    font-size: 0.95rem;
-
-    line-height: 1.1rem;
-
-    // 줄넘침
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-
-    // 영어
-    word-wrap: break-word;
-    word-break: break-all;
-
-    @media screen and (max-width: 319px) {
-        font-size: 0.8rem;
-    }
-`;
-
-const BoardsInfo = styled.div`
-    display: flex;
-    justify-content: space-between;
-
-    font-size: 0.8rem;
-    color: var(--darkgreen);
-
-    @media screen and (max-width: 319px) {
-        font-size: 0.65rem;
+    @media screen and (max-width: 768px) {
+        display: flex;
         flex-direction: column;
-        gap: 2px;
+    }
+
+    @media screen and (max-width: 920px) {
+        padding: 40px;
+    }
+
+    @media screen and (min-width: 1921px) {
+        grid-template-columns: 1fr 1fr 1fr;
     }
 `;
 
