@@ -4,14 +4,10 @@ import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import BoardCard from "./BoardCard";
 import { Link } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { boardState, answerState } from "../../states";
+import loadingImg from "../../icons/Spinner-1s-200px.gif";
 
 const BoardsMain = () => {
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
-    const setBoard = useSetRecoilState(boardState);
-    const setAnswer = useSetRecoilState(answerState);
-
     const [loading, setLoading] = useState(true);
 
     // 페이지 관련 상태
@@ -21,50 +17,69 @@ const BoardsMain = () => {
 
     // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        axios.get(`${url}/boards?page=${current}&size=8`).then((res) => {
-            setList(res.data.data);
-            setTotal(res.data.pageInfo.totalElements);
-        });
+        setTimeout(() => {
+            axios.get(`${url}/boards?page=${current}&size=8`).then((res) => {
+                setList(res.data.data);
+                setTotal(res.data.pageInfo.totalElements);
+                setLoading(false);
+            });
+        }, 500);
     }, [current]);
 
     return (
         <BoardsMainWrapper>
-            <BoardsList>
-                {list.map((post, idx) => (
-                    <li key={idx}>
-                        <BoardsCardLink to={`/community/${post.boardId}`}>
-                            <BoardCard post={post} />
-                        </BoardsCardLink>
-                    </li>
-                ))}
-            </BoardsList>
+            {loading ? (
+                <BoardsMainLoading>
+                    <img src={loadingImg} alt="loading img" />
+                </BoardsMainLoading>
+            ) : (
+                <>
+                    <BoardsList>
+                        {list.map((post, idx) => (
+                            <li key={idx}>
+                                <BoardsCardLink to={`/community/${post.boardId}`}>
+                                    <BoardCard post={post} />
+                                </BoardsCardLink>
+                            </li>
+                        ))}
+                    </BoardsList>
 
-            <PagingWrapper>
-                <Pagination
-                    activePage={current}
-                    itemsCountPerPage={8}
-                    totalItemsCount={total}
-                    pageRangeDisplayed={5}
-                    prevPageText={"‹"}
-                    nextPageText={"›"}
-                    onChange={(current) => {
-                        setCurrent(current);
-                        window.scrollTo(0, 0);
-                    }}
-                    hideFirstLastPages={true}
-                />
-            </PagingWrapper>
+                    <PagingWrapper>
+                        <Pagination
+                            activePage={current}
+                            itemsCountPerPage={8}
+                            totalItemsCount={total}
+                            pageRangeDisplayed={5}
+                            prevPageText={"‹"}
+                            nextPageText={"›"}
+                            onChange={(current) => {
+                                setCurrent(current);
+                                window.scrollTo(0, 0);
+                            }}
+                            hideFirstLastPages={true}
+                        />
+                    </PagingWrapper>
+                </>
+            )}
         </BoardsMainWrapper>
     );
 };
 
 export default BoardsMain;
 
-// styled components
 // ------------- body ------------- //
 const BoardsMainWrapper = styled.main`
     width: 100%;
     background-color: var(--lightgreen2);
+`;
+
+const BoardsMainLoading = styled.div`
+    width: 100%;
+    height: 90vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 // ------------- 게시글 카드 wrapper ------------- //
