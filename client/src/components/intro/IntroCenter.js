@@ -13,7 +13,6 @@ const IntroCenter = () => {
 
     return (
         <>
-            <NavSize />
             <IntroCenterContainer>
                 <div className="title" {...animatedItem[0]}>
                     상담 센터 추천
@@ -21,17 +20,17 @@ const IntroCenter = () => {
                 <div className="description" {...animatedItem[1]}>
                     전문 기관의 도움이 필요하다면, {useMediaQuery({ maxWidth: 873 }) ? <br /> : null} 가까운 상담 센터를 {useMediaQuery({ maxWidth: 562 }) ? <br /> : null} 카카오맵에서 둘러보세요.
                 </div>
-                {useMediaQuery({ maxWidth: 768 }) ? <img src={`${mobileCenterImg}`} {...animatedItem[2]} className="mobile" /> : <img src={`${centerImg}`} {...animatedItem[2]} className="desktop" />}
+                {useMediaQuery({ maxWidth: 768 }) ? (
+                    <img src={`${mobileCenterImg}`} {...animatedItem[2]} className="mobile" alt="MENTALTAL 상담센터 페이지 모바일 목업 이미지" />
+                ) : (
+                    <img src={`${centerImg}`} {...animatedItem[2]} className="desktop" alt="MENTALTAL 상담센터 페이지 데스크탑 목업 이미지" />
+                )}
             </IntroCenterContainer>
         </>
     );
 };
 
 export default IntroCenter;
-
-const NavSize = styled.div`
-    height: 58px;
-`;
 
 const IntroCenterContainer = styled.div`
     display: flex;
@@ -41,7 +40,12 @@ const IntroCenterContainer = styled.div`
     width: 100%;
     height: 100%;
     color: var(--green);
-    padding: 100px;
+    padding: 9%;
+    padding-top: 10%;
+
+    @media screen and (max-width: 768px) {
+        padding: 15%;
+    }
 
     .title {
         font-size: 45px;
