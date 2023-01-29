@@ -11,6 +11,8 @@ const Login = ({ setIsFooter }) => {
         setIsFooter(false);
     });
 
+    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+
     const setMemberId = useSetRecoilState(memberIdState);
 
     const {
@@ -24,7 +26,7 @@ const Login = ({ setIsFooter }) => {
     const handleLoginRequest = (data) => {
         axios
             // proxy 적용해서 도메인 제거함. CORS 문제 해결 후 수정
-            .post("/members/login", data)
+            .post(`${url}/members/login`, data)
             .then((res) => {
                 localStorage.setItem("loginToken", res.headers.authorization);
                 setMemberId(res.data.memberId);

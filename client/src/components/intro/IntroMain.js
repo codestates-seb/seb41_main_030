@@ -74,32 +74,100 @@ const IntroMainContent = styled.div`
     .subTitle {
         padding-top: 15px;
         padding-bottom: 40px;
-        font-size: 27px;
+        font-size: 169%;
         font-weight: var(--font-bold);
+        @media screen and (max-width: 768px) {
+            font-size: 147%;
+        }
+        @media screen and (max-width: 510px) {
+            font-size: 137%;
+            padding-bottom: 30px;
+        }
+        @media screen and (max-width: 430px) {
+            font-size: 127%;
+            padding-bottom: 20px;
+        }
+        @media screen and (max-width: 414px) {
+            font-size: 117%;
+            padding-bottom: 15px;
+        }
+        @media screen and (max-width: 375px) {
+            font-size: 107%;
+            padding-top: 12px;
+        }
     }
 
     .logo {
-        font-size: 91.42px;
+        font-size: 570%;
         padding-bottom: 60px;
+        @media screen and (max-width: 768px) {
+            font-size: 530%;
+        }
+        @media screen and (max-width: 545px) {
+            font-size: 510%;
+        }
+        @media screen and (max-width: 510px) {
+            font-size: 480%;
+            padding-bottom: 50px;
+        }
+        @media screen and (max-width: 470px) {
+            font-size: 450%;
+        }
+        @media screen and (max-width: 460px) {
+            font-size: 420%;
+        }
+        @media screen and (max-width: 430px) {
+            font-size: 390%;
+            padding-bottom: 40px;
+        }
+        @media screen and (max-width: 414px) {
+            font-size: 360%;
+            padding-bottom: 35px;
+        }
+        @media screen and (max-width: 375px) {
+            font-size: 340%;
+            padding-bottom: 30px;
+        }
     }
 
     .button {
         background-color: white;
         color: var(--green);
-        font-size: 18px;
+        font-size: 113%;
         font-weight: var(--font-bold);
         border-radius: 50px;
         padding: 15px 30px;
         &:hover {
             cursor: pointer;
         }
+        @media screen and (max-width: 768px) {
+            font-size: 100%;
+        }
+        @media screen and (max-width: 460px) {
+            font-size: 90%;
+        }
+        @media screen and (max-width: 375px) {
+            font-size: 80%;
+        }
     }
 `;
 
 const TypingContainer = styled.div`
-    font-size: 22px;
+    font-size: 137%;
 
     .cursor.blink {
         animation: blink 0.8s ease-in-out infinite;
+    }
+    @media screen and (max-width: 768px) {
+        font-size: 115%;
+    }
+    @media screen and (max-width: 430px) {
+        font-size: 110%;
+    }
+    @media screen and (max-width: 414px) {
+        font-size: 105%;
+    }
+    @media screen and (max-width: 375px) {
+        font-size: 100%;
     }
 `;
