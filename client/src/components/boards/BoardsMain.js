@@ -27,7 +27,7 @@ const BoardsMain = () => {
                     <li key={post.boardId}>
                         <BoardsCardLink to={`/community/${post.boardId}`}>
                             <BoardsTitle>{post.title}</BoardsTitle>
-                            <BoardsTagWrapper>{post.tags === "" ? null : post.tags.split(",").map((el, index) => <BoardsTag key={index}>{el}</BoardsTag>)}</BoardsTagWrapper>
+                            <BoardsTagWrapper> {post.tags === "" ? null : (post.tags || "").split(",").map((tag, idx) => <BoardsTag key={idx}>{tag}</BoardsTag>)}</BoardsTagWrapper>
                             <BoardsContent>{post.content}</BoardsContent>
                             <BoardsInfo>
                                 {post.voteCount === 0 ? <div>♡ 공감해주세요</div> : <div>♡ {post.voteCount}명이 공감</div>}
