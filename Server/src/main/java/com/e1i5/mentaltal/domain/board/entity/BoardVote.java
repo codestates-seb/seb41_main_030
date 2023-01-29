@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class BoardVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long boardVoteId;
+    private long voteId;
 
     private boolean voteCheck;
 

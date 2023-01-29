@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class CommentVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commentVoteId;
+    private long voteId;
 
     private boolean voteCheck;
 

@@ -5,14 +5,12 @@ import com.e1i5.mentaltal.domain.board.dto.BoardPostDto;
 import com.e1i5.mentaltal.domain.board.entity.Board;
 import com.e1i5.mentaltal.domain.board.mapper.BoardMapper;
 import com.e1i5.mentaltal.domain.board.service.BoardService;
-import com.e1i5.mentaltal.domain.member.entity.Member;
 import com.e1i5.mentaltal.dto.MultiResponseDto;
 import com.e1i5.mentaltal.dto.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -108,14 +106,4 @@ public class BoardController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
     }
-
-    // todo 500 error
-//    @PostMapping("/{board-id}/votes")  // /{board-id}/votes?voteCheck=true
-//    public ResponseEntity setVoteCheck(
-//            @PathVariable("board-id") long boardId, @RequestParam boolean voteCheck, @AuthenticationPrincipal Member member){
-//        Board board = boardService.boardVote(boardId, member.getMemberId(), voteCheck);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(mapper.boardToBoardResponseDto(board)), HttpStatus.OK); // boardToBoardResponseDto OR boardToBoardGetResponseDto ?
-//    }
 }

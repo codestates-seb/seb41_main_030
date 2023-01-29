@@ -34,6 +34,4 @@ public class Counselor {
 
     @Column(nullable = false)
     private String center;
-
-    private Boolean image;
 }

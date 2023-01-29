@@ -5,7 +5,6 @@ import com.e1i5.mentaltal.domain.comment.dto.CommentPostDto;
 import com.e1i5.mentaltal.domain.comment.entity.Comment;
 import com.e1i5.mentaltal.domain.comment.mapper.CommentMapper;
 import com.e1i5.mentaltal.domain.comment.service.CommentService;
-import com.e1i5.mentaltal.domain.member.entity.Member;
 import com.e1i5.mentaltal.dto.MultiResponseDto;
 import com.e1i5.mentaltal.dto.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
