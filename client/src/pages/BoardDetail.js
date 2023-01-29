@@ -11,7 +11,6 @@ import BoardDetailQuestion from "../components/boards/BoardDetailQuestion";
 import BoardDetailAnswerList from "../components/boards/BoardDetailAnswerList";
 import BoardDetailAnswerCreate from "../components/boards/BoardDetailAnswerCreate";
 import BoardModal from "../components/boards/BoardModal";
-import Loading from "react-loading";
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
@@ -23,6 +22,7 @@ const BoardDetail = ({ setIsFooter }) => {
 
     useEffect(() => {
         setIsFooter(true);
+        window.scrollTo(0, 0);
 
         setTimeout(() => {
             axios
