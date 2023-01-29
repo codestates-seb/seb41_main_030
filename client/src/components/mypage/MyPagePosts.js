@@ -1,9 +1,13 @@
 import UserPost from "./UserPost";
 import { useState, useEffect, memo } from "react";
 import axios from "axios";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 // import Loader from "./Loader";
 
 const MyPagePosts = ({ userData }) => {
+    const navigate = useNavigate();
+
     // Server Data
     const [postListData, setPostListData] = useState(undefined);
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
@@ -109,10 +113,19 @@ const MyPagePosts = ({ userData }) => {
 
     return (
         <>
-            {userPostData &&
+            {userPostData && userPostData.length === 0 ? (
+                <Alert>
+                    작성하신 게시글이 없습니다.
+                    <br />
+                    MENTALTAL 커뮤니티에 고민을 작성해보세요!
+                    <button onClick={() => navigate("/write")}>고민 작성하러 가기</button>
+                </Alert>
+            ) : (
+                userPostData &&
                 userPostData.map((post, index) => {
                     return <UserPost key={index} title={post.title} content={post.content} createdAt={post.createdAt} isComment={true} commentCount={post.commentCount} boardId={post.boardId} />;
-                })}
+                })
+            )}
             {/* <div ref={setTarget} />
             {isLoaded && <Loader />} */}
         </>
@@ -120,3 +133,26 @@ const MyPagePosts = ({ userData }) => {
 };
 
 export default memo(MyPagePosts);
+
+const Alert = styled.div`
+    font-size: 120%;
+    font-weight: var(--font-bold);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 6%;
+    line-height: 160%;
+    text-align: center;
+    flex-direction: column;
+
+    button {
+        font-family: "Nanum Gothic", sans-serif;
+        font-size: 90%;
+        font-weight: var(--font-bold);
+        margin-top: 3%;
+        padding: 1.2%;
+        width: 30%;
+        border-radius: 50px;
+    }
+`;
