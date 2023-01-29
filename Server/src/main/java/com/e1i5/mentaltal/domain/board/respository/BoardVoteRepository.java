@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface BoardVoteRepository extends JpaRepository<BoardVote, Long> {
     Optional<BoardVote> findByBoardAndMember(Board board, Member member);
-//    void deleteAllByBoard(Board board);   // BoardService --> deleteBoard
+    void deleteAllByBoard(Board board);
 }

@@ -5,6 +5,7 @@ import com.e1i5.mentaltal.domain.comment.dto.CommentPostDto;
 import com.e1i5.mentaltal.domain.comment.entity.Comment;
 import com.e1i5.mentaltal.domain.comment.mapper.CommentMapper;
 import com.e1i5.mentaltal.domain.comment.service.CommentService;
+import com.e1i5.mentaltal.domain.member.entity.Member;
 import com.e1i5.mentaltal.dto.MultiResponseDto;
 import com.e1i5.mentaltal.dto.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -79,10 +80,9 @@ public class CommentController {
     // 답변 삭제
     @DeleteMapping("/{comment-id}")
     public ResponseEntity deleteComment(@PathVariable("comment-id") @Positive long commentId) {
-
         commentService.deleteComment(commentId);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     // 공감 기능

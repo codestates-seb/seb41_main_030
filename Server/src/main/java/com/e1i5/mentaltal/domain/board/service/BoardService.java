@@ -13,9 +13,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,24 +80,14 @@ public class BoardService {
     }
 
     // 게시믈 삭제
+    @Transactional
     public void deleteBoard(long boardId) {
-//        Member findMember = memberService.findMember(board.getMid());
         Board verifiedBoard = findVerifiedBoard(boardId);
+
+        boardVoteRepository.deleteAllByBoard(verifiedBoard);
 
         boardRepository.delete(verifiedBoard);
     }
-
-//    // 게시물 삭제 시 작성자가 아닌 경우 (혹은 작성자가 아니면 DELETE 버튼이 나타나지 않게 처리?)
-//    public void deleteBoard(long boardId, long memberId) {
-////        Member findMember = memberService.findMember(board.getMid());
-//        Board board = findVerifiedBoard(boardId);
-//
-//        if (board.getMember().getMemberId() == memberService.findMember(memberId).getMemberId()) {
-//            boardVoteRepository.deleteAllByBoard(board);
-//            boardRepository.delete(board);
-//        }
-//        throw new BusinessLogicException(ExceptionCode.BOARD_WRITER_NOT_MATCH);
-//    }
 
     // 공감수 (좋아요)
     public long getVoteCount(long boardId) {
