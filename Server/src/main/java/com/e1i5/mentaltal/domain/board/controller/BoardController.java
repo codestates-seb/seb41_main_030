@@ -5,12 +5,14 @@ import com.e1i5.mentaltal.domain.board.dto.BoardPostDto;
 import com.e1i5.mentaltal.domain.board.entity.Board;
 import com.e1i5.mentaltal.domain.board.mapper.BoardMapper;
 import com.e1i5.mentaltal.domain.board.service.BoardService;
+import com.e1i5.mentaltal.domain.member.entity.Member;
 import com.e1i5.mentaltal.dto.MultiResponseDto;
 import com.e1i5.mentaltal.dto.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

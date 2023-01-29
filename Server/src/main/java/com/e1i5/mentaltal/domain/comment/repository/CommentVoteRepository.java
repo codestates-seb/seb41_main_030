@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface CommentVoteRepository extends JpaRepository<CommentVote, Long> {
     Optional<CommentVote> findByCommentAndMember(Comment comment, Member member);
-//    void deleteAllByComment(Comment comment);   // CommentService --> deleteComment
+    void deleteAllByComment(Comment comment);   // CommentService --> deleteComment
 }

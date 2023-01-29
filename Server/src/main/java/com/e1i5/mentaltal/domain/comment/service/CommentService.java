@@ -75,16 +75,14 @@ public class CommentService {
     }
 
     // 답변 삭제
-    public void deleteComment (long commentId) {
-        Comment findComment = findVerifiedComment(commentId);
-        Board board = boardService.findVerifiedBoard(findComment.getBoard().getBoardId());
-        board.minusCommentCount();
-        // 게시글에 달린 답변을 삭제해야 하는 거니까,
-        // 게시글 id를 받아와서, 그 게시글의 답변 개수를 내린다.
-        commentRepository.delete(findComment);
+    @Transactional
+    public void deleteComment(long commentId) {
+        Comment verifiedComment = findVerifiedComment(commentId);
 
+        commentVoteRepository.deleteAllByComment(verifiedComment);
+
+        commentRepository.delete(verifiedComment);
     }
-
 
     @Transactional(readOnly = true)
     public Comment findVerifiedComment(long commentId) {
