@@ -42,7 +42,6 @@ const BoardsMain = () => {
 
     // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        window.scrollTo(0, 0);
         setLoading(true);
 
         setTimeout(() => {
@@ -124,7 +123,7 @@ const BoardsMainWrapper = styled.main`
 
 const BoardsMainLoading = styled.div`
     width: 100%;
-    height: 90vh;
+    height: 50vh;
 
     display: flex;
     justify-content: center;
