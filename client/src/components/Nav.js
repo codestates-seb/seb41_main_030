@@ -43,7 +43,7 @@ const Nav = () => {
                 <li>
                     <Link to="/counselingcenter">전문기관</Link>
                 </li>
-                {token ? (
+                {token && token !== "undefined" ? (
                     <>
                         <li>
                             <Link to={`/mypage/${memberId}`}>
