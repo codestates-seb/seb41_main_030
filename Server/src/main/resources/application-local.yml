@@ -1,9 +1,10 @@
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mentaltal-db.cezdgu2xim5u.ap-northeast-2.rds.amazonaws.com:3306/mentaltal
-    username: admin
-    password: ${RDS_PASSWORD}
+    url: jdbc:h2:mem:test
   jpa:
     hibernate:
       ddl-auto: create
