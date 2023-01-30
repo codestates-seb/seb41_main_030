@@ -20,8 +20,10 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Server
     
 
     steps:
@@ -32,17 +34,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
-    - name: Build with Gradle
-      run: cd Server
       
     - name: Run chmod to make gradlew executable
       run: chmod +x gradlew
-      working-directory: Server
       
-#     - name: Build with Gradle
-#       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
-#       with:
-#         arguments: build
+    - name: Build with Gradle
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: build
         
-    - name: Build server
-      run: ./gradlew build -p Server/
