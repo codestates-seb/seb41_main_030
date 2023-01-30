@@ -23,7 +23,7 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
 
     // 공감 버튼
     const heartBtnHandle = () => {
-        if (token) {
+        if (token && token !== "undefined") {
             setIsLogin(false);
             postHeart();
         } else {

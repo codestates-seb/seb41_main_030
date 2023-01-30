@@ -77,14 +77,25 @@ const Alert = styled.div`
     line-height: 160%;
     text-align: center;
     flex-direction: column;
+    @media screen and (max-width: 648px) {
+        font-size: 105%;
+    }
+    @media screen and (max-width: 376px) {
+        font-size: 97%;
+    }
 
     button {
         font-family: "Nanum Gothic", sans-serif;
         font-size: 90%;
         font-weight: var(--font-bold);
-        margin-top: 3%;
-        padding: 1.2%;
-        width: 30%;
+        margin-top: 33px;
+        padding: 12px;
+        width: 300px;
         border-radius: 50px;
+        @media screen and (max-width: 648px) {
+            padding: 10px;
+            width: 280px;
+            font-size: 85%;
+        }
     }
 `;
