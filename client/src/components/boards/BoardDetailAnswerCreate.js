@@ -19,7 +19,7 @@ const BoardDetailAnswerCreate = ({ setIsLogin }) => {
 
     // 답글 등록 요청 함수
     const postComment = (data) => {
-        if (token) {
+        if (token && token !== "undefined") {
             setIsLogin(false);
 
             axios
