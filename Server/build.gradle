@@ -38,6 +38,10 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.10' //gson
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+	// Swagger
+	implementation "io.springfox:springfox-swagger2:2.9.2"
+	implementation "io.springfox:springfox-swagger-ui:2.9.2"
+
 }
 
 tasks.named('test') {
