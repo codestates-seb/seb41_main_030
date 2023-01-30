@@ -38,11 +38,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Comment> comments = new ArrayList<>();
 
-    @Transient
     private Long boardCount;
 
-    @Transient
-    private Long answerCount;
+    private Long commentCount;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();

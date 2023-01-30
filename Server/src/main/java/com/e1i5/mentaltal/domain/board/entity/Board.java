@@ -34,7 +34,7 @@ public class Board extends BaseTimeEntity {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long voteCount;  // 공감수 (좋아요)
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
+    @Column(columnDefinition = "integer default 0")
     private long commentCount;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
@@ -58,7 +58,5 @@ public class Board extends BaseTimeEntity {
         commentCount++;
     }
 
-    public void minusCommentCount () {
-        commentCount--;
-    }
+    public void minusCommentCount () {commentCount--;}
 }

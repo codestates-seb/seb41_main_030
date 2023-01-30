@@ -28,7 +28,7 @@ public interface MemberMapper {
         memberGetResponseDto.setNickName(member.getNickName());
         memberGetResponseDto.setEmail(member.getEmail());
         memberGetResponseDto.setBoardCount(member.getBoardCount());
-        memberGetResponseDto.setCommentCount(member.getAnswerCount());
+        memberGetResponseDto.setCommentCount(member.getCommentCount());
         memberGetResponseDto.setBoards(
                 memberToBoardResponseDtos(boards)
         );
