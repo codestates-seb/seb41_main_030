@@ -25,7 +25,7 @@ const NavModal = ({ test, memberId }) => {
             <li>
                 <Link to="/counselingcenter">전문기관</Link>
             </li>
-            {token ? (
+            {token && token !== "undefined" ? (
                 <>
                     <li>
                         <Link to={`/mypage/${memberId}`}>마이페이지</Link>
