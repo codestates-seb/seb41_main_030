@@ -43,18 +43,7 @@ const Nav = () => {
                 <li>
                     <Link to="/counselingcenter">전문기관</Link>
                 </li>
-                {token ? (
-                    <>
-                        <li>
-                            <Link to={`/mypage/${memberId}`}>
-                                <button>마이페이지</button>
-                            </Link>
-                        </li>
-                        <li>
-                            <button onClick={logoutBtnHandle}>로그아웃</button>
-                        </li>
-                    </>
-                ) : (
+                {token && token === "undefined" ? (
                     <>
                         <li>
                             <Link to="/login">
@@ -65,6 +54,17 @@ const Nav = () => {
                             <Link to="/signup">
                                 <button>회원가입</button>
                             </Link>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <li>
+                            <Link to={`/mypage/${memberId}`}>
+                                <button>마이페이지</button>
+                            </Link>
+                        </li>
+                        <li>
+                            <button onClick={logoutBtnHandle}>로그아웃</button>
                         </li>
                     </>
                 )}
