@@ -23,6 +23,8 @@ public class Board extends BaseTimeEntity {
     @Transient
     private Long mid;
 
+    private String nickName;
+
     @Column(nullable = false, length = 256)
     private String title;
 
@@ -44,7 +46,6 @@ public class Board extends BaseTimeEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    private String nickName;
 
     public void addMember(Member member) {
         if ( this.member != null) {

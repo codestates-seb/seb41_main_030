@@ -108,14 +108,4 @@ public class BoardController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(boardService.getVoteCount(boardId)), HttpStatus.OK);
     }
-
-    // todo 500 error
-//    @PostMapping("/{board-id}/votes")  // /{board-id}/votes?voteCheck=true
-//    public ResponseEntity setVoteCheck(
-//            @PathVariable("board-id") long boardId, @RequestParam boolean voteCheck, @AuthenticationPrincipal Member member){
-//        Board board = boardService.boardVote(boardId, member.getMemberId(), voteCheck);
-//
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(mapper.boardToBoardResponseDto(board)), HttpStatus.OK); // boardToBoardResponseDto OR boardToBoardGetResponseDto ?
-//    }
 }
