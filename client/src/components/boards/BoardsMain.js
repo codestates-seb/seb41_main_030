@@ -42,7 +42,6 @@ const BoardsMain = () => {
 
     // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        window.scrollTo(0, 0);
         setLoading(true);
 
         setTimeout(() => {
