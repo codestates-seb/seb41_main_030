@@ -29,6 +29,7 @@ const BoardsMain = () => {
         } else {
             axios.get(`${url}/boards/all`).then((res) => {
                 const tagFilterArr = res.data.filter((el) => el.tags.includes(`${tagState}`));
+                tagFilterArr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 const indexOfLast = current * 8;
                 const indexOfFirst = indexOfLast - 8;
 
