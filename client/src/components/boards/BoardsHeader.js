@@ -6,7 +6,7 @@ const BoardsHeader = ({ setIsLogin }) => {
     const token = localStorage.getItem("loginToken");
 
     const createBoardLinkBtnHandle = () => {
-        if (token) {
+        if (token && token !== "undefined") {
             setIsLogin(false);
             navigate("/write");
         } else {

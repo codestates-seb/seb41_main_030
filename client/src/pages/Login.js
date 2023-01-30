@@ -4,7 +4,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { memberIdState } from "../states/memberIdState";
+import { memberIdState } from "../states";
 
 const Login = ({ setIsFooter }) => {
     useEffect(() => {
@@ -12,25 +12,34 @@ const Login = ({ setIsFooter }) => {
     });
 
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const navigate = useNavigate();
 
     const setMemberId = useSetRecoilState(memberIdState);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    // 에러 모달창
+    const [errorModal, setErrorModal] = useState(false); // 로그인 실패
+    const [notTokenError, setNotTokenError] = useState(false); // 서버오류로 인한 로그인 실패 (토큰 없음)
 
-    const navigate = useNavigate();
+    const openModalHandler = () => {
+        setErrorModal(!errorModal);
+    };
+
+    const tokenErrorModalHandler = () => {
+        setNotTokenError(!notTokenError);
+    };
 
     const handleLoginRequest = (data) => {
         axios
-            // proxy 적용해서 도메인 제거함. CORS 문제 해결 후 수정
             .post(`${url}/members/login`, data)
             .then((res) => {
                 localStorage.setItem("loginToken", res.headers.authorization);
-                setMemberId(res.data.memberId);
-                navigate("/main");
+
+                if (localStorage.getItem("loginToken") !== "undefined") {
+                    setMemberId(res.data.memberId);
+                    navigate("/main");
+                } else {
+                    setNotTokenError(true);
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -39,6 +48,12 @@ const Login = ({ setIsFooter }) => {
                 }
             });
     };
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
     const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
     const PASSWORD_REGEX = /(?=.*\d)(?=.*[a-z]).{4,}/;
@@ -58,13 +73,6 @@ const Login = ({ setIsFooter }) => {
             message: "비밀번호를 입력해주세요.",
         },
     });
-
-    // 에러코드 401시 띄우는 에러 모달창
-    const [errorModal, setErrorModal] = useState(false);
-
-    const openModalHandler = () => {
-        setErrorModal(!errorModal);
-    };
 
     return (
         <>
@@ -99,6 +107,17 @@ const Login = ({ setIsFooter }) => {
                             다시 한 번 확인해주세요!
                         </div>
                         <button onClick={openModalHandler}>확인</button>
+                    </ModalView>
+                </ModalBackdrop>
+            ) : null}
+            {notTokenError ? (
+                <ModalBackdrop onClick={tokenErrorModalHandler}>
+                    <ModalView>
+                        <div className="description">
+                            서버 오류로 인해 로그인에 실패했습니다. <br />
+                            다시 시도해주세요.
+                        </div>
+                        <button onClick={tokenErrorModalHandler}>확인</button>
                     </ModalView>
                 </ModalBackdrop>
             ) : null}
