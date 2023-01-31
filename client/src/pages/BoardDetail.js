@@ -70,8 +70,6 @@ const BoardDetailWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 40px;
-
-    position: relative; // modal 위치
 `;
 
 const BoardDetailLoading = styled.div`
