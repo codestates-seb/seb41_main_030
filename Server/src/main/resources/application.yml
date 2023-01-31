@@ -3,8 +3,13 @@ spring:
     console:
       enabled: true
       path: /h2
+
   datasource:
     url: jdbc:h2:mem:test
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+
   jpa:
     hibernate:
       ddl-auto: create

@@ -72,7 +72,7 @@ public class MemberService {
     public Member findMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
         findMember.setBoardCount(getBoardCount(memberId));
-        findMember.setAnswerCount(getCommentCount(memberId));
+        findMember.setCommentCount(getCommentCount(memberId));
 
         return findMember;
     }

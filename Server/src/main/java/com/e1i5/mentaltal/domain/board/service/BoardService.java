@@ -83,7 +83,6 @@ public class BoardService {
     @Transactional
     public void deleteBoard(long boardId) {
         Board verifiedBoard = findVerifiedBoard(boardId);
-
         boardVoteRepository.deleteAllByBoard(verifiedBoard);
 
         boardRepository.delete(verifiedBoard);

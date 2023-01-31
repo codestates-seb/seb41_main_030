@@ -1,4 +1,5 @@
 spring:
+  datasource:
     username: admin
     url: jdbc:mysql://mentaltaldb.cezdgu2xim5u.ap-northeast-2.rds.amazonaws.com/dbmentaltal
     password: apsxkfxkf

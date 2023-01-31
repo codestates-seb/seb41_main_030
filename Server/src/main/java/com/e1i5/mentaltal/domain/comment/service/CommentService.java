@@ -79,9 +79,9 @@ public class CommentService {
     @Transactional
     public void deleteComment(long commentId) {
         Comment verifiedComment = findVerifiedComment(commentId);
-
+        Board board = boardService.findVerifiedBoard(verifiedComment.getBoard().getBoardId());
+        board.minusCommentCount();
         commentVoteRepository.deleteAllByComment(verifiedComment);
-
         commentRepository.delete(verifiedComment);
     }
 

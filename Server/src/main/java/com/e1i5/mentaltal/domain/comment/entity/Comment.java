@@ -35,7 +35,7 @@ public class Comment extends BaseTimeEntity {
 
     //question:answer = 1:n
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id") // 외래키 컬럼명 즉, board 클래스의 @id가 붙은 필드명
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
