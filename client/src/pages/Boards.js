@@ -25,7 +25,6 @@ const Boards = ({ setIsFooter }) => {
 
 const BoardsWrapper = styled.div`
     margin-top: 65px;
-    position: relative; // modal 위치
 `;
 
 export default Boards;
