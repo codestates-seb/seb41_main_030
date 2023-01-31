@@ -27,7 +27,7 @@
 | [@xxyeon129](https://github.com/xxyeon129) |    [@jinhuiju](https://github.com/jinhuiju) | [@Kim-Jihyun1](https://github.com/Kim-Jihyun1) | [@Sangwonee](https://github.com/Sangwonee) | [@dev-sena](https://github.com/dev-sena) | [@yeong](https://github.com/yeong00)
 |<p align="left">- 소개 페이지 <br/> - 메인페이지 <br/> - 마이 페이지 <br/> - 로그인 기능 </p>|<p align="left">- 게시글 CRUD <br/> - 답변 CRUD <br/> - 마이페이지 구현 <br/> - AWS(EC2,RDS)  </p>|<p align="left">- 유저 CRUD 기능 <br/>- 상담사 CURD <br/> - Vote 기능 구현 <br/> - CORS방지 </p>|<p align="left"> <br/> - JWT 적용  <br/> - Spring Security 설정 <br/>- AWS(EC2,RDS) <br/> - CI/CD </p>|<p align="left">- 커뮤니티 페이지 <br/>- Tags 필터링 <br/>- 자가진단 페이지 구현 <br/>- 전문 기관 페이지 구현 <br/> - nav <br/> - footer </p>|<p align="left">- 로그인 페이지 <br/> - 회원가입 페이지 <br/> - 전문가 페이지  </p>|
 
-https://avatars.githubusercontent.com/u/110890163?v=4
+
 
 ### 커뮤니케이션 방식
 - 월, 수, 금 10시에는 회의를 진행합니다. (오늘 할일, 에러사항 간단하게 공유)
