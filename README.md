@@ -19,13 +19,71 @@
 - **발표 문서 :** [💁🏻 사용자 요구사항 명세서 ](https://docs.google.com/spreadsheets/d/1orfbkmjX7kHgSw6ZkD-jKnpqc7c2ce_BeigIWS-E1bc/edit#gid=1582782258)
 - **배포 링크 :** [💁🏻 배포 링크 ](http://mentaltal-s3-bucket.s3-website.ap-northeast-2.amazonaws.com/)
 
+<br />
+
+# 💡 기획 의도
+
+
+## 📖 Brand Story
+
+- 가까운 사람에게도 털어놓지 못하는 고민을 익명으로 편하게 털어놓을 수 있고, 비슷한 고민을 가진 사람들과 소통할 수 있는 공간을 제공하려는 목적으로 만들었습니다.
+- 기존의 커뮤니티나 SNS는 본인의 약한 부분, 고민되는 부분을 드러내기 어렵다는 점에 착안하여, 다같이 고민을 나누고 안정을 얻을 수 있는 공간을 제공하려는 목적으로 만들었습니다.
+- 커뮤니티에서 그치는 것이 아니라, 간편한 자가진단 테스트나 가까운 상담기관 찾기, 전문 상담사 확인을 통해 다양한 사용자 경험을 제공하고 심리 상담의 문턱을 낮추려는 목적으로 만들었습니다.
+
+## 🎯 Target
+
+- 가까운 사람에게도 말 못할 고민을 가지고 있는 사람들
+- 마음이 지쳐 있어 위로와 공감이 필요한 사람들
+- 오프라인 상담이나 치료는 번거로워 온라인에서 부담 없이 상담을 받고 싶은 사람들
+
+## 🎨 Design
+
+- 다양한 환경의 사용자를 고려하여 반응형 웹으로 화면을 설계하였습니다.
+- 사용자에게 편안한 느낌을 주는 배색을 위주로 설계하였습니다.
+- 직관적이고 조작하기 간편한 UI로 화면을 설계하였습니다.
+
+<br />
+
+# **💫** 서비스 소개
+
+> 가만히 있어도 불안해요, 이직한 회사에서 적응이 힘들어요, 과거의 상처를 잊지 못하겠어요.. 어디에도 말하지 못하는 고민이 있나요? 당신만을 위한 공간, MENTALTAL에 털어놓아 보세요!
+> 
+- ✍️ 익명으로 편하게 고민을 털어놓고 나와 비슷한 고민을 가진 사람들과 이야기를 나누어 보세요.
+- ✔️ 간단한 자가진단 테스트로 나의 마음 상태를 확인해보세요.
+- 🏥 전문 기관의 도움이 필요하신가요? 카카오맵으로 가까운 상담 센터를 확인해보세요.
+- 👩‍⚕️ MENTALTAL 전문 상담사도 확인해보세요.
+
+<br />
+
+# 🎬 기능 시연
+
+<details>
+<summary>소개 페이지</summary>
+</details>
+<details>
+<summary>메인 페이지</summary>
+</details>
+<details>
+<summary>회원가입/로그인 페이지</summary>
+</details>
+<details>
+<summary>커뮤니티 페이지</summary>
+</details>
+<details>
+<summary>전문기관 지도 페이지</summary>
+</details>
+<details>
+<summary>전문가 소개 페이지</summary>
+</details>
+
+<br />
 
 ## 👨‍👩‍👧‍👦 Team
 | 정승연<br>(FE, 팀장) | 진희주<br>(BE,부팀장) | 김지현<br>(BE) | 윤상원<br>(BE) | 이세나<br>(FE) | 최자영<br>(FE) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | <img alt="정승연" src="https://avatars.githubusercontent.com/u/102347529?v=4.jpg" height="100" width="100"> | <img alt="진희주" src="https://user-images.githubusercontent.com/96982575/210198379-c536d038-bf25-4bce-bd67-1e057626bddf.jpg" height="100" width="100"> | <img alt="김지현" src="https://avatars.githubusercontent.com/u/110890163?v=4.jpg" height="100" width="100"> | <img alt="윤상원" src="https://avatars.githubusercontent.com/u/111265742?v=4.png" height="100" width="100"> | <img alt="이세나" src="https://avatars.githubusercontent.com/u/111357232?v=4.jpeg" height="100" width="100"> | <img alt="최자영" src="https://avatars.githubusercontent.com/u/99870622?v=4.jpg" height="100" width="100">
 | [@xxyeon129](https://github.com/xxyeon129) |    [@jinhuiju](https://github.com/jinhuiju) | [@Kim-Jihyun1](https://github.com/Kim-Jihyun1) | [@Sangwonee](https://github.com/Sangwonee) | [@dev-sena](https://github.com/dev-sena) | [@yeong](https://github.com/yeong00)
-|<p align="left">- 소개 페이지 <br/> - 메인페이지 <br/> - 마이 페이지 <br/> - 로그인 기능 </p>|<p align="left">- 게시글 CRUD <br/> - 답변 CRUD <br/> - 마이페이지 구현 <br/> - AWS(EC2, RDS)  </p>|<p align="left">- 회원 CRUD <br/>- 상담사 CURD <br/> - Vote 기능 구현 <br/> - CORS 방지 </p>|<p align="left"> <br/> - JWT 적용  <br/> - Spring Security 설정 <br/>- AWS(EC2,RDS) <br/> - CI/CD </p>|<p align="left">- 커뮤니티 페이지 <br/>- Tags 필터링 <br/>- 자가진단 페이지 구현 <br/>- 전문 기관 페이지 구현 <br/> - nav <br/> - footer </p>|<p align="left">- 로그인 페이지 <br/> - 회원가입 페이지 <br/> - 전문가 페이지  </p>|
+|<p align="left">- 소개 페이지 <br/> - 메인페이지 <br/> - 마이 페이지 <br/> - 로그인 기능 <br/> - 회원정보 수정 기능 <br/> - 회원탈퇴 기능 <br/> - UI 디자인 검토 </p>|<p align="left">- 게시글 CRUD <br/> - 답변 CRUD <br/> - 마이페이지 구현 <br/> - AWS(EC2, RDS)  </p>|<p align="left">- 회원 CRUD <br/>- 상담사 CURD <br/> - Vote 기능 구현 <br/> - CORS 방지 </p>|<p align="left"> <br/> - JWT 적용  <br/> - Spring Security 설정 <br/>- AWS(EC2,RDS) <br/> - CI/CD </p>|<p align="left">- 커뮤니티 페이지 <br/>- Tags 필터링 <br/>- 자가진단 페이지 <br/>- 전문 기관 페이지 <br/> - nav <br/> - footer </p>|<p align="left">- 로그인 페이지 <br/> - 회원가입 페이지 <br/> - 전문가 페이지  </p>|
 
 
 
