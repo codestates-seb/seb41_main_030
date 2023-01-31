@@ -36,28 +36,26 @@ export default function Carousel() {
         <>
             <Container>
                 <Swiper
-                    // slidesPerView={4}
                     breakpoints={{
-                        // when window width is >= 640px
                         320: {
                             width: 320,
                             slidesPerView: 1,
                             spaceBetween: 30,
+                            slidesPerGroup: 1,
                         },
-                        // when window width is >= 768px
-                        600: {
-                            width: 600,
+                        809: {
+                            width: 809,
                             slidesPerView: 2,
-                            spaceBetween: 30,
+                            spaceBetween: -150,
+                            slidesPerGroup: 2,
                         },
                         1200: {
                             width: 1200,
                             slidesPerView: 4,
                             spaceBetween: 10,
+                            slidesPerGroup: 4,
                         },
                     }}
-                    // spaceBetween={-30}
-                    slidesPerGroup={4}
                     loop={false}
                     loopFillGroupWithBlank={true}
                     navigation={true}
