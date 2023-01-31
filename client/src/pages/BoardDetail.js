@@ -36,7 +36,7 @@ const BoardDetail = ({ setIsFooter }) => {
                     console.log(err);
                     setIsPending(false);
                 });
-        }, 1000);
+        }, 300);
     }, []);
 
     return (
