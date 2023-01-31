@@ -7,7 +7,7 @@ echo "> 현재 시간: $(date)" >> /home/ubuntu/seb41_main_030/Server/deploy.log
 echo "> build 파일명: $JAR_NAME" >> /home/ubuntu/seb41_main_030/Server/deploy.log
 
 echo "> build 파일 복사" >> /home/ubuntu/seb41_main_030/Server/deploy.log
-DEPLOY_PATH=/home/ubuntu/action/
+DEPLOY_PATH=/home/ubuntu/seb41_main_030/Server/
 cp $BUILD_JAR $DEPLOY_PATH
 
 echo "> 현재 실행중인 애플리케이션 pid 확인" >> /home/ubuntu/seb41_main_030/Server/deploy.log
