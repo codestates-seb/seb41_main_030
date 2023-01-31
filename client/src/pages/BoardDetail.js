@@ -42,9 +42,9 @@ const BoardDetail = ({ setIsFooter }) => {
     return (
         <BoardDetailWrapper>
             {isPending ? (
-                <BoardDetailLoaidn>
+                <BoardDetailLoading>
                     <img src={LoadingImg} alt="loading img" />
-                </BoardDetailLoaidn>
+                </BoardDetailLoading>
             ) : (
                 <>
                     <BoardDetailQuestion setIsLogin={setIsLogin} />
@@ -74,7 +74,7 @@ const BoardDetailWrapper = styled.div`
     position: relative; // modal 위치
 `;
 
-const BoardDetailLoaidn = styled.div`
+const BoardDetailLoading = styled.div`
     padding: 40px;
     height: 70vh;
     width: 80%;
