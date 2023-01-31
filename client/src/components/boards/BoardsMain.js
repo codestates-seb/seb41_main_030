@@ -42,7 +42,6 @@ const BoardsMain = () => {
 
     // 게시판 목록 데이터 요청 함수
     useEffect(() => {
-        window.scrollTo(0, 0);
         setLoading(true);
 
         setTimeout(() => {
@@ -124,7 +123,7 @@ const BoardsMainWrapper = styled.main`
 
 const BoardsMainLoading = styled.div`
     width: 100%;
-    height: 90vh;
+    height: 50vh;
 
     display: flex;
     justify-content: center;
@@ -234,26 +233,6 @@ const BoardsMainTagsBtnWrapper = styled.ul`
     }
 `;
 
-// ------------- 게시글 카드 wrapper ------------- //
-const BoardsCardLink = styled(Link)`
-    width: 100%;
-    height: 200px;
-    padding: 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    background-color: white;
-    border-radius: 10px;
-
-    font-family: "Nanum Gothic", sans-serif;
-
-    @media screen and (max-width: 1201px) {
-        height: 230px;
-    }
-`;
-
 // ------------- 게시글 리스트 wrapper ------------- //
 const BoardsList = styled.ul`
     padding: 60px 100px;
@@ -273,6 +252,32 @@ const BoardsList = styled.ul`
 
     @media screen and (min-width: 1921px) {
         grid-template-columns: 1fr 1fr 1fr;
+    }
+`;
+
+// ------------- 게시글 카드 wrapper ------------- //
+const BoardsCardLink = styled(Link)`
+    width: 100%;
+    height: 200px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: white;
+    border-radius: 10px;
+
+    font-family: "Nanum Gothic", sans-serif;
+
+    &:hover {
+        box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.3);
+        transform: scale(1.02);
+        transition: 0.2s;
+    }
+
+    @media screen and (max-width: 1201px) {
+        height: 230px;
     }
 `;
 

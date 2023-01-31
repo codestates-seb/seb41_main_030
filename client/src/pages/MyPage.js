@@ -73,6 +73,7 @@ const MyPage = ({ setIsFooter }) => {
                 console.log(`${id}번 유저가 삭제됨`);
                 localStorage.removeItem("loginToken");
                 navigate("/");
+                window.location.reload();
             })
             .catch((error) => {
                 console.log(error);
