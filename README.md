@@ -25,12 +25,12 @@
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | <img alt="정승연" src="https://avatars.githubusercontent.com/u/102347529?v=4.jpg" height="100" width="100"> | <img alt="진희주" src="https://user-images.githubusercontent.com/96982575/210198379-c536d038-bf25-4bce-bd67-1e057626bddf.jpg" height="100" width="100"> | <img alt="김지현" src="https://avatars.githubusercontent.com/u/110890163?v=4.jpg" height="100" width="100"> | <img alt="윤상원" src="https://avatars.githubusercontent.com/u/111265742?v=4.png" height="100" width="100"> | <img alt="이세나" src="https://avatars.githubusercontent.com/u/111357232?v=4.jpeg" height="100" width="100"> | <img alt="최자영" src="https://avatars.githubusercontent.com/u/99870622?v=4.jpg" height="100" width="100">
 | [@xxyeon129](https://github.com/xxyeon129) |    [@jinhuiju](https://github.com/jinhuiju) | [@Kim-Jihyun1](https://github.com/Kim-Jihyun1) | [@Sangwonee](https://github.com/Sangwonee) | [@dev-sena](https://github.com/dev-sena) | [@yeong](https://github.com/yeong00)
-|<p align="left">- 소개 페이지 <br/> - 메인페이지 <br/> - 마이 페이지 <br/> - 로그인 기능 </p>|<p align="left">- 게시글 CRUD <br/> - 답변 CRUD <br/> - 마이페이지 구현 <br/> - AWS(EC2,RDS)  </p>|<p align="left">- 유저 CRUD 기능 <br/>- 상담사 CURD <br/> - Vote 기능 구현 <br/> - CORS방지 </p>|<p align="left"> <br/> - JWT 적용  <br/> - Spring Security 설정 <br/>- AWS(EC2,RDS) <br/> - CI/CD </p>|<p align="left">- 커뮤니티 페이지 <br/>- Tags 필터링 <br/>- 자가진단 페이지 구현 <br/>- 전문 기관 페이지 구현 <br/> - nav <br/> - footer </p>|<p align="left">- 로그인 페이지 <br/> - 회원가입 페이지 <br/> - 전문가 페이지  </p>|
+|<p align="left">- 소개 페이지 <br/> - 메인페이지 <br/> - 마이 페이지 <br/> - 로그인 기능 </p>|<p align="left">- 게시글 CRUD <br/> - 답변 CRUD <br/> - 마이페이지 구현 <br/> - AWS(EC2, RDS)  </p>|<p align="left">- 회원 CRUD <br/>- 상담사 CURD <br/> - Vote 기능 구현 <br/> - CORS 방지 </p>|<p align="left"> <br/> - JWT 적용  <br/> - Spring Security 설정 <br/>- AWS(EC2,RDS) <br/> - CI/CD </p>|<p align="left">- 커뮤니티 페이지 <br/>- Tags 필터링 <br/>- 자가진단 페이지 구현 <br/>- 전문 기관 페이지 구현 <br/> - nav <br/> - footer </p>|<p align="left">- 로그인 페이지 <br/> - 회원가입 페이지 <br/> - 전문가 페이지  </p>|
 
 
 
 ### 커뮤니케이션 방식
-- 월, 수, 금 10시에는 회의를 진행합니다. (오늘 할일, 에러사항 간단하게 공유)
+- 월, 수, 금 10시에는 회의를 진행합니다. (오늘의 할 일, 에러 사항 간단하게 공유)
 - 자료 공유, 회의 등과 같은 모든 소통은 디스코드를 이용하고 불가피할 경우 카카오톡, 구글미트를 사용합니다. 
 - 일정에 참여할 수 없는 경우 사전에 공유합니다.
 - 정규 세션 이외 시간에도 자유롭게 디스코드 채널을 사용합니다.
@@ -62,14 +62,14 @@
 
 
 ### Commit & Pull-Request Message
-| "feat: ~ " | 새로운 기능을 추가, 기존의 기능을 요구 사항에 맞추어 수정 |
+| feat | 새로운 기능을 추가, 기존의 기능을 요구 사항에 맞추어 수정 |
 | :---: | :--- |
-| "fix: ~ " | 기능에 대한 버그 수정 |
-| "docs: ~ " | 문서 수정 (ex. README.md) |
-| "refactor: ~ " | 코드리펙토링 |
-| "merge: ~ " | 병합 |
-| "design: ~ " | CSS 등 사용자 UI 디자인 변경 |
-| "comment: ~ " | 파일을 삭제만 한 경우 |
-| "test: ~ " | 테스트 추가, 테스트 리팩토링 |
-| "rename: ~ " |  파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
+| fix | 기능에 대한 버그 수정 |
+| docs | 문서 수정 (ex. README.md) |
+| refactor | 코드리펙토링 |
+| merge | 병합 |
+| design | CSS 등 사용자 UI 디자인 변경 |
+| comment | 파일을 삭제만 한 경우 |
+| test | 테스트 추가, 테스트 리팩토링 |
+| rename |  파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우 |
 
