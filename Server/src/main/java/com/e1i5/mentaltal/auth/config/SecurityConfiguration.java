@@ -5,9 +5,16 @@ import com.e1i5.mentaltal.auth.filter.JwtVerificationFilter;
 import com.e1i5.mentaltal.auth.handler.MemberAuthenticationFailureHandler;
 import com.e1i5.mentaltal.auth.handler.MemberAuthenticationSuccessHandler;
 import com.e1i5.mentaltal.auth.jwt.JwtTokenizer;
+import com.e1i5.mentaltal.auth.userdetails.MemberDetailsService;
 import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
+import com.e1i5.mentaltal.auth.utils.RedisUtils;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +23,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,14 +34,14 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity(debug = true)
+@RequiredArgsConstructor
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils customAuthorityUtils;
+    private final RedisUtils redisUtils;
+    private final MemberDetailsService memberDetailsService;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils customAuthorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.customAuthorityUtils = customAuthorityUtils;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -51,8 +59,27 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()
+                        .antMatchers(HttpMethod.POST, "members/logout").hasAnyRole("USER")
+                        .antMatchers(HttpMethod.PATCH,"/*/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/*/members/**").hasAnyRole("USER", "ADMIN")
+
+                        .antMatchers(HttpMethod.POST, "/*/comments/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/comments").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH,"/*/comments/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/*/comments/**").hasAnyRole("USER", "ADMIN")
+
+                        .antMatchers(HttpMethod.POST, "/*/boards/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/boards").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH,"/*/boards/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/*/boards/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().permitAll()
                 );
+
+        http.cors();    // CORS 활성화
+
         return http.build();
     }
 
@@ -66,8 +93,11 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));   // 모든 출처에대한 통신 허용
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("HEAD", "POST", "GET", "PATCH", "DELETE", "PUT"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);      // 모든 url에 cors정책 적용
@@ -78,10 +108,12 @@ public class SecurityConfiguration {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, redisUtils);
+
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils);
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, customAuthorityUtils, memberDetailsService, redisTemplate);
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
 
 

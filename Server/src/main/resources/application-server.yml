@@ -1,10 +1,9 @@
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mentaltal-db.cezdgu2xim5u.ap-northeast-2.rds.amazonaws.com:3306/mentaltal
+    username: admin
+    password: ${RDS_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
@@ -30,7 +29,7 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: "sadqwenwlqebhjjwqlej123213123123212312312312132"
+  key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 300
 redis:

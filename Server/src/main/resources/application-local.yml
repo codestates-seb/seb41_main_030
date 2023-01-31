@@ -30,7 +30,7 @@ mail:
   address:
     admin: admin@gmail.com
 jwt:
-  key: "sadqwenwlqebhjjwqlej123213123123212312312312132"
+  key: ${JWT_SECRET_KEY}
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 300
 redis:

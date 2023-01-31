@@ -3,8 +3,8 @@ package com.e1i5.mentaltal.auth.userdetails;
 import com.e1i5.mentaltal.auth.utils.CustomAuthorityUtils;
 import com.e1i5.mentaltal.exception.BusinessLogicException;
 import com.e1i5.mentaltal.exception.ExceptionCode;
-import com.e1i5.mentaltal.user.member.MemberRepository;
-import com.e1i5.mentaltal.user.member.Member;
+import com.e1i5.mentaltal.domain.member.repository.MemberRepository;
+import com.e1i5.mentaltal.domain.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,7 +32,7 @@ public class MemberDetailsService implements UserDetailsService { //데이터베
         return new MemberDetails(findMember);
     }
 
-    private final class MemberDetails extends Member implements UserDetails {
+    public final class MemberDetails extends Member implements UserDetails {
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());
