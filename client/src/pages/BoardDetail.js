@@ -36,15 +36,15 @@ const BoardDetail = ({ setIsFooter }) => {
                     console.log(err);
                     setIsPending(false);
                 });
-        }, 1000);
+        }, 300);
     }, []);
 
     return (
         <BoardDetailWrapper>
             {isPending ? (
-                <BoardDetailLoaidn>
+                <BoardDetailLoading>
                     <img src={LoadingImg} alt="loading img" />
-                </BoardDetailLoaidn>
+                </BoardDetailLoading>
             ) : (
                 <>
                     <BoardDetailQuestion setIsLogin={setIsLogin} />
@@ -70,11 +70,9 @@ const BoardDetailWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 40px;
-
-    position: relative; // modal 위치
 `;
 
-const BoardDetailLoaidn = styled.div`
+const BoardDetailLoading = styled.div`
     padding: 40px;
     height: 70vh;
     width: 80%;

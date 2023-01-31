@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // components
 import BoardsHeader from "../components/boards/BoardsHeader";
@@ -25,7 +24,6 @@ const Boards = ({ setIsFooter }) => {
 
 const BoardsWrapper = styled.div`
     margin-top: 65px;
-    position: relative; // modal 위치
 `;
 
 export default Boards;
