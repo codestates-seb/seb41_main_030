@@ -34,7 +34,7 @@ public class SwaggerConfig {
                 "MAIN30 REST API Documentation",
                 "mentaltal REST Api Documentation",
                 "1.0",
-                "localhost:8080",
+                "43.201.14.234:8080",
                 new Contact("main30", "https://github.com/codestates-seb/seb41_main_030", ""),
                 "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0",
                 new ArrayList<VendorExtension>());
