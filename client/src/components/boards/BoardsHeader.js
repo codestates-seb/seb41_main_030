@@ -63,7 +63,7 @@ const BoardsHeaderTitle = styled.div`
     }
 
     & :not(:nth-child(1)) {
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     @media screen and (max-width: 387px) {
