@@ -7,8 +7,8 @@ const CounselorHeader = () => {
         <BoardsHeaderWrapper>
             <CounselorTitle>
                 <div className="logo">MENTALTAL 전문가</div>
-                <p>고민을 나눌 수 있는 전문가를 소개하는 공간입니다.</p>
-                <p>전문가는 언제든 당신의 고민을 듣고 조언해줄 수 있습니다.</p>
+                <p>전문가의 도움이 필요하신가요?</p>
+                <p>MENTALTAL 전문가 프로필을 확인하고 나에게 딱 맞는 전문 상담을 받아보세요.</p>
             </CounselorTitle>
         </BoardsHeaderWrapper>
     );
@@ -21,7 +21,7 @@ const BoardsHeaderWrapper = styled.header`
     padding: 60px 100px;
     background-color: var(--lightgreen2);
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     font-family: "Nanum Gothic", sans-serif;
 `;
 
