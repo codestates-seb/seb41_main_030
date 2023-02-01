@@ -60,9 +60,8 @@ const Background = styled.div`
 //모달창 세부 디자인
 const Modaldetail = styled.div`
     position: fixed;
-    top: 12rem;
+    top: 20rem;
     border-radius: 10px;
-    /* padding: 1.5rem; */
     background-color: var(--white);
     width: 35rem;
     min-height: 21rem;
