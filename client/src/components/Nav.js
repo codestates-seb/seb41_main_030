@@ -52,8 +52,6 @@ const Nav = () => {
         },
     ]);
 
-    console.log(isActive);
-
     return (
         <NavWrapper>
             <NavTitle>
