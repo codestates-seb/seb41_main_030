@@ -83,7 +83,6 @@ const LeftContainer = styled.div`
     /* Nav height */
     padding-top: 65px;
 
-    //420
     @media screen and (max-width: 521px) {
         padding: 0;
         align-items: center;
