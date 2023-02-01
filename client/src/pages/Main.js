@@ -111,17 +111,31 @@ const Intro = styled.div`
         padding-left: 90px;
         color: var(--white);
 
+        @media screen and (max-width: 414px) {
+            padding-left: 50px;
+        }
+
         .description {
             font-size: 18px;
+
+            @media screen and (max-width: 414px) {
+                font-size: 15px;
+                transition: 0.5s;
+            }
         }
 
         .logo {
             font-size: 55px;
             padding-top: 12px;
             font-weight: var(--font-bold);
+
+            @media screen and (max-width: 414px) {
+                font-size: 50px;
+                transition: 0.5s;
+            }
         }
         button {
-            margin-top: 23px;
+            margin-top: 25px;
             background-color: var(--white);
             color: var(--green);
             font-family: "Nanum Gothic", sans-serif;
@@ -136,6 +150,11 @@ const Intro = styled.div`
                 background-color: var(--lightgreen);
                 color: var(--white);
             }
+
+            @media screen and (max-width: 414px) {
+                font-size: 12px;
+                transition: 0.5s;
+            }
         }
     }
 `;
@@ -143,6 +162,10 @@ const Intro = styled.div`
 const PreviewContainer = styled.div`
     padding: 0 90px;
     padding-top: 90px;
+
+    @media screen and (max-width: 414px) {
+        padding: 90px 50px;
+    }
 
     .text {
         font-size: 18px;
@@ -160,6 +183,10 @@ const PreviewContainer = styled.div`
 const Shortcut = styled.div`
     padding: 0 90px;
     padding-top: 90px;
+
+    @media screen and (max-width: 414px) {
+        padding: 0 50px;
+    }
 
     .text {
         font-size: 18px;
