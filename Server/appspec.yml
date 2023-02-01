@@ -3,6 +3,7 @@ os: linux
 files:
   - source:  /
     destination: /home/ubuntu/mentaltal-deploy
+    overwrite: yes
 
 permissions:
   - object: /
