@@ -31,11 +31,12 @@ const CounselorTitle = styled.div`
     justify-content: flex-end;
     gap: 10px;
     color: var(--darkgreen);
+    line-height: 130%;
 
     & :nth-child(1) {
         font-size: 40px;
         font-weight: 900;
-        margin-bottom: 12px;
+        margin-bottom: 30px;
     }
 
     & :not(:nth-child(1)) {
