@@ -5,6 +5,8 @@ import rightArrow from "../../icons/main-page-arrow-right.svg";
 import Preview from "./Preview";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// 서버가 닫혔을 경우 임시로 보여지는 게시글 데이터
+import dummyPost from "./dummyPost";
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,7 +17,7 @@ import "swiper/css/navigation";
 
 export default function Carousel() {
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(dummyPost);
 
     useEffect(() => {
         axios
