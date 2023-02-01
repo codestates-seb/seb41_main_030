@@ -20,6 +20,7 @@ const Counselor = ({ setIsFooter }) => {
 const Container = styled.div`
     width: 100%;
     margin-top: 65px;
+    margin-bottom: 65px;
     position: relative;
 `;
 export default Counselor;
