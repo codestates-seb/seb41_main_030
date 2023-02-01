@@ -55,7 +55,7 @@ const Nav = () => {
     return (
         <NavWrapper>
             <NavTitle>
-                <Link to="/main" className="logo">
+                <Link to="/main" className="logo" onClick={(e) => activeNavHandle(e)}>
                     MENTALTAL
                 </Link>
             </NavTitle>
@@ -72,7 +72,7 @@ const Nav = () => {
                 {token && token !== "undefined" ? (
                     <>
                         <li>
-                            <Link to={`/mypage/${memberId}`}>
+                            <Link to={`/mypage/${memberId}`} onClick={(e) => activeNavHandle(e)}>
                                 <button>마이페이지</button>
                             </Link>
                         </li>
@@ -83,12 +83,12 @@ const Nav = () => {
                 ) : (
                     <>
                         <li>
-                            <Link to="/login">
+                            <Link to="/login" onClick={(e) => activeNavHandle(e)}>
                                 <button>로그인</button>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/signup">
+                            <Link to="/signup" onClick={(e) => activeNavHandle(e)}>
                                 <button>회원가입</button>
                             </Link>
                         </li>
@@ -98,7 +98,7 @@ const Nav = () => {
 
             <NavMedia>
                 {isOpen ? <i className="fa-solid fa-x" onClick={handleNavModal}></i> : <i className="fa-solid fa-bars" onClick={handleNavModal}></i>}
-                {isOpen ? <NavModal memberId={memberId} /> : null}
+                {isOpen ? <NavModal memberId={memberId} setIsActive={setIsActive} isActive={isActive} /> : null}
             </NavMedia>
         </NavWrapper>
     );
