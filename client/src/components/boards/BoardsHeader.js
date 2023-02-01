@@ -1,18 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const BoardsHeader = ({ setIsLogin }) => {
+const BoardsHeader = () => {
     const navigate = useNavigate();
-    const token = localStorage.getItem("loginToken");
-
-    const createBoardLinkBtnHandle = () => {
-        if (token && token !== "undefined") {
-            setIsLogin(false);
-            navigate("/write");
-        } else {
-            setIsLogin(true);
-        }
-    };
 
     return (
         <BoardsHeaderWrapper>
@@ -23,7 +13,7 @@ const BoardsHeader = ({ setIsLogin }) => {
             </BoardsHeaderTitle>
 
             <BoardsLink>
-                <button onClick={createBoardLinkBtnHandle}>
+                <button onClick={() => navigate("/write")}>
                     고민 작성하기 <i className="fa-solid fa-chevron-right"></i>
                 </button>
             </BoardsLink>
