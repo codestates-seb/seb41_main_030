@@ -1,22 +1,47 @@
 spring:
-    username: admin
-    url: jdbc:mysql://mentaltaldb.cezdgu2xim5u.ap-northeast-2.rds.amazonaws.com/dbmentaltal
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${RDS_URL}
+    username: ${RDS_USERNAME}
     password: ${RDS_PASSWORD}
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
-
+        time_zone: +09:00
+  sql:
+    init:
+      data-locations: classpath*:db/h2/data.sql
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
 mail:
   address:
-    admin: sangw12477@gmail.com
+    admin: admin@gmail.com
 jwt:
   key: ${JWT_SECRET_KEY}
-  access-token-expiration-minutes: 40
-  refresh-token-expiration-minutes: 420
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 300
+redis:
+  host: localhost
+  port: 6379
+  password:
+  timeout: 3000
+  lettuce:
+    pool:
+      max-active: 8
+      max-idle: 8
+      min-idle: 0
