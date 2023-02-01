@@ -143,7 +143,7 @@ const NavContainer = styled.ul`
         font-size: 16px;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 870px) {
         display: none;
     }
 `;
@@ -185,7 +185,7 @@ const NavMedia = styled.div`
         color: var(--green);
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 870px) {
         display: block;
     }
 `;
