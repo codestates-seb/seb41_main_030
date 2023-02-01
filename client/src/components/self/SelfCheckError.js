@@ -7,7 +7,7 @@ const SelfCheckError = ({ setIsAllSelect }) => {
 
     return (
         <SCErrorWrapper onClick={closeBtnHandle}>
-            <SCErrorModalWrapper>
+            <SCErrorModalWrapper onClick={(event) => event.stopPropagation()}>
                 <div>모든 항목에 체크했는지 확인해주세요!</div>
                 <button onClick={closeBtnHandle}>확인</button>
             </SCErrorModalWrapper>
@@ -32,7 +32,7 @@ const SCErrorWrapper = styled.div`
 
 const SCErrorModalWrapper = styled.div`
     width: 350px;
-    height: 25%;
+    height: 200px;
     border-radius: 30px;
 
     display: flex;
