@@ -26,12 +26,11 @@ export default BoardsHeader;
 // styled components
 const BoardsHeaderWrapper = styled.header`
     width: 100%;
-    height: 300px;
-    padding: 60px 100px;
+    height: 335px;
+    padding: 50px 100px;
 
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    justify-content: flex-start;
 
     font-family: "Nanum Gothic", sans-serif;
 
@@ -52,9 +51,10 @@ const BoardsHeaderWrapper = styled.header`
 const BoardsHeaderTitle = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 10px;
     color: var(--darkgreen);
+    flex-grow: 1;
 
     & :nth-child(1) {
         font-size: 2.5rem;
@@ -86,6 +86,9 @@ const BoardsHeaderTitle = styled.div`
 `;
 
 const BoardsLink = styled.div`
+    display: flex;
+    align-items: flex-end;
+
     button {
         font-family: "Nanum Gothic", sans-serif;
         border-radius: 30px;
