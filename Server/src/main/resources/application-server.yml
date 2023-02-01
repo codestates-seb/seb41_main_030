@@ -11,23 +11,22 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        time_zone: +09:00
-  sql:
-    init:
-      data-locations: classpath*:db/h2/data.sql
-logging:
-  level:
-    org:
-      springframework:
-        orm:
-          jpa: DEBUG
-server:
-  servlet:
-    encoding:
-      force-response: true
+#     properties:
+#       hibernate:
+#         format_sql: true
+#   sql:
+#     init:
+#       data-locations: classpath*:db/h2/data.sql
+# logging:
+#   level:
+#     org:
+#       springframework:
+#         orm:
+#           jpa: DEBUG
+# server:
+#   servlet:
+#     encoding:
+#       force-response: true
 mail:
   address:
     admin: admin@gmail.com
