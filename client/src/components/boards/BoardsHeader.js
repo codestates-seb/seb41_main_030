@@ -73,14 +73,13 @@ const BoardsHeaderTitle = styled.div`
             width: 120px;
         }
     }
-
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 920px) {
         & :nth-child(1) {
-            font-size: 1.8rem;
+            font-size: 28px;
         }
 
         & :not(:nth-child(1)) {
-            font-size: 0.7rem;
+            font-size: 13px;
         }
     }
 `;

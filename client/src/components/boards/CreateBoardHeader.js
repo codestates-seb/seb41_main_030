@@ -35,6 +35,10 @@ const CBHeaderTitle = styled.div`
 
     font-family: "Nanum Gothic", sans-serif;
 
+    @media screen and (max-width: 920px) {
+        height: 131px;
+    }
+
     & :nth-child(1) {
         margin-bottom: 30px;
 
@@ -42,8 +46,8 @@ const CBHeaderTitle = styled.div`
         font-weight: var(--font-bold);
         color: var(--darkgreen);
 
-        @media screen and (max-width: 683px) {
-            font-size: 2.3rem;
+        @media screen and (max-width: 920px) {
+            font-size: 2.2rem;
         }
     }
 

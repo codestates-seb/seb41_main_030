@@ -27,6 +27,9 @@ const BoardsHeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
     font-family: "Nanum Gothic", sans-serif;
+    @media screen and (max-width: 920px) {
+        height: 250px;
+    }
 `;
 
 const CounselorTitle = styled.div`
@@ -63,6 +66,15 @@ const CounselorTitle = styled.div`
         & :not(:nth-child(1)) {
             font-size: 14px;
             line-height: 140%;
+        }
+    }
+    @media screen and (max-width: 920px) {
+        & :nth-child(1) {
+            font-size: 28px;
+        }
+
+        & :not(:nth-child(1)) {
+            font-size: 13px;
         }
     }
 `;
