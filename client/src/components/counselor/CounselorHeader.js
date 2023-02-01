@@ -17,7 +17,7 @@ const CounselorHeader = () => {
 const BoardsHeaderWrapper = styled.header`
     display: flex;
     width: 100%;
-    height: 300px;
+    height: 336px;
     padding: 60px 100px;
     background-color: var(--lightgreen2);
     justify-content: space-between;
@@ -31,7 +31,7 @@ const CounselorTitle = styled.div`
     justify-content: flex-end;
     gap: 10px;
     color: var(--darkgreen);
-    line-height: 130%;
+    line-height: 100%;
 
     & :nth-child(1) {
         font-size: 40px;
@@ -58,6 +58,7 @@ const CounselorTitle = styled.div`
 
         & :not(:nth-child(1)) {
             font-size: 14px;
+            line-height: 140%;
         }
     }
 `;
