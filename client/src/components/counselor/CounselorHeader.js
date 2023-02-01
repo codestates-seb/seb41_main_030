@@ -22,6 +22,7 @@ const BoardsHeaderWrapper = styled.header`
     background-color: var(--lightgreen2);
     justify-content: space-between;
     align-items: flex-end;
+    font-family: "Nanum Gothic", sans-serif;
 `;
 
 const CounselorTitle = styled.div`
@@ -34,7 +35,7 @@ const CounselorTitle = styled.div`
     & :nth-child(1) {
         font-size: 40px;
         font-weight: 900;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
     }
 
     & :not(:nth-child(1)) {
