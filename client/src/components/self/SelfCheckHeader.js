@@ -19,7 +19,7 @@ const SelfCheckHeader = () => {
 const SCHeaderWrapper = styled.header`
     margin-top: 65px;
     width: 100%;
-    height: 300px;
+    height: 335px;
 
     display: flex;
     justify-content: center;
@@ -55,13 +55,13 @@ const SCHeaderTitle = styled.div`
     color: var(--darkgreen);
 
     & :nth-child(1) {
-        font-size: 40px;
+        font-size: 2.5rem;
         font-weight: 900;
         margin-bottom: 20px;
     }
 
     & :not(:nth-child(1)) {
-        font-size: 16px;
+        font-size: 1rem;
         line-height: 140%;
     }
 
