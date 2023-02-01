@@ -90,6 +90,20 @@ const MyPageEdit = ({ name, email }) => {
         window.location.reload();
     };
 
+    // 비밀번호 표시 관련 상태값
+    const [passwordType, setPasswordType] = useState({
+        type: "password",
+        visible: false,
+    });
+    // 아이콘 클릭 시 passwordType 상태값 변경
+    const passwordVisibleHandle = () => {
+        if (!passwordType.visible) {
+            setPasswordType({ type: "text", visible: true });
+        } else {
+            setPasswordType({ type: "password", visible: false });
+        }
+    };
+
     return (
         <>
             <EditContainer>
@@ -116,11 +130,14 @@ const MyPageEdit = ({ name, email }) => {
                             {errors.name && <div className="nameErrorMessage">{errors.name.message}</div>}
                         </div>
                         <div className="editPassword">
-                            <label>비밀번호 변경</label>
+                            <div className="pwTextContainer">
+                                <label>비밀번호 변경</label>
+                                {passwordType.visible ? <i className="fa-regular fa-eye" onClick={passwordVisibleHandle} /> : <i className="fa-regular fa-eye-slash" onClick={passwordVisibleHandle} />}
+                            </div>
                             <input
                                 placeholder="새로운 비밀번호를 입력해주세요."
                                 autoComplete="new-password"
-                                type="password"
+                                type={passwordType.type}
                                 className={errors.password && "passwordInputError"}
                                 {...register("password", {
                                     required: { value: true, message: "비밀번호를 입력해주세요." },
@@ -141,10 +158,13 @@ const MyPageEdit = ({ name, email }) => {
                             <input autoComplete="off" value={email} disabled />
                         </div>
                         <div className="passwordConfirm">
-                            <label>비밀번호 재입력</label>
+                            <div className="pwConfirmTextContainer">
+                                <label>비밀번호 재입력</label>
+                                {passwordType.visible ? <i className="fa-regular fa-eye" onClick={passwordVisibleHandle} /> : <i className="fa-regular fa-eye-slash" onClick={passwordVisibleHandle} />}
+                            </div>
                             <input
                                 placeholder="새로운 비밀번호를 다시 한 번 입력해주세요."
-                                type="password"
+                                type={passwordType.type}
                                 className={errors.passwordConfirmation && "pwConfirmInputError"}
                                 {...register("passwordConfirmation", {
                                     required: { value: true, message: "비밀번호를 다시 한 번 입력해주세요." },
@@ -258,6 +278,14 @@ const TopBlock = styled.div`
         flex-direction: column;
     }
 
+    .pwTextContainer {
+        display: flex;
+        justify-content: space-between;
+        i:hover {
+            cursor: pointer;
+        }
+    }
+
     .passwordErrorMessage,
     .nameErrorMessage {
         font-size: 14px;
@@ -317,6 +345,14 @@ const BottomBlock = styled.div`
                     font-size: 13.2px;
                 }
             }
+        }
+    }
+
+    .pwConfirmTextContainer {
+        display: flex;
+        justify-content: space-between;
+        i:hover {
+            cursor: pointer;
         }
     }
 
