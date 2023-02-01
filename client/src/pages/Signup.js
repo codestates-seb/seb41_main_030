@@ -73,6 +73,19 @@ const Signup = ({ setIsFooter }) => {
         navigate("/login");
     };
 
+    // 비밀번호 눈모양
+    const [passwordType, setPasswordType] = useState({
+        type: "password",
+        visible: false,
+    });
+    const passwordVisibleHandle = () => {
+        if (!passwordType.visible) {
+            setPasswordType({ type: "text", visible: true });
+        } else {
+            setPasswordType({ type: "password", visible: false });
+        }
+    };
+
     return (
         <>
             <SignupContainer>
@@ -89,7 +102,11 @@ const Signup = ({ setIsFooter }) => {
                         <ErrorText>{errors.nickName?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText htmlFor="signupPassword">비밀번호</InputText>
+                        <div className="passwordTextContainer">
+                            <InputText htmlFor="signupPassword">비밀번호</InputText>
+                            {passwordType.visible ? <i className="fa-regular fa-eye" onClick={passwordVisibleHandle}></i> : <i className="fa-regular fa-eye-slash" onClick={passwordVisibleHandle}></i>}
+                        </div>
+
                         <PwInput
                             type="password"
                             id="signupPassword"
@@ -97,6 +114,7 @@ const Signup = ({ setIsFooter }) => {
                             error={errors.password?.message === undefined ? "" : "error"}
                             {...passwordRegister}
                         />
+
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
                     <SingupBtn>회원가입</SingupBtn>
@@ -202,6 +220,23 @@ const SignupFormBox = styled.form`
 
 const InputBox = styled.div`
     margin: 8px;
+
+    .passwordTextContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        i {
+            color: var(--green);
+            background-color: white;
+            font-size: 1.1rem;
+            margin-top: 7px;
+        }
+
+        i:hover {
+            cursor: pointer;
+        }
+    }
 `;
 
 const MainText = styled.div`
