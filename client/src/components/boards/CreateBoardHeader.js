@@ -27,7 +27,7 @@ const CBHeaderWrapper = styled.header`
 const CBHeaderTitle = styled.div`
     margin: 0 auto;
     max-width: 1500px;
-    height: 100px;
+    height: 216px;
 
     display: flex;
     flex-direction: column;
@@ -35,17 +35,26 @@ const CBHeaderTitle = styled.div`
 
     font-family: "Nanum Gothic", sans-serif;
 
-    & :nth-child(1) {
-        margin-bottom: 20px;
+    @media screen and (max-width: 920px) {
+        height: 131px;
+    }
 
-        font-size: 2.15rem;
+    & :nth-child(1) {
+        margin-bottom: 30px;
+
+        font-size: 2.5rem;
         font-weight: var(--font-bold);
         color: var(--darkgreen);
+
+        @media screen and (max-width: 920px) {
+            font-size: 2.2rem;
+        }
     }
 
     & :not(:nth-child(1)) {
         font-size: 1rem;
         color: var(--green);
+        line-height: 130%;
     }
 
     @media screen and (max-width: 630px) {
