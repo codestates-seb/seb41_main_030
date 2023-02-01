@@ -69,21 +69,25 @@ const CounselorList = () => {
 };
 
 const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 120vh;
-    padding: 0px 10px 120px 10px;
+    width: 100%;
+    min-height: 50vh;
+    padding: 5%;
 `;
 
 //전문가 컨테이너
 const CounselorContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    margin-left: 90px;
-    margin-right: 90px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    @media screen and (min-width: 340px) {
+        grid-template-columns: 1fr;
+    }
+    @media screen and (min-width: 920px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (min-width: 1440px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 `;
 
 export default CounselorList;
