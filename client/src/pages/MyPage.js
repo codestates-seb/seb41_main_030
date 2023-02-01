@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
-    const token = localStorage.getItem("loginToken"); // 토큰 존재할 경우에만 마이페이지 진입 가능
+    const token = localStorage.getItem("loginToken");
     const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
@@ -70,7 +70,6 @@ const MyPage = ({ setIsFooter }) => {
             },
         })
             .then((res) => {
-                console.log(`${id}번 유저가 삭제됨`);
                 localStorage.removeItem("loginToken");
                 navigate("/");
                 window.location.reload();
@@ -282,7 +281,6 @@ const ModalBackdrop = styled.div`
 `;
 
 const ModalView = styled.div.attrs((props) => ({
-    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있습니다.
     role: "dialog",
 }))`
     background-color: whitesmoke;
