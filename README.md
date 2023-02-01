@@ -119,11 +119,11 @@
 
 - [사용자 요구사항 정의서](https://docs.google.com/spreadsheets/d/1orfbkmjX7kHgSw6ZkD-jKnpqc7c2ce_BeigIWS-E1bc/edit#gid=1582782258)
 
-- [APT 문서](https://documenter.getpostman.com/view/23680489/2s8ZDYWLvL)
+- [API 문서](https://documenter.getpostman.com/view/23680489/2s8ZDYWLvL)
 
 - [테이블 명세서](https://docs.google.com/spreadsheets/d/1cIZdql9wpUQ_d4aXY6dw45g4OH0KiO8cNFn39tgn9M4/edit#gid=0)
 
-- [Figma](https://docs.google.com/presentation/d/1U6crMgPL98niIQLnGEf5nGemEpeQ0IFWccpoOw457Cw/edit?usp=sharing)
+- [Figma](https://www.figma.com/file/mCjlJRee1v61lTlQznmZ3Y/seb41-main-030?node-id=0%3A1&t=icNJIKzbTrt5wJf3-1)
 
 - [화면 정의서](https://docs.google.com/presentation/d/1U6crMgPL98niIQLnGEf5nGemEpeQ0IFWccpoOw457Cw/edit?usp=sharing)
 
