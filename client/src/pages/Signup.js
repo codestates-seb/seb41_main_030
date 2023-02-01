@@ -23,13 +23,13 @@ const Signup = ({ setIsFooter }) => {
 
     const NICKNAME_REGEX = /(?=.*[a-z0-9가-힣]).{2,}/;
     const EMAIL_REGEX = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/;
-    const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+    const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*()_+=-?])[A-Za-z\d~!@#$%^&*()_+=-?]{8,}$/;
 
     const nickNameRegister = register("nickName", {
         required: { value: true, message: "닉네임을 입력해주세요." },
         pattern: {
             value: NICKNAME_REGEX,
-            message: "두글자이상 입력해주세요.",
+            message: "두 글자 이상 입력해주세요.",
         },
     });
 
@@ -53,7 +53,6 @@ const Signup = ({ setIsFooter }) => {
             .post(`${url}/members`, data)
             .then((res) => {
                 setSuccessModal(!successModal);
-                console.log(res.status);
             })
             .catch((error) => {
                 setFailModal(!failModal);
@@ -65,10 +64,6 @@ const Signup = ({ setIsFooter }) => {
     const [successModal, setSuccessModal] = useState(false);
     const [failModal, setFailModal] = useState(false);
 
-    const handleSuccessModal = () => {
-        setSuccessModal(!successModal);
-    };
-
     const handleFailModal = () => {
         setFailModal(!failModal);
     };
@@ -78,6 +73,19 @@ const Signup = ({ setIsFooter }) => {
         navigate("/login");
     };
 
+    // 비밀번호 눈모양
+    const [passwordType, setPasswordType] = useState({
+        type: "password",
+        visible: false,
+    });
+    const passwordVisibleHandle = () => {
+        if (!passwordType.visible) {
+            setPasswordType({ type: "text", visible: true });
+        } else {
+            setPasswordType({ type: "password", visible: false });
+        }
+    };
+
     return (
         <>
             <SignupContainer>
@@ -85,17 +93,28 @@ const Signup = ({ setIsFooter }) => {
                 <SignupFormBox onSubmit={handleSubmit(onSubmit)}>
                     <InputBox>
                         <InputText htmlFor="signupEmail">이메일</InputText>
-                        <EmailInput type="text" id="signupEmail" error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
+                        <EmailInput type="text" id="signupEmail" placeholder="이메일 형식으로 입력해주세요." error={errors.email?.message === undefined ? "" : "error"} {...emailRegister} />
                         <ErrorText>{errors.email?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
                         <InputText htmlFor="signupNickname">닉네임</InputText>
-                        <NameInput type="text" id="signupNickname" error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
+                        <NameInput type="text" id="signupNickname" placeholder="두 글자 이상 입력해주세요." error={errors.nickName?.message === undefined ? "" : "error"} {...nickNameRegister} />
                         <ErrorText>{errors.nickName?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText htmlFor="signupPassword">비밀번호</InputText>
-                        <PwInput type="password" id="signupPassword" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
+                        <InputText htmlFor="signupPassword" className="passwordLabelText">
+                            <div>비밀번호</div>
+                            {passwordType.visible ? <i className="fa-regular fa-eye" onClick={passwordVisibleHandle}></i> : <i className="fa-regular fa-eye-slash" onClick={passwordVisibleHandle}></i>}
+                        </InputText>
+
+                        <PwInput
+                            type={passwordType.type}
+                            id="signupPassword"
+                            placeholder="8자 이상 영문, 숫자, 특수문자를 사용해주세요."
+                            error={errors.password?.message === undefined ? "" : "error"}
+                            {...passwordRegister}
+                        />
+
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
                     <SingupBtn>회원가입</SingupBtn>
@@ -193,10 +212,24 @@ const SignupFormBox = styled.form`
     background-color: white;
     border-radius: 7px;
     box-shadow: rgb(0 0 0 / 5%) 0px 10px 24px, rgb(0 0 0 / 5%) 0px 20px 48px, rgb(0 0 0 / 10%) 0px 1px 4px;
+
+    input::placeholder {
+        font-size: 0.9rem;
+    }
 `;
 
 const InputBox = styled.div`
     margin: 8px;
+
+    .passwordLabelText {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        i:hover {
+            cursor: pointer;
+        }
+    }
 `;
 
 const MainText = styled.div`
