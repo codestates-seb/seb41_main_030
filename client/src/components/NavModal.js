@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const NavModal = ({ test, memberId }) => {
+const NavModal = ({ memberId, setIsActive, isActive }) => {
     const token = localStorage.getItem("loginToken");
 
     // 로그아웃 버튼 핸들러
@@ -13,7 +13,6 @@ const NavModal = ({ test, memberId }) => {
     };
 
     // 메뉴 클릭시 엑티브 메뉴이면 스타일 다르게
-    const [isActive, setIsActive] = useState(null);
     const activeNavHandle = (e) => {
         setIsActive(e.target.innerText);
     };
@@ -45,13 +44,11 @@ const NavModal = ({ test, memberId }) => {
     return (
         <NavModalWrapper>
             {navList.map((el, idx) => (
-                <>
-                    <li key={idx}>
-                        <Link to={el.url} onClick={(e) => activeNavHandle(e)} className={isActive === el.name ? "activeNav" : null}>
-                            {el.name}
-                        </Link>
-                    </li>
-                </>
+                <li key={idx}>
+                    <Link to={el.url} onClick={(e) => activeNavHandle(e)} className={isActive === el.name ? "activeNav" : null}>
+                        {el.name}
+                    </Link>
+                </li>
             ))}
 
             {token && token !== "undefined" ? (
