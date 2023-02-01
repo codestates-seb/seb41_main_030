@@ -7,7 +7,7 @@ echo "> 현재 시간: $(date)" >> /home/ubuntu/mentaltal-deploy/deploy.log
 echo "> build 파일명: $JAR_NAME" >> /home/ubuntu/mentaltal-deploy/deploy.log
 
 echo "> build 파일 복사" >> /home/ubuntu/mentaltal-deploy/deploy.log
-DEPLOY_PATH=/home/ubuntu/mentaltal-deploy
+DEPLOY_PATH=/home/ubuntu/mentaltal-deploy/
 cp $BUILD_JAR $DEPLOY_PATH
 
 echo "> 현재 실행중인 애플리케이션 pid 확인" >> /home/ubuntu/mentaltal-deploy/deploy.log
