@@ -74,6 +74,19 @@ const Login = ({ setIsFooter }) => {
         },
     });
 
+    // 비밀번호 눈모양
+    const [passwordType, setPasswordType] = useState({
+        type: "password",
+        visible: false,
+    });
+    const passwordVisibleHandle = () => {
+        if (!passwordType.visible) {
+            setPasswordType({ type: "text", visible: true });
+        } else {
+            setPasswordType({ type: "password", visible: false });
+        }
+    };
+
     return (
         <>
             <LoginContainer>
@@ -88,8 +101,12 @@ const Login = ({ setIsFooter }) => {
                         <ErrorText>{errors.email?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <InputText htmlFor="passwordInput">비밀번호</InputText>
-                        <PwInput type="password" id="passwordInput" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
+                        <InputText htmlFor="signupPassword" className="passwordLabelText">
+                            <div>비밀번호</div>
+                            {passwordType.visible ? <i className="fa-regular fa-eye" onClick={passwordVisibleHandle}></i> : <i className="fa-regular fa-eye-slash" onClick={passwordVisibleHandle}></i>}
+                        </InputText>
+
+                        <PwInput type={passwordType.type} id="passwordInput" error={errors.password?.message === undefined ? "" : "error"} {...passwordRegister} />
                         <ErrorText>{errors.password?.message}</ErrorText>
                     </InputBox>
                     <LoginBtn type="submit">로그인</LoginBtn>
@@ -153,6 +170,16 @@ const LoginFormBox = styled.form`
 
 const InputBox = styled.div`
     margin: 8px;
+
+    .passwordLabelText {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        i:hover {
+            cursor: pointer;
+        }
+    }
 `;
 
 const InputText = styled.label`

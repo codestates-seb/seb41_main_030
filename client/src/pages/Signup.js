@@ -102,13 +102,13 @@ const Signup = ({ setIsFooter }) => {
                         <ErrorText>{errors.nickName?.message}</ErrorText>
                     </InputBox>
                     <InputBox>
-                        <div className="passwordTextContainer">
-                            <InputText htmlFor="signupPassword">비밀번호</InputText>
+                        <InputText htmlFor="signupPassword" className="passwordLabelText">
+                            <div>비밀번호</div>
                             {passwordType.visible ? <i className="fa-regular fa-eye" onClick={passwordVisibleHandle}></i> : <i className="fa-regular fa-eye-slash" onClick={passwordVisibleHandle}></i>}
-                        </div>
+                        </InputText>
 
                         <PwInput
-                            type="password"
+                            type={passwordType.type}
                             id="signupPassword"
                             placeholder="8자 이상 영문, 숫자, 특수문자를 사용해주세요."
                             error={errors.password?.message === undefined ? "" : "error"}
@@ -221,17 +221,10 @@ const SignupFormBox = styled.form`
 const InputBox = styled.div`
     margin: 8px;
 
-    .passwordTextContainer {
+    .passwordLabelText {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        i {
-            color: var(--green);
-            background-color: white;
-            font-size: 1.1rem;
-            margin-top: 7px;
-        }
 
         i:hover {
             cursor: pointer;
