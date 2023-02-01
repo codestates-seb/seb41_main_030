@@ -25,4 +25,4 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/mentaltal-deploy/deploy.log
-sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/mentaltal-deploy/deploy.log 2>/home/ubuntu/mentaltal-deploy/deploy_err.log &
+sudo nohup java -jar $DEPLOY_JAR --spring.profiles.active=server >> /home/ubuntu/mentaltal-deploy/deploy.log 2>/home/ubuntu/mentaltal-deploy/deploy_err.log &
