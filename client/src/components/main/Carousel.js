@@ -6,7 +6,7 @@ import Preview from "./Preview";
 import { useEffect, useState } from "react";
 import axios from "axios";
 // 서버가 닫혔을 경우 임시로 보여지는 게시글 데이터
-import dummyPost from "./dummyPost";
+import dummyPost from "../data/dummyPost";
 
 // Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -25,6 +25,9 @@ export default function Carousel() {
             .then((res) => {
                 const topBoardArray = res.data.sort((a, b) => b.voteCount - a.voteCount);
                 setData(topBoardArray.slice(0, 12));
+                if (res.data.length === 0) {
+                    setData(dummyPost);
+                }
             })
             .catch((error) => {
                 console.log(error);
