@@ -56,7 +56,6 @@ const MyPageEdit = ({ name, email }) => {
             },
         })
             .then((res) => {
-                console.log(res);
                 openModalHandler();
             })
             .catch((error) => {
@@ -82,7 +81,6 @@ const MyPageEdit = ({ name, email }) => {
 
     const openModalHandler = () => {
         if (editUser.password === editUser.checkPW && editUser.nickName !== "" && editUser.nickName.length >= 2 && checkPWPattern(editUser.password)) {
-            console.log("변경됨");
             setIsOpen(!isOpen);
         }
     };

@@ -98,7 +98,6 @@ const Post = styled.div`
         }
         @media screen and (max-width: 619px) {
             font-size: 12px;
-            /* height: 90px; */
         }
         @media screen and (max-width: 576px) {
             display: none;
@@ -116,10 +115,6 @@ const Post = styled.div`
         @media screen and (max-width: 576px) {
             padding-top: 53px;
         }
-
-        /* @media screen and (max-width: 535px) {
-            padding-top: 25px;
-        } */
 
         @media screen and (max-width: 503px) {
             display: none;
