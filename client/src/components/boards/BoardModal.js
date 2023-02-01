@@ -6,7 +6,7 @@ const BoardModal = ({ setIsLogin }) => {
 
     return (
         <BMWrapper onClick={() => setIsLogin(false)}>
-            <BMContainer>
+            <BMContainer onClick={(event) => event.stopPropagation()}>
                 <div>로그인 후 이용해주세요.</div>
                 <BMBtnContainer>
                     <button
