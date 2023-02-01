@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 //전문가 페이지 header
 // 기존 다른 페이지와 같은 방식으로 작성
@@ -7,8 +8,11 @@ const CounselorHeader = () => {
         <BoardsHeaderWrapper>
             <CounselorTitle>
                 <div className="logo">MENTALTAL 전문가</div>
-                <p>전문가의 도움이 필요하신가요?</p>
-                <p>MENTALTAL 전문가 프로필을 확인하고 나에게 딱 맞는 전문 상담을 받아보세요.</p>
+                <p>
+                    전문가의 도움이 필요하신가요?
+                    <br />
+                    MENTALTAL 전문가 프로필을 확인하고 {useMediaQuery({ maxWidth: 687 }) ? <br /> : null}나에게 딱 맞는 전문 상담을 받아보세요.
+                </p>
             </CounselorTitle>
         </BoardsHeaderWrapper>
     );
@@ -31,16 +35,16 @@ const CounselorTitle = styled.div`
     justify-content: flex-end;
     gap: 10px;
     color: var(--darkgreen);
-    line-height: 100%;
 
     & :nth-child(1) {
         font-size: 40px;
         font-weight: 900;
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     & :not(:nth-child(1)) {
         font-size: 16px;
+        line-height: 150%;
     }
 
     @media screen and (max-width: 387px) {
