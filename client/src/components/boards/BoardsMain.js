@@ -9,7 +9,7 @@ import { questionImgState } from "../../states";
 import { useSetRecoilState } from "recoil";
 
 const BoardsMain = () => {
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
 
     // 페이지 관련 상태
     const [list, setList] = useState([]);
@@ -62,7 +62,7 @@ const BoardsMain = () => {
             .get(`https://api.unsplash.com/photos/random`, {
                 params: {
                     client_id: unsplashId,
-                    count: total,
+                    count: 100,
                 },
             })
             .then((res) => {
@@ -85,7 +85,7 @@ const BoardsMain = () => {
 
         setTimeout(() => {
             getBoardList(); // 게시판 목록 데이터 요청 함수
-        }, 500);
+        }, 300);
 
         setTimeout(() => {
             getImg(); // 게시판 목록 데이터 요청 함수

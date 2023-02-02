@@ -14,7 +14,7 @@ const Counseloritem = ({ person }) => {
     return (
         <Counselor>
             <div className="imgcontainer">
-                <img src={person.img} onClick={modalHandle} />
+                <img src={person.img} onClick={modalHandle} alt="상담 전문가 사진" />
             </div>
             <div className="divider"></div>
             <p className="name">{person.name}</p>
@@ -44,6 +44,7 @@ const Counselor = styled.div`
 
         :hover {
             transform: scale(0.51);
+            cursor: pointer;
         }
     }
 
@@ -63,6 +64,7 @@ const Counselor = styled.div`
         height: 1.5px;
         width: 200px;
     }
+
     .name {
         color: var(--darkgreen);
         font-size: 27px;
@@ -70,6 +72,7 @@ const Counselor = styled.div`
         margin-top: 15px;
         text-align: center;
     }
+
     .field {
         color: var(--green);
         font-size: 20px;
