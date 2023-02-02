@@ -1,11 +1,11 @@
 spring:
-#   h2:
-#     console:
-#       enabled: true
-#       path: /h2
+   h2:
+     console:
+       enabled: true
+       path: /h2
 
-#   datasource:
-#     url: jdbc:h2:mem:test
+   datasource:
+     url: jdbc:h2:mem:test
   mvc:
     path match:
       matching-strategy: ant_path_matcher
