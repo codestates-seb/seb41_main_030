@@ -32,6 +32,12 @@ const Main = ({ setIsFooter }) => {
                     <div className="text">
                         <p className="description">심리적인 괴로움, 감정을 탈탈 털어놓으세요.</p>
                         <p className="logo">MENTALTAL</p>
+                        <Link to="/">
+                            <button>
+                                서비스 소개
+                                <i className="fa-solid fa-chevron-right" />
+                            </button>
+                        </Link>
                     </div>
                 </Intro>
                 <PreviewContainer>
@@ -101,18 +107,54 @@ const Intro = styled.div`
     }
 
     .text {
-        padding-top: 200px;
+        padding-top: 190px;
         padding-left: 90px;
         color: var(--white);
 
+        @media screen and (max-width: 414px) {
+            padding-left: 50px;
+        }
+
         .description {
             font-size: 18px;
+
+            @media screen and (max-width: 414px) {
+                font-size: 15px;
+                transition: 0.5s;
+            }
         }
 
         .logo {
             font-size: 55px;
-            padding-top: 10px;
+            padding-top: 12px;
             font-weight: var(--font-bold);
+
+            @media screen and (max-width: 414px) {
+                font-size: 50px;
+                transition: 0.5s;
+            }
+        }
+        button {
+            margin-top: 25px;
+            background-color: var(--white);
+            color: var(--green);
+            font-family: "Nanum Gothic", sans-serif;
+            font-weight: var(--font-bold);
+            border-radius: 50px;
+            padding: 3% 7%;
+
+            i {
+                margin-left: 10px;
+            }
+            :hover {
+                background-color: var(--lightgreen);
+                color: var(--white);
+            }
+
+            @media screen and (max-width: 414px) {
+                font-size: 12px;
+                transition: 0.5s;
+            }
         }
     }
 `;
@@ -120,6 +162,10 @@ const Intro = styled.div`
 const PreviewContainer = styled.div`
     padding: 0 90px;
     padding-top: 90px;
+
+    @media screen and (max-width: 414px) {
+        padding: 90px 50px;
+    }
 
     .text {
         font-size: 18px;
@@ -137,6 +183,10 @@ const PreviewContainer = styled.div`
 const Shortcut = styled.div`
     padding: 0 90px;
     padding-top: 90px;
+
+    @media screen and (max-width: 414px) {
+        padding: 0 50px;
+    }
 
     .text {
         font-size: 18px;

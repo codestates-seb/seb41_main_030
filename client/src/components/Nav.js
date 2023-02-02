@@ -22,31 +22,57 @@ const Nav = () => {
         setIsOpen(!isOpen);
     };
 
+    // 메뉴 클릭시 엑티브 메뉴이면 스타일 다르게
+    const [isActive, setIsActive] = useState(null);
+    const activeNavHandle = (e) => {
+        setIsActive(e.target.innerText);
+    };
+
+    // 메뉴 map
+    const [navList] = useState([
+        {
+            name: "소개",
+            url: "/",
+        },
+        {
+            name: "커뮤니티",
+            url: "/community",
+        },
+        {
+            name: "자가진단",
+            url: "/selfcheck",
+        },
+        {
+            name: "전문가",
+            url: "/counselor",
+        },
+        {
+            name: "전문기관",
+            url: "/counselingcenter",
+        },
+    ]);
+
     return (
         <NavWrapper>
             <NavTitle>
-                <Link to="/main" className="logo">
+                <Link to="/main" className="logo" onClick={(e) => activeNavHandle(e)}>
                     MENTALTAL
                 </Link>
             </NavTitle>
 
             <NavContainer>
-                <li>
-                    <Link to="/community">커뮤니티</Link>
-                </li>
-                <li>
-                    <Link to="/selfcheck">자가진단</Link>
-                </li>
-                <li>
-                    <Link to="/counselor">전문가</Link>
-                </li>
-                <li>
-                    <Link to="/counselingcenter">전문기관</Link>
-                </li>
+                {navList.map((el, idx) => (
+                    <NavBox key={idx}>
+                        <Link to={el.url} onClick={(e) => activeNavHandle(e)} className={isActive === el.name ? "activeNav" : null}>
+                            {el.name}
+                        </Link>
+                    </NavBox>
+                ))}
+
                 {token && token !== "undefined" ? (
                     <>
                         <li>
-                            <Link to={`/mypage/${memberId}`}>
+                            <Link to={`/mypage/${memberId}`} onClick={(e) => activeNavHandle(e)}>
                                 <button>마이페이지</button>
                             </Link>
                         </li>
@@ -57,12 +83,12 @@ const Nav = () => {
                 ) : (
                     <>
                         <li>
-                            <Link to="/login">
+                            <Link to="/login" onClick={(e) => activeNavHandle(e)}>
                                 <button>로그인</button>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/signup">
+                            <Link to="/signup" onClick={(e) => activeNavHandle(e)}>
                                 <button>회원가입</button>
                             </Link>
                         </li>
@@ -72,7 +98,7 @@ const Nav = () => {
 
             <NavMedia>
                 {isOpen ? <i className="fa-solid fa-x" onClick={handleNavModal}></i> : <i className="fa-solid fa-bars" onClick={handleNavModal}></i>}
-                {isOpen ? <NavModal memberId={memberId} /> : null}
+                {isOpen ? <NavModal memberId={memberId} setIsActive={setIsActive} isActive={isActive} /> : null}
             </NavMedia>
         </NavWrapper>
     );
@@ -117,13 +143,34 @@ const NavContainer = styled.ul`
         font-size: 16px;
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 870px) {
         display: none;
     }
+`;
 
-    li:hover {
-        font-weight: 900;
-        transition: 0.5s;
+const NavBox = styled.li`
+    position: relative;
+
+    &::after {
+        position: absolute;
+        left: 50%;
+        width: 0;
+
+        border-bottom: 3px solid var(--lightgreen);
+
+        content: "";
+        display: block;
+    }
+
+    &:hover::after {
+        transition: all 250ms ease-out;
+        left: 0%;
+        top: 18px;
+        width: 100%;
+    }
+
+    .activeNav {
+        border-bottom: 3px solid var(--lightgreen);
     }
 `;
 
@@ -138,7 +185,7 @@ const NavMedia = styled.div`
         color: var(--green);
     }
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 870px) {
         display: block;
     }
 `;

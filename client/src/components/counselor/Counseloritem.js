@@ -34,6 +34,7 @@ const Counselor = styled.div`
     align-content: center;
     flex-wrap: wrap;
     flex-direction: column;
+    font-family: "Nanum Gothic", sans-serif;
 
     .imgcontainer {
         border-radius: 10%;

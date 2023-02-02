@@ -5,20 +5,19 @@ import rightArrow from "../../icons/main-page-arrow-right.svg";
 import Preview from "./Preview";
 import { useEffect, useState } from "react";
 import axios from "axios";
+// 서버가 닫혔을 경우 임시로 보여지는 게시글 데이터
+import dummyPost from "../../data/dummyPost";
 
+// Swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
+import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-// import required modules
-import { Navigation } from "swiper";
-
 export default function Carousel() {
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(dummyPost);
 
     useEffect(() => {
         axios
@@ -26,6 +25,9 @@ export default function Carousel() {
             .then((res) => {
                 const topBoardArray = res.data.sort((a, b) => b.voteCount - a.voteCount);
                 setData(topBoardArray.slice(0, 12));
+                if (res.data.length === 0) {
+                    setData(dummyPost);
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -88,18 +90,8 @@ const Container = styled.div`
         height: 100%;
     }
 
-    /* .swiper-container {
-        width: 100%;
-        height: 400px;
-        padding: 0 50px;
-    } */
-
     .swiper-slide {
         font-size: 18px;
-        /* height: 150px; */
-        /* height: 320px; */
-
-        /* Center slide text vertically */
         display: -webkit-box;
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -128,7 +120,6 @@ const Container = styled.div`
         background-repeat: no-repeat;
         background-size: 100% auto;
         background-position: center;
-        /* left: -30px; */
     }
 
     .swiper-button-next {
@@ -138,7 +129,6 @@ const Container = styled.div`
         background-repeat: no-repeat;
         background-size: 100% auto;
         background-position: center;
-        /* right: -30px; */
     }
 
     .swiper-button-next::after,
@@ -154,14 +144,4 @@ const Container = styled.div`
         padding-left: 50px;
         padding-right: 50px;
     }
-
-    /* .swiper-pagination {
-        position: absolute;
-        /* bottom: -10px !important; 
-    }
-
-    .swiper-pagination-bullet {
-        background-color: var(--green);
-        margin: 0 10px !important;
-    } */
 `;

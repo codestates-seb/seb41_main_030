@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../states/";
 
-const CreateBoardMain = () => {
+const CreateBoardMain = ({ setIsLogin }) => {
     const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const token = localStorage.getItem("loginToken");
 
     const {
         register,
@@ -36,13 +37,17 @@ const CreateBoardMain = () => {
     };
 
     // 게시글 등록 요청 함수
-    const postBoard = async (data) => {
-        axios
-            .post(`${url}/boards`, data)
-            .then((res) => {
-                navigate("/community");
-            })
-            .catch((err) => console.log(err));
+    const postBoard = (data) => {
+        if (token && token !== "undefined") {
+            axios
+                .post(`${url}/boards`, data)
+                .then((res) => {
+                    navigate("/community");
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setIsLogin(true);
+        }
     };
 
     return (
@@ -68,7 +73,7 @@ const CreateBoardMain = () => {
                             },
                         })}
                     />
-                    {errors.title && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요!</div>}
+                    {errors.title && <div className="createBoardErrorMessage">최소 10자 이상 작성해주세요.</div>}
                 </CBMainTitle>
 
                 <CBMainText>

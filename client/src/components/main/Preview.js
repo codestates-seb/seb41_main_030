@@ -116,6 +116,7 @@ const Post = styled.div`
         }
     }
     button {
+        font-family: "Nanum Gothic", sans-serif;
         width: 100%;
     }
 `;

@@ -15,7 +15,7 @@ const Boards = ({ setIsFooter }) => {
 
     return (
         <BoardsWrapper>
-            <BoardsHeader setIsLogin={setIsLogin} />
+            <BoardsHeader />
             <BoardsMain />
             {isLogin ? <BoardModal setIsLogin={setIsLogin} /> : null}
         </BoardsWrapper>

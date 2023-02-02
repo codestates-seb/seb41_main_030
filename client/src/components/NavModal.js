@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const NavModal = ({ test, memberId }) => {
+const NavModal = ({ memberId, setIsActive, isActive }) => {
     const token = localStorage.getItem("loginToken");
 
     // 로그아웃 버튼 핸들러
@@ -11,34 +12,65 @@ const NavModal = ({ test, memberId }) => {
         window.location.reload();
     };
 
+    // 메뉴 클릭시 엑티브 메뉴이면 스타일 다르게
+    const activeNavHandle = (e) => {
+        setIsActive(e.target.innerText);
+    };
+
+    // 메뉴 map
+    const [navList] = useState([
+        {
+            name: "소개",
+            url: "/",
+        },
+        {
+            name: "커뮤니티",
+            url: "/community",
+        },
+        {
+            name: "자가진단",
+            url: "/selfcheck",
+        },
+        {
+            name: "전문가",
+            url: "/counselor",
+        },
+        {
+            name: "전문기관",
+            url: "/counselingcenter",
+        },
+    ]);
+
     return (
         <NavModalWrapper>
-            <li>
-                <Link to="/community">커뮤니티</Link>
-            </li>
-            <li>
-                <Link to="/selfcheck">자가진단</Link>
-            </li>
-            <li>
-                <Link to="/counselor">전문가</Link>
-            </li>
-            <li>
-                <Link to="/counselingcenter">전문기관</Link>
-            </li>
+            {navList.map((el, idx) => (
+                <li key={idx}>
+                    <Link to={el.url} onClick={(e) => activeNavHandle(e)} className={isActive === el.name ? "activeNav" : null}>
+                        {el.name}
+                    </Link>
+                </li>
+            ))}
+
             {token && token !== "undefined" ? (
                 <>
                     <li>
-                        <Link to={`/mypage/${memberId}`}>마이페이지</Link>
+                        <Link to={`/mypage/${memberId}`} onClick={(e) => activeNavHandle(e)} className={isActive === "마이페이지" ? "activeNav" : null}>
+                            마이페이지
+                        </Link>
                     </li>
                     <li onClick={logoutBtnHandle}>로그아웃</li>
                 </>
             ) : (
                 <>
                     <li>
-                        <Link to="/login">로그인</Link>
+                        <Link to="/login" onClick={(e) => activeNavHandle(e)} className={isActive === "로그인" ? "activeNav" : null}>
+                            로그인
+                        </Link>
                     </li>
                     <li>
-                        <Link to="/signup">회원가입</Link>
+                        <Link to="/signup" onClick={(e) => activeNavHandle(e)} className={isActive === "회원가입" ? "activeNav" : null}>
+                            회원가입
+                        </Link>
                     </li>
                 </>
             )}
@@ -75,7 +107,10 @@ const NavModalWrapper = styled.ul`
 
     li:hover {
         font-weight: 900;
-        transition: 0.5s;
+    }
+
+    .activeNav {
+        border-bottom: 3px solid var(--lightgreen);
     }
 `;
 
