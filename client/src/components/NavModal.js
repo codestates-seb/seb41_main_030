@@ -1,15 +1,29 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 const NavModal = ({ memberId, setIsActive, isActive }) => {
+    const url = process.env.REACT_APP_SERVER_URL;
     const token = sessionStorage.getItem("loginToken");
 
     // 로그아웃 버튼 핸들러
     const logoutBtnHandle = () => {
-        sessionStorage.removeItem("memberId");
-        sessionStorage.removeItem("loginToken");
-        window.location.reload();
+        axios({
+            method: "post",
+            url: `${url}/members/logout`,
+            headers: {
+                Authorization: token,
+            },
+        })
+            .then((res) => {
+                sessionStorage.removeItem("memberId");
+                sessionStorage.removeItem("loginToken");
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     // 메뉴 클릭시 엑티브 메뉴이면 스타일 다르게

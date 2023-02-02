@@ -4,16 +4,30 @@ import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { memberIdState } from "../states/memberIdState";
 import NavModal from "./NavModal";
+import axios from "axios";
 
 const Nav = () => {
+    const url = process.env.REACT_APP_SERVER_URL;
     const memberId = useRecoilValue(memberIdState); // 마이페이지 path
     const token = sessionStorage.getItem("loginToken");
 
     // 로그아웃 버튼 핸들러
     const logoutBtnHandle = () => {
-        sessionStorage.removeItem("memberId");
-        sessionStorage.removeItem("loginToken");
-        window.location.reload();
+        axios({
+            method: "post",
+            url: `${url}/members/logout`,
+            headers: {
+                Authorization: token,
+            },
+        })
+            .then((res) => {
+                sessionStorage.removeItem("memberId");
+                sessionStorage.removeItem("loginToken");
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
     // 모바일 환경 nav 모달
