@@ -21,7 +21,6 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RequiredArgsConstructor
-//Lombok으로 스프링에서의 DI(의존성 주입)의 방법 중, 생성자 주입을 임의의 코드없이 자동으로 설정
 @Validated
 @RestController
 @RequestMapping("/boards")
@@ -78,7 +77,6 @@ public class BoardController {
 
         return new ResponseEntity(
                 new MultiResponseDto(mapper.boardsToBoardsResponseDto(content),boards),HttpStatus.OK);
-        // TO DO 응답 데이터에 답변 개수 추가, 좋아요(score)제거
 
     }
 
