@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { questionImgState } from "../../states";
 
-const BoardCard = ({ post }) => {
+const BoardCard = ({ post, idx }) => {
     const tagArray = post.tags && post.tags === "" ? [""] : (post.tags || "").split(",");
+    const imgUrl = useRecoilValue(questionImgState);
 
     return (
         <>
@@ -10,7 +13,12 @@ const BoardCard = ({ post }) => {
             <BoardsContent>{post.content}</BoardsContent>
             <BoardsInfo>
                 {post.voteCount === 0 ? <div>♡ 공감해주세요</div> : <div>♡ {post.voteCount}명이 공감</div>}
-                <div>{post.nickName}</div>
+                <BoardsInfoUser>
+                    <div className="imgWrapper">
+                        <img src={imgUrl.imgList[idx]} alt="댓글 작성자의 프로필 사진" className={imgUrl.fail ? "failImg" : "profileImg"} />
+                    </div>
+                    <div>{post.nickName}</div>
+                </BoardsInfoUser>
             </BoardsInfo>
         </>
     );
@@ -89,13 +97,40 @@ const BoardsContent = styled.div`
 const BoardsInfo = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     font-size: 0.8rem;
     color: var(--darkgreen);
 
     @media screen and (max-width: 319px) {
-        font-size: 0.65rem;
-        flex-direction: column;
+        font-size: 0.7rem;
         gap: 2px;
+    }
+`;
+
+const BoardsInfoUser = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .imgWrapper {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--green);
+
+        @media screen and (max-width: 319px) {
+            display: none;
+        }
+    }
+
+    .failImg {
+        display: none;
+    }
+
+    .profileImg {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
     }
 `;

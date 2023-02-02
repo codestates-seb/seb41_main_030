@@ -14,7 +14,7 @@ import BoardModal from "../components/boards/BoardModal";
 
 const BoardDetail = ({ setIsFooter }) => {
     const { id } = useParams();
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
     const setBoard = useSetRecoilState(boardState);
     const setAnswer = useSetRecoilState(answerState);
     const [isLogin, setIsLogin] = useState(false);
@@ -36,7 +36,7 @@ const BoardDetail = ({ setIsFooter }) => {
                     console.log(err);
                     setIsPending(false);
                 });
-        }, 300);
+        }, 500);
     }, []);
 
     return (

@@ -7,7 +7,7 @@ import { useRecoilValue } from "recoil";
 import { memberIdState } from "../../states/";
 
 const CreateBoardMain = ({ setIsLogin }) => {
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
     const token = localStorage.getItem("loginToken");
 
     const {
