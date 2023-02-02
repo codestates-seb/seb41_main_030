@@ -48,7 +48,7 @@ const MyPageEdit = ({ name, email }) => {
             method: "patch",
             url: `${url}/members/${id}`,
             headers: {
-                Authorization: localStorage.getItem("loginToken"),
+                Authorization: sessionStorage.getItem("loginToken"),
             },
             data: {
                 nickName: nickName,

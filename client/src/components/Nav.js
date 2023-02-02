@@ -7,12 +7,12 @@ import NavModal from "./NavModal";
 
 const Nav = () => {
     const memberId = useRecoilValue(memberIdState); // 마이페이지 path
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
 
     // 로그아웃 버튼 핸들러
     const logoutBtnHandle = () => {
-        localStorage.removeItem("memberId");
-        localStorage.removeItem("loginToken");
+        sessionStorage.removeItem("memberId");
+        sessionStorage.removeItem("loginToken");
         window.location.reload();
     };
 

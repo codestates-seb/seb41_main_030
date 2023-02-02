@@ -1,16 +1,48 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { dateCalculation } from "./dateCalculation";
 import { useRecoilValue } from "recoil";
-import { memberIdState } from "../../states";
+import { memberIdState, boardState } from "../../states";
 
-const BoardDetailAnswer = ({ answer, setIsLogin }) => {
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+const BoardDetailAnswer = ({ answer, setIsLogin, idx }) => {
+    const url = process.env.REACT_APP_SERVER_URL;
     const [isEdit, setIsEdit] = useState(false);
     const memberId = useRecoilValue(memberIdState);
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
+
+    // 랜덤 사진
+    const unsplashId = process.env.REACT_APP_UNSPLASH_KEY;
+    const [imgUrl, setImgUrl] = useState({
+        imgList: [],
+        fail: true,
+    });
+    const board = useRecoilValue(boardState);
+
+    // 사진
+    useEffect(() => {
+        axios
+            .get(`https://api.unsplash.com/photos/random`, {
+                params: {
+                    client_id: unsplashId,
+                    count: board.comment.length,
+                },
+            })
+            .then((res) => {
+                setImgUrl({
+                    imgList: res.data.map((img) => img.urls.full),
+                    fail: false,
+                });
+                console.log(imgUrl);
+            })
+            .catch(() => {
+                setImgUrl({
+                    imgList: [],
+                    fail: true,
+                });
+            });
+    }, []);
 
     // 답글 수정 form
     const {
@@ -67,7 +99,9 @@ const BoardDetailAnswer = ({ answer, setIsLogin }) => {
             <BDAContainer key={answer.commentId}>
                 <BDAHeaderWrapper>
                     <BDAInfo>
-                        <BDAInfoProfile></BDAInfoProfile>
+                        <BDAInfoProfile>
+                            <img src={imgUrl.imgList[idx]} alt="댓글 작성자의 프로필 사진" className={imgUrl.fail ? "failImg" : "answerImg"} />
+                        </BDAInfoProfile>
                         <BDAInfoWriterInfo>
                             <div>{answer.nickName}</div>
                         </BDAInfoWriterInfo>
@@ -175,6 +209,16 @@ const BDAInfoProfile = styled.div`
     height: 40px;
     border-radius: 50%;
     background-color: var(--lightgreen);
+
+    .failImg {
+        display: none;
+    }
+
+    .answerImg {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
 
     @media screen and (max-width: 768px) {
         width: 30px;

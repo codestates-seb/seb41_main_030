@@ -8,10 +8,10 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
     const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
 
     const userProfileData = async (id) => {
         const member = await axios.get(`${url}/members/${id}`);
@@ -66,11 +66,11 @@ const MyPage = ({ setIsFooter }) => {
             method: "delete",
             url: `${url}/members/${id}`,
             headers: {
-                Authorization: localStorage.getItem("loginToken"),
+                Authorization: sessionStorage.getItem("loginToken"),
             },
         })
             .then((res) => {
-                localStorage.removeItem("loginToken");
+                sessionStorage.removeItem("loginToken");
                 navigate("/");
                 window.location.reload();
             })

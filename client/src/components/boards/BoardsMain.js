@@ -1,52 +1,97 @@
 import styled from "styled-components";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import BoardCard from "./BoardCard";
 import { Link } from "react-router-dom";
 import loadingImg from "../../icons/Spinner-1s-200px.gif";
+import { questionImgState } from "../../states";
+import { useSetRecoilState } from "recoil";
 
 const BoardsMain = () => {
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
 
     // 페이지 관련 상태
     const [list, setList] = useState([]);
     const [total, setTotal] = useState(0);
     const [current, setCurrent] = useState(1);
+    const [loading, setLoading] = useState(true);
 
+    // 태그
     const tagData = ["전체", "일반", "학업", "진로", "취업", "커리어", "가족", "대인관계", "금전", "기타"];
     const [tagState, setTagState] = useState("전체");
-    const [loading, setLoading] = useState(true);
 
     // 태그 상태에 따른 데이터 요청 함수
     const getBoardList = () => {
         if (tagState === "전체") {
-            axios.get(`${url}/boards?page=${current}&size=8`).then((res) => {
-                setList(res.data.data);
-                setTotal(res.data.pageInfo.totalElements);
-                setLoading(false);
-            });
+            axios
+                .get(`${url}/boards?page=${current}&size=8`)
+                .then((res) => {
+                    setList(res.data.data);
+                    setTotal(res.data.pageInfo.totalElements);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         } else {
-            axios.get(`${url}/boards/all`).then((res) => {
-                const tagFilterArr = res.data.filter((el) => el.tags.includes(`${tagState}`));
-                tagFilterArr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                const indexOfLast = current * 8;
-                const indexOfFirst = indexOfLast - 8;
+            axios
+                .get(`${url}/boards/all`)
+                .then((res) => {
+                    const tagFilterArr = res.data.filter((el) => el.tags.includes(`${tagState}`));
+                    tagFilterArr.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    const indexOfLast = current * 8;
+                    const indexOfFirst = indexOfLast - 8;
 
-                setList(tagFilterArr.slice(indexOfFirst, indexOfLast));
-                setTotal(tagFilterArr.length);
-                setLoading(false);
-            });
+                    setList(tagFilterArr.slice(indexOfFirst, indexOfLast));
+                    setTotal(tagFilterArr.length);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
         }
     };
 
-    // 게시판 목록 데이터 요청 함수
+    // 랜덤 사진
+    const unsplashId = process.env.REACT_APP_UNSPLASH_KEY;
+    const setImgUrl = useSetRecoilState(questionImgState);
+
+    const getImg = () => {
+        axios
+            .get(`https://api.unsplash.com/photos/random`, {
+                params: {
+                    client_id: unsplashId,
+                    count: 100,
+                },
+            })
+            .then((res) => {
+                setImgUrl({
+                    imgList: res.data.map((img) => img.urls.full),
+                    fail: false,
+                });
+            })
+            .catch(() => {
+                setImgUrl({
+                    imgList: [],
+                    fail: true,
+                });
+            });
+    };
+
     useEffect(() => {
         setLoading(true);
+        setImgUrl({ imgList: [], fail: true });
 
         setTimeout(() => {
-            getBoardList();
+            getBoardList(); // 게시판 목록 데이터 요청 함수
+        }, 300);
+
+        setTimeout(() => {
+            getImg(); // 게시판 목록 데이터 요청 함수
         }, 500);
+
+        // 사진
     }, [tagState, current]);
 
     return (
@@ -84,7 +129,7 @@ const BoardsMain = () => {
                                 {list.map((post, idx) => (
                                     <li key={idx}>
                                         <BoardsCardLink to={`/community/${post.boardId}`}>
-                                            <BoardCard post={post} />
+                                            <BoardCard post={post} idx={idx} />
                                         </BoardsCardLink>
                                     </li>
                                 ))}

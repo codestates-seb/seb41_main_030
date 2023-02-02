@@ -5,10 +5,10 @@ import { useRecoilValue } from "recoil";
 import { boardState, memberIdState } from "../../states";
 
 const BoardDetailAnswerCreate = ({ setIsLogin }) => {
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
     const board = useRecoilValue(boardState);
     const memberId = useRecoilValue(memberIdState);
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
 
     // 답글 등록 form
     const {

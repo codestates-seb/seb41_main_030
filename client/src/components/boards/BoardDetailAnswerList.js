@@ -8,7 +8,7 @@ const BoardDetailAnswerList = ({ setIsLogin }) => {
 
     return (
         <>
-            <BDAWrapper>{answers && answers.map((answer, idx) => <BoardDetailAnswer answer={answer} key={idx} setIsLogin={setIsLogin} />)}</BDAWrapper>
+            <BDAWrapper>{answers && answers.map((answer, idx) => <BoardDetailAnswer answer={answer} key={idx} setIsLogin={setIsLogin} idx={idx} />)}</BDAWrapper>
         </>
     );
 };
