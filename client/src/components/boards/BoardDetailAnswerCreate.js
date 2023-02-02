@@ -8,7 +8,7 @@ const BoardDetailAnswerCreate = ({ setIsLogin }) => {
     const url = process.env.REACT_APP_SERVER_URL;
     const board = useRecoilValue(boardState);
     const memberId = useRecoilValue(memberIdState);
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
 
     // 답글 등록 form
     const {

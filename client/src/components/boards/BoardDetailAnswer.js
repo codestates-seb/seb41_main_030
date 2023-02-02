@@ -10,7 +10,7 @@ const BoardDetailAnswer = ({ answer, setIsLogin, idx }) => {
     const url = process.env.REACT_APP_SERVER_URL;
     const [isEdit, setIsEdit] = useState(false);
     const memberId = useRecoilValue(memberIdState);
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
 
     // 랜덤 사진
     const unsplashId = process.env.REACT_APP_UNSPLASH_KEY;

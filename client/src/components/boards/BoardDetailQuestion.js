@@ -11,7 +11,7 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
     const navigate = useNavigate();
     const [board, setBoard] = useRecoilState(boardState);
     const memberId = useRecoilValue(memberIdState);
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
     const imgUrl = useRecoilValue(questionImgState);
 
     // 질문 삭제
