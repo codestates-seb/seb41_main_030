@@ -5,18 +5,12 @@
 <p align="center">
 <img width="1284" alt="gdfs" src="https://user-images.githubusercontent.com/109403559/215763932-133e5260-dbb9-4c4e-b7f2-69ea08561412.png">
 </p>
-</br>
-
-
-
-
 
 
 - **팀 명 :** E1I5
 - **프로젝트 명 :** MENTALTAL
 - **프로젝트 기간 :** 2023.01.03 - 2023.01.31
 - **팀원 :** 정승연(팀장), 이세나, 최자영, 진희주, 김지현, 윤상원
-- **발표 문서 :** [💁🏻 사용자 요구사항 명세서 ](https://docs.google.com/spreadsheets/d/1orfbkmjX7kHgSw6ZkD-jKnpqc7c2ce_BeigIWS-E1bc/edit#gid=1582782258)
 - **배포 링크 :** [💁🏻 배포 링크 ](http://mentaltal-s3-bucket.s3-website.ap-northeast-2.amazonaws.com/)
 
 <br />
@@ -53,28 +47,6 @@
 - 🏥 전문 기관의 도움이 필요하신가요? 카카오맵으로 가까운 상담 센터를 확인해보세요.
 - 👩‍⚕️ MENTALTAL 전문 상담사도 확인해보세요.
 
-<br />
-
-# 🎬 기능 시연
-
-<details>
-<summary>소개 페이지</summary>
-</details>
-<details>
-<summary>메인 페이지</summary>
-</details>
-<details>
-<summary>회원가입/로그인 페이지</summary>
-</details>
-<details>
-<summary>커뮤니티 페이지</summary>
-</details>
-<details>
-<summary>전문기관 지도 페이지</summary>
-</details>
-<details>
-<summary>전문가 소개 페이지</summary>
-</details>
 
 <br />
 
