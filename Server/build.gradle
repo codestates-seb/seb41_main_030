@@ -20,11 +20,28 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'// 유효성 검증
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j:8.0.31'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final' // mapstruct 의존 라이브러리
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final' // mapstruct
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-security' //spring security
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5' //jwt
+	testImplementation 'org.springframework.security:spring-security-test'//jwt 추가
+	implementation 'com.google.code.gson:gson:2.10' //gson
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// Swagger
+	implementation "io.springfox:springfox-swagger2:2.9.2"
+	implementation "io.springfox:springfox-swagger-ui:2.9.2"
+
 }
 
 tasks.named('test') {
