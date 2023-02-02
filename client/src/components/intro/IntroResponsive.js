@@ -31,11 +31,14 @@ const IntroResponsive = () => {
                             다양한 환경을 고려하여
                             <br />
                             화면 크기에 맞게{useMediaQuery({ maxWidth: 606 }) ? <br /> : null} 반응형 웹을 구현했습니다.
-                            {useMediaQuery({ maxWidth: 768 }) ? <div className="addDescription">화면 너비를 조정해보세요!</div> : null}
                         </div>
-                        <button onClick={handleBtnClick} {...animatedItem[2]}>
-                            우측 이미지를 클릭해보세요!
-                        </button>
+                        {useMediaQuery({ maxWidth: 1024 }) ? (
+                            <button {...animatedItem[2]}>화면 너비를 조절해보세요!</button>
+                        ) : (
+                            <button onClick={handleBtnClick} {...animatedItem[2]}>
+                                우측 이미지를 클릭해보세요!
+                            </button>
+                        )}
                     </LeftContainer>
                     <RightContainer clickWhite={btnClick ? "#3f724d" : "#fff"} clickGreen={btnClick ? "#fff" : "#3f724d"} />
                     {btnClick ? (
@@ -134,9 +137,6 @@ const LeftContainer = styled.div`
         font-family: "Nanum Gothic", sans-serif;
         background-color: ${(props) => props.clickWhite};
         color: ${(props) => props.clickGreen};
-        @media screen and (max-width: 768px) {
-            display: none;
-        }
     }
 `;
 
@@ -290,7 +290,6 @@ const MobileMockupImg = styled.div`
             transition: 0.5s;
         }
         @media screen and (max-width: 1080px) {
-            /* width: 120%; */
             width: 95%;
             transition: 0.5s;
         }
