@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 //모달 내 내용
 const CounselorModal = ({ setIsModal, isModal, person }) => {
-    const closelModal = () => {
+    const closeModal = () => {
         setIsModal(false);
         //모달 스크롤
         document.body.style.overflow = "unset";
@@ -10,21 +10,21 @@ const CounselorModal = ({ setIsModal, isModal, person }) => {
 
     return (
         <ModalView>
-            <Background onClick={closelModal} />
-            <Modaldetail onClick={closelModal}>
+            <Background onClick={closeModal} />
+            <ModalDetail onClick={(event) => event.stopPropagation()}>
                 <CounselorImg>
-                    <img src={person.img} />
+                    <img src={person.img} alt="상담사 이미지" />
                 </CounselorImg>
 
-                <div className="InfoText">
+                <CounselorInfo>
                     <div className="name">{person.name} 상담사</div>
                     <div className="center"> {person.center}</div>
                     <div className="number">{person.number}</div>
                     <div className="field">#{person.field}</div>
-                </div>
+                </CounselorInfo>
 
-                {/* <button onClick={closelModal}>확인</button> */}
-            </Modaldetail>
+                <button onClick={closeModal}>X</button>
+            </ModalDetail>
         </ModalView>
     );
 };
@@ -58,7 +58,7 @@ const Background = styled.div`
 `;
 
 //모달창 세부 디자인
-const Modaldetail = styled.div`
+const ModalDetail = styled.div`
     position: fixed;
     top: 20rem;
     border-radius: 10px;
@@ -68,62 +68,19 @@ const Modaldetail = styled.div`
     animation: modal-show 1s;
     box-shadow: 0 30px 40px -15px rgb(0 0 0 / 35%);
 
-    .InfoText {
-        display: flex;
-        flex-direction: column;
-        margin-left: 300px;
-        margin-top: 20px;
-        padding: 30px;
-
-        .name {
-            font-size: 30px;
-            text-align: center;
-            font-weight: var(--font-bold);
-            color: var(--darkgreen);
-            line-height: 30px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .field {
-            font-size: 15px;
-            background-color: #eae7b1;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 10px;
-            color: var(--darkgreen);
-            line-height: 30px;
-            margin-top: 60px;
-        }
-
-        .center {
-            font-size: 20px;
-            text-align: center;
-            color: var(--darkgreen);
-            line-height: 30px;
-            margin-top: 30px;
-        }
-
-        .number {
-            text-align: center;
-            font-size: 20px;
-            color: var(--darkgreen);
-            line-height: 30px;
-            margin-top: 5px;
-        }
-    }
-
     button {
         position: absolute;
-        top: 340px;
-        left: 250px;
-        background-color: var(--darkgreen);
+        top: 0px;
+        right: 0px;
+
+        background-color: white;
+        color: var(--darkgreen);
         font-family: "Nanum Gothic", sans-serif;
         font-size: 17px;
-        width: 20%;
-        border-radius: 50px;
+        font-weight: var(--font-bold);
+
         :hover {
-            background-color: var(--lightgreen);
+            font-weight: 900;
             cursor: pointer;
             transition: 0.5s;
         }
@@ -145,6 +102,51 @@ const CounselorImg = styled.div`
         padding: 10px;
         border-end-start-radius: 10px;
         border-start-start-radius: 10px;
+    }
+`;
+
+const CounselorInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-left: 300px;
+    margin-top: 20px;
+    padding: 30px;
+
+    .name {
+        font-size: 30px;
+        text-align: center;
+        font-weight: var(--font-bold);
+        color: var(--darkgreen);
+        line-height: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .field {
+        font-size: 15px;
+        background-color: #eae7b1;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 10px;
+        color: var(--darkgreen);
+        line-height: 30px;
+        margin-top: 60px;
+    }
+
+    .center {
+        font-size: 20px;
+        text-align: center;
+        color: var(--darkgreen);
+        line-height: 30px;
+        margin-top: 30px;
+    }
+
+    .number {
+        text-align: center;
+        font-size: 20px;
+        color: var(--darkgreen);
+        line-height: 30px;
+        margin-top: 5px;
     }
 `;
 
