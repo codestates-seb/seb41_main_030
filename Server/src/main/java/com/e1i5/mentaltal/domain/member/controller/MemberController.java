@@ -59,7 +59,7 @@ public class MemberController {
 
     // 전체 회원 목록 조회
     @GetMapping
-    public ResponseEntity getMembers() { // page, size
+    public ResponseEntity getMembers() {
         List<Member> members = memberService.findMembers();
 
         return new ResponseEntity<>(mapper.membersResponseDtos(members), HttpStatus.OK);

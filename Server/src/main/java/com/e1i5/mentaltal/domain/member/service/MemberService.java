@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class MemberService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
@@ -35,6 +35,7 @@ public class MemberService {
     private final RedisUtils redisUtils;
 
     // 회원 정보 등록
+    @Transactional
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail()); // DB에 존재하는 이메일인지 확인
 
@@ -51,24 +52,13 @@ public class MemberService {
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
-
-        // 추후에 Custom BeanUtils 사용
-//        Optional.ofNullable(member.getNickName())
-//                .ifPresent(findMember::setNickName);
-////        Optional.ofNullable(member.getEmail())
-////                .ifPresent(findMember::setEmail);  //이메일은 아이디라 수정 불가
-//        Optional.ofNullable(member.getPassword())
-//                .ifPresent(findMember::setPassword);
-//        Optional.ofNullable(member.getImage())
-//                .ifPresent(findMember::setImage);
-
         Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
 
         return memberRepository.save(updatingMember);
     }
 
     // 특정 회원 목록 조회
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public Member findMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
         findMember.setBoardCount(getBoardCount(memberId));
@@ -78,19 +68,21 @@ public class MemberService {
     }
 
     // 전체 회원 목록 조회
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public List<Member> findMembers() { // page, size
         return memberRepository.findAll();
     }
 
     // 회원 정보 삭제
+    @Transactional
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
+        // 게시물, 댓글, 공감 삭제
 
         memberRepository.delete(findMember);
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
@@ -106,13 +98,13 @@ public class MemberService {
         }
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public Long getBoardCount(Long memberId) {
         Long boardCount = boardRepository.countBoardByMember_MemberId(memberId);
         return boardCount;
     }
 
-    @Transactional(readOnly = true)
+//    @Transactional(readOnly = true)
     public Long getCommentCount(Long memberId) {
         Long commentCount = commentRepository.countCommentByMember_MemberId(memberId);
         return commentCount;
@@ -129,6 +121,4 @@ public class MemberService {
         Long expiration = jwtTokenizer.getATKExpiration(accessToken);
         redisUtils.setData(accessToken, "blackList", expiration);
     }
-
-
 }
