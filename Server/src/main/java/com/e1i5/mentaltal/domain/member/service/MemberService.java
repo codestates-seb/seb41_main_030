@@ -58,7 +58,6 @@ public class MemberService {
     }
 
     // 특정 회원 목록 조회
-//    @Transactional(readOnly = true)
     public Member findMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
         findMember.setBoardCount(getBoardCount(memberId));
@@ -68,7 +67,6 @@ public class MemberService {
     }
 
     // 전체 회원 목록 조회
-//    @Transactional(readOnly = true)
     public List<Member> findMembers() { // page, size
         return memberRepository.findAll();
     }
@@ -77,12 +75,10 @@ public class MemberService {
     @Transactional
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
-        // 게시물, 댓글, 공감 삭제
 
         memberRepository.delete(findMember);
     }
 
-//    @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
@@ -98,13 +94,11 @@ public class MemberService {
         }
     }
 
-//    @Transactional(readOnly = true)
     public Long getBoardCount(Long memberId) {
         Long boardCount = boardRepository.countBoardByMember_MemberId(memberId);
         return boardCount;
     }
 
-//    @Transactional(readOnly = true)
     public Long getCommentCount(Long memberId) {
         Long commentCount = commentRepository.countCommentByMember_MemberId(memberId);
         return commentCount;

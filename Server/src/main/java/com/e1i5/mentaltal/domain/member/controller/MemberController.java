@@ -72,6 +72,7 @@ public class MemberController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
     //로그아웃
     @PostMapping("/logout")
     public ResponseEntity logout(HttpServletRequest request) {
