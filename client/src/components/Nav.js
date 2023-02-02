@@ -21,8 +21,7 @@ const Nav = () => {
             },
         })
             .then((res) => {
-                sessionStorage.removeItem("memberId");
-                sessionStorage.removeItem("loginToken");
+                sessionStorage.clear();
                 window.location.reload();
             })
             .catch((error) => {
