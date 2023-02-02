@@ -14,7 +14,7 @@ const Counseloritem = ({ person }) => {
     return (
         <Counselor>
             <div className="imgcontainer">
-                <img src={person.img} onClick={modalHandle} alt="상담 전문가 사진" />
+                <img src={person.img} onClick={modalHandle} alt="상담사 이미지" className="img" />
             </div>
             <div className="divider"></div>
             <p className="name">{person.name}</p>
@@ -44,11 +44,11 @@ const Counselor = styled.div`
 
         :hover {
             transform: scale(0.51);
-            cursor: pointer;
         }
     }
 
     .img {
+        cursor: pointer;
         pointer-events: painted;
         position: relative;
         transform: translateY(20px) scale(1.15);

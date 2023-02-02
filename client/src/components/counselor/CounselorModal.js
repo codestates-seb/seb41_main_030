@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 //모달 내 내용
 const CounselorModal = ({ setIsModal, isModal, person }) => {
-    const closelModal = () => {
+    const closeModal = () => {
         setIsModal(false);
         //모달 스크롤
         document.body.style.overflow = "unset";
@@ -10,10 +10,10 @@ const CounselorModal = ({ setIsModal, isModal, person }) => {
 
     return (
         <ModalView>
-            <Background onClick={closelModal} />
-            <Modaldetail onClick={(event) => event.stopPropagation()}>
+            <Background onClick={closeModal} />
+            <ModalDetail onClick={(event) => event.stopPropagation()}>
                 <CounselorImg>
-                    <img src={person.img} />
+                    <img src={person.img} alt="상담사 이미지" />
                 </CounselorImg>
 
                 <CounselorInfo>
@@ -23,8 +23,8 @@ const CounselorModal = ({ setIsModal, isModal, person }) => {
                     <div className="field">#{person.field}</div>
                 </CounselorInfo>
 
-                <button onClick={closelModal}>X</button>
-            </Modaldetail>
+                <button onClick={closeModal}>X</button>
+            </ModalDetail>
         </ModalView>
     );
 };
@@ -58,7 +58,7 @@ const Background = styled.div`
 `;
 
 //모달창 세부 디자인
-const Modaldetail = styled.div`
+const ModalDetail = styled.div`
     position: fixed;
     top: 20rem;
     border-radius: 10px;
