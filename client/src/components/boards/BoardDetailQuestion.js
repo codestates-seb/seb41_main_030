@@ -2,16 +2,17 @@ import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { boardState, memberIdState } from "../../states/";
+import { boardState, memberIdState, questionImgState } from "../../states/";
 import { dateCalculation } from "./dateCalculation";
 
 // component
 const BoardDetailQuestion = ({ setIsLogin }) => {
-    const url = "http://ec2-43-201-14-234.ap-northeast-2.compute.amazonaws.com:8080";
+    const url = process.env.REACT_APP_SERVER_URL;
     const navigate = useNavigate();
     const [board, setBoard] = useRecoilState(boardState);
     const memberId = useRecoilValue(memberIdState);
     const token = localStorage.getItem("loginToken");
+    const imgUrl = useRecoilValue(questionImgState);
 
     // 질문 삭제
     const deleteQuestion = () => {
@@ -60,7 +61,9 @@ const BoardDetailQuestion = ({ setIsLogin }) => {
 
                         <BDQHeaderMain>
                             <BDQInfo>
-                                <BDQInfoProfile></BDQInfoProfile>
+                                <BDQInfoProfile className="infoProfile">
+                                    <img src={imgUrl.imgList[0]} alt="댓글 작성자의 프로필 사진" className={imgUrl.fail ? "failImg" : "profileImg"} />
+                                </BDQInfoProfile>
                                 <BDQInfoWriter>
                                     <div>{board.nickName}</div>
                                 </BDQInfoWriter>
@@ -202,10 +205,20 @@ const BDQInfo = styled.div`
 `;
 
 const BDQInfoProfile = styled.div`
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background-color: var(--green);
+
+    .failImg {
+        display: none;
+    }
+
+    .profileImg {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
 
     @media screen and (max-width: 768px) {
         width: 30px;
