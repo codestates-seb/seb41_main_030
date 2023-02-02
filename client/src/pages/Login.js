@@ -32,9 +32,9 @@ const Login = ({ setIsFooter }) => {
         axios
             .post(`${url}/members/login`, data)
             .then((res) => {
-                localStorage.setItem("loginToken", res.headers.authorization);
+                sessionStorage.setItem("loginToken", res.headers.authorization);
 
-                if (localStorage.getItem("loginToken") !== "undefined") {
+                if (sessionStorage.getItem("loginToken") !== "undefined") {
                     setMemberId(res.data.memberId);
                     navigate("/main");
                 } else {

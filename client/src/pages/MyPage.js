@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const MyPage = ({ setIsFooter }) => {
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
     const { id } = useParams();
     const [userData, setUserData] = useState(undefined);
     const url = process.env.REACT_APP_SERVER_URL;
@@ -66,11 +66,11 @@ const MyPage = ({ setIsFooter }) => {
             method: "delete",
             url: `${url}/members/${id}`,
             headers: {
-                Authorization: localStorage.getItem("loginToken"),
+                Authorization: sessionStorage.getItem("loginToken"),
             },
         })
             .then((res) => {
-                localStorage.removeItem("loginToken");
+                sessionStorage.removeItem("loginToken");
                 navigate("/");
                 window.location.reload();
             })

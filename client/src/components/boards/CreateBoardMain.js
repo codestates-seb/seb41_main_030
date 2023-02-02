@@ -8,7 +8,7 @@ import { memberIdState } from "../../states/";
 
 const CreateBoardMain = ({ setIsLogin }) => {
     const url = process.env.REACT_APP_SERVER_URL;
-    const token = localStorage.getItem("loginToken");
+    const token = sessionStorage.getItem("loginToken");
 
     const {
         register,
