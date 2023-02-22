@@ -11,5 +11,5 @@ public class CommentPostDto {
     private long boardId;
 
     private String content;
-    // 클라이언트가 작성하는 답변 컨텐츠
+
 }

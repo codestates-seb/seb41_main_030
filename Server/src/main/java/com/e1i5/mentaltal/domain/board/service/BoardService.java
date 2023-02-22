@@ -30,7 +30,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberService memberService;
-    private final CustomBeanUtils<Board> beanUtils; // 제네릭 전용 클래스라서 <> 안에 어떤 엔티티의 service 클래스에 적용할 건지 써줘야 함
+    private final CustomBeanUtils<Board> beanUtils;
     private final BoardVoteRepository boardVoteRepository;
 
     // 게시물 생성
@@ -44,7 +44,7 @@ public class BoardService {
 
     // 게시믈 수정
     public Board updateBoard(long boardId, Board board) {
-        Board findBoard = findVerifiedBoard(board.getBoardId()); // db에 게시글이 있는지 검증
+        Board findBoard = findVerifiedBoard(board.getBoardId());
         Board verifiedBoard = findVerifiedBoard(boardId);
 
         if (verifiedBoard.getMember().getMemberId() != board.getMid()) {
@@ -52,7 +52,7 @@ public class BoardService {
         }
 
         Board updatedBoard = beanUtils.copyNonNullProperties(board, findBoard);
-        //beanUtils 클래스 내의 copyNonNullProperties 메서드 사용하여 안에  (수정하고자 하는 정보, 넣을 메서드명)
+
         verifyStrLength(updatedBoard);
         updatedBoard.setVoteCount(1);
 
@@ -61,7 +61,7 @@ public class BoardService {
 
     // 게시물 상세조회
     public Board findBoard(long boardId) {
-        Board findBoard = findVerifiedBoard(boardId); // db에서 boardid조회
+        Board findBoard = findVerifiedBoard(boardId);
 
         return findBoard;
     }
@@ -73,13 +73,13 @@ public class BoardService {
     }
 
 
-    // 게시믈 페이지네이션
+    // 게시물 페이지네이션
     @Transactional(readOnly = true)
     public Page<Board> findBoards(int page, int size) {
         return boardRepository.findAll(PageRequest.of(page, size, Sort.by("boardId").descending()));
     }
 
-    // 게시믈 삭제
+    // 게시물 삭제
     @Transactional
     public void deleteBoard(long boardId) {
         Board verifiedBoard = findVerifiedBoard(boardId);

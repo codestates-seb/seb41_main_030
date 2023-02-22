@@ -40,10 +40,7 @@ public interface BoardMapper {
         board.setTitle(boardPatchDto.getTitle());
         board.setContent(boardPatchDto.getContent());
         board.setTags(boardPatchDto.getTags());
-//        board.setModifiedAt(LocalDateTime.now());
 
-//        Optional.ofNullable(boardPatchDto.getTags())
-//                .ifPresent(tags -> boardPatchDto.getTags());
 
         return board;
     }
@@ -61,9 +58,6 @@ public interface BoardMapper {
         long commentCount = board.getCommentCount();
         String tags = board.getTags();
 
-//        List<String> tags = board.getTags();
-
-        // 닉네임?
         LocalDateTime createdAt = board.getCreatedAt();
         LocalDateTime modifiedAt = board.getModifiedAt();
 
